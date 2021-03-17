@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Monthly Report Focal Plane Temperature Plot etc</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Monthly Report Focal Plane Temperature Plot etc</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Create a trend of focal plane temperature for the entire period. The second script computes monthly avg. and std.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Month/FOCAL/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: not uploaded yet.         
+</p>
+
+
+<table border=0>
+<tr><td>run_all_script_wrap</td>                 <td>Feb 05, 2016</td></tr>
+<tr><td>run_all_script_main</td>                 <td>Feb 05, 2016</td></tr>
+<tr><td>create_monthly_erand_plot.py</td>        <td>Mar 03, 2016</td></tr>
+<tr><td>find_focal_temp_peaks_monthly.py</td>    <td>Mar 03, 2016</td></tr>
+<tr><td>plot_focal_temperature.py</td>           <td>Feb 05, 2016</td></tr>
+
+<tr><td>ft_temp_plot.py</td>     <td>Oct 07, 2014 (retired)</td></tr>
+<tr><td>ft_temp_plot.perl</td>   <td>Jun 05, 2013 (retired)</td></tr>
+<tr><td>find_avg.perl</td>       <td>Jun 05, 2013 (retired)</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+The data are obtained from montly report. Please read:
+/data/mta/Script/Month/FOCAL/Scripts/README
+</p>
+<table border = 0>
+<tr><th>Sep 22, 2014</th><td>Initially logged</td></tr>
+<tr><th>Oct 07, 2014</th><td>rewritten in python</td></tr>
+<tr><th>Feb 05, 2016</td><td>The major update. Scripts run semi_automated way.</td></tr>
+<tr><th>Mar 06, 2016</td><td>leap year Bugs fixed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/Script/ACIS/Focal/Short_term/data_&lt;yyyy&gt;_&lt;dd&gt;d_&lt;hhm&gt;m_&lt;dd&gt;d_&lt;hhmm&gt;
+</li>
+<li>
+dataseeker access
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None, but set inside of scripts
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Month/FOCAL/Data/
+    <ul>
+        <li> this_month_data </li>
+        <li> focal_temp_data </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Month/FOCAL/Plots/
+    <ul>
+        <li> erand_&lt;mmm&gt;&lt;yy&gt;.gif </li>
+        <li> focal_temp_plot.png </li>
+        <li> month_avg </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta/Script/Month/FOCAL/
+</li>
+<li>
+run: run_all_focal_scripts
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this script. 
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+No cron job
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web page. See Monthly Report.
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

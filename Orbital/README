@@ -1,0 +1,95 @@
+
+################################
+Creating Orbital Data RDB files
+################################
+
+This set of scripts extract orbital element related data from
+archived data and create rdb files.
+
+
+The RDB file should be tab-delimited.  It is just an ascii file.  The only
+thing special is the 2-line header.  The first line should be column names
+(tab-delimited), the second line is a format code (N for number, S for
+string).  See /data/mta/DataSeeker/data/repository/dephem.rdb for an example.
+You can put your file in this directory too.  The time format should be in
+seconds since Jan 1, 1998.
+
+data will be stored in
+
+/data/mta/DataSeeker/data/repository
+
+++++++++
+Scripts
+++++++++
+
+All scripts below are in /data/mta/MTA/bin
+
+extract_orbital_data.py
+-------------------
+This script collects all orbital information from archived data and create 
+ascii tables
+
+Input:
+	frorm arc5gl:
+	orbitf*_eph1.fits: 		orbital fits data file from archive
+	anglef*_eph1.fits:		orbital angle fits data file
+
+Output:
+	/data/mta/Script/Orbital/Orb/orbit_data_<time_stamp>
+		where <time_stamp> is obs time in sec from 1998.1.1
+
+
+	/data/mta/DataSeeker/data/repository/aorbital.rdb
+			---- orbital element related data
+				time    
+				X       
+				Y       
+				Z       
+				VX      
+				VY      
+				VZ      
+				Point_X 
+				Point_Y 
+				Point_Z
+
+	/data/mta/DataSeeker/data/repository/orb_angle.rdb
+			---- orbital angle related data
+				time    
+				SunCentAng      
+				SunLimbAng      
+				MoonCentAng     
+				MoonLimbAng     
+				EarthCentAng    
+				EarthLimbAng    
+				Dist_SatEarth   
+				Sun_EarthCent   
+				Sun_EarthLimb 
+				RamVector
+
+extract_orbital_wrap_script
+-------------------
+A wrap script to run orb_elm_main_script
+
+extract_orbital_main_script
+-------------------
+A main script to run two perl scripts
+
+
+++++++++++++
+Directories
+++++++++++++
+'/data/mta/Script/Orbital/Scripts/'                     :bin_dir
+'/data/mta/Script/Orbital/Data/'                        :data_dir
+'/data/mta/DataSeeker/data/repository/'                 :repository
+'/data/mta/Script/Orbital/Scripts/house_keeping/'       :house_keeping
+'/data/mta/Script/Python3.8/MTA/'                       :mta_dir
+
+
++++++++++
+Cron Job
++++++++++
+
+c3po-v as mta
+
+30 2 * * 0 cd /data/mta/Script/Orbital/Exc; /data/mta/Script/Orbital/Scripts/extract_orbital_wrap_script >> $HOME/Logs/orb_elm.cron 2>&1
+

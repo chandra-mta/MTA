@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>SIM Data Extraction</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>SIM Data Extraction</h2>
+
+<b><u>Jul 22, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta_www/mta_sim/Scripts/SIM_extract
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/SIM_extract
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>sim_data_wrap_script</td>   <td>Nov 18, 2014</td></tr>
+<tr><td>sim_data_main_script</td>   <td>Mar 05, 2015</td></tr>
+<tr><td>extract_sim_data.py</td>    <td>Mar 06, 2015</td></tr>
+<tr><td>run_script.py</td>          <td>Mar 04, 2015</td></tr>
+<tr><td>filters_ccdm</td>           <td>Nov 18, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta_www/mta_sim/Scripts/SIM_extract/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Mar 06, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to github</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/Script/Dumps/PRIMARYCCDM_*.*.tl
+</li>
+<li>
+/data/mta_www/mta_sim/Scripts/SIM_extract/msids.list
+</li>
+<li>
+/data/mta_www/mta_sim/Scripts/SIM_extract/msids_ccdm.list
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS 
+</li>
+<li>
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_sim/Scripts/
+    <ul>
+    <li>
+    sim_data.out
+    </li>
+    <li>
+    sim_data
+    </li>
+    </ul>
+</li>
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta_www/mta_sim/Scripts/SIM_extract
+</li>
+<li>
+set: setascds
+</li>
+<li>
+set: setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+run: /data/mta_www/mta_sim/Scripts/SIM_extract/extract_sim_data.py
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available for this set of scripts
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+15 5 * * *  cd /data/mta_www/mta_sim/Scripts/SIM_extract/; /data/mta_www/mta_sim/Scripts/SIM_extract/sim_data_wrap_script >> $HOME/Logs/sim_data_ti.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web pages for this set of scripts.
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Add test functionality.
+<br /><br /> 
+Upload to git depository.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

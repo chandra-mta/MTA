@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>IRU Plot Update</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>IRU Plot Update</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Retrive data and create IRU related plots.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/www/DAILY/mta_pcad/IRU/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/IRU.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                         <th>Last Updated</th></tr>
+<tr><td>run_update</td>                          <td>Jul 11, 2014</td></tr>
+<tr><td>run.pro</td>                             <td>Jul 11, 2014</td></tr>
+<tr><td>update_get_data.pro</td>                 <td>Oct 30, 2003</td></tr>
+<tr><td>mk_avg.pro</td>                          <td>May 10, 2004</td></tr>
+<tr><td>mk_avg2.pro</td>                         <td>Jan 09, 2004</td></tr>
+<tr><td>bias_plot.pro</td>                       <td>Jun 27, 2014</td></tr>
+<tr><td>update_plt_data.pro</td>                 <td>UPDATE WEEKLY</td></tr>
+<tr><td>./Script/update_weekly_run_file.py</td>  <td>Jan 05, 2018</td></tr>
+<tr><td>./Script/update_web.py</td>              <td>Nov 18, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details about "update_weekly_run_file.py".
+/data/mta4/www/DAILY/mta_pcad/IRU/Script/README
+</p>
+<table border = 0>
+<tr><th>Sep 18, 2015</th><td>Initially logged</td></tr>
+<tr><th>Sep 23, 2015</th><td>Description update</td></tr>
+<tr><th>Sep 28, 2015</th><td>update_plt_data.pro is now created by cron job</td></tr>
+<tr><th>Nov 03, 2015</th><td>corn job updated/document udated.</td></tr>
+<tr><th>Nov 18, 2015</th><td>web page update automated</td></tr>
+<tr><th>Jan 15, 2016</th><td>date format bug fixed</td></tr>
+<tr><th>Jan 05, 2018</th><td>over the year bug fixed</td></tr>
+</td></tr>
+</table>
+
+<p>
+<b>Note</b>:
+Although the data are coming from /dsops/ap/sdp/cache/, pacd*_3_*.fits files stay there only a few days.
+If you need to refill the past data, use <b>arc4gl</b> with:
+</p>
+<ul>
+<li>operation=retrieve</li>
+<li>dataset=flight</li>
+<li>detector=pcad</li>
+<li>subdetector=eng</li>
+<li>level=0</li>
+<li>filetype=pcad3eng</li>
+<li>tstart=06/12/14</li>
+<li>tstop=06/18/14</li>
+<li>go</li>
+</ul>
+<p>
+This will give you zipped version of fits files. Unzip them and modify run_update file to see the
+files. Modify <em>run_update_data</em> to point the data directory and run the scirpt to fill the data. 
+</p>
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/dsops/ap/sdp/cache/*/pcad/pcad*_3_*.fits (to create: 2000_2003_tot_bias_1h.fits, 2000_2003_tot_bias_5m.fits, recent_bias_5m.fits)
+</span>
+</li>
+<li>
+/data/mta4/www/DAILY/mta_pcad/IRU/Script/Template/update_plt_data_template
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+<li>
+if it does not work, try: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/www/DAILY/mta_pcad/IRU/Plots/
+    <ul>
+    <li>
+    &lt;yyyy&gt;_&lt;ddd&gt;_&lt;ddd&gt;_bias.gif
+    </li>
+    <li>
+    &lt;yyyy&gt;_&lt;ddd&gt;_&lt;ddd&gt;_hist.gif
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta4/www/DAILY/mta_pcad/IRU/
+</li>
+<li>
+run: ./Script/update_weekly_run_file.py
+</li>
+<li>
+run: run_update
+</li>
+<li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test for this set of scripts.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<ul>
+<li>20 3 * * 5 cd /data/mta4/www/DAILY/mta_pcad/IRU/Script/; ./iru_wrap_script > $HOME/Logs/iru_plot_script.cron 2>&1</li>
+<li>25 3 1 * * cd /data/mta4/www/DAILY/mta_pcad/IRU/Script/; ./update_web.py > $HOME/Logs/iru_web_update.cron 2>&1</li>
+<li>35 3 * * 0,2 cd /data/mta4/www/DAILY/mta_pcad/IRU; ./run_update_data > $HOME/Logs/iru_bias_data.cron 2>&1</li>
+<li>35 3 * * 5 cd /data/mta4/www/DAILY/mta_pcad/IRU; ./run_update > $HOME/Logs/iru_bias.cron 2>&1</li>
+</ul>
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_pcad/IRU/bias.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_pcad/IRU/bias.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+* create script to update the web page. currently updated manually.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

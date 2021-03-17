@@ -1,0 +1,3 @@
+pset celldetect infile=hrcf18608N001_evt2.fits.gz
+pset celldetect outfile=hrcf18608N001_src2.fits
+celldetect mode=h

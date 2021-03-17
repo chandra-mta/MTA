@@ -1,0 +1,18 @@
+
+sed -i "s/\/data\/mta\/Script\/MTA_limit_trends\/Scripts/\/data\/mta\/Script\/MTA_limit_trends\/Scripts3.6/g" *scripts* 
+
+
+sed -i "s/\/proj\/sot\/ska\/arch\/x86_64-linux_CentOS-5\/lib\/python2.7\/site-packages/\/data\/mta\/Script\/Python3.6\/envs\/ska3\/lib\/python3.6\/site-packages:\/data\/mta\/Script\/Python3.6\/lib\/python3.6\/site-packages/g" *main_script* 
+
+
+
+sed -i "s/\/proj\/sot\/ska\/bin\/python/\/data\/mta\/Script\/Python3.6\/envs\/ska3\/bin\/python/g" *.py
+sed -i "s/\/data\/mta\/Script\/MTA_limit_trends\/Scripts/\/data\/mta\/Script\/MTA_limit_trends\/Scripts3.6/g" *.py
+sed -i "s/read_file_data/mcf.read_data_file/g" *.py 
+sed -i "s/mcf.rm_file/mcf.rm_files/g" *.py
+sed -i 's/exec "%s = %s" %(var, line)/exec("%s = %s" %(var, line))/g' *.py
+sed -i "s/f    = open(path, 'r')/with open(path, 'r') as f:/g"  *.py 
+sed -i 's/rm_filess/rm_files/g' *.py
+
+
+sed -i "s/Script\/Python3.6\/envs\/ska3/Script\/Python3.8\/envs\/ska3-shiny/g" *.py

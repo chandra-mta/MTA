@@ -1,0 +1,11 @@
+cd /data/mta/Script/ACIS/Acis_hist/Exc/
+rm -rf param
+mkdir param
+
+setascds
+setenv PYTHONPATH "/data/mta/Script/Python3.9/lib/python3.9/site-packages/"
+
+
+/data/mta/Script/ACIS/Acis_hist/Scripts/acis_hist_extract_data.py
+/data/mta/Script/ACIS/Acis_hist/Scripts/acis_hist_plot_trend_interactive.py
+

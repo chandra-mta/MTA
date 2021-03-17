@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+    function WindowOpener(file) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=550,resize=no");
+        msgWindow.document.clear();
+        msgWindow.document.write("<html><head><title>Envelope Trending </title></head>");
+        msgWindow.document.write("<body bgcolor='white'>");
+        msgWindow.document.write("<img src='./Plots/" + file+"' width=95%>")
+        msgWindow.document.write("</body></html>")
+        msgWindow.document.close();
+        msgWindow.focus();
+    }
+     
+    function popitup(url) {
+        newwindow=window.open(url,'name','height=400, width=760');
+        if (window.focus) {newwindow.focus()}
+    }
+</script>
+</head>
+
+<body>
+    <img src='./Plots/focal_1year_long_#YEAR#.png'>
+<table border=1 style='width:4000px;'>
+        <th style='width:70px;'>WEEK: </th>
+        #PLINTBL# 
+    </tr>
+<table>
+
+</body>
+</html>

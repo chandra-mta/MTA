@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>SIM Plots for Monthly Report</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<h2>SIM Plots for Monthly Report</h2>
+
+<h3>Description</h3>
+<p>
+This set of scripts creates sim related plots for monthly report.
+
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+<div style='padding-left:20px'>
+<p>
+<b>Location</b>: /data/mta/Script/Month/SIM/Scripts/
+</p>
+<p>
+<b>GitHub Address</b>: not available yet
+</p>
+
+<table border=0>
+<tr><td>sim_wrap_script</td>       <td>Sep 10, 2014</td></tr>
+<tr><td>sim_main_script</td>       <td>Mar 02, 2016</td></tr>
+<tr><td>run_all_sim_script.py</td> <td>Sep 10, 2014</td></tr>
+<tr><td>grating_plot.py</td>       <td>Oct 28, 2014</td></tr>
+<tr><td>sim_plot.py</td>           <td>Oct 28, 2014</td></tr>
+<tr><td>aorwspd_plot.py</td>       <td>Mar 03, 2016</td></tr>
+</table>
+
+
+<p>
+For more details of these scripts, please read /data/mta/Script/Month/SIM/Scripts/README.
+</p>
+<table border = 0>
+<tr><th>Sep 10, 2014</th><td>All scripts created and activated</td></tr>
+<tr><th>Oct 02, 2014</th><td>aorwspd_plot.py file location updated</td></tr>
+<tr><th>Oct 28, 2014</th><td>Adjusted input reading for data sets</td></tr>
+<tr><th>Mar 03, 2016</th><td>python ascds setting parameter clearning added on aorwspd_plot.py<s/td></tr>
+</table>
+
+</div>
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/www/mta_otg/OTG_sorted.rdb
+</li>
+<li>
+/home/brad/Tscpos/sim_data.out
+</li>
+<li>
+/data/mta/Script/Month/SIM/house_keeping/monthly_avg
+</li>
+<li>
+dataseeker also provides additional data.
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+In the same directory that you run the script
+    <ul>
+    <li>
+     monthly_grat_ang.png
+    </li>
+    <li>
+     monthly_grat.png
+    </li>
+    <li>
+     monthly_sim.png
+    </li>
+    <li>
+     rotation.png
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+Go to:  cd /data/mta/Script/Month/SIM/
+</li>
+<li>
+Set:    setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+Run:    create_monthly_sim_plots
+</li>
+<li>
+Move: cp *png /data/mta4/www/REPORTS/MONTHLY/#year##MMM#/
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+Go to:  cd /data/mta/Script/Month/SIM/
+</li>
+<li>
+Set:    setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+Run:    ./Scripts/grating_plot.py
+</li>
+<li>
+Run:    ./Scripts/sim_plot.py
+</li>
+<li>
+Run:    ./Scripts/aorwspd_plot.py
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+You will see something like:
+</p>
+
+<pre>
+@r2d2-v-263: aorwspd_plot.py
+..
+----------------------------------------------------------------------
+Ran 2 tests in 3.007s
+
+
+OK
+</pre>
+
+<p>
+If the unit test fails, you will see where the problem happened.
+</p>
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+There is no cron job for this set of scripts.
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+There is no web page specifically for these plots. Example:
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta/REPORTS/MONTHLY/2014AUG/MONTHLY.html'>
+https://cxc.cfa.harvard.edu/mta/REPORTS/MONTHLY/2014AUG/MONTHLY.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+None
+</p>
+
+
+<!--- the end of document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

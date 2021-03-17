@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC HZ43 PI/SAMP Trend</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC HZ43 PI/SAMP Trend</h2>
+
+
+<h3>Description</h3>
+<p>
+Trending PI and scaled Sum Amps of HZ43.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc6/wilton/isobe/Project8/HR43/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                            <th>Last Updated</th></tr>
+<tr><td>hz43_warp_script</td>                       <td>May 02, 2017</td></tr>
+<tr><td>hz43_main_script</td>                       <td>May 15, 2017</td></tr>
+<tr><td>find_hz43_data.py</td>                      <td>May 04, 2017</td></tr>
+<tr><td>extract_hz43_stat.py</td>                   <td>Jun 01, 2017</td></tr>
+<tr><td>create_hz43_trend_plots.py</td>             <td>May 26, 2017</td></tr>
+<tr><td>create_profile_plot.py</td>                 <td>May 12, 2017</td></tr>
+<tr><td>gamma_function.py</td>                      <td>May 25, 2017</td></tr>
+<tr><td>create_html_page.py</td>                    <td>May 16, 2017</td></tr>
+<tr><td>filter_evt_file.py</td>                     <td>May 17, 2017</td></tr>
+<tr><td>hrc_common_functions.py</td>                <td>May 16, 2017</td></tr>
+<tr><td>create_hz43_center_location_list.py</td>    <td>May 15, 2017</td></tr>
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project9/HZ43/Scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Jun 02, 2017</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/obs_ss/sot_ocat.out
+</li>
+<li>
+evt1 fits file from archive 
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Data/
+    <ul>
+    <li>pi_center_list_i</li>
+    <li>pi_center_list_s</li>
+    <li>samp_center_list_i</li>
+    <li>samp_center_list_s</li>
+    <li>pi_&lt;p/n&gt;list_&lt;arm pos&gt;_i</li>
+    <li>pi_&lt;p/n&gt;list_&lt;arm pos&gt;_s</li>
+    <li>pi_i_center_fitting_results</li>
+    <li>pi_s_center_fitting_results</li>
+    <li>samp_i_center_fitting_results</li>
+    <li>samp_s_center_fitting_results</li>
+    <li>pi_i_p_fitting_results</li>
+    <li>pi_s_n_fitting_results</li>
+    <li>samp_i_p_fitting_results</li>
+    <li>samp_s_n_fitting_results</li>
+    </ul>
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Data/&lt;obsid&gt;/
+    <ul>
+        <li>pi_center_listfit_results  </li>
+        <li>pi_p_list_fit_results        </li>
+        <li>pi_n_list_fit_results      </li>
+        <li>samp_n_list_fit_results</li>
+        <li>samp_center_listfit_results  </li>
+        <li>samp_p_list_fit_results</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/HZ43/Plots/
+    <ul>
+        <li>pi_center_list_i.html</li>
+        <li>pi_center_list_s.html</li>
+        <li>samp_center_list_i.html</li>
+        <li>samp_center_list_s.html</li>
+        <li>pi_&lt;p/n&gt;_&lt;arm pos&gt;.html</li>
+        <li>samp_&lt;p/n&gt;_&lt;arm pos&gt;.html</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/HZ43/Plots/Count_rates/
+    <ul>
+        <li>pi_center_i.png</li>
+        <li>pi_center_s.png</li>
+        <li>samp_center_i.png</li>
+        <li>samp_center_s.png</li>
+        <li>pi_&lt;p/n&gt;_&lt;arm pos&gt;.png</li>
+        <li>samp_&lt;p/n&gt;_&lt;arm pos&gt;.png</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/HZ43/Plots/Indivisual_Plots/&lt;obsid&gt;/
+    <ul>
+        <li>pi_center_list_vfit.png</li>
+        <li>samp_center_list_vfit.png</li>
+        <li>pi_&lt;p/n&gt;_&lt;arm pos&gt;_vfits.png</li>
+        <li>samp_&lt;p/n&gt;_&lt;arm pos&gt;_vfits.png</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/HZ43/Plots/Profile_page/
+    <ul>
+        <li>pi_center_i.png</li>
+        <li>pi_center_s.png</li>
+        <li>samp_center_i.png</li>
+        <li>samp_center_s.png</li>
+        <li>pi_&lt;p/n&gt;_&lt;arm pos&gt;.png</li>
+        <li>samp_&lt;p/n&gt;_&lt;arm pos&gt;.png</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/HZ43/Plots/Thumb_plots/
+    <ul>
+        <li>pi_i_center_thumb_plot.png</li>
+        <li>pi_s_center_thumb_plot.png</li>
+        <li>samp_i_center_thumb_plot.png</li>
+        <li>samp_s_center_thumb_plot.png</li>
+        <li>pi_&lt;p/n&gt;_&lt;arm pos&gt;_thumb_plot.png</li>
+        <li>samp_&lt;p/n&gt;_&lt;arm pos&gt;_thumb_plot.png</li>
+    </ul>
+
+
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+cd /data/aschrc6/wilton/isobe/Project8/HZ43/Exc/
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Scripts/create_hz43_center_location_list.py
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Scripts/extract_hz43_stat.py
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Scripts/create_hz43_trend_plots.py
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Scripts/create_count_rate_plots.py
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/HZ43/Scripts/create_profile_plot.py
+</li>
+
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+23 3 5 * * cd /data/aschrc6/wilton/isobe/Project8/HZ43/Exc; /data/aschrc6/wilton/isobe/Project8/HZ43/Scripts/hz43_wrap_script >  /home/isobe/Logs/hz43_logs.cron 
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+http://cxc.cfa.harvard.edu/contrib/cxchrc/HRC_trendings/HZ43/hz43.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

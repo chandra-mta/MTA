@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC Gain Trend </title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC Gain Trend </h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts gets AR Lac observation for HRC, and computes gain and pha shifts.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/HRC/Gain/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/HRC_gain
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>hrc_gain_wrap_script</td>       <td>May 14, 2014</td></tr>
+<tr><td>hrc_gain_main_script</td>       <td>May 14, 2014</td></tr>
+<tr><td>hrc_gain_wrap_script_test</td>  <td>Sep 25, 2014</td></tr>
+<tr><td>hrc_gain_main_script_test</td>  <td>Sep 25, 2014</td></tr>
+
+<tr><td>hrc_gain_run.py</td>            <td>Sep 25, 2014</td></tr>
+<tr><td>hrc_gain_fit_gaus.py</td>       <td>May 14, 2014</td></tr>
+<tr><td>hrc_gain_find_ar_lac.py</td>    <td>Jan 02, 2018</td></tr>
+<tr><td>hrc_gain_fit_voigt.py</td>      <td>Sep 25, 2014</td></tr>
+<tr><td>hrc_gain_make_table.py</td>     <td>May 14, 2014</td></tr>
+<tr><td>hrc_gain_trend_plot.py</td>     <td>May 14, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/HRC/Gain/Scripts/README.
+</p>
+<table border = 0>
+<tr><th>Sep 22, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 25, 2014</th><td>Test method updated.</td></tr>
+<tr><th>Jan 02, 2018</th><td>sybase user name/password changed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+syBase access
+</li>
+<li>
+/data/mta_www/mp_reports/events/mta_events.html
+</li>
+<li>
+hrc evt2 files using arc4gl
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_hrc/Trending/Gain_data/Data/
+    <ul>
+    <li>
+    hrcf&lt;obsid&gt;_pha_dat.gz
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_hrc/Trending/Gain_data/Plots/
+    <ul>
+    <li>
+    hrcf&lt;obsid&gt;_gfit.png   
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_hrc/Trending/Gain_data/Trend_plots/
+    <ul>
+    <li>hrc_i_radial_dist_year&lt;year&gt;.png </li>
+    <li>hrc_s_radial_dist_year&lt;year&gt;.png </li>
+    <li>hrc_i_time_trand.png</li>
+    <li>hrc_s_time_trand.png</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/HRC/Gain/Exc
+</li>
+<li>
+run:   /data/mta/Script/HRC/Gain/Scripts/hrc_gain_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/HRC/Gain/Exc
+</li>
+<li>
+run:   /data/mta/Script/HRC/Gain/Scripts/hrc_gain_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+You will see something similar to the following:
+</p>
+<pre>
+mta@r2d2-v-462: /data/mta/Script/HRC/Gain/Scripts/hrc_gain_wrap_script_test
+tput: unknown terminal "dummy"
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.574s
+
+OK
+....
+----------------------------------------------------------------------
+Ran 4 tests in 3.303s
+
+OK
+
+</pre>
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 2 3 * *    cd /data/mta/Script/HRC/Gain/Exc; /data/mta/Script/HRC/Gain/Scripts/hrc_gain_wrap_script  >> $HOME/Logs/hrc_gain.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_hrc/Trending/hrc_trend.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_hrc/Trending/hrc_trend.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Automatic test functions will be added.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+/* create two equal columns that folat next to each other */
+
+.column{
+    float:      left;
+    width:      45%;
+    padding:    10px;
+}
+
+.column2{
+    float:      right;
+    width:      45%;
+    padding:    10px;
+}
+
+/* clear float after the column */
+
+.row:after {
+    content:    "";
+    display:    table;
+    clear:      both;
+}

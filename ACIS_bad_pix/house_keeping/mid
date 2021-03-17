@@ -1,0 +1,191 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+	   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+        <link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta/REPORTS/Template/mta.css" /> 
+        <style  type='text/css'>
+        table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+        td{text-align:center;padding:8px}
+        a:link {color:#00CCFF;}
+        a:visited {color:yellow;}
+        span.nobr {white-space:nowrap;}
+        </style>
+        <title>ACIS Bad Pixel List  </title> 
+ 
+        <script> 
+                function WindowOpener(imgname) { 
+                        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1260,height=980,resize=no"); 
+                        msgWindow.document.clear(); 
+                        msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</title>"); 
+                        msgWindow.document.write("<body bgcolor='black'>"); 
+                        msgWindow.document.write("<img src='./Plots/"+imgname+"' border =0 ><p></p></body></html>") 
+                        msgWindow.document.close(); 
+                        msgWindow.focus(); 
+                } 
+        </script> 
+ 
+</head> 
+<body> 
+
+<h1 style='text-align:center;mergin-left:auto;mergin-right:auto'>ACIS Bad Pixel List</h1> 
+<h2 style='text-size:110%;text-align:center;mergin-left:auto;mergin-right:auto'>Updated: 2013-7-8  (DOY: 189 / DOM: 5102) </h2>
+<hr /> 
+<h3>Previously unknown bad pixels/columns appeared in the last 14 days:</h3> 
+<table border=1 style='border-width:2px;font-size:90%'> 
+<tr><th>Warm Pixels</th>
+<td>No New Warm Pixels</td></tr>
+<tr><th>Hot Pixels</th>
+<td>No New Hot Pixels</td></tr>
+<tr><th>Bad Columns</th>
+<td>No New Bad Columns</td></tr>
+</table>
+<h3>Current Bad Pixels/Columns</h3>
+<p><strong>Click one of the cell under "Data" to see lists of warm pixels and other entires. 
+The description of each column is found <a href="#col_name">below</a>.</strong></p> 
+<table border=1 style='border-width:2px;'> 
+<tr>
+<th style="text-align:center">CCD</th><th style="text-align:center">Data</th><th style="text-align:center">Warm Pixel History</th><th style="text-align:center">Hot Pixel History</th><th style="text-align:center">Bad Column History</th><th style="text-align:center">Data List</th>
+</tr>
+
+
+
+
+
+
+<tr><td>CCD0</td>
+<td><a href = "./Html_dir/ccd_data0.html">Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd0>Change</a></td>
+<td><a href=./Disp_dir/hist_hccd0>Change</a></td>
+<td><a href=./Disp_dir/hist_col0>Change</a></td>
+<td><a href=./Disp_dir/data_used.0>Data Used</a></td>
+<tr><td>CCD1</td>
+<td><a href = "./Html_dir/ccd_data1.html">Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd1>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col1>Change</a></td>
+<td><a href=./Disp_dir/data_used.1>Data Used</a></td>
+<tr><td>CCD2</td>
+<td><a href = "./Html_dir/ccd_data2.html">No Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd2>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col2>Change</a></td>
+<td><a href=./Disp_dir/data_used.2>Data Used</a></td>
+<tr><td>CCD3</td>
+<td><a href = "./Html_dir/ccd_data3.html">Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd3>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col3>Change</a></td>
+<td><a href=./Disp_dir/data_used.3>Data Used</a></td>
+<tr><td>CCD4</td>
+<td><a href = "./Html_dir/ccd_data4.html">No Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd4>Change</a></td>
+<td><a href=./Disp_dir/hist_hccd4>Change</a></td>
+<td><a href=./Disp_dir/hist_col4>Change</a></td>
+<td><a href=./Disp_dir/data_used.4>Data Used</a></td>
+<tr><td>CCD5</td>
+<td><a href = "./Html_dir/ccd_data5.html">No Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd5>Change</a></td>
+<td><a href=./Disp_dir/hist_hccd5>Change</a></td>
+<td><a href=./Disp_dir/hist_col5>Change</a></td>
+<td><a href=./Disp_dir/data_used.5>Data Used</a></td>
+<tr><td>CCD6</td>
+<td><a href = "./Html_dir/ccd_data6.html">No Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd6>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col6>Change</a></td>
+<td><a href=./Disp_dir/data_used.6>Data Used</a></td>
+<tr><td>CCD7</td>
+<td><a href = "./Html_dir/ccd_data7.html">Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd7>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col7>Change</a></td>
+<td><a href=./Disp_dir/data_used.7>Data Used</a></td>
+<tr><td>CCD8</td>
+<td><a href = "./Html_dir/ccd_data8.html">Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd8>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col8>Change</a></td>
+<td><a href=./Disp_dir/data_used.8>Data Used</a></td>
+<tr><td>CCD9</td>
+<td><a href = "./Html_dir/ccd_data9.html">No Bad Pixels Today</a></td>
+<td><a href=./Disp_dir/hist_ccd9>Change</a></td>
+<td>No History</td>
+<td><a href=./Disp_dir/hist_col9>Change</a></td>
+<td><a href=./Disp_dir/data_used.9>Data Used</a></td>
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+</table> 
+<div style='margin-bottom:20px'>&#160;</div> 
+<h4>Bad Pixel Trend Plots</h4>
+<ul style='font-size:90%'>
+<li><a href="javascript:WindowOpener('hist_plot_front_side.png')">Plot for History of Warm Pixel: Front Side CCDs</a></li>
+<li><a href="javascript:WindowOpener('hist_plot_ccd5.png')">Plot for History of Warm Pixel: CCD 5</a></li>
+<li><a href="javascript:WindowOpener('hist_plot_ccd7.png')">Plot for History of Warm Pixel: CCD 7</a></li>
+<li><a href="javascript:WindowOpener('hist_col_plot_front_side.png')">Plot for History of Bad Columns: Front Side CCDs</a></li>
+<li><a href="javascript:WindowOpener('hist_plot_col5.png')">Plot for History of Bad Columns: CCD 5</a></li>
+<li><a href="javascript:WindowOpener('hist_plot_col7.png')">Plot for History of Bad Columns: CCD 7</a></li>
+</ul>
+<hr />
+
+<h4 id="col_name">Columns in Table</h4>
+<table style='border-width:0px;margin-left:20px'> 
+<tr><td>Warm Pixel:</td><td style="text-align:left"> a list of warm pixels currently observed</td></tr>
+<tr><td>Flickering:</td><td style="text-align:left"> any warm pixels which were on and off 3 times or more in the last 3 months</td></tr>
+<tr><td>Past Warm Pixels:</td><td style="text-align:left"> a list of all pixels appeared as warm pixels in past</td></tr>
+<tr><td>History:</td><td style="text-align:left"> history of when a particular warm pixel was on or off</td></tr>
+<tr><td>Hot Pixel:</td><td style="text-align:left"> a list of hot pixels currently observed</td></tr>
+<tr><td>Flickering:</td><td style="text-align:left"> any hot pixels which were on and off 3 times or more in the last 3 months</td></tr>
+<tr><td>Past Hot Pixels:</td><td style="text-align:left"> a list of all pixels appeared as hot pixels in past</td></tr>
+<tr><td>History:</td><td style="text-align:left"> history of when a particular hot pixel was on or off</td></tr>
+<tr><td>Warm Column:</td><td style="text-align:left"> a list of warm columns currently observed</td></tr>
+<tr><td>Flickering:</td><td style="text-align:left"> any warm columns which were on and off 3 times or more in the last 3 months</td></tr>
+<tr><td>Past Warm Columns:</td><td style="text-align:left"> a list of all columns appeared as warm columns in past</td></tr>
+<tr><td>History:</td><td style="text-align:left"> history of when a particular warm columns was on or off</td></tr>
+</table>
+<h4>A bad pixel was selected as follows:</h4>
+<ul style="font:yellow;font-size:90%">
+<li> acis*bias0.fits in a given period were obtained</li>
+<li> compute an average of ADU for each CCD</li>
+<li> compare the value of each pixel to the CCD average, if a pixel value
+was 5 sigma higher than the average, a local average (32x32) was computed</li>
+<li>if the pixel value was still 5 sigma higher than the local average,
+it was marked as a possible candidate for a warm pixel.</li>
+<li> if three consecutive(sp) bias frames had the same pixel marked as a
+warm pixel candidate, the pixel was listed as a warm pixel.</li>
+<li> if the pixels appear and disappear repeatedly during the last three months
+the pixels are listed in flickering pixels</li>
+<li> if the pixels which appeared in "current warm pixels" list, even once in the past
+ the pixels are parmanently listed in "Past Warm Pixels" list</li>
+<li> hot pixels are defined as warm pixels with an adu value of greater than
+ the CCD average +1000.</li>
+<li> if the pixel was located at the edge of the CCD (y = 1023, 1024), it is ignored and not
+ included on either the list.</li>
+<li>for a hot pixel, a process was same, except a threshold was 
+a ccd  average plus 1000 counts</li>
+</ul>
+<h4>A bad column was selected as follows:</h4>
+<ul style="font:yellow;font-size:90%"><li> each column was averaged out, and compared to an average for an entire ccd.</li>
+<li> if the average of the column was 5 sigma  higher than the average of the ccd
+compare the column average to a local average (10 columns).</li>
+<li> if the column was still 5 sigma higher than the local average, mark it as
+a bad column candidate</li>
+<li> if the column appeared as a bad column for a 3 consecutive frames, it was 
+marked as a real bad column.</li>
+</ul>
+<hr /> 
+<p style='margin-top:5px'> 
+If you have any quesitons about this page, please contact <a href='mailto:swolk@head.cfa.harvard.edu'>swolk@head.cfa.harvard.edu</a>. 
+</p> 
+</body>
+</html>

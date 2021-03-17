@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>#TITLE#</title>
+    <style>
+        .blue {
+            background-color:   #d9e6fc;
+        }
+        td {
+            padding: 5px;
+        }
+    </style>
+        #JAVASCRIPT#
+
+</head>
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<header>
+<h2>#TITLE#</h2>
+
+    <!-- INTRO -->
+
+    <div style='float:left;'>
+    #VIOLATION#
+    </div>
+
+    <div style='padding-bottom:50px;float:right;';
+        <p>
+        #EXPLANATIONS#
+        <div style='padding-top:50px; text-align:right;'>
+
+            <a href="javascript:popitup('https://cxc.cfa.harvard.edu/mta/MSID_Trends/#PAGE_EXP#')" 
+                  style="text-align:right">How the plots are created</a><br /><br />
+            <a href="#OTHER_H#"><b>#OTHER#</b></a> <br />
+<!--
+            <a href="#OTHER_H2#"><b>#OTHER2#</b></a>   <br />
+            <a href="#OTHER_H3#"><b>#OTHER3#<b></a> <br />
+-->
+            <a href="#VIO1#"><b>Yellow Violation</b></a><br />
+            <a href="#VIO2#"><b>Red Violation</b></a><br />
+            <br />
+<!-- the following line is reading the data for the javascript open_msid_page -->
+            <iframe id="msid_group" src="./msid_list_glimmon" onload="LoadFile();" style="display: none;"></iframe>
+
+            <b>Looking for a Specific MSID?</b>
+            <br />
+            <input type='text', size='10', name='msid', id='msid' />
+            <button onclick="open_msid_page(document.getElementById('msid').value)">Search</button>
+
+        </div>
+        </p>
+    </div>
+</header>
+
+
+<table border=1 cellpadding=2 cellspacing=2 style='margin-left:auto; margin-right:auto;'>
+    <tbody>
+
+    #TABLE#
+
+    </tbody>
+
+</table>
+

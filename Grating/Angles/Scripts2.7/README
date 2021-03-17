@@ -1,0 +1,58 @@
+
+##########################
+Gratings Dispersion Angles
+##########################
+
+--------
+Scripts:
+--------
+/data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script
+/data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_main_script
+        ---- these runs several grating related scripts including this one
+
+update_grating_angle_data_lists.py      ---- extract data and update angle data tables
+
+        dat needed:
+            <gdata_dir>/obslist  --- a list of grating observations
+            <gdata_dir>/<Mon><dd>/<obsid>/obsid_<obsid>_Sky_summary.txt
+
+        output:
+            <data_dir>/letg
+            <data_dir>/metg
+            <data_dir>/hetg
+
+plot_grating_angles.py                  ---- plotting data
+
+        data needed:
+            <data_dir>/letg
+            <data_dir>/metg
+            <data_dir>/hetg
+
+        output:
+            <web_dir>/letg_all_angle.png
+            <web_dir>/metg_all_angle.png
+            <web_dir>/hetg_all_angle.png
+
+----------
+Directory:
+----------
+'/data/mta/Script/Grating/Angles/Scripts/'                  : bin_dir
+'/data/mta/Script/Grating/Angles/Scripts/house_keeping/'    : house_keeping
+'/data/mta/Script/Grating/Angles/Data/'                     : data_dir
+'/data/mta/Script/Python_script2.7/'                        : mta_dir
+'/data/mta_www/mta_grat/Angle/'                             : web_dir
+'/data/mta_www/mta_grat/Grating_Data/'                      : gdata_dir
+
+----------
+Web Page:
+----------
+file:///data/mta_www/mta_grat/index.html
+
+---------
+Cron Job:
+---------
+r2d2-v as mta
+
+32 2 3,13,23 * * cd /data/mta/Script/Grating/Grating_HAK/Exc; /data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script >> $HOME/Logs/run_grating.cron
+
+    --- this runs several grating related scripts

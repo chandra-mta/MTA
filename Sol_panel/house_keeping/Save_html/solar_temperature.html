@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        th.rotate {
+        /* Something you can count on */
+            height: 115px;
+            white-space: nowrap;
+            font-size:70%
+      }
+
+      th.rotate > div {
+        transform: 
+            /* Magic Numbers */
+            translate(25px, 51px)
+            /* 45 is really 360 - 45 */
+            rotate(270deg);
+        width: 30px;
+      }
+      th.rotate > div > span {
+        border-bottom: 1px solid #ccc;
+        padding: 5px 10px;
+      }
+
+    </style>
+    <script type="text/javascript">
+        function WindowOpener(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=400,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Solar Pannel Trending </title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=400, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+</script>
+</head>
+
+<body>
+
+<table border=0>
+<tr>
+    <th>Angle</th>
+    <th> 40 -  60 deg</th>
+    <th> 60 -  80 deg</th>
+    <th> 80 - 100 deg</th>
+    <th>100 - 120 deg</th>
+    <th>120 - 140 deg</th>
+    <th>140 - 160 deg</th>
+    <th>160 - 180 deg</th>
+</tr>
+<tr>
+    <th class="rotate"><div><span>-Y SADA TEMP</span></div></th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle40.png')">
+            <img src='./Plots/Tmysada/tmysada_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle60.png')">
+            <img src='./Plots/Tmysada/tmysada_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle80.png')">
+            <img src='./Plots/Tmysada/tmysada_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle100.png')">
+            <img src='./Plots/Tmysada/tmysada_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle120.png')">
+            <img src='./Plots/Tmysada/tmysada_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle140.png')">
+            <img src='./Plots/Tmysada/tmysada_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tmysada/tmysada_angle160.png')">
+            <img src='./Plots/Tmysada/tmysada_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+</tr>
+<tr>
+    <th class="rotate"><div><span>+Y SADA TEMP</span></div></th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle40.png')">
+            <img src='./Plots/Tpysada/tpysada_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle60.png')">
+            <img src='./Plots/Tpysada/tpysada_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle80.png')">
+            <img src='./Plots/Tpysada/tpysada_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle100.png')">
+            <img src='./Plots/Tpysada/tpysada_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle120.png')">
+            <img src='./Plots/Tpysada/tpysada_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle140.png')">
+            <img src='./Plots/Tpysada/tpysada_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tpysada/tpysada_angle160.png')">
+            <img src='./Plots/Tpysada/tpysada_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+</tr>
+<tr>
+    <th class="rotate"><div><span>-Y WING TEMP</span></div></th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle40.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle60.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle80.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle100.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle120.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle140.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsamyt/tsamyt_angle160.png')">
+            <img src='./Plots/Tsamyt/tsamyt_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+
+
+
+
+</tr>
+    <th class="rotate"><div><span>+Y WING TEMP</span></div></th>
+
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle40.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle60.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle80.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle100.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle120.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle140.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Tsapyt/tsapyt_angle160.png')">
+            <img src='./Plots/Tsapyt/tsapyt_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+
+
+
+
+
+
+
+
+</tr>
+</table>
+
+</body>
+</html>

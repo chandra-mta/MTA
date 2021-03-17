@@ -1,0 +1,15 @@
+
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+
+cd /data/mta/Script/HRC/Exc
+
+/data/mta/Script/HRC/Scripts/update_hrc_shield_and_temp_plot.py
+
+chmod 755      /data/mta/Script/HRC/* 
+chgrp mtagroup /data/mta/Script/HRC/*
+
+chmod 755      /data/mta_www/mta_hrc/Trending/*html
+chgrp mtagroup /data/mta_www/mta_hrc/Trending/*html
+
+chmod 755      /data/mta_www/mta_hrc/Trending/Plots/*
+chgrp mtagroup /data/mta_www/mta_hrc/Trending/Plots/*

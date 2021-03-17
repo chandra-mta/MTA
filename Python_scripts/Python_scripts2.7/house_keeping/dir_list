@@ -1,0 +1,4 @@
+'/data/mta/Script/Python_script2.7/'                           :mta_dir
+'/data/mta/Script/Python_script2.7/'                           :bin_dir
+'/data/mta/Script/Python_script2.7/house_keeping/'             :hosue_keeping
+'/data/mta/Script/Python_script2.7/house_keeping/Info_dir/'    :bindata_dir

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC Stowed Background</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC Stowed Background</h2>
+
+
+<h3>Description</h3>
+<p>
+Extract HRC stowed background data, create exposure maps, and compute statistics.
+It also creates HRC background maps.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc6/wilton/isobe/Project1/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                                 <th>Last Updated</th></tr>
+<tr><td>create_hrc_image_files.py</td>                   <td>Apr 14, 2016</td></tr>
+<tr><td>get_yearly_evt_count.py</td>                     <td>Jan 18, 2017</td></tr>
+<tr><td>hrc_nil_table.py</td>                            <td>Apr 14, 2016</td></tr>
+<tr><td>hrc_plotting_maps.py</td>                        <td>Jan 08, 2018</td></tr>
+<tr><td>hrc_plotting_routines.py</td>                    <td>Apr 14, 2016</td></tr>
+<tr><td>hrc_stowed_background.py</td>                    <td>Apr 15, 2016</td></tr>
+<tr><td>hrc_stowed_common_function.py</td>               <td>Jan 20, 2017</td></tr>
+<tr><td>run_hrc_process.py</td>                          <td>Apr 14, 2016</td></tr>
+<tr><td>run_hrc_stowed_background_monthly_update.py</td> <td>Jul 10, 2017</td></tr>
+<tr><td>run_next_in_line.py</td>                         <td>Apr 15, 2016</td></tr>
+<tr><td>update_hrc_html_page.py</td>                     <td>Jul 10, 2017</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project1/Scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Oct 17, 2017</th><td>Initially logged</td></tr>
+<tr><th>Jan 08, 2018</th><td>Plotting range updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+SQL database access
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+    /data/aschrc6/wilton/isobe/Project1/Data
+    <ul>
+        <li><yyy><MMM>  --- Monthly extracted data</li>
+        <li>Hrc_i_115   --- Yearly cumulative background data fits file for HRC I 115</li>
+        <li>Hrc_s_125   --- Yearly cumulative background data fits file for HRC S 125</li>
+        <li>Hrc_s_125_hi--- Yearly cumulative background data fits file for HRC S 125 High Precision</li>
+        <li>Stats       --- keep statistics output</li>
+    </ul>
+</li>
+<li>
+    /proj/web-cxc-dmz/htdocs/contrib/cxchrc/Stowed_study
+    <ul>
+        <li>Maps        --- exposure maps and histograms</li>
+        <li>Plots       --- trending plots</li>
+        <li>Yearly      --- yearly html page to display exposure maps</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+    cd to : cd /data/aschrc6/wilton/isobe/Project1/Exc
+</li>
+<li>
+    run:    data/aschrc6/wilton/isobe/Project1/Scripts/run_hrc_stowed_background_monthly_update.py
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+17 2 5 * * cd /data/aschrc6/wilton/isobe/Project1/Exc; /data/aschrc6/wilton/isobe/Project1/Scripts/run_hrc_stowed_background_monthly_update.py > /data/aschrc6/wilton/isobe/Project1/Exc/run_log 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+http://cxc.harvard.edu/contrib/cxchrc/Stowed_study/hrc_stowed_position_study.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+On  early Jan and Jul, you need to update the web page. If it is not done automatically, then
+<br />
+frun_hrc_stowed_background_monthly_update_special.py &lt;year&gt; &lt;month: either 6 or 12&gt;
+<br />
+get_yearly_evt_count.py
+<br />
+update_hrc_html_page.py
+
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Need to add several more proccesses.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

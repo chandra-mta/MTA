@@ -1,0 +1,92 @@
+#--------------------------------------------------------------------------
+#                        
+#  mta_monitor_cti.par:
+#       Parameter file for the MTA CTI monitoring pipeline
+#
+#--------------------------------------------------------------------------
+#
+rptdir,s,h,"))echo ${MTA_REPORT_DIR}",,,"Directory to build MTA report tree"
+simpos,i,h,250,,,"Expected SIM position for CTI observation"
+simtol,i,h,10,,,"Allowed Tolerence for SIM position"
+evt_threshold,i,h,2,,,"Lower limit to the number of events to process."
+simcheck,s,h,"yes",,,"Check SIM positional information"
+imgtype,s,h,"png",,,"Output Image Format (png|gif)"
+genrpt,b,h,yes,,,"Flag to skipping MTA CTI Report generation (0==skip reports)"
+undocti,b,h,yes,,,"Remove applied CTI correction? (yes|no)"
+revision,i,h,1,,,"Output product revision Id"
+clobber,b,h,yes,,,"Clobber existing output? (yes|no)"
+verbose,i,h,0,,,"Verbose level"
+#
+# MTA CTI Cold Radiator Temperature related parameters
+# 
+colname,s,h,"1CRAT",,,"Colname from which the Mean Cold Radiator Temp is determined"
+hdrkey,s,h,"CRADTEMP",,,"FITS Header keyword to store Cold Radiator Temp"
+qkproc,s,h,"yes",,,"Boolean flag signaling quick Cold Rad. Temp calculation"
+#
+# MTA CTI Monitoring specific parameters
+# 
+gfterms,i,h,6,,,"Terms to Gaussian Fit"
+chansmooth,i,h,5,,,"Channels smoothing window size"
+linetables,s,h,"Mn Ka",,,"Line to generate CTI tables [Mn Ka, Ti Ka,Al Ka]"
+timecalc,s,h,"TSTART",,,"Time for CTI values [TSTART,TSTOP,AVERAGE]"
+gradefilter,s,h,"-1",,,"Grades Exclusion Filter ([1], [1,5,7], etc.)"
+column,s,h,"PHAS",,,"Column used to generate Analysis Spectrum [pha, phas]"
+chipids,s,h,"I0|I1|I2|I3|S0|S1|S2|S3|S4|S5",,,"CCD ID's to process"
+ctiranges,s,h,"0.9-1.3|0.9-1.2|1.2-1.5|1.2-1.5|1.5-2.3|0.2-0.4|1.5-1.8|0.1-0.25|1.1-1.5|1.1-1.7",,,"CTI plot ranges for each chip"
+rebuildplots,s,h,"NO",,,"Generate plots by rebuilding the main datasets [NO|YES]"
+nodate,s,h,"NO",,,"Generate plots without date/time stamp [No|Yes]"
+domlabel,s,h,"yes",,,"Generate Time labels with Day of Mission style [NO|YES]"
+#
+# MTA CTI Monitoring HTML generation parameters
+#
+tablewidth,i,h,7,,,"Number of columns within Main CTI HTML table."
+email,s,h,"swolk@head-cfa.harvard.edu",,,"Email address for MTA Scientist"
+homepage,s,h,"http://asc.harvard.edu/mta/sot.html",,,"URL for SOT homepage"
+#
+#----------------------------------------------------------------------------------
+#
+#  PARAMETERS for acis_process_events:  Defined by a common MTA parameter file
+#     (mta_ape.par), but defined within all required pipelines to provided 
+#     common behavior with individual flexibility.
+#
+#----------------------------------------------------------------------------------
+acaofffile,f,h,")mta_ape.acaofffile",,,"aspect offset file ( NONE | none | <filename>)"
+apply_cti,b,h,")mta_ape.apply_cti",,,"Apply CTI adjustment?"
+apply_tgain,b,h,")mta_ape.apply_tgain",,,"Apply time-dependent gain adjustment?"
+alignmentfile,f,h,")mta_ape.alignmentfile",,,"sim/fam alignment file ( NONE | none | <filename>)"
+obsfile,f,h,")mta_ape.obsfile",,,"obs.par file for output file keywords ( NONE | none | <filename>)"
+geompar,f,h,")mta_ape.geompar",,,"Parameter file for Pixlib Geometry files"
+logfile,f,h,")mta_ape.logfile",,,"debug log file ( STDOUT | stdout | <filename>)"
+gradefile,f,h,")mta_ape.gradefile",,,"grade mapping file ( NONE | none | <filename>)"
+grade_image_file,f,h,")mta_ape.grade_image_file",,,"grade image file for cti correcting graded mode ( NONE | none | CALDB | <filename>)"
+gainfile,f,h,")mta_ape.gainfile",,,"acis gain file ( NONE | none | <filename>)"
+badpixfile,f,h,")mta_ape.badpixfile",,,"acis bad pixel file ( NONE | none | <filename>)"
+threshfile,f,h,")mta_ape.threshfile",,,"split threshold file ( NONE | none | <filename>)"
+ctifile,f,h,")mta_ape.ctifile",,,"ACIS CTI file ( NONE | none | CALDB | <filename>)"
+tgainfile,f,h,")mta_ape.tgainfile",,,"gain adjustment file ( NONE | none | CALDB | <filename>)"
+mtlfile,s,h,")mta_ape.mtlfile",,,"Mission time line file with FP_TEMP data"
+eventdef,s,h,")mta_ape.eventdef",,,"output format definition"
+doevtgrade,b,h,")mta_ape.doevtgrade",,,"Determine event flight grade?"
+check_vf_pha,b,h,")mta_ape.check_vf_pha",,,"Check very faint pixels?"
+calc_cc_times,b,h,")mta_ape.calc_cc_times",,,"Estimate the times of arrival for CC-mode observation?"
+trail,r,h,")mta_ape.trail",,,"Trail fraction"
+spthresh,i,h,")mta_ape.spthresh",0,4095,"Default split threshold level (overridden by values in threshfile)"
+time_offset,r,h,")mta_ape.time_offset",,,"Offset to add to event time field to synch w/ fam data"
+calculate_pi,b,h,")mta_ape.calculate_pi",,,"perform pha->pi conversion? (requires gain file)"
+pi_bin_width,r,h,")mta_ape.pi_bin_width",1,100,"Width of Pi bin in eV"
+pi_num_bins,i,h,")mta_ape.pi_num_bins",256,32767,"Number of values to bin energy into"
+max_cti_iter,i,h,")mta_ape.max_cti_iter",1,20,"Maximum iterations for the CTI adjustment of each event"
+cti_converge,r,h,")mta_ape.cti_converge",0.1,1,"The convergence criterion for each CTI-adjusted pixel in adu"
+tstart_key,s,h,")mta_ape.tstart",,,"header key containing start/default time value"
+tstop_key,s,h,")mta_ape.tstop",,,"header key containing time of last event"
+stop,s,h,")mta_ape.stop",,,"end transformations at [chip,tdet,det,tan,sky,none]"
+instrume,s,h,")mta_ape.instrume",,,"axaf instrument- used for instrument parameter file"
+rand_seed,i,h,")mta_ape.rand_seed",0,,"random seed (for pixlib), 0 = use time dependend seed"
+rand_pha,b,h,")mta_ape.rand_pha",,,"Randomize the pha value used in gain calculations"
+pix_adj,s,h,")mta_ape.pix_adj",EDSER|CENTROID|RANDOMIZE|NONE,,"Sub-pixel adjustment algorithm"
+subpixfile,f,h,")mta_ape.subpixfile",,,"Name of input sub-pixel calibration file"
+stdlev1,s,h,")mta_ape.stdlev1",,,"TE faint modes event definition string"
+grdlev1,s,h,")mta_ape.grdlev1",,,"TE graded event format definition string"
+cclev1,s,h,")mta_ape.cclev1",,,"CC faint event format definition string"
+ccgrdlev1,s,h,")mta_ape.ccgrdlev1",,,"cc graded event format definition string"
+mode,s,h,"ql",,,

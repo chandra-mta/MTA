@@ -1,0 +1,8 @@
+'/data/mta/Script/ACIS/Bad_pixels/Script/':		    bin_dir
+'/data/mta/MTA/data/':					            bdat_dir
+'/data/mta/www/mta_bad_pixel/':			            web_dir
+'/data/mta/Script/ACIS/Bad_pixels/Exc/':		    exc_dir
+'/data/mta/Script/ACIS/Bad_pixels//Data/':		    data_dir
+'/data/mta/Script/ACIS/Bad_pixels/house_keeping/':	house_keeping
+'/data/mta/Script/Python3.8/MTA/':			        mta_dir
+'/usr/local/bin/':					                op_dir

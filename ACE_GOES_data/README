@@ -1,0 +1,50 @@
+
+Update ACE/GOES data
+====================
+
+This set of script import ACE and GOES data from NOAA and extracts data.
+
+It also extracts ephsca.fits data and cti data. 
+
+Dir: /data/mta/Script/MTA_Rad/Scripts/
+
+See also: https://cxc.cfa.harvard.edu/mta_days/mta_script_list/MTA/ti_ace_goes.html
+
+Scripts 
+--------
+get_rad_wrap_script
+
+get_rad_main_script
+
+get_radiation_data.py   ---- the main script to do the work
+
+Data Needed
+------------
+for radiation:
+ftp.sec.noaa.gov/pub/lists/ace/*_ace_epam_5m.txt
+ftp.sec.noaa.gov/pub/lists/pchan/*_Gp_pchan_5m.txt
+
+for CTI data:
+/data/mta/Script/ACIS/CTI/Data/Det_Data_adjust/mn_ccd*
+
+for ephsca:
+the dataseeker will be used for this data.
+
+Output
+------
+
+/data/mta4/www/DAILY/mta_rad/ACE/*_ace_epam_5m.txt
+/data/mta4/www/DAILY/mta_rad/GOES/*_Gp_pchan_5m.txt
+
+/data/mta4/www/DAILY/mta_rad/ace_data.txt
+/data/mta4/www/DAILY/mta_rad/goes_data.txt
+
+/data/mta4/www/DAILY/mta_rad/ephsca.fits
+
+/data/mta4/www/DAILY/mta_rad/cti_data.txt
+
+Cron job (on c3po-v)
+----------------------
+17 6 * * *  cd /data/mta/Script/MTA_Rad/Exc/; /data/mta/Script/MTA_Rad/Scripts/get_rad_wrap_script >> $HOME/Logs/get_radiation_data.cron 2>&1
+
+

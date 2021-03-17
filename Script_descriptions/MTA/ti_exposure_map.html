@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Exposure Map</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Exposure Map</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This sets of scripts extract ACIs and HRC exposure dose data, computes stat, creates maps, and trend plots. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: <br />
+/data/mta/Script/Exposure/Scripts/ACIS_Scripts
+<br />
+/data/mta/Script/Exposure/Scripts/HRC_Scripts
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Max_exposure
+</p>
+
+
+<table border=0>
+<tr><td colspan=2><u><em>First Directory</em></u></td></tr>
+<tr><td>acis_dose_wrap_script</td>               <td>Aug 02, 2012</td></tr>
+<tr><td>acis_dose_main_script</td>               <td>Jul 06, 2015</td></tr>
+<tr><td>acis_dose_wrap_script_test</td>          <td>Mar 12, 2013</td></tr>
+<tr><td>acis_dose_main_script_test</td>          <td>Jun 11, 2013</td></tr>
+<tr><td>acis_dose_control.py</td>                <td>Mar 03, 2016</td></tr>
+<tr><td>acis_dose_control_step.py</td>           <td>Nov 04, 2013</td></tr>
+<tr><td>acis_dose_get_data.py</td>               <td>Jul 05, 2016</td></tr>
+<tr><td>acis_create_cumulative.py</td>           <td>Dec 03, 2014</td></tr>
+<tr><td>acis_compute_stat.py</td>                <td>Dec 03, 2014</td></tr>
+<tr><td>acis_dose_plot_exposure_stat.py</td>     <td>Mar 03, 2016</td></tr>
+<tr><td>acis_dose_create_image.py</td>           <td>Dec 03, 2014</td></tr>
+<tr><td>acis_dose_make_data_html.py</td>         <td>Nov 04, 2014</td></tr>
+<tr><td>clip_at_nth.py</td>                      <td>Dec 03, 2013</td></tr>
+<tr><td>exposureFunctions.py</td>                <td>Mar 03, 2016</td></tr>
+<tr><td colspan=2><u><em>Second Directory</em></u></td></tr>
+<tr><td>hrc_dose_wrap_script</td>                <td>Jun 10, 2012</td></tr>
+<tr><td>hrc_dose_main_script</td>                <td>Jul 06, 2015</td></tr>
+<tr><td>hrc_dose_wrap_script_test</td>           <td>Mar 13, 2013</td></tr>
+<tr><td>hrc_dose_main_script_test</td>           <td>Jun 11, 2013</td></tr>
+<tr><td>hrc_dose_run.py</td>                     <td>Nov 04, 2014</td></tr>
+<tr><td>hrc_dose_control_step.py</td>            <td>Nov 04, 2014</td></tr>
+<tr><td>hrc_dose_get_data_full_rage.py</td>      <td>Jul 05, 2014</td></tr>
+<tr><td>hrc_dose_extract_stat_data_month.py</td> <td>Dec 03, 2014</td></tr>
+<tr><td>hrc_dose_plot_exposure_stat.py</td>      <td>Jul 06, 2015</td></tr>
+<tr><td>hrc_dose_create_image.py</td>            <td>Nov 04, 2013</td></tr>
+<tr><td>hrc_dose_make_data_html.py</td>          <td>Nov 04, 2014</td></tr>
+<tr><td>hrc_dose_plot_monthly_report.py</td>     <td>Nov 04, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Exposure/Scripts/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+<tr><th>Nov 04, 2014</th><td>Environmental setting change </td></tr>
+<tr><th>Dec 03, 2014</th><td>Environmental setting change, again --- only internal ascds setting reqiured </td></tr>
+<tr><th>Jul 06, 2015</th><td>Plotting bug under python addressed</td></tr>
+<tr><th>Mar 03, 2016</th><td>python ascds setting: added param clear command</td></tr>
+<tr><th>Jul 05, 2016</th><td>arc4gl was replaced by arc5gl</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+acis evt1 fits files extracted using arc5gl
+</li>
+<li>
+hrc evt1 fits files extracted using arc5gl
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_max_exp/Month/
+    <ul>
+    <li> ACIS_#month$_#year$.fits.gz </li>
+    <li> ACIS_#month$_#year$_#pos$.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/Cumlative/
+    <ul>
+    <li> ACIS_07_1999_#month$_#year$.fits.gz </li>
+    <li> ACIS_07_1999_#month$_#year$_#pos$.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/Month_hrc/
+    <ul>
+    <li> HRCI_#month$_#year$.fits.gz </li>
+    <li> HRCS_#month$_#year$.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/Cumlative_hrc/
+    <ul>
+    <li> HRCI_08_1999_#month$_#year$.fits.gz </li>
+    <li> HRCS_08_1999_#month$_#year$.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mays/MTA/Exposure/Hrc/Month_hrc/
+    <ul>
+    <li> HRCI_#month$_#year$_#section$.fits.gz </li>
+    <li> HRCS_#month$_#year$_#section$.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mays/MTA/Exposure/Hrc/Cumulative_hrc/
+    <ul>
+    <li> HRCI_08_1999_#month$_#year$_#section$.fits.gz </li>
+    <li> HRCS_08_1999_#month$_#year$_#section$.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/HRC/Data/
+    <ul>
+    <li>i_#ccd$_n_#section$_dff_out  </li>
+    <li>i_#ccd$_n_#section$_acc_out  </li>
+    <li>hrci_dff_out, hrci_acc_out   </li>
+    <li>hrcs_dff_out, hrcs_acc_out   </li>
+    <li>hrci_#section$_dff           </li>
+    <li>hrci_#section$_acc           </li>
+    <li>hrcs_#section$_dff           </li>
+    <li>hrcs_#section$_acc           </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/Plots/
+    <ul>
+    <li>i_#ccd$_n_#section$.png  </li>
+    <li>i_#ccd$_n_#section$.png  </li>
+    <li>hrci.png   </li>
+    <li>hrcs.png   </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/Images/
+    <ul>
+    <li> ACIS_#month$_#year$.png </li>
+    <li> ACIS_#month$_#year$_#pos$.png </li>
+    <li> ACIS_07_1999_#month$_#year$.png </li>
+    <li> ACIS_07_1999_#month$_#year$_#pos$.png </li>
+    <li> HRCI_#month$_#year$.png </li>
+    <li> HRCS_#month$_#year$.png </li>
+    <li> HRCI_08_1999_#month$_#year$.png </li>
+    <li> HRCS_08_1999_#month$_#year$.png </li>
+    <li> hrc_max_exp.png </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_max_exp/HRC/Plots/
+    <ul>
+    <li>hrci_#section$.png           </li>
+    <li>hrci_#section$.png           </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Exposure/Exc
+</li>
+<li>
+run:    /data/mta/Script/Exposure/Scripts/ACIS_Scripts/acis_dose_wrap_script 
+</li>
+<li>
+go to: cd /data/mta/Script/Exposure/Exc_h
+</li>
+<li>
+run:   /data/mta/Script/Exposure/Scripts/HRC_Scripts/hrc_dose_wrap_script
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Exposure/Exc
+</li>
+<li>
+run:    /data/mta/Script/Exposure/Scripts/ACIS_Scripts/acis_dose_wrap_script_test
+</li>
+<li>
+go to: cd /data/mta/Script/Exposure/Exc_h
+</li>
+<li>
+run:   /data/mta/Script/Exposure/Scripts/HRC_Scripts/hrc_dose_wrap_script_test
+</li>
+
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results are saved in /data/mta/Script/Exposure/Test_out/. Compare the output to thoese in /data/mta/Script/Exposure/Test_output/.
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 1 3 * * cd /data/mta/Script/Exposure/Exc; /data/mta/Script/Exposure/Scripts/ACIS_Scripts/acis_dose_wrap_script >> $HOME/Logs/max_exp_acis.cron 2>&1
+<br />
+0 1 3 * * cd /data/mta/Script/Exposure/Exc_h; /data/mta/Script/Exposure/Scripts/HRC_Scripts/hrc_dose_wrap_script >> $HOME/Logs/max_exp_hrc.cron 2>&1
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/'>
+https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Convert the test to automatic testing format.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

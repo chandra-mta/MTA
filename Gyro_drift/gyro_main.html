@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>Gyro Drift Rate and Grating Motion</title></head>
+    <script type="text/javascript">
+        function WindowOpener(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=600,resize=no");
+            if (msgWindow) {
+            window.msgWindow.close();
+            }
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=800,height=350,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Gyro Drift Trend</title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./Trending_plots/" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+
+        function WindowOpener2(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=600,resize=no");
+            if (msgWindow) {
+            window.msgWindow.close();
+            }
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=600,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Gyro Drift Trend</title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=600, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+    </script>
+</head>
+
+
+<body style="background-color:#FAEBD7; font-family:Georgia, "Times New Roman", Times, serif">
+
+
+<h2>Grating Motion and Gyro Drift Rate Monitoring</h2>
+
+
+<div style='float:right;width:250px;padding-left:8px;'>
+<a  href="javascript:WindowOpener2('./Individual_plots/HETG_INSR/480571034/gyro_drift_roll.png')">
+<img src='Individual_plots/HETG_INSR/480571034/gyro_drift_roll.png' style='float:right;width:250px;'>
+</a>
+
+<p style='text-align:center;font-size:80%;'>Example: Model Fitting on Roll Gyro Drift</p>
+
+<a  href="javascript:WindowOpener2('./Individual_plots/HETG_INSR/480571034/deviation_roll.png')">
+<img src='Individual_plots/HETG_INSR/480571034/deviation_roll.png' style='float:right;width:250px;'>
+</a>
+
+<p style='text-align:center;font-size:80%;'>Example: Data - Model of Roll Gyro Drift</p>
+
+
+
+
+</div>
+
+<p>
+On this page, the effect of a grating motion on the stability of the spacecraft are trended.
+The following steps are taken to produce the trending plots.
+</p>
+
+<ul>
+<li> Find the grating is moving from /data/mta_www/mta_otg/OTG_filtered.rdb.</li>
+<li> Selet occasions in which the movement last less than 100 seconds.</li>
+<li> Extract AOGBIAS1, AOGBIAS2, AOGBIAS3 data around the time when the grating is in motion.</li>
+<li> Fit a polynomial line (5th degree)  on these data.</li>
+<li> Take the differences between the fitted line and data points of before, during, and after 
+     of each grating motion. </li>
+<li> Compute the standard deviations of before, during, and after the grating motion.</li>
+</ul>
+
+<p>
+The assumption is that there is a large variation which is not related to the grating motion. 
+If we remove that part, the residuals are due to the grating movements. If the residuals and/or 
+variations of the residuals are significantly different among before, during, and after periods, 
+it indicates that the grating motion affects the stability of the spacecraft.  Farther, if the 
+sizes of standard deviations change with time, it indicates that the effects of grating motion 
+on the spacecraft changes with time.
+</p>
+
+<p>
+Following plots show the time trend of:
+</p>
+<table border=0>
+<tr>
+<td>Row 1:</td><td>Standard Deviation during the grating in motion</td>
+<!--
+<td rowspan=4 width=25%><img src='./Individual_plots/HETG_INSR/480571034/gyro_drift_roll.png' width=90%'></td>
+-->
+</tr>
+<tr><td>Row 2:</td><td>Ratio of standard deviations of before and during the grating in motion</td</tr>
+<tr><td>Row 3:</td><td>Ratio of standard deviations of after and during the grating in motion</td</tr>
+<tr><td>Row 4:</td><td>Ratio of standard deviations of before and after the grating in motion</td</tr>
+</table>
+
+<p style='padding-bottom:20px;'>
+The red lines are the top and bottom envelopes and the center moving average.
+</p>
+
+<hr />
+
+<h3>Roll</h3>
+
+<table border=0 style='margin-left:auto;margin-right:auto;'>
+<tr>
+    <th>&#160;</th>
+    <th colspan=2>HETG</th>
+    <th colspan=2>LETG</th>
+</tr>
+<tr>
+    <th style='width:8%;'>&#160;</th>
+    <th style='width:19%;'>Insertion</th>
+    <th style='width:19%;'>Retraction</th>
+    <th style='width:19%;'>Insertion</th>
+    <th style='width:19%;'>Retraction</th>
+</tr>
+<tr>
+    <th>STD Druing Motion</th>
+    <td><a href="javascript:WindowOpener('roll_hetg_insr_during.png')">
+        <img src='./Trending_plots/roll_hetg_insr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_hetg_retr_during.png')">
+        <img src='./Trending_plots/roll_hetg_retr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_insr_during.png')">
+        <img src='./Trending_plots/roll_letg_insr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_retr_during.png')">
+        <img src='./Trending_plots/roll_letg_retr_during.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+<th colspan=4>&#160;</th>
+</tr>
+<tr>
+    <th>STD Before<br /> / During Ratio</th>
+    <td><a href="javascript:WindowOpener('roll_hetg_insr_bd_ratio.png')">
+        <img src='./Trending_plots/roll_hetg_insr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_hetg_retr_bd_ratio.png')">
+        <img src='./Trending_plots/roll_hetg_retr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_insr_bd_ratio.png')">
+        <img src='./Trending_plots/roll_letg_insr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_retr_bd_ratio.png')">
+        <img src='./Trending_plots/roll_letg_retr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+    <th>STD <br /> After<br /> / During Ratio</th>
+    <td><a href="javascript:WindowOpener('roll_hetg_insr_ad_ratio.png')">
+        <img src='./Trending_plots/roll_hetg_insr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_hetg_retr_ad_ratio.png')">
+        <img src='./Trending_plots/roll_hetg_retr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_insr_ad_ratio.png')">
+        <img src='./Trending_plots/roll_letg_insr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_retr_ad_ratio.png')">
+        <img src='./Trending_plots/roll_letg_retr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+    <th>STD Before<br /> / After Ratio</th>
+    <td><a href="javascript:WindowOpener('roll_hetg_insr_ba_ratio.png')">
+        <img src='./Trending_plots/roll_hetg_insr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_hetg_retr_ba_ratio.png')">
+        <img src='./Trending_plots/roll_hetg_retr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_insr_ba_ratio.png')">
+        <img src='./Trending_plots/roll_letg_insr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('roll_letg_retr_ba_ratio.png')">
+        <img src='./Trending_plots/roll_letg_retr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+</table>
+
+<p>
+If you like to see a fit on the individual movement data, please go to: 
+</p>
+<ul>
+    <li><a href="Individual_plots/HETG_INSR/roll_hetg_insr.html">HETG Insertion </a></li>
+    <li><a href="Individual_plots/HETG_RETR/roll_hetg_retr.html">HETG Retraction </a></li>
+    <li><a href="Individual_plots/LETG_INSR/roll_letg_insr.html">LETG Insertion </a></li>
+    <li><a href="Individual_plots/LETG_RETR/roll_letg_retr.html">LETG Retraction </a></li>
+</ul>
+
+
+
+
+
+
+<div style='padding-top:20px;padding-bottom:10x;'>
+<hr />
+</div>
+<h3>Pitch</h3>
+
+<table border=0 style='margin-left:auto;margin-right:auto;'>
+<tr>
+    <th>&#160;</th>
+    <th colspan=2>HETG</th>
+    <th colspan=2>LETG</th>
+</tr>
+<tr>
+    <th style='width:8%;'>&#160;</th>
+    <th style='width:19%;'>Insertion</th>
+    <th style='width:19%;'>Retraction</th>
+    <th style='width:19%;'>Insertion</th>
+    <th style='width:19%;'>Retraction</th>
+</tr>
+<tr>
+    <th>STD Druing Motion</th>
+    <td><a href="javascript:WindowOpener('pitch_hetg_insr_during.png')">
+        <img src='./Trending_plots/pitch_hetg_insr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_hetg_retr_during.png')">
+        <img src='./Trending_plots/pitch_hetg_retr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_insr_during.png')">
+        <img src='./Trending_plots/pitch_letg_insr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_retr_during.png')">
+        <img src='./Trending_plots/pitch_letg_retr_during.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+<th colspan=4>&#160;</th>
+</tr>
+<tr>
+    <th>STD Before<br /> / During Ratio</th>
+    <td><a href="javascript:WindowOpener('pitch_hetg_insr_bd_ratio.png')">
+        <img src='./Trending_plots/pitch_hetg_insr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_hetg_retr_bd_ratio.png')">
+        <img src='./Trending_plots/pitch_hetg_retr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_insr_bd_ratio.png')">
+        <img src='./Trending_plots/pitch_letg_insr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_retr_bd_ratio.png')">
+        <img src='./Trending_plots/pitch_letg_retr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+    <th>STD <br /> After<br /> / During Ratio</th>
+    <td><a href="javascript:WindowOpener('pitch_hetg_insr_ad_ratio.png')">
+        <img src='./Trending_plots/pitch_hetg_insr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_hetg_retr_ad_ratio.png')">
+        <img src='./Trending_plots/pitch_hetg_retr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_insr_ad_ratio.png')">
+        <img src='./Trending_plots/pitch_letg_insr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_retr_ad_ratio.png')">
+        <img src='./Trending_plots/pitch_letg_retr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+    <th>STD Before<br /> / After Ratio</th>
+    <td><a href="javascript:WindowOpener('pitch_hetg_insr_ba_ratio.png')">
+        <img src='./Trending_plots/pitch_hetg_insr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_hetg_retr_ba_ratio.png')">
+        <img src='./Trending_plots/pitch_hetg_retr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_insr_ba_ratio.png')">
+        <img src='./Trending_plots/pitch_letg_insr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('pitch_letg_retr_ba_ratio.png')">
+        <img src='./Trending_plots/pitch_letg_retr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+</table>
+
+<p>
+If you like to see a fit on the individual movement data, please go to: 
+</p>
+<ul>
+    <li><a href="Individual_plots/HETG_INSR/pitch_hetg_insr.html">HETG Insertion </a></li>
+    <li><a href="Individual_plots/HETG_RETR/pitch_hetg_retr.html">HETG Retraction </a></li>
+    <li><a href="Individual_plots/LETG_INSR/pitch_letg_insr.html">LETG Insertion </a></li>
+    <li><a href="Individual_plots/LETG_RETR/pitch_letg_retr.html">LETG Retraction </a></li>
+</ul>
+
+
+
+<div style='padding-top:20px;padding-bottom:10x;'>
+<hr />
+</div>
+<h3>Yaw</h3>
+
+
+<table border=0 style='margin-left:auto;margin-right:auto;'>
+<tr>
+    <th>&#160;</th>
+    <th colspan=2>HETG</th>
+    <th colspan=2>LETG</th>
+</tr>
+<tr>
+    <th style='width:8%;'>&#160;</th>
+    <th style='width:19%;'>Insertion</th>
+    <th style='width:19%;'>Retraction</th>
+    <th style='width:19%;'>Insertion</th>
+    <th style='width:19%;'>Retraction</th>
+</tr>
+<tr>
+    <th>STD Druing Motion</th>
+    <td><a href="javascript:WindowOpener('yaw_hetg_insr_during.png')">
+        <img src='./Trending_plots/yaw_hetg_insr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_hetg_retr_during.png')">
+        <img src='./Trending_plots/yaw_hetg_retr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_insr_during.png')">
+        <img src='./Trending_plots/yaw_letg_insr_during.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_retr_during.png')">
+        <img src='./Trending_plots/yaw_letg_retr_during.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+<th colspan=4>&#160;</th>
+</tr>
+<tr>
+    <th>STD Before<br /> / During Ratio</th>
+    <td><a href="javascript:WindowOpener('yaw_hetg_insr_bd_ratio.png')">
+        <img src='./Trending_plots/yaw_hetg_insr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_hetg_retr_bd_ratio.png')">
+        <img src='./Trending_plots/yaw_hetg_retr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_insr_bd_ratio.png')">
+        <img src='./Trending_plots/yaw_letg_insr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_retr_bd_ratio.png')">
+        <img src='./Trending_plots/yaw_letg_retr_bd_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+    <th>STD <br /> After<br /> / During Ratio</th>
+    <td><a href="javascript:WindowOpener('yaw_hetg_insr_ad_ratio.png')">
+        <img src='./Trending_plots/yaw_hetg_insr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_hetg_retr_ad_ratio.png')">
+        <img src='./Trending_plots/yaw_hetg_retr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_insr_ad_ratio.png')">
+        <img src='./Trending_plots/yaw_letg_insr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_retr_ad_ratio.png')">
+        <img src='./Trending_plots/yaw_letg_retr_ad_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+<tr>
+    <th>STD Before<br /> / After Ratio</th>
+    <td><a href="javascript:WindowOpener('yaw_hetg_insr_ba_ratio.png')">
+        <img src='./Trending_plots/yaw_hetg_insr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_hetg_retr_ba_ratio.png')">
+        <img src='./Trending_plots/yaw_hetg_retr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_insr_ba_ratio.png')">
+        <img src='./Trending_plots/yaw_letg_insr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+    <td><a href="javascript:WindowOpener('yaw_letg_retr_ba_ratio.png')">
+        <img src='./Trending_plots/yaw_letg_retr_ba_ratio.png' style='width:95%;'></a>
+    </td>
+</tr>
+</table>
+
+<p>
+If you like to see a fit on the individual movement data, please go to: 
+</p>
+<ul>
+    <li><a href="Individual_plots/HETG_INSR/yaw_hetg_insr.html">HETG Insertion </a></li>
+    <li><a href="Individual_plots/HETG_RETR/yaw_hetg_retr.html">HETG Retraction </a></li>
+    <li><a href="Individual_plots/LETG_INSR/yaw_letg_insr.html">LETG Insertion </a></li>
+    <li><a href="Individual_plots/LETG_RETR/yaw_letg_retr.html">LETG Retraction </a></li>
+</ul>
+
+
+
+<div style='padding-bottom:20px;'>
+</div>
+
+<hr />
+</P>
+If you have any question about this page, please contact:
+<a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+<p>
+    <em>Last Modified: Jul 12, 2018</em>
+</p>

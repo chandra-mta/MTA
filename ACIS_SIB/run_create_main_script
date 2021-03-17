@@ -1,0 +1,7 @@
+cd /data/mta/Script/ACIS/SIB/Correct_excess/
+
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages/"
+
+/data/mta/Script/ACIS/SIB/Scripts/create_sib_data.py
+/data/mta/Script/ACIS/SIB/Scripts/ccd_comb_plot.py
+

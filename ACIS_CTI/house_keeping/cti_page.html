@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<style>
+    td{padding:5px}
+    th{padding:5px; text-align:center}
+    body{
+        background-color:#FFEBCD;
+        color:   black;
+        font-size:   11pt;
+        text-align:  justify;
+        margin:  20px;
+        padding: 10px;
+    }
+</style>
+
+<title> ACIS CTI  Plots </title>
+
+<script language="JavaScript">
+	function MyWindowOpener(imgname) {
+		msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=900,height=1100,resize=yes");
+		msgWindow.document.close();
+		msgWindow.document.write("<html><head><title>CTI plot:   "+imgname+"</title></head>");
+		msgWindow.document.write("<body bgcolor='white'>");
+		//msgWindow.document.write("<img src='/mta_days/mta_cti_test/"+imgname+"' border=0 width=800 height=1000></body></html>");
+		msgWindow.document.write("<img src='./"+imgname+"' border=0 width=800 height=1000></body></html>");
+		msgWindow.focus();
+	}
+	function MyWindowOpener2(imgname) {
+		msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=900,height=1100,resize=yes");
+		msgWindow.document.close();
+		msgWindow.document.write("<html><head><title>CTI plot:   "+imgname+"</title></head>");
+		msgWindow.document.write("<body bgcolor='white'>");
+		//msgWindow.document.write("<img src='/mta_days/mta_cti_test/"+imgname+"' border=0 width=800 height=800></body></html>");
+		msgWindow.document.write("<img src='./"+imgname+"' border=0 width=800 height=800></body></html>");
+		msgWindow.focus();
+	}
+	function MyWindowOpener3(imgname) {
+		msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=900,height=1100,resize=yes");
+		msgWindow.document.close();
+		msgWindow.document.write("<html><head><title>CTI plot:   "+imgname+"</title></head>");
+		msgWindow.document.write("<body bgcolor='white'>");
+		//msgWindow.document.write("<img src='/mta_days/mta_cti_test/"+imgname+"' border=0 width=800 height=400></body></html>");
+		msgWindow.document.write("<img src='./"+imgname+"' border=0 width=800 height=400></body></html>");
+		msgWindow.focus();
+	}
+</script>
+</head>
+
+<body style='background-color:#FFEBCD;'>
+
+<h1>ACIS CTI Plots</h1>
+
+<div style='float:right;padding-left:20px'>
+<table border=1>
+<tr><td>
+<!--<h3>OUTLINE</h3> -->
+<ul>
+<li> <a href="#plot0"> Mean CTI Plots</a></li>
+<li> <a href="#plot1">CCD CTI Plots (Mn K&alpha;)</a></li>
+<li> <a href="#detrended">Detrended CTI Plots (Mn K&alpha;)</a></li>
+<li> <a href="#other_cti">CTI computed from Al K&alpha; & Ti K&alpha;</a></li>
+<li> <a href="#fittings">Trend Line Fitting Results</a></li>
+<li> <a href="#ascii_data">ASCII Data</a></li>
+<li> <a href="#correction_factor">Correction Factors for Temperature Adjusted Plot </a></li>
+<li> <a href="#how_to">How CTI are computed?</a></li>
+<li> <a href='#memo'>Related Memos</a></li>
+</td></tr>
+</table>
+</div>
+<p style='padding-top: 10px;padding-bottom:20px;padding-right:20px'>
+<b>
+Charge Transfer In-efficiencies (CTIs) of ACIS CCDs are graudually changing with time, and it is essential to know
+how the degradation progresses. Since CTI are strongly depending on focal temperature, to see the degradation, it is better
+to remove the temperature dependency of CTI observations.
+
+MIT/ACIS team suggested that there is a (close to) linear relation between a focal plane temperature and CTI, and
+the CTI temperature dependency can be easily corrected (MIT ACIS Memo #204). Related memos and detail analysis can be 
+found at <a href='http://space.mit.edu/~cgrant/cti/cti120.html'>ACIS CTI @-120C</a> page maintained by Catherine E. Grant at MIT.
+</b>
+</p>
+</ul>
+
+<h3><a name='plot0'>Mean CTI Plots</a></h3>
+<p style='padding-left:20px; padding-right:20px'>
+The following three plots show time trends of monthly averaged CTI of imaging CCDs, spectral CCDS, and backside illuminated CCDs 
+computed using <em>Mn K<sub>&alpha;</sub></em> line. CTIs are averaged over four quadrants of each CCD.  
+The CTI values used here are corrected for  temperature dependency and detrended (see <a href="#how_to">How CTI are computed?</a>),
+except those for the backside illuminated CCDs. The latters are temeprature dependency corrected, but not detrended. 
+<b>To see a full size plot, please click the plot</b>.
+</p>
+
+<table boder = 0>
+<tr>
+<th> Imaging CCDs</th><th>Spectral CCDs</th>
+</tr>
+<tr>
+<td>
+<a href="javascript:MyWindowOpener2('./Main_Plot/cti_avg_acis_i.png')">
+<img alt="detrended fit example" SRC="./Main_Plot/cti_avg_acis_i.png" style='width:100%'>
+</a>
+</td>
+<td>
+<a href="javascript:MyWindowOpener2('./Main_Plot/cti_avg_acis_s.png')">
+<img alt="detrended fit example" SRC="./Main_Plot/cti_avg_acis_s.png" style='width:100%'>
+</a>
+</td>
+</tr>
+<tr>
+<th colspan=2>Back Side CCDs</th>
+</tr>
+<tr>
+<td colspan=2 style='text-align:center'>
+<a href="javascript:MyWindowOpener3('./Main_Plot/cti_avg_acis_bi.png')">
+<img alt="detrended fit example" SRC="./Main_Plot/cti_avg_acis_bi.png" style='width:50%'>
+</a>
+</td>
+</tr>
+</table>
+
+
+
+
+<hr />
+
+<h3><a name="plot1">Individual CCD/Quad CTI Plots</a></h3>
+
+
+<p style='padding-left:20px; padding-right:20px'>
+The following table lists links to individual CCD/Quad CTI trend plots computed using <em><strong>Mn K<sub>&alpha;</sub></strong></em> line. 
+Each page shows five different CTI trend plots. From the top to the bottom, they are:
+</p>
+<ul style='padding-left:60px; padding-right:80px;padding-top:10px;padding-bottom:10px;font-weight:bold;font-size:90%;line-height:120%'>
+<li>Un-corrected cases with an integration time > 2000 sec </li>
+
+<li>The focal temperature &#8804 -119.7 C  cases with an integration time > 2000 sec </li>
+
+<li>The focal temperature &#8804 -119.7 C  with an integration time > 7000 sec</li>
+
+<li>Newly computed  temperature dependency corrected cases with an integration time > 2000 sec </li>
+
+<li>MIT/ACIS temperature dependency corrected cases with an integration time > 2000 sec </li>
+</ul>
+<p style='padding-left:20px; padding-right:20px'>
+The third case is the <em><strong>cleanest estimation</strong></em>, but we lose many data points, especially after year 2012. 
+The fourth/fifth cases keep all data points, but they may introduce errors from temperature corrections.
+Two trending lines are fitted on each plot. The dividing point are slightly different from that of the combined data.
+For the imaging  and the spectral CCDs, the division point is year 2011 and year 2009 for the backsdie CCDs.
+</p>
+
+<p style='padding-left:20px; padding-right:20px'>
+CTI data are far more scattered after year 2012 and extreme data points are dropped  before fitting the trending lines.
+These scatters were introduced because less and less time, the focal tempearture stays at or around 119.7C and fractuates widely.
+<!--
+The division points of the trends are not clear as those of the combined CTI trends, especially those in <em>Al K alpha</em> data.
+-->
+</p>
+
+<div style='padding-left:140px;text-align:center'>
+<table border = 1 style='border-spacing: 3px; '>
+<tr>
+<th>CCD0</th><th>CCD1</th><th>CCD2</th><th>CCD3</th><th>CCD4</th>
+<th>CCD5</th><th>CCD6</th><th>CCD7</th><th>CCD8</th><th>CCD9</th>
+</tr>
+
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd0_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd1_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd2_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd3_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd4_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd5_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd6_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd7_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd8_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd9_quad0_plot.png')">Quad0</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/imaging_mn_plot.png')">Imaging</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd0_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd1_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd2_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd3_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd4_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd5_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd6_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd7_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd8_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd9_quad1_plot.png')">Quad1</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/spectral_mn_plot.png')">Spectral</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd0_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd1_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd2_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd3_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd4_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd5_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd6_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd7_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd8_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd9_quad2_plot.png')">Quad2</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/backside_5_mn_plot.png')">BI 5</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd0_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd1_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd2_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd3_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd4_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd5_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd6_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd7_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd8_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/mn_ccd9_quad3_plot.png')">Quad3</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/backside_5_mn_plot.png')">BI 5</a></td>-->
+</tr>
+</table>
+</div>
+
+
+<h4><a name="detrended">Detrended CTI Plots</a></h4>
+<p>
+The following table shows the links to individual CCD/Quad plots similar to above, but the data are detrended by dtracning drop amp effect. 
+See <a href="#how_to"><em>How CTI are computed?</em></a> section  for details. Backside Illuminated CCDs 5 and 7 are not detrended and
+not included.
+</p>
+
+<div style='padding-left:140px;'>
+<table border = 1 style='border-spacing: 3px;'>
+<tr>
+<th>CCD0</th><th>CCD1</th><th>CCD2</th><th>CCD3</th><th>CCD4</th>
+<th>CCD5</th><th>CCD6</th><th>CCD7</th><th>CCD8</th><th>CCD9</th>
+<!--<th>Combined</td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd0_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd1_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd2_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd3_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd4_quad0_plot.png')">Quad0</a></td>
+<td>Quad0</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd6_quad0_plot.png')">Quad0</a></td>
+<td>Quad0</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd8_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd9_quad0_plot.png')">Quad0</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Det_Plot/imaging_mn_plot.png')">Imaging</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd0_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd1_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd2_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd3_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd4_quad1_plot.png')">Quad1</a></td>
+<td>Quad1</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd6_quad1_plot.png')">Quad1</a></td>
+<td>Quad1</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd8_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd9_quad1_plot.png')">Quad1</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Det_Plot/spectral_mn_plot.png')">Spectral</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd0_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd1_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd2_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd3_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd4_quad2_plot.png')">Quad2</a></td>
+<td>Quad2</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd6_quad2_plot.png')">Quad2</a></td>
+<td>Quad2</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd8_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd9_quad2_plot.png')">Quad2</a></td>
+<!--<td>&#160</td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd0_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd1_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd2_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd3_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd4_quad3_plot.png')">Quad3</a></td>
+<td>Quad3</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd6_quad3_plot.png')">Quad3</a></td>
+<td>Quad3</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd8_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/mn_ccd9_quad3_plot.png')">Quad3</a></td>
+<!--<td>&#160</td>-->
+</tr>
+</table>
+</div>
+
+<div style='padding-bottom:20px'>
+</div>
+
+<hr />
+
+<h3 style='padding-top:40px'><a name="other_cti">CTI based on <em>Al K<sub>&alpha;</sub></em> and <em>Ti K<sub>&alpha;</sub></em></a></h3>
+
+<p style='padding-top:20px; padding-bottom:20px'>
+Although they are not clean as CTI computed from <em>Mn K<sub>&alpha;</sub></em> line, we also computed CTI based on <em>Al K<sub>&alpha;</sub></em>
+and <em>Ti K<sub>&alpha;</sub></em>.
+</p>
+
+<div style='padding-left:80px'>
+<table border = 1 style='border-spacing: 3px; '>
+<tr>
+<th>Line</th>
+<th>CCD0</th><th>CCD1</th><th>CCD2</th><th>CCD3</th><th>CCD4</th>
+<th>CCD5</th><th>CCD6</th><th>CCD7</th><th>CCD8</th><th>CCD9</th>
+<!--<th>Combined</th>-->
+</tr>
+
+<tr>
+<th rowspan=4  style='color:black; font-size:90%'>Al K alpha</font></th>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd0_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd1_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd2_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd3_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd4_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd5_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd6_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd7_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd8_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd9_quad0_plot.png')">Quad0</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/imaging_al_plot.png')">Imaging</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd0_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd1_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd2_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd3_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd4_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd5_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd6_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd7_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd8_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd9_quad1_plot.png')">Quad1</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/spectral_al_plot.png')">Spectral</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd0_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd1_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd2_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd3_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd4_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd5_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd6_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd7_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd8_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd9_quad2_plot.png')">Quad2</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/backside_5_al_plot.png')">BI 5</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd0_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd1_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd2_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd3_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd4_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd5_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd6_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd7_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd8_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/al_ccd9_quad3_plot.png')">Quad3</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/backside_7_al_plot.png')">BI 7</a></td>-->
+</tr>
+<tr>
+<td colspan=12>&#160</td>
+</tr>
+<tr>
+<th>Line</th>
+<th>CCD0</th><th>CCD1</th><th>CCD2</th><th>CCD3</th><th>CCD4</th>
+<th>CCD5</th><th>CCD6</th><th>CCD7</th><th>CCD8</th><th>CCD9</th>
+<!--<th>Combined</th>-->
+</tr>
+
+<tr>
+<th rowspan=4  style='color:black; font-size:90%'>Ti K alpha</font></th>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd0_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd1_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd2_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd3_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd4_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd5_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd6_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd7_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd8_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd9_quad0_plot.png')">Quad0</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/imaging_ti_plot.png')">Imaging</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd0_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd1_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd2_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd3_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd4_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd5_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd6_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd7_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd8_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd9_quad1_plot.png')">Quad1</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/spectral_ti_plot.png')">Spectral</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd0_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd1_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd2_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd3_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd4_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd5_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd6_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd7_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd8_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd9_quad2_plot.png')">Quad2</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/backside_5_ti_plot.png')">BI 5</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd0_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd1_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd2_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd3_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd4_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd5_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd6_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd7_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd8_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Data_Plot/ti_ccd9_quad3_plot.png')">Quad3</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Data_Plot/backside_7_ti_plot.png')">BI 7</a></td>-->
+</tr>
+</table>
+
+</div>
+<h3>Detrended  CTI Plots</h3>
+<p>
+
+
+<div style='padding-left:80px'>
+<table border = 1 style='border-spacing: 3px;'>
+<tr>
+<th>Line</th>
+<th>CCD0</th><th>CCD1</th><th>CCD2</th><th>CCD3</th><th>CCD4</th>
+<th>CCD5</th><th>CCD6</th><th>CCD7</th><th>CCD8</th><th>CCD9</th>
+<!--<th>Combined</td>-->
+</tr>
+
+<tr>
+<th rowspan=4  style='color:black; font-size:90%'>Al K alpha</font></th>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd0_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd1_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd2_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd3_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd4_quad0_plot.png')">Quad0</a></td>
+<td>Quad0</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd6_quad0_plot.png')">Quad0</a></td>
+<td>Quad0</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd8_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd9_quad0_plot.png')">Quad0</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Det_Plot/imaging_al_plot.png')">Imaging</a></td>-->
+
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd0_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd1_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd2_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd3_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd4_quad1_plot.png')">Quad1</a></td>
+<td>Quad1</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd6_quad1_plot.png')">Quad1</a></td>
+<td>Quad1</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd8_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd9_quad1_plot.png')">Quad1</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Det_Plot/spectral_al_plot.png')">Spectral</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd0_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd1_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd2_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd3_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd4_quad2_plot.png')">Quad2</a></td>
+<td>Quad2</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd6_quad2_plot.png')">Quad2</a></td>
+<td>Quad2</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd8_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd9_quad2_plot.png')">Quad2</a></td>
+<!--<td>&#160</td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd0_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd1_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd2_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd3_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd4_quad3_plot.png')">Quad3</a></td>
+<td>Quad3</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd6_quad3_plot.png')">Quad3</a></td>
+<td>Quad3</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd8_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/al_ccd9_quad3_plot.png')">Quad3</a></td>
+<!--<td>&#160</td>-->
+</tr>
+<tr>
+<td colspan=12>&#160</td>
+</tr>
+<tr>
+<th>Line</th>
+<th>CCD0</th><th>CCD1</th><th>CCD2</th><th>CCD3</th><th>CCD4</th>
+<th>CCD5</th><th>CCD6</th><th>CCD7</th><th>CCD8</th><th>CCD9</th>
+<!--<td>Combined</th>-->
+</tr>
+
+<tr>
+<th rowspan=4  style='color:black; font-size:90%'>Ti K alpha</font></th>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd0_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd1_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd2_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd3_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd4_quad0_plot.png')">Quad0</a></td>
+<td>Quad0</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd6_quad0_plot.png')">Quad0</a></td>
+<td>Quad0</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd8_quad0_plot.png')">Quad0</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd9_quad0_plot.png')">Quad0</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Det_Plot/imaging_ti_plot.png')">Imaging</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd0_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd1_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd2_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd3_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd4_quad1_plot.png')">Quad1</a></td>
+<td>Quad1</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd6_quad1_plot.png')">Quad1</a></td>
+<td>Quad1</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd8_quad1_plot.png')">Quad1</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd9_quad1_plot.png')">Quad1</a></td>
+<!--<td style='text-align:center'><a href="javascript:MyWindowOpener('./Det_Plot/spectral_ti_plot.png')">Spectral</a></td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd0_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd1_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd2_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd3_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd4_quad2_plot.png')">Quad2</a></td>
+<td>Quad2</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd6_quad2_plot.png')">Quad2</a></td>
+<td>Quad2</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd8_quad2_plot.png')">Quad2</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd9_quad2_plot.png')">Quad2</a></td>
+<!--<td>&#160</td>-->
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd0_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd1_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd2_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd3_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd4_quad3_plot.png')">Quad3</a></td>
+<td>Quad3</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd6_quad3_plot.png')">Quad3</a></td>
+<td>Quad3</td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd8_quad3_plot.png')">Quad3</a></td>
+<td><a href="javascript:MyWindowOpener('./Det_Plot/ti_ccd9_quad3_plot.png')">Quad3</a></td>
+<!--<td>&#160</td>-->
+</tr>
+</table>
+</div>
+
+<div style='padding-bottom:20px'>
+</div>
+
+<hr />
+
+
+
+<h3><a name="fittings">Fitting Results</a></h3>
+<p style='padding-left:20px; padding-right:20px'>
+The following links show CTI change rate per year of each quadrant and those of averaged cases are listed. 
+</p>
+<h4>None-detrended CTI</h4>
+<ul>
+<li><a href='./Plot2000/fitting_result'>Fitting Results: Int Time > 2000 sec</a></li>
+<li><a href='./Plot119/fitting_result'>Fitting Results: Int Time > 2000 sec & Temp <= -119.7 C</a></li>
+<li><a href='./Plot7000/fitting_result'>Fitting Results: Int Time > 7000 sec & Temp <= -119.7C</a></li>
+<li><a href='./Plot_cat_adjust/fitting_result'>Fitting Results: Int Time > 2000 sec, MIT/ACIS Temp Factor Correction</a></li>
+<li><a href='./Plot_adjust/fitting_result'>Fitting Results: Int Time > 2000 sec, Updated Temp Factor Correction</a></li>
+</ul>
+
+
+<h4>Detrended CTI</h4>
+<ul>
+<li><a href='./Det_Plot2000/fitting_result'>Fitting Results: Int Time > 2000 sec</a></li>
+<li><a href='./Det_Plot119/fitting_result'>Fitting Results: Int Time > 2000 sec & Temp <= -119.7 C</a></li>
+<li><a href='./Det_Plot7000/fitting_result'>Fitting Results: Int Time > 7000 sec & Temp <= -119.7C</a></li>
+<li><a href='./Det_Plot_cat_adjust/fitting_result'>Fitting Results: Int Time > 2000 sec, MIT/ACIS Temp Factor Correction</a></li>
+<li><a href='./Det_Plot_adjust/fitting_result'>Fitting Results: Int Time > 2000 sec, Updated Temp Factor Correction</a></li>
+</ul>
+
+
+<hr />
+
+<h3><a name="ascii_data"> ASCII Data (Not Adjusted)</a>  </h3>
+<table border = 1 cellpadding=2 cellspacing = 2>
+<th style='color:black; font-size:90%'>Al K alpha</font></th>
+<td><a href='./Results/al_ccd0'>CCD 0</a></td>
+<td><a href='./Results/al_ccd1'>CCD 1</a></td>
+<td><a href='./Results/al_ccd2'>CCD 2</a></td>
+<td><a href='./Results/al_ccd3'>CCD 3</a></td>
+<td><a href='./Results/al_ccd4'>CCD 4</a></td>
+<td><a href='./Results/al_ccd5'>CCD 5</a></td>
+<td><a href='./Results/al_ccd6'>CCD 6</a></td>
+<td><a href='./Results/al_ccd7'>CCD 7</a></td>
+<td><a href='./Results/al_ccd8'>CCD 8</a></td>
+<td><a href='./Results/al_ccd9'>CCD 9</a></td>
+</tr><tr>
+<th style='color:black; font-size:90%'>Mn K alpha</font></th>
+<td><a href='./Results/mn_ccd0'>CCD 0</a></td>
+<td><a href='./Results/mn_ccd1'>CCD 1</a></td>
+<td><a href='./Results/mn_ccd2'>CCD 2</a></td>
+<td><a href='./Results/mn_ccd3'>CCD 3</a></td>
+<td><a href='./Results/mn_ccd4'>CCD 4</a></td>
+<td><a href='./Results/mn_ccd5'>CCD 5</a></td>
+<td><a href='./Results/mn_ccd6'>CCD 6</a></td>
+<td><a href='./Results/mn_ccd7'>CCD 7</a></td>
+<td><a href='./Results/mn_ccd8'>CCD 8</a></td>
+<td><a href='./Results/mn_ccd9'>CCD 9</a></td>
+</tr><tr>
+<th style='color:black; font-size:90%'>Ti K alpha</font></th>
+<td><a href='./Results/ti_ccd0'>CCD 0</a></td>
+<td><a href='./Results/ti_ccd1'>CCD 1</a></td>
+<td><a href='./Results/ti_ccd2'>CCD 2</a></td>
+<td><a href='./Results/ti_ccd3'>CCD 3</a></td>
+<td><a href='./Results/ti_ccd4'>CCD 4</a></td>
+<td><a href='./Results/ti_ccd5'>CCD 5</a></td>
+<td><a href='./Results/ti_ccd6'>CCD 6</a></td>
+<td><a href='./Results/ti_ccd7'>CCD 7</a></td>
+<td><a href='./Results/ti_ccd8'>CCD 8</a></td>
+<td><a href='./Results/ti_ccd9'>CCD 9</a></td>
+</tr><tr>
+</table>
+
+<h3><a name="correction_factor">Correction Factors for Temperature Adjusted Plot</a></h3>
+<ul>
+<li><a href='./al_factor'>For Al K alpha</a></li>
+<li><a href='./mn_factor'>For Mn K alpha</a></li>
+<li><a href='./ti_factor'>For Ti K alpha</a></li>
+</ul>
+
+
+<hr />
+<a name='how_to'>
+<h3>How CTIs Are Computed?</h3>
+</a>
+<p style='padding-left:20px; padding-right:20px'>
+CTIs are computed in the following steps:
+<br>
+<ul style='padding-left:60px; padding-right:80px;padding-top:10px;padding-bottom:10px;font-size:90%;line-height:120%'>
+<li> ACIS evt1 data file for CTI observation is extracted from Database </li>
+<li> Find the time span of the observation and extract the focal temperature data for that duration.</li>
+<li> Compute an average focal tempearture of that observation. </li>
+<li> If the integration time is more than 600 sec, compute CTI using MTA CTI computing tool.</li>
+<li> The extracted  data are listed in <a href="#ascii_data">ASCII data</a>. The columns are: 
+    <ol>
+    <li>start time</li>
+    <li>quad 0 CTI</li>
+    <li>quad 1 CTI</li>
+    <li>quad 2 CTI</li>
+    <li>quad 3 CTI</li>
+    <li>obsid</li>
+    <li>end time</li>
+    <li>averaged focal plane temperature</li>
+    <li>standard deviation of the temperatre</li>
+    <li>minimum temperatre of the period</li>
+    <li>maximum temperatre of the period</li>
+    <li>start time in sec from 1998.1.1</li>
+    <li>end time in sec from 1998.1.1</li>
+    </ol>
+</li>
+<li> If the averged focal plane temperature is colder than or equal to -119.5 C, the data
+     are used to create a plot without any adjustment. </li>
+
+<li> This data are further refined by selecting only data with the integration
+     time longer than 7,000 seconds. </li>
+
+<li> If the focal plan temperature is warmer than -119.5 C. A correction is done
+     for CTI. The correction factor is computed as follows: 
+        <ul>
+        <li> Fit a straight line with time as an independent variable  to the
+	     data with the focal plane temperature &#8804  -119.7 C and 
+	     the integration time longer than 7000 sec. </li>
+        <li> Use the fitted values to remove a time dependent CTI evolution. </li>
+        <li> Fit a straight line onto this data, but this time use the
+             focal plane temperature as an independent variable. Set the correction
+             at -119.7 C to zero. </li>
+	<li> The resulted <a href="#correction_factor">The correction factors</a> are in CTI chage per degree. </li>
+        <li> Using these correction factors, adjust all CTIs with focal temperature
+             warmer than -119.7 C. Anything data colder 
+             than -119.7 C are used without the correction. </li>
+        </ul>
+You may want to read  
+<a href="./CTI_memo_3/fit_example.html">A Step by Step Example of Correcting Temperature Dependence of CTI</a>
+for a better understanding. </li>
+
+
+<li> Similar plots with MIT/ACIS team  corrections are also plotted.
+     The correction factor for front side CCD is 0.036, and the backside CCD is 0.045. </li>
+<li> To detrace drop amp effect, detrend correction factors are computed 
+	<ul>
+	<li> A corresponding acis stat fits file is extracted from database. </li>
+	<li> Selecte out drop amp data for CCD7, and compute an average of the drop amp </li>
+	<li> The average is devided by 680 to normalize the correction factor. the value 680
+	     was computed by MIT/ACIS team (08/18/2000). </li>
+	<li> The correction factor is added to the CTI to remove drop amp effect. </li>
+	</ul>
+     <a href="#detrended">All data, except for CCD5 and CCD7, are detrended</a> and plotted <a href='#plot1'>above</a>.</li>
+</ul>
+</p>
+
+<hr />
+<a name='memo'>
+<h3>Memo</h3>
+</a>
+<h4><a href="./CTI_memo_1/memo_time_dependecy.html">Does The CTI Correction Factor Changes With Time?</a></h4>
+<h4><a href="./CTI_memo_2/cti_data_select.html">How to Select Data?</a></h4>
+<h4><a href="./CTI_memo_3/fit_example.html">A Step by Step Example of Correcting Temperature Dependence of CTI</a></h4>
+<hr />
+
+<p>
+<em>
+If you have any questions about this page, please contact <a href='mailto:isob3@cfa.harvard.edu'>isobe@cfa.harvard.edu</a>
+</em>
+</p>
+
+<p>
+ Last Update: Apr 24, 2019.
+</p>

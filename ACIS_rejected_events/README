@@ -1,0 +1,53 @@
+###################
+ACIS Rejected Event
+###################
+
+Create plots of stat1 quantities, showing on-board rejected events.
+The average EVTSENT, DROP_AMP, DROP_GRD, and THR_PIX obtained from L1 acis*stat1.fits
+files are plotted for each observation. CTI observations are plotted separately
+from regular science observations.
+
+========
+Scripts
+========
+
+Location: /data/mta/Script/ACIS/Rej_events/Scripts
+
+rejected_evnt_wrap_script/rejected_evnt_main_script     --- environment setting scripts
+
+update_rejected_event_data.py   ---- read fits files and update the data
+
+    input:  /dsops/ap/sdp/cache/*/acis/acis*stat1.fits    
+                NOTE: only can be seen from r2d2-v
+
+    output: <data_dir>/CCD<ccd>_rej.dat
+
+plot_rejected_event_data.py     ---- plot data
+
+    input:  <data_dir>/CCD<ccd>_rej.dat
+    output: <html_dir>/Plots/ccd<ccd>_cti.png
+            <html_dir>/Plots/ccd<ccd>_sci.png
+
+Directory
+=========
+"/data/mta/Script/ACIS/Rej_events/Scripts/"                 : bin_dir
+"/data/mta/Script/ACIS/Rej_events/Scripts/house_keeping/"   : house_keeping
+"/data/mta/Script/ACIS/Rej_events/Data/"                    : data_dir
+"/data/mta_www/mta_acis_sci_run/Events_rej/"                : html_dir
+
+Environmental Setting
+======================
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages/"
+
+Web Site
+=========
+/data/mta_www/mta_acis_sci_run/Events_rej/index.html
+
+http://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/Events_rej/index.html
+
+Cron Job:
+=========
+r2d2-v as mta
+
+1 1 * * * cd /data/mta/Script/ACIS/Rej_events/Scripts; /data/mta/Script/ACIS/Rej_events/Scripts/rejected_evnt_wrap_script > $HOME/Logs/evts_rej.cron 2>&1
+

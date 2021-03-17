@@ -1,0 +1,77 @@
+
+This directory contains the scripts to update trending data in the directory /data/mta4/Deriv.
+
+Dir: /data/mta4/Deriv
+See also: https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Spacecraft/bs_mta_trending.html
+
+Scripts:
+--------
+/data/mta4/Deriv/Script
+-----------------------
+run_all         ---- the driving script to run idl scripts in Idl_scripts direoctry
+
+/data/mta4/Deriv/Script/Idl_scripts
+------------------------------------
+All idl scripts used by the above driving script are kept in here. The main ones called by run_all are:
+ed_acis
+ed_eph
+ed_hrc
+ed_hrma
+ed_oba
+ed_pcad
+ed_sim
+ed_spc
+ed_comp_grad
+ed_comp_hrma
+ed_comp
+
+tmp_save.pro        --- create fits file data (and some case, combine data e.g. for sunangle fits)
+
+dtrend.pro          --- plotting and html page update
+dtrend_read.pro     --- for the case, a special treamnet is needed. supplemental script for dtrend.pro
+    Note: gif/html output directory is built in dtrend.pro
+
+
+none IDL scripts:
+
+get_comp_data           ---- copy compupdated data from  /data/mta/Script/Trending/Trend (run by ed_comp_grad.pro )
+get_grad_data           ---- copy grad data from /data/mta/Script/Trending/Trend/ (run by ed_comp_grad.pro )
+
+find_moving_avg.perl    ---- compute a moving average 
+
+Environment Setting
+-------------------
+The following settings were run in the driving script before calling idl scripts.
+
+source /home/mta/.ascrc
+/home/mta/bin/reset_param
+punlearn dataseeker
+pset dataseeker repository="/data/mta/DataSeeker/data/repository"
+setenv IDL_PATH "+/home/mta/IDL:${IDL_PATH}"
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:+/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+setenv IDL_PATH "+/data/mta4/Deriv/Script/Idl_scripts"      <###### THIS ONE IS ADDED #######
+setenv PFILES "/data/mta/Script/Deriv/cxcds_param:./param;/home/ascds/DS.release/param:/proj/cm/DS.ots/ftools.v5.0.1.SunOS5.8/SunOS_5.8_sparc/syspfiles"
+
+
+Data Needed;
+------------
+/data/mta/DataSeeker/data/repository/*.rdb
+
+Output:
+-------
+/data/mta4/Deriv/*.fits
+
+/data/mta4/www/DAILY/mta_deriv/*.html
+/data/mta4/www/DAILY/mta_deriv/*.gif
+
+
+
+
+
+
+
+Cron Job:
+---------
+c3po-v as mta  
+10 2 * * 0,3 cd /data/mta4/Deriv/;/data/mta4/Deriv/run_all >> $HOME/Logs/mta_deriv_run_all.cron 2>&1
+

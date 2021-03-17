@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Disk Space Monitor</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Disk Space Monitor</h2>
+
+<b><u>Last Updated: Jun 08, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts monitor disk spaces and send out notification when they are getting full. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Disk_check/Script/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/
+</p>
+
+
+<table border=0>
+<tr><td>disk_space_wrap_script</td>       <td>May 21, 2013</td></tr>
+<tr><td>disk_space_main_script</td>       <td>Jun 08, 2015</td></tr>
+<tr><td>disk_space_wrap_script2</td>      <td>Aug 05, 2013</td></tr>
+<tr><td>disk_space_main_script2</td>      <td>Jun 08, 2015</td></tr>
+<tr><td>disk_space_check_size.py</td>     <td>Jan 29, 2018</td></tr>
+<tr><td>disk_space_read_dusk.py</td>      <td>Oct 27, 2014</td></tr>
+<tr><td>disk_space_run_dusk.py</td>       <td>Oct 29, 2014</td></tr>
+<tr><td>update_html_page.py</td>          <td>Aug 05, 2014</td></tr>
+<tr><td>disk_space_run_quota.py</td>      <td>Jan 30, 2018</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Disk_check/Script/README
+</p>
+<table border = 0>
+<tr><th>Sep 18, 2014</th><td>Initially logged</td></tr>
+<tr><th>Oct 27, 2014</th><td>/proj/rac/ops directory monitor added</td></tr>
+<tr><th>Jun 08, 2015</th><td>ska_envs.csh replaced ascds env</td></tr>
+<tr><th>Jan 29, 2018</th><td>/proj/rac is removed from email notification</td></tr>
+<tr><th>Jan 30, 2018</th><td>/home/<user> quota check added</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/Script/Disk_check/Scripts/Data/disk_data_&lt;disk name&gt;
+</li>
+<li>
+/data/mta/Script/Disk_check/Scripts/Data/disk_space_data
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Disk_check/Scripts/Data/
+    <ul>
+    <li> disk_data_&lt;disk name&gt; </li>
+    <li> disk_space_data </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_disk_space/Figs
+    <ul>
+    <li> png files which shows time trends  </li>
+
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to:  cd /data/mta/Script/Disk_check/Exc
+</li>
+<li>
+run:    /data/mta/Script/Disk_check/Scripts/disk_space_wrap_script
+</li>
+<li>
+run:    /data/mta/Script/Disk_check/Scripts/disk_space_wrap_script2
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 12  * * * cd /data/mta/Script/Disk_check/Exc;  /data/mta/Script/Disk_check/Scripts/disk_space_wrap_script  >> $HOME/Logs/disk_space.cron 2>&1
+<br />
+0  1  * * * cd /data/mta/Script/Disk_check/Exc;  /data/mta/Script/Disk_check/Scripts/disk_space_wrap_script2 >> $HOME/Logs/disk_space.cron 2>&1
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_disk_space/'>
+https://cxc.cfa.harvard.edu/mta_days/mta_disk_space/
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

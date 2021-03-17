@@ -1,0 +1,3 @@
+'/data/mta/Script/SIM/Scripts/':        bin_dir
+'/data/mta/MTA/data/':				    bdat_dir
+'/data/mta/Script/Python3.8/MTA/':      mta_dir

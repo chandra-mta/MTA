@@ -1,0 +1,77 @@
+##############################################
+create ACIS focal plane temperature trend plot
+##############################################
+
+How to run the script
+++++++++++++++++++++++
+
+Simply run run_all_focal_scripts. It will creates plots for the last month in Plots directory.
+
+
+
+
+++++++++++++++++++++++++++++++++++
+find_focal_temp_peaks_monthly.py
+++++++++++++++++++++++++++++++++++
+
+This script creates a peak profile distribtuion for the month before (assuming no inputs are given). 
+
+Input:
+no need to compute the previous month data, but you can also specify the year and the month.
+
+Output:
+./Data/this_month_data 
+./Data/focal_temp_data
+
+
+++++++++++++++++++++++++++
+plot_focal_temperature.py
+++++++++++++++++++++++++++
+
+This phyton script computes and plots 10 day moving average trend plots of
+focal temperature peak height and width. It also privides a monthly average
+of the peak height and width. 
+
+Input:
+./Data/this_month_data ---- the month local data of thefocal plane temperature data in the format of 
+                     <year> <ydate> <focal temp> <focal temp peak width>
+
+./Data/focal_temp_data ---- same as above but for the entire period.
+
+Ouput:
+./Plots/focal_temp_plot.png
+./Plots/month_avg           --- a file contains month focal temp peak averge and width average
+
+
++++++++++++++++++++++++++++++
+create_monthly_erand_plot.py
++++++++++++++++++++++++++++++
+
+This script creates the monthly focal temperature trend plot.
+
+Input:
+No need. It will estimates start and stop time from the "last month" date, but
+you can give year and month you want to create a plot
+
+Output:
+erand_<mmm><yy>.gif
+
+This script also needs contents of Templates directory and access to arc4gl.
+It also uses idl script inside to creates the plot.
+
+
++++++++++++++++++++++++++++++++++++++++++++
+run_all_script_wrap and run_all_script_main
++++++++++++++++++++++++++++++++++++++++++++
+These two scripts are control scripts to run all three scripts above
+
+
+++++++++++
+Directory
+++++++++++
+
+Scripts:            this directory containing all scripts
+Scripts/Templates:  containing several template files used by create_monthly_erand_plot.py
+Data:               holds data used by the scripts: this_month_data, focal_temp_data
+Plots:              output directory to hold plots and a fitting result
+Old:                out of date scripts, data etc

@@ -1,0 +1,27 @@
+cd /data/mta/Script/ACIS/CTI/Exc/
+
+rm -rf /data/mta/Script/ACIS/CTI/Exc/param
+cp -rf /data/mta/Script/ACIS/CTI/house_keeping/param /data/mta/Script/ACIS/CTI/Exc/.
+
+rm -rf /data/mta/Script/ACIS/CTI/Exc/Working_dir
+mkdir  /data/mta/Script/ACIS/CTI/Exc/Working_dir
+rm -rf /data/mta/Script/ACIS/CTI/Exc/Temp_comp_area
+mkdir  /data/mta/Script/ACIS/CTI/Exc/Temp_comp_area
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/ACIS/CTI/Scripts/acis_cti_get_data.py
+/data/mta/Script/ACIS/CTI/Scripts/create_cti_data_table.py
+/data/mta/Script/ACIS/CTI/Scripts/clean_table.py
+/data/mta/Script/ACIS/CTI/Scripts/cti_detrend_factor.py
+/data/mta/Script/ACIS/CTI/Scripts/create_adjusted_cti_tables.py
+
+rm -f  /data/mta_www/mta_cti/*_factor
+cp -f  /data/mta/Script/ACIS/CTI/Data/*_factor /data/mta_www/mta_cti/.
+
+rm -rf /data/mta_www/mta_cti/Results/*_ccd*
+cp  /data/mta/Script/ACIS/CTI/Data/Results/*_ccd* /data/mta_www/mta_cti/Results/.
+
+chmod 755      /data/mta_www/mta_cti/Results/*
+chgrp mtagroup /data/mta_www/mta_cti/Results/*
+

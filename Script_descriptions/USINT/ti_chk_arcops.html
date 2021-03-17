@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Check Approved Obs</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Check Approved Obs</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Check updates_table.list and send out email.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/obs_ss/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Usint_script
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>chk_arcops_wrap_script</td>       <td>Mar 28, 2013</td></tr>
+<tr><td>chk_arcops_main_script</td>       <td>May 14, 2013</td></tr>
+<tr><td>chk_arcops.perl</td>              <td>Mar 28, 2013</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+There is a breif descriptions of this script in /data/mta4/obs_ss/Usint_test/Usint_script/README.
+</p>
+<table border = 0>
+<tr><th>Sep 18, 2014</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/CUS/www/Usint/ocat/updates_table.list
+</li>
+<li>
+/data/mta4/CUS/www/Usint/ocat/arcops_list
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS (source /home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+email is sent out. 
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta4/obs_ss/
+</li>
+<li>
+run:    perl /data/mta4/obs_ss/chk_arcops.perl 
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available.
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table
+<p>
+0 4 * * * cd  /data/mta4/obs_ss/; perl /data/mta4/obs_ss/chk_arcops.perl >> $HOME/Logs/chk_arcops.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+NA
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+It will be rewritten in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

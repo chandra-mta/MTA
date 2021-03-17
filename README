@@ -1,0 +1,78 @@
+This repository contains the sets of scripts related to Monitoring and Trending Analysis.
+
+Each set of scripts has a Makefile and before rebuilding the directories, update the following variables (not always contain all or you may find extras) at the first part of Makefile.
+
+=======
+Each set of scripts has a Makefile and before rebuilding the directories, update the following variables (not always contain all or you may find extras) at the first part of Makefile.
+
+    TASK:    task name;  the script will be kept there
+    ROOT:    main script directory
+    WEB:     main web directory
+    WDIR:    the directory where the HTML pages will be kept
+    NHTML:   the HTML address
+    NBIN:    extra scripts are kept here
+    NBDATA:  special shared data are kept here
+    NPYTHON: python path
+
+After updating Makefile, simply run "make" command. It will create directories:
+
+    <ROOT>/<TASK>/Script
+    <ROOT>/<TASK>/Data
+    <ROOT>/<TASK>/Exc       (some may not have this)
+    <WEB>/<TASK>/
+
+The data directory is usually empty, and you may need to copy data from elsewhere if the scripts need past data.
+
+===============
+List of Scripts
+===============
+ACA             --- magnitude and positional error trends for fiducial lights and guide
+Abs_pointing    --- celestial location monitoring routine
+ACE_GOES_data   --- import ACE and GOES data from NOAA and extracts data
+ACIS_bad_pix    --- ACIS Bad Pixel Detection and ACIS Bias Computation
+ACIS_Count_Rate --- extracts ACIS count rates for each CCD and creates trend plots
+ACIS Corner Pixel-- plots of average corner pixel centroid slope and mean for ACIS observations
+ACIS_CTI        --- extract cti data, estimate trends, and plots the trends
+ACIS_ft         --- create ACSI focal plane temerature trend plots
+ACIS_gain       --- extract and compute acis gain, and plot the trend
+ACIS_hist       --- extract acis histram mode information and plots the trends
+ACIS_memo       --- contains scripts used to create ACIS memos
+ACIS Rejected Event --- plots of stat1 quantities, showing on-board rejected events
+ACIS_sci_run    --- retrieve ACIS science run data from MIT web site, check event rate, error rate,and drop rate and plot trends
+ACIS_SIB        --- compute ACIS SIB
+Cron_check      --- reads cron job entries and check whether the cron jobs are running as it is supposed to be
+Disk_space      --- monitoring disk space usage
+Dump            --- extract OTG and CCDM related data from dump data (*Dump_EM_*)
+EdE_Trends      --- create an E/dE trend page plots, table, and the page itself
+Envelope_trending   --- create MSID Envelope Trending
+Ephen_RDB       --- update of geomagnetic related data
+Ftp_clean       --- remove unwanted files from /stage/xmmops_ftp
+Gratings Observation --- gratings trends created from the analysis results done by HETG Analysis Kit
+Gyro_drift      --- create trend plots of stability of the spacecraft around the grating movement
+HRC_gain        --- create Ar Lac PHA Distribution Trend
+HRC_SIB         --- create HRC SIB trending plot
+HRC_temperature --- extract HRC temperature information from dataseeker database, and plot them
+HRMA Focus      --- HRMA focus related plots
+IRU             --- Extract IRU gyro bias data from archive and create trend plots
+Limit_table     --- estimates yellow and red limits of all msids from the past data.
+Max_exposure    --- extract ACIS and HRC exposure dose data and create statistics, plots, images, and html pages
+Monthly_Report  --- creates a monthly report
+MSID_limit      --- updates op_limits.db
+MTA Derive      --- update trending data in the directory /data/mta4/Deriv
+MTA_limit_trends    --- extract msid data and plot their trend
+Orbital         --- extract orbital element related data from archived data and create rdb files
+OTG             --- extract OTG and CCDM related data from dump data (*Dump_EM_*)
+Rejected_events --- Create plots of stat1 quantities, showing on-board rejected events
+SIM Movement    --- creation of SIM movement plots in /data/mta_www/mta_sim/
+SIM Temperature --- im translation/temperature data and creates trend plots
+=======
+Rejcted_events  --- Create plots of stat1 quantities, showing on-board rejected events
+Python_scripts  --- python functions used by other python scripts
+Sci_run_interrupt   --- generate plots of ACE, Ephin, and GOES radiation plots around science run interruptions
+Script_descriptions --- create html pages showing the descriptions of MTA tasks
+SIM_extract     --- update ..../sim_data.out
+SIM_twist       --- update sim twist and fid light trending
+Sol_panel       --- create solar panel/spacecraft electric power a and fine sensor temperature evolution along the time
+State_trends    --- extracts and plots SIM and other state conditions
+Trending_Script --- extract needed information from /data/mta/www/mp_reports/ and update mta databas
+Weekly_report   --- create weekly report

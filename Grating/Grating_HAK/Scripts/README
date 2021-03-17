@@ -1,0 +1,77 @@
+
++++++++++++++++++++++++++++++++++
+Gratings Opbservation Page Update
++++++++++++++++++++++++++++++++++
+
+This set of script process gratings data
+
+
+Scripts
+-------
+
+Dir: /data/mta/Script/Grating/Grating_HAK/Scripts/
+-------------------------------
+
+run_grating_wrap_script --- environment setting
+
+run_grating_main_script --- running scripts
+
+run_grating.py  ---- the main script to run the process
+
+                input:      none but extract fits data using arc5gl
+                            we also need to two template files in house_keeping directory:
+                            arc_template
+                            pl_template
+
+                Note:       this script extract data from a "previous" month
+                            so if you run this script on Apr 2015, the data
+                            extracted are Mar 2015.
+
+                output:
+                            <data_dir>/<Mon><yy>/<stamp>/
+                            e.g. see /data/mta/www/mta_grat/Grating_Data/Apr15/15706/*
+
+                            <data_dir>/obslist
+
+update_grating_obs_list.py --- update grating observations lists
+
+                output:     <data_dir>/grating_list_year<year>.html
+                            <data_dir>/grating_list_past_six_month.html
+
+
+Dir:/data/mta/Script/Grating/hak_1.4/
+--------------------------------------
+This directory contains HETG Analysis Kit (HAK) idl codes. This set is called from
+run_grating.py which creates idl scripts to run HAK process.
+
+Please read /data/mta/Script/Grating/Grating_HAK/hak_1.4/README.txt for more details
+
+
+Directory:
+----------
+'/data/mta/Script/Grating/Grating_HAK/Scripts/'                 : bin_dir
+'/data/mta/Script/Grating/Grating_HAK/Scripts/house_keeping/'   : house_keeping
+'/data/mta/Script/Grating/Grating_HAK/Exc/'                     : exc_dir
+'/data/mta_www/mta_grat/Grating_Data/'                          : data_dir
+'/data/mta/Script/Python3.8/MTA/'                               : mta_dir
+'/data/mta_www/mta_grat/'                                       : web_dir
+
+
+Environment Setting
+-------------------
+
+setenv SKA /proj/sot/ska
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+
+Web Address
+-----------
+https://cxc.cfa.harvard.edu/mta_days/mta_grat/index.html
+
+Cron Job
+--------
+boba-v as mta
+
+32 10 * * 4 cd /data/mta/Script/Grating/Grating_HAK/Exc; /data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script >> $HOME/Logs/run_grating.cron
+
+this will run several gratings realted scripts

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Bad Pixel Trending</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Bad Pixel Trending</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts find bad pixels and bad columns on ACIS CCDs and creates a report.
+At the same time, using the same dataset, it also computes ACIS CCD bisa values and compare it with
+overclock values of the CCDs.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/ACIS/Bad_pixels/Script/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>:  https://github.com/tisobe/Acis_bad_pix
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>acis_bad_pixel_wrap_script</td>       <td>Apr 03, 2014</td></tr>
+<tr><td>acis_bad_pixel_main_script</td>       <td>Sep 15, 2014</td></tr>
+<tr><td>acis_bad_pixel_test_wrap_script</td>  <td>Sep 15, 2014</td></tr>
+<tr><td>acis_bad_pixel_test_main_script</td>  <td>May 11, 2016</td></tr>
+<tr><td>acis_bias_plot_wrap_script</td>       <td>Apr 03, 2014</td></tr>
+<tr><td>acis_bias_plot_main_script</td>       <td>Apr 03, 2014</td></tr>
+<tr><td>bad_pix_common_function.py</td>       <td>May 13, 2014</td></tr>
+<tr><td>ccd_plot_history.py</td>              <td>May 13, 2014</td></tr>
+<tr><td>compute_bias_data.py</td>             <td>Sep 15, 2014</td></tr>
+<tr><td>create_data_table.py</td>             <td>May 13, 2014</td></tr>
+<tr><td>create_history_file.py</td>           <td>May 13, 2014</td></tr>
+<tr><td>extract_bad_pix.py</td>               <td>Sep 15, 2014</td></tr>
+<tr><td>plot_bias.py</td>                     <td>May 13, 2014</td></tr>
+<tr><td>plot_bias_trend.py</td>               <td>May 13, 2014</td></tr>
+<tr><td>run_compute_bias_data.py</td>         <td>Sep 15, 2014</td></tr>
+<tr><td>run_extract_bad_pix.py</td>           <td>Sep 15, 2014</td></tr>
+<tr><td>create_fornt_history_files.py</td>    <td>May 11, 2016</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ACIS/Bad_pixels/Script/README
+</p>
+<table border = 0>
+<tr><th>Sep 15, 2014</th><td>Test method updated</td></tr>
+<tr><th>May 11, 2016</th><td>A script to  creaate combined front side data is added</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/dsops/ap/sdp/cache/*/acis/*bias0.fits
+</li>
+<li>
+/data/mta/Script/ACIS/Bad_pixels/Data/Disp_dir/*
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ACIS/Bad_pixels/Data/Disp_dir/
+    <ul>
+    <li>
+    ccd#ccd#_cnt
+    </li>
+    <li>
+    col#ccd#_cnt
+    </li>
+    <li>
+    front_side_ccd_cnt
+    </li>
+    <li>
+    front_side_col_cnt
+    </li>
+    <li>
+    front_side_hccd_cnt
+    </li>
+    <li>
+    front_side_hcol_cnt
+    </li>
+    <li>
+    hist_ccd#ccd#
+    </li>
+    <li>
+    hist_col#ccd#
+    </li>
+    <li>
+    hist_hccd#ccd#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/ACIS/Bad_pixels/Bias_data/Bias_save/CCD#ccd#/
+    <ul>
+    <li>
+    quad#quad#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/ACIS/Bad_pixels/Bias_data/Info_dir/CCD#ccd#/
+    <ul>
+    <li>
+    quad#quad#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_bad_pixel/Plots
+    <ul>
+    <li>
+    hist_ccd_plot_front_side.png
+    </li>
+    <li>
+    hist_col_plot_front_side.png
+    </li>
+    <li>
+    hist_hccd_plot_front_side.png
+    </li>
+    <li>
+    hist_plot_ccd#ccd#.png
+    </li>
+    <li>
+    hist_plot_col#ccd#.png
+    </li>
+    <li>
+    hist_plot_hccd#ccd#.png
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_bias_bkg/Plots/Param_diff/
+    <ul>
+    <li>
+    #will be added#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_bias_bkg/Plots/Sub/
+    <ul>
+    <li>
+    #will be added#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_bias_bkg/Plots/Sub2/
+    <ul>
+    <li>
+    #will be added#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_bias_bkg/Plots/Bias_bkg/
+    <ul>
+    <li>
+    #will be added#
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_bias_bkg/Plots/Overclock/
+    <ul>
+    <li>
+    #will be added#
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/Bad_pixels/Exc
+</li>
+<li>
+run: /data/mta/Script/ACIS/Bad_pixels/Script/acis_bad_pixel_wrap_script
+</li>
+<li>
+run: /data/mta/Script/ACIS/Bad_pixels/Script/acis_bias_plot_wrap_script
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/Bad_pixels/Exc
+</li>
+<li>
+run: /data/mta/Script/ACIS/Bad_pixels/Script/acis_bad_pixel_test_wrap_script
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+you will get something like:
+</p>
+<pre>
+mta@r2d2-v-207: /data/mta/Script/ACIS/Bad_pixels/Script/acis_bad_pixel_test_wrap_script 
+.
+----------------------------------------------------------------------
+Ran 1 test in 124.516s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.342s
+
+OK
+</pre>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+15 3  * * *  cd /data/mta/Script/ACIS/Bad_pixels/Exc; /data/mta/Script/ACIS/Bad_pixels/Script/acis_bad_pixel_wrap_script  >>$HOME/Logs/acis_bad_pix.cron  2>&1
+<br />
+30 3 * * 7  cd /data/mta/Script/ACIS/Bad_pixels/Exc; /data/mta/Script/ACIS/Bad_pixels/Script/acis_bias_plot_wrap_script  >> $HOME/Logs/acis_bad_pix.cron  2>&1
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_bad_pixel/mta_bad_pixel_list.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_bad_pixel/mta_bad_pixel_list.html
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_bias_bkg/bias_home.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_bias_bkg/bias_home.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

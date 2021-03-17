@@ -1,0 +1,128 @@
+
+
+SIM Data Collection
+-------------------
+
+This set of scripts update /data/mta_www/mta_sim/Scripts/sim_data.out
+
+
++++++++ 
+Scripts
+++++++++
+
+extract_sim_data.py
+-------------------
+This script can be run by cron job to collect data from /data/mta/Script/Dumps/PRIMARYCCDM_*.*.tl
+and update sim_data.out.
+
+input:  no input, but the data are read from <dum_dir>/PRIMARYCCDM_*.*.tl and
+        automatically it will figure out which data to append to sim_data.out. 
+output: <data_data>/sim_data.out
+
+assify_sim_data_and_plot.py
+---------------------------
+classify the sim postion data and create sim movement related plots
+
+input:   none but read from <data_dir>/sim_data.out
+output: <web_dir>/<category>/*png
+
+plot_sim_position.py
+---------------------
+create sim positional trend plots
+
+input:  t_array     --- an array of time
+        tsc_array   --- an array of tsc values
+        fa_array    --- an array of fa values
+        mpw_array   --- an array of mrmmxmv values
+        inst_array  --- an array of instrument information
+        xmin_ranve  --- a list of starting time for week, month, year, and full range plot
+        xmax        --- xmax time value
+        today       --- today in seconds from 1998.1.1.
+output: <web_dir>/Postion/<msid>_<inst>_<type>.png
+
+plot_sim_transition_time.py
+---------------------------
+create sim transit time trend plots
+
+input:  tdata       --- a list of lists containing:
+                        [[<starting inst>, <starting time>, <starting tsc>, <starting fa>],
+                         [<stopping inst>, <stopping time>, <stopping tsc>, <stopping fa>]]
+        xmin_range  --- list of starting times of week, month, one year, and full range plot
+        today       --- today's time in seconds from 1998.1.1
+output: <web_dir>/Transit/transit_<inst>_<inst>_<range>.png
+
+plot_sim_avg_step.py
+--------------------
+create time per step time trend plots
+
+input:  tdata       --- a list of lists containing:
+                        [[<starting inst>, <starting time>, <starting tsc>, <starting fa>],
+                         [<stopping inst>, <stopping time>, <stopping tsc>, <stopping fa>]]
+        this_year   --- this year (in yyyy form)
+        this_mon    ---- this month (in mm form
+output: <web_dir>/Trend/tsc_steps_<inst>_<inst>png
+
+sim_cumulative_plots.py
+-----------------------
+create tsc and fa cumulative trend plots
+input:  none, but read from <data_dir>/sim_data.out
+output: <web_dir>/Cumulative/monthly_sim.png
+
+update_html_page.py
+-------------------
+update the main html page
+input:  <house_keeping>template.html
+        <data_dir>/avg_sim_ste_size
+        <data_dir>/avg_sim_move_time
+output: <web_dir>/sim_monitoring.html
+
+
+sim_move_supple.py
+------------------
+holding supplemental python function for sim move 
+
+run_script.py
+-------------
+
+This script extracts data from archeive and re-compute the given data period. To specify the 
+data period, you need to edit the data cycle part of the script. 
+
+This script will use:
+    filters_ccdm
+    msids_ccdm.list
+    msids.list
+    extract_sim_data.py
+
+You may need to set the environment to:
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+but this may not be needed.
+
+
+++++++++++++
+Directories
+++++++++++++
+
+'/data/mta/Script/SIM_move/Scripts/'                    : bin_dir
+'/data/mta/Script/SIM_move/Scripts/house_keeping/'      : house_keeping
+'/data/mta/Script/SIM_move/Data/'                       : data_dir
+'/data/mta/Script/Dumps/'                               : dump_dir
+'/data/mta/Script/Python3.8/MTA/'                       : mta_dir
+'/data/mta_www/mta_sim/'                                : web_dir
+
++++++++++
+Web Page:
++++++++++
+
+https://icxc.cfa.harvard.edu/mta_days/mta_sim/sim_monitoring.html
+
+++++++++
+Cron job
+++++++++
+
+on r2d2-v as mta
+
+14 4 * * * cd /data/mta/Script/SIM_move/Exc; /data/mta/Script/SIM_move/Scripts/run_sim_warp_script  >> $HOME/Logs/sim_movement.cron 2>&1
+
+

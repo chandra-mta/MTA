@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>SIM Movement Trending</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>SIM Movement Trending</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta_www/mta_sim/Scripts/SIM_move
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/SIM_movement_trending
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>run_sim_warp_script</td>    <td>Mar 05, 2015</td></tr>
+<tr><td>run_sim_main_script</td>    <td>Mar 05, 2015</td></tr>
+<tr><td>mkmonth_list.py</td>        <td>Mar 05, 2015</td></tr>
+<tr><td>runtscpos.pro</td>          <td>Mar 05, 2015</td></tr>
+<tr><td>tscpos.pro</td>             <td>Mar 05, 2015</td></tr>
+<tr><td>tsc_mv_trend.pro</td>       <td>Mar 05, 2015</td></tr>
+<tr><td>cmp_as_planned.pro</td>     <td>Mar 05, 2015</td></tr>
+<tr><td>simmoves.pro</td>           <td>Mar 04, 2015</td></tr>
+<tr><td>mkweeksum.pro</td>          <td>Mar 04, 2015</td></tr>
+<tr><td>mkwebsum.pro</td>           <td>Mar 03, 2015</td></tr>
+<tr><td>list_values.pro</td>        <td>Mar 04, 2015</td></tr>
+<tr><td>filterinst.pro</td>         <td>Mar 03, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta_www/mta_sim/Scripts/SIM_move/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Mar 06, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to github</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta_www/mta_sim/Scripts/sim_data.out
+</li>
+<li>
+/home/mta/Chex/pred_state.rdb
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+<li>
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_sim/
+    <ul>
+    <li>
+        3tscpos.gif, 
+        3fapos.gif, 
+        3mrmmxmv.gif, 
+        3mrmmxmv2.gif, 
+        3mrmmxmv3.gif 
+    </li>
+    <li>
+        tscposdiff_al.gif, 
+        faposdiff_al.gif
+    </li>
+    <li>
+        3tscpos_week.gif, 
+        3fapos_week.gif, 
+        3mrmmxmv_week.gif, 
+        tscposdiff_wk.gif, 
+        faposdiff_wk.gif
+    </li>
+    <li>
+        3tscpos_day.gif, 
+        3fapos_day.gif, 
+        3mrmmxmv_day.gif, 
+        tscposdiff_dy.gif, 
+        faposdiff_dy.gif
+    </li>
+    <li>
+        inst1.gif, 
+        inst2.gif, 
+        inst3.gif, 
+        inst4.gif
+    </li>
+    <li>
+        tsc12a.gif, 
+        tsc12b.gif, 
+        tsc13a.gif, 
+        tsc13b.gif, 
+        tsc14a.gif, 
+        tsc14b.gif 
+    </li>
+    <li>
+        tsc21a.gif, 
+        tsc21b.gif, 
+        tsc23a.gif, 
+        tsc23b.gif, 
+        tsc24a.gif, 
+        tsc24b.gif 
+    </li>
+    <li>
+        tsc31a.gif, 
+        tsc31b.gif, 
+        tsc32a.gif, 
+        tsc32b.gif, 
+        tsc34a.gif, 
+        tsc34b.gif 
+    </li>
+    <li>
+        tsc41a.gif, 
+        tsc41b.gif, 
+        tsc42a.gif, 
+        tsc42b.gif, 
+        tsc43a.gif, 
+        tsc43b.gif
+    </li>
+    <li>
+        tsc12aw.gif, 
+        tsc12bw.gif, 
+        tsc14aw.gif, 
+        tsc14bw.gif, 
+        tsc21aw.gif, 
+        tsc21bw.gif 
+    </li>
+    <li>
+        tsc24aw.gif, 
+        tsc24bw.gif, 
+        tsc42aw.gif, 
+        tsc42bw.gif
+    </li>
+    <li>
+    tscpos.out
+    </li>
+    <li>
+    index.html
+    </li>
+    <li>
+    wksum.html
+    </li>
+    <li>
+    mrmmxmv.html, 
+    tscpos.html, 
+    fapos.html, 
+    daily.html, 
+    weekly.html  (these pages are static and not updated)
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sim/Trend/
+    <ul>
+    <li>
+        trend_tmove.gif, 
+        trend_fmove.gif, 
+        trend_tdist.gif, 
+        trend_fdist.gif, 
+        trend_month1.gif, 
+        trend_month2.gif 
+    </li>
+    <li>
+        trend12a.gif, 
+        trend12hist.gif, 
+        trend13a.gif, 
+        trend13hist.gif, 
+        trend14a.gif, 
+        trend14hist.gif 
+    </li>
+    <li>
+        trend21a.gif, 
+        trend21hist.gif, 
+        trend23a.gif, 
+        trend23hist.gif, 
+        trend24a.gif, 
+        trend24hist.gif 
+    </li>
+    <li>
+        trend31a.gif, 
+        trend31hist.gif, 
+        trend32a.gif, 
+        trend32hist.gif, 
+        trend34a.gif, 
+        trend34hist.gif 
+    </li>
+    <li>
+        trend41a.gif, 
+        trend41hist.gif, 
+        trend42a.gif, 
+        trend42hist.gif, 
+        trend43a.gif, 
+        trend43hist.gif 
+    </li>
+    <li>
+        trend_trate.gif 
+    </li>
+    <li>
+        index.html
+    </li>
+    <li>
+        AItoAS.html,
+        AItoHI.html,
+        AItoHS.html,
+        AStoAI.html,
+        AStoHI.html,
+        AStoHS.html,
+        HItoAI.html,
+        HItoAS.html,
+        HItoHS.html,
+        HStoAI.html,
+        HStoAS.html,
+        HStoHI.html
+        (these pages are static and not updated)
+    </li>
+
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta_www/mta_sim/Scripts/SIM_move
+</li>
+<li>
+set:  setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+<li>
+run:  /data/mta_www/mta_sim/Scripts/SIM_move/mkmonth_list.py
+</li>
+<li>
+set:  setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+<li>
+run: idl /data/mta_www/mta_sim/Scripts/SIM_move/runtscpos.pro
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+14 4 * * * cd /data/mta_www/mta_sim/Scripts/SIM_move; /data/mta_www/mta_sim/Scripts/SIM_move/run_sim_warp_script >> $HOME/Logs/sim_movement_linux.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sim/'>
+https://cxc.cfa.harvard.edu/mta_days/mta_sim/index.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+* convert sim_data to a smaller size, e.g save hourly average instead of 5 min average.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

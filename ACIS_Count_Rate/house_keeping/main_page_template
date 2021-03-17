@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style  type="text/css">
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+td{text-align:center;padding:8px}
+
+a:link {color:blue;}
+a:visited {color:red;}
+
+span.nobr {white-space:nowrap;}
+</style>
+<title>ACIS Count Rate Plots </title>
+<script>
+    function WindowOpener(imgname) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1000,height=600,resize=no");
+        msgWindow.document.clear();
+        msgWindow.document.write("<html><title>ACIS Count Rate:   "+imgname+"</TITLE>");
+        msgWindow.document.write("<body>");
+        msgWindow.document.write("<img src='./Plots/"+imgname+"' border =0 style=\"width:95%;\"><p></p></body></html>")
+        msgWindow.document.close();
+        msgWindow.focus();
+    }
+</script>
+</head>
+<body style="background-color:#FFEBCD;">
+<h2 style="text-align:center">ACIS Dose Plots</h2>
+<h3>Long Term Trend Plots</h3>
+<p style="text-align:center">
+<a href="javascript:WindowOpener('long_term_plot.png')"><img src="./Plots/long_term_plot.png" style="text-align:center; width: 60%"></a>
+</p>
+
+<h3>Monthly Averaged Plots</h3>
+
+<table border =0 cellpadding=1 style='border-color:#FFEBCD;'>
+<tr>
+<th>Imaging CCDs</th><th>FrontSide Spec CCDs</th><th>BackSide CCDs</th>
+</tr>
+<tr>
+<td style='width:30%;'>
+<a href="javascript:WindowOpener('./month_avg_img.png')"><img src="./Plots/month_avg_img.png" style="text-align:center; width: 98%"></a>
+</td>
+
+<td style='width:30%;'>
+<a href="javascript:WindowOpener('./month_avg_spc.png')"><img src="./Plots/month_avg_spc.png" style="text-align:center; width: 98%"></a>
+</td>
+
+<td style='width:30%;'>
+<a href="javascript:WindowOpener('./month_avg_bi.png')"><img src="./Plots/month_avg_bi.png" style="text-align:center; width: 98%"></a>
+</td>
+</tr>
+</table>
+
+<p style='font-size:90%'>
+<em>
+Click any images above to enlarge them.
+</em>
+</p>
+
+<h3>
+Count Rate Plots of Each Year
+</h3>
+
+<table border=1 cellspacing=2 cellpadding=2>
+
+#TABLE#
+
+</table>
+
+
+<div style='padding-bottom:20px;'>
+</div>
+
+<hr />
+<p style="font-size:90%">
+<em>
+If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu.
+</em>
+</p>
+
+<p style="font-size:90%">
+Last Update: #UPDATE#
+</p>
+
+</body>
+</html>
+
+

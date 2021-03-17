@@ -1,0 +1,9 @@
+cd /data/mta/Script/OBT/Scripts
+
+setenv SKA /proj/sot/ska
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/OBT/Scripts/update_state_trend_data.py
+
+/data/mta/Script/OBT/Scripts/state_plot_data.py

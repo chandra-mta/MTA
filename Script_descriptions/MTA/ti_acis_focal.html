@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Focal Temperature Trend</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Focal Temperature Trend</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scritps retrieves focal plain temperature values from telemater data and plots trends. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/CIS/Focal/Acis_ft/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Acis_ft
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>acis_ft_wrap_script</td>           <td>Sep 02, 2014</td></tr>
+<tr><td>acis_ft_main_script</td>           <td>Sep 02, 2014</td></tr>
+<tr><td>acis_ft_wrap_script_test</td>      <td>Sep 02, 2014</td></tr>
+<tr><td>acis_ft_main_script_test</td>      <td>Sep 02, 2014</td></tr>
+<tr><td>acis_ft_clean_month_data.perl</td> <td>Apr 15, 2013</td></tr>
+<tr><td>acis_ft_diff_fp_plots.perl</td>    <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_fptemp.perl</td>           <td>Apr 04, 2006</td></tr>
+<tr><td>acis_ft_make_database.perl</td>    <td>May 24, 2013</td></tr>
+<tr><td>acis_ft_make_list.perl</td>        <td>May 15, 2013</td></tr>
+<tr><td>acis_ft_plot_3day.perl</td>        <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_plot_3_month.perl</td>     <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_plot_day.perl</td>         <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_plot_long_term.perl</td>   <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_plot_month.perl</td>       <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_plot_week.perl</td>        <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_prep_test.perl</td>        <td>Apr 16, 2013</td></tr>
+<tr><td>acis_ft_print_html.perl</td>       <td>Apr 15, 2013</td></tr>
+<tr><td>acis_ft_rm_dupl.perl</td>          <td>Aug 29, 2000</td></tr>
+<tr><td>getnrt</td>                        <td>Apr 04, 2006</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ACIS/Focal/Acis_ft/README
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+ACIS telemetory data read by Peter Ford script (see getnrt for more details)
+</li>
+<li>
+/data/mta/Script/OBT/MJ/todays_data
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li> ASCDS (source /home/mta/.ascrc) </li>
+<li> source /home/mta/bin/reset_param </li>
+<li> unsetenv PERLLIB; unsetenv PERL5LIB </li>
+<li> set path = (/home/ascds/DS.release/bin/  $path) </li>
+<li> set path = (/home/ascds/DS.release/ots/bin/ $path) </li>
+<li> setenv ACISTOOLSDIR /home/pgf </li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ACIS/Focal/Data/
+    <ul>
+    <li> long_term_data </li>
+    <li> mj_month_data </li>
+    <li> month_data </li>
+    <li> week_data </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_temp/mta_fp/Figs
+    <ul>
+    <li> day3_plot.gif </li>
+    <li> day3_side_a.gif </li>
+    <li> day3_side_b.gif </li>
+    <li> day_plot.gif </li>
+    <li> entire_side_a.gif </li>
+    <li> entire_side_b.gif </li>
+    <li> fp_temp.gif </li>
+    <li> month3_plot.gif </li>
+    <li> month3_side_a.gif </li>
+    <li> month3_side_b.gif </li>
+    <li> month_plot.gif </li>
+    <li> month_side_a.gif </li>
+    <li> month_side_b.gif </li>
+    <li> today_side_a.gif </li>
+    <li> today_side_b.gif </li>
+    <li> week_plot.gif </li>
+    <li> week_side_a.gif </li>
+    <li> week_side_b.gif </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/Focal/Exc
+</li>
+<li>
+run: /data/mta/Script/ACIS/Focal/Acis_ft/acis_ft_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/Focal/Exc
+</li>
+<li>
+run: /data/mta/Script/ACIS/Focal/Acis_ft/acis_ft_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be save in /data/mta/Script/ACIS/Focal/Test_out/. Compare the results with thoese in 
+/data/mta/Script/ACIS/Focal/Test_comp_results/.
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 2 * * *  cd /data/mta/Script/ACIS/Focal/Exc; /data/mta/Script/ACIS/Focal/Acis_ft/acis_ft_wrap_script  >> $HOME/Logs/focal.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_temp/mta_fp/main_fp_temp.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_temp/mta_fp/main_fp_temp.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+The scripts will be rewritten in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

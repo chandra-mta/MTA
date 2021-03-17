@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_create_main_script

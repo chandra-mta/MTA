@@ -1,0 +1,17 @@
+<p style="color:maroon;font-size:110%">
+It may take a while to load the interactive plot. If it does not load,
+please reload the page.
+</p>
+<ul>
+    <li style="font-size:80%">Click the magnifier icon and choose the area to enlarge the area.</li>
+    <li style="font-size:80%">Click the cross icon and hold the button to move around the area.</li>
+    <li style="font-size:80%">Click the cross icon and then use the roller to zoom in and out.</li>
+    <li style="font-size:80%">Click the house icon to go back to the full view.</li>
+    <li style="font-size:80%">After enlarging the area with the magnifier, 
+        use the cross icon to see the values of each data point.</li>
+</ul>
+
+<p style="color:maroon;font-size:110%">
+The reaction speed of the page will be significantly slower if there are large numbers of data.
+If that is the case, you may want to reduce the time span or the resolution.
+</p>

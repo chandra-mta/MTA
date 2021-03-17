@@ -1,0 +1,495 @@
+The HRC Telemetry List                     SAO-HRC-TLIST-98-313
+                                           Rev A, April 23, 1998
+
+
+                                           CONTENTS
+
+1.0   HRC DATA IN ENGINEERING TELEMETRY
+
+      1.1   Bilevel Telemetry (24)
+      1.2   Active Analog Telemetry (12)
+      1.3   Passive Analog Telemetry (10)
+
+2.0   HRC DATA IN SCIENCE TELEMETRY
+
+      2.1   Secondary Science and Housekeeping
+      2.2   Primary Science Event Word  
+
+3.0   SCALE FACTORS FOR HRC TELEMETRY
+
+      3.1   Scale Factors for Voltages and Currents
+      3.2   Scale Factors for Temperatures
+
+4.0   HRC TELEMETRY CAUTION & WARNING LIST 
+
+      4.1   HRC Data in Engineering Telemetry
+      4.2   HRC Data in Science Telemetry
+
+
+
+
+
+1.0   HRC DATA IN ENGINEERING TELEMETRY
+
+1.1   Bilevel Telemetry (24)
+          
+Mnem    mf by bi DESCRIPTION
+------- -- --- -
+---------------------------------------------------
+2C1LVBS 52 271 3 BUS SELECT, CEA A LVPS                     (0=A)
+2IMHVBS 52 271 2 BUS SELECT, IMAGING HVPS                   (0=A)
+2S1HVBS 52 271 1 BUS SELECT, SHIELD A HVPS                  (0=A)
+2PREADS 52 271 0 DETECTOR SELECT, PREAMP A                  (0=I)
+2ELEASS 52 271 4 SHIELD PMT SELECT, PREAMP A                (0=2)
+2PS5AON 52 271 5 +5V LV POWER SUPPLY A ON/OFF             (0=Off)
+2DRLSOP 52 271 6 DOOR PRIMARY LIMIT SWITCH OPEN           (0=not)
+2DRLSCL 52 271 7 DOOR PRIMARY LIMIT SWITCH CLOS           (0=not)
+2PYLSHM 51 271 3 +Y SHUTTER PRIMARY LIMIT SWITCH HOME     (0=not)
+2PYLSMX 51 271 2 +Y SHUTTER PRIMARY LIM SWITCH MAX TRAVEL (0=not)
+2FSMRST 51 271 4 FAILSAFE MASTER RELAY ON/OFF             (0=ena)
+2FSCAST 51 271 5 FAILSAFE CALSRC RELAY ON/OFF             (0=ena)
+2C2LVBS 54 271 3 BUS SELECT, CEA B LVPS                     (0=A)
+2SPHVBS 54 271 2 BUS SELECT, SPECTROSCOPY HVPS              (0=A)
+2S2HVBS 54 271 1 BUS SELECT, SHIELD B HVPS                  (0=A)
+2PREBDS 54 271 0 DETECTOR SELECT, PREAMP B                  (0=I)
+2ELEBSS 54 271 4 SHIELD PMT SELECT, PREAMP B                (0=2)
+2PS5BON 54 271 5 +5V LV POWER SUPPLY B ON/OFF             (0=Off)
+2MYLSHM 54 271 6 -Y SHUTTER PRIMARY LIMIT SWITCH HOME     (0=not)
+2MYLSMX 54 271 7 -Y SHUTTER PRIMARY LIM SWITCH MAX TRAVEL (0=not)
+2CSLSHM 53 271 3 CAL SOURCE PRIMARY LIMIT SWITCH HOME     (0=not)
+2CSLSMX 53 271 2 CAL SOURCE PRIMARY LIM SWITCH MAX TRAVEL (0=not)
+2FSPYST 53 271 4 FAILSAFE +Y SHUTTER ON/OFF               (0=ena)
+2FSNYST 53 271 5 FAILSAFE -Y SHUTTER ON/OFF               (0=ena)
+
+1.2   Active Analog Telemetry (12)
+       
+Mnem    mf  by    DESCRIPTION
+
+2P05VAVL 5  270  SECONDARY +5 BUS VOLTAGE A
+2P15VAVL 7  270  SECONDARY +15 BUS VOLTAGE A
+2N15VAVL 3  270  SECONDARY -15 BUS VOLTAGE A
+2P24VAVL 9  270  SECONDARY +24 BUS VOLTAGE A
+2DETART  1  270  DETECTOR EVENT RATE A
+2SHLDART 11 270  SHIELD EVENT RATE A
+2P05VBVL 6  270  SECONDARY +5 BUS VOLTAGE B
+2P15VBVL 8  270  SECONDARY +15 BUS VOLTAGE B
+2N15VBVL 4  270  SECONDARY -15 BUS VOLTAGE B
+2P24VBVL 10 270  SECONDARY +24 BUS VOLTAGE B
+2DETBRT  2  270  DETECTOR EVENT RATE B
+2SHLDBRT 12 270  SHIELD EVENT RATE B
+
+1.3   Passive Analog Telemetry (10)
+         
+Mnem     mf  by    DESCRIPTION
+
+2PMT1T   19  271  HRC PMT 1 TEMPERATURE                          
+2PMT2T   20  271  HRC PMT 2 TEMPERATURE                          
+2DTSTATT 12  271  HRC DETECTOR HOUSING TEMPERATURE #1 (OUTSIDE)  
+2DCENTRT 11  271  HRC DETECTOR HOUSING TEMPERATURE #2 (OUTSIDE)  
+2FHTRMZT 13  271  HRC FRONT END ELECTRONICS BOX TEMPERATURE      
+2CHTRPZT  9  271  HRC CENTRAL ELECTRONICS BOX TEMPERATURE        
+2FRADPYT 14  271  +Y TEMP 
+2CEAHVPT  0  270  -Y TEMP (read in all minor frames)
+2CONDMXT 10  271  CONDUIT TEMP
+2UVLSPXT 13  270  SNOUT TEMP
+
+2.0   HRC DATA IN SCIENCE TELEMETRY
+
+      SERIAL DIGITAL TELEMETRY
+
+mf   BYTE BIT  MNEMONIC  DESCRIPTION
+
+2.1   Secondary Science and Housekeeping
+
+0    56   ALL  2TLEVART  TOTAL EVENT RATE, HI BYTE
+0    57   ALL            TOTAL EVENT RATE, LO BYTE
+0    58   ALL  2VLEVART  VALID EVENT RATE, HI BYTE 
+0    59   ALL            VALID EVENT RATE, LO BYTE 
+0    60   ALL  2SHEVART  SHIELD EVENT RATE, HI BYTE 
+0    61   ALL            SHIELD EVENT RATE, LO BYTE 
+0    62   7    224PCAST  +24V LVPS ON/OFF                  
+0    62   0-6  2SPTPAST  SP DET TOP PLATE HV STEP 
+0    63   7    215PCAST  +15V LVPS ON/OFF                 
+0    63   0-6  2SPBPAST  SP DET BOT PLATE HV STEP 
+0    64   7    215NCAST  -15V LVPS ON/OFF                 
+0    64   0-6  2IMTPAST  IM DET TOP PLATE HV STEP 
+0    65   7               SECONDARY (SIGNAL) GROUND
+0    65   0-6  2IMBPAST  IM DET BOT PLATE HV STEP 
+0    66   5-7  SPARE          
+0    66   4    2NYMTAST  -Y SHUTTER MOTOR SELECTED
+0    66   3    2PYMTAST  +Y SHUTTER MOTOR SELECTED 
+0    66   2    2CLMTAST  CALSRC MOTOR SELECTED 
+0    66   1    2DRMTAST  DOOR MOTOR SELECTED 
+0    66   0    2ALMTAST  ALL MOTORS DESELECTED    
+0    67   7    2MSMDARS  MOTION CONTROL MODE RESET               
+0    67   6    2MDIRAST  MOTOR DIRECTION (TRWD A,B)     
+0    67   5    2MSNBAMD  MTR STAT REG MV NSTEPS TRWD "B"         
+0    67   4    2MSNAAMD  MTR STAT REG MV NSTEPS TWRD "A"
+0    67   3    2MSLBAMD  MTR STAT REG MV TO LS "B" 
+0    67   2    2MSLAAMD  MTR STAT REG MV TO LS "A"
+0    67   1    2MSPRAMD  MTR STAT REG MV TO POS REG
+0    67   0    2MSDRAMD  MTR DRIVE ENABLE
+0    68   7    2MCMDARS  MOTION CONTROL MODE RESET          
+0    68   6    SPARE
+0    68   5    2MCNBAMD  MTR CMD REG MV NSTEPS TRWD "B"
+0    68   4    2MCNAAMD  MTR CMD REG MV NSTEPS TWRD "A"
+0    68   3    2MCLBAMD  MTR CMD REG MV TO LS "B" 
+0    68   2    2MCLAAMD  MTR CMD REG MV TO LS "A"
+0    68   1    2MCPRAMD  MTR CMD REG MV TO POS REG
+0    68   0    2MDRVAST  MTR DRIVE ENABLE
+0    69   ALL  2SCTHAST  STEP CTR LAST VAL (HI BYTE)          
+0    70   ALL  2SCTHAST  STEP CTR LAST VAL (LO BYTE)             
+0    71   7    SPARE     
+0    71   6    2SMOIAST  SELECTED MOTOR OVERCURRENT FLAG    
+0    71   5    2SMOTAST  SELECTED MOTOR OVERTEMP FLAG       
+0    71   3-7  SPARE     
+0    71   2    2DROTAST  DRV OVERTEMP ENABLE
+0    71   1    2DROIAST  DRV OVERCURRENT ENABLE
+0    71   0    SPARE
+0    72   5-7  SPARE
+0    72   4    2SFLGAST  STOP FLAG ENABLE                     
+0    72   3    2OSLSAST  OPEN SECONDARY LIM SW ENABLE
+0    72   2    2OPLSAST  OPEN PRIMARY LIMIT SW ENABLE
+0    72   1    2CSLSAST  CLOS SECONDARY LIM SW ENABLE
+0    72   0    2CPLSAST  CLOS PRIMARY LIMIT SW ENABLE
+0    73   6-7  SPARE
+0    73   5    2OSLSADT  OPEN SECONDARY LS DETECTED          
+0    73   4    2OSLSAAC  OPEN SECONDARY LS ACTIVE            
+0    73   3    2OPLSAAC  OPEN PRIMARY LS ACTIVE              
+0    73   2    2CSLSADT  CLOS SECONDARY LS DETECTED          
+0    73   1    2CSLSAAC  CLOS SECONDARY LS ACTIVE            
+0    73   0    2CPLSAAC  CLOS PRIMARY LS ACTIVE              
+0    79   ALL  2FCPUAST  FORCED COARSE POSITION, "U" AXIS
+0    80   ALL  2FCPVAST  FORCED COARSE POSITION, "V" AXIS    
+0    81   ALL  2CBHUAST  CENTER BLANK HI CP, "U" AXIS
+0    82   ALL  2CBLUAST  CENTER BLANK LO CP, "U" AXIS
+0    83   ALL  2CBHVAST  CENTER BLANK HI CP, "V" AXIS
+0    84   ALL  2CBLVAST  CENTER BLANK LO CP, "V" AXIS
+0    85   ALL  2WDTHAST  WIDTH THRESHOLD SETTING
+0    86   4-7  SPARE                                             
+0    86   3    2CLMDAST  CALIBRATION MODE ENABLE                 
+0    86   2    2FIFOAVR  DATA FIFO ENABLE 
+0    86   1    2OBNLASL  OBSERVING/NEXT-IN-LINE MODE SELECT
+0    86   0    2SPMDASL  SPECT DETECTOR SPECT/IMG MODE SELECT
+0    87   5-7  SPARE   
+0    87   4    2EBLKAVR  EBLK VALIDITY ENABLE 
+0    87   3    2CBLKAVR  CBLK VALIDITY ENABLE 
+0    87   2    2ULDIAVR  ULD VALIDITY ENABLE   
+0    87   1    2WDTHAVR  WIDTH VALIDITY ENABLE     
+0    87   0    2SHLDAVR  SHIELD VALIDITY ENABLE
+0    88   7    2SPONST   SP DET HVPS ON/OFF             
+0    88   6    2SPCLST   SP DET HVPS CURRENT LIM ENA         
+0    88   5    2S1ONST   SHIELD A HVPS ON/OFF                
+0    88   4    2IMONST   IM DET HVPS ON/OFF             
+0    88   3    2IMCLST   IM DET HVPS CURRENT LIM ENA         
+0    88   2    2S2ONST   SHIELD B HVPS ON/OFF                
+0    88   0-1  SPARE
+0    89   4-7            SPARE DIGITAL  
+0    89   0-3  2S1HVST   SHIELD A HVPS SETTING               
+0    90   4-7            SPARE DIGITAL            
+0    90   0-3  2S2HVST   SHIELD B HVPS SETTING               
+0    91   ALL            SPARE DIGITAL
+0    92   ALL  2C05PALV  +5V BUS MONITOR
+0    93   ALL  2C15PALV  +15V BUS MONITOR
+0    94   ALL  2C15NALV  -15V BUS MONITOR
+0    95   ALL  2C24PALV  +24V BUS MONITOR
+0    96   ALL  2IMHVLV  IMAGING LOWER MCP HV
+0    97   ALL  2IMHBLV  IMAGING LOWER & UPPER MCP HV   
+0    98   ALL  2SPHVLV  SPECT LOWER MCP HV
+0    99   ALL  2SPHBLV  SPECT LOWER & UPPER MCP HV          
+0    100  ALL  2S1HVLV  SHIELD 1 HV ANALOG READOUT              
+0    101  ALL  2S2HVLV  SHIELD 2 HV ANALOG READOUT
+0    102  ALL  2PRBSCR  PRIMARY BUS CURRENT                   
+0    103  ALL  2PRBSVL  PRIMARY BUS VOLTAGE                  
+0    104  ALL  2ULDIALV  UPPER LEVEL DISCR SETTING
+0    105  ALL  2LLDIALV  LOWER LEVEL DISCR SETTING     
+0    106  ALL  2FEPRATM  FE PREAMP CARD TEMPERATURE           
+0    107  ALL  2CALPALV  CAL PULSER AMPLITUDE SETTING 
+0    108  ALL  2GRDVALV  GRID BIAS SETTING
+0    109  ALL  2RSRFALV  RANGE SWITCH SETTING          
+0    110  ALL  2SPINATM  SPECTROSCOPY DETECTOR TEMP (INSIDE)     
+0    111  ALL  2IMINATM  IMAGING DETECTOR TEMP (INSIDE)          
+0    112  ALL                                                
+0    113  ALL  2LVPLATM  LVPS PLATE TEMPERATURE                  
+0    114  ALL  2SPHVATM  SPECTROSCOPY DET HVPS TEMP              
+0    115  ALL  2IMHVATM  IMAGING DET HVPS TEMPERATURE           
+0    116  ALL                                                
+0    117  ALL                                                
+0    118  ALL  2SMTRATM  SELECTED MOTOR TEMPERATURE          
+0    119  ALL  2FE00ATM  UNASSIGNED FE TEMPERATURE           
+0    120  ALL  2CE00ATM  UNASSIGNED CE TEMPERATURE           
+0    121  ALL  2CE01ATM  UNASSIGNED CE TEMPERATURE           
+0    122  ALL  2TLEVART  TOTAL EVENT RATE, HI BYTE 
+0    123  ALL            TOTAL EVENT RATE, LO BYTE
+0    124  ALL  2VLEVART  VALID EVENT RATE, HI BYTE 
+0    125  ALL            VALID EVENT RATE, LO BYTE 
+0    126  ALL  2SHEVART  SHIELD EVENT RATE, HI BYTE 
+0    127  ALL            SHIELD EVENT RATE, LO BYTE 
+
+2.2   Primary Science Event Word  
+      (Repeats in the listed groups of 16 bytes in all science 
+      telemetry slots after byte 127 of minor frame 0)            
+         
+      
+Bit Patterns within the 16 byte groups:
+
+     BYTE#     BIT#           DESCRIPTION
+ 
+      0        B7-B0     Coarse Position V axis
+      1        B7-B2     Coarse Position U axis
+               B1-B0     Amplitude scale factor
+      2        B7-B0     V1 axis ADC B11-B4
+      3        B7-B4     V1 axis ADC B3-B0
+               B3-B0     V2 axis ADC B11-B8
+      4        B7-B0     V2 axis ADC B7-B0
+      5        B7-B0     V3 axis ADC B11-B4
+      6        B7-B4     V3 axis ADC B3-B0
+               B3-B0     U1 axis ADC B11-B8
+      7        B7-B0     U1 axis ADC B7-B0
+      8        B7-B0     U2 axis ADC B11-B4
+      9        B7-B4     U2 axis ADC B3-B0
+               B3-B0     U3 axis ADC B11-B8
+     10        B7-B0     U3 axis ADC B7-B0
+     11        B7-B0     PHA
+     12        B7        V axis triggered
+               B6        U axis triggered
+               B5        V axis center blank event
+               B4        U axis center blank event
+               B3        V axis width exceeded
+               B2        U axis width exceeded
+               B1        Shield PMT active                   
+               B0        SPARE                                   
+     13        B7        Upper Level Discriminator exceeded
+               B6        Lower Level Discriminator exceeded
+               B5        Detector ID (Img/Spect)
+               B4        Sub Major Frame B2 
+               B3        Sub Major Frame B1 
+               B2        Sub Major Frame B0 
+               B1        Time B17           
+               B0        Time B16
+     14        B7        Time B15
+               B6        Time B14
+               B5        Time B13
+               B4        Time B12
+               B3        Time B11
+               B2        Time B10
+               B1        Time B9
+               B0        Time B8
+     15        B7        Time B7
+               B6        Time B6
+               B5        Time B5
+               B4        Time B4
+               B3        Time B3
+               B2        Time B2
+               B1        Time B1
+               B0        Time B0 
+
+
+3.0   SCALE FACTORS FOR HRC TELEMETRY
+
+3.1   Scale Factors for Voltages and Currents
+
+"m" and "b" are coefficients in the formula  V = m * DN + b,
+where V is the voltage being read, DN is the telemetry 
+digital value, and b is the offset of the measurement.
+
+example:  2C15NALV reads digital number 32.
+
+          from the table, m = 0.15625 and b = -20
+
+          the voltage is then V = 0.15625 * 32 + -20 = -15 volts
+
+HRC voltage measurements in engineering telemetry (all formats)
+
+MNEMONIC    DESCR            BYT-MF       "m"       "b"  typ "on"
+value (DN)
+--------  --------             ---     
+2P05VAVL  + 5V LVPS, CEA A    3-268    0.0390625     0        128
+2P15VAVL  +15V LVPS, CEA A    5-268    0.078125      0        192
+2N15VAVL  +15V LVPS, CEA A    1-268   -0.078125      0        192
+2P24VAVL  +24V LVPS, CEA A    7-268    0.14977       0        160
+2P05VBVL  + 5V LVPS, CEA B    4-268    0.0390625     0        128
+2P15VBVL  +15V LVPS, CEA B    6-268    0.078125      0        192
+2N15VBVL  +15V LVPS, CEA B    2-268   -0.078125      0        192
+2P24VBVL  +24V LVPS, CEA B    8-268    0.14977       0        160
+
+HRC voltage measurements in science telemetry (formats 0 and 1)
+
+MNEMONIC    DESCR            BYTE *       "m"       "b"  typ "on"
+value (DN)
+--------  --------             ---     
+2C05PALV  + 5V LVPS **          92     0.078125    -10       192 
+2C15PALV  + 15V LVPS **         93     0.15625     -20       224 
+2C15NALV  - 15V LVPS **         94     0.15625     -20        32 
+2C24PALV  + 24V LVPS **         95     0.234375    -30       231 
+2PRBSVL   PRIMARY BUS V *      103     0.3125      -40       217 
+2PRBSCR   PRIMARY BUS I *      102     0.0682    -8.65       149
+
+
+*  byte number applies for all science header frames in format 1.
+** measurement relates to the CEA that is currently powered (A or
+   B).
+
+The units of the following measurements will remain "steps".
+As such, no calibration factors will apply:
+
+2SPTPAST  SP DET TOP PLATE HV STEP    
+2SPBPAST  SP DET BOT PLATE HV STEP    
+2IMTPAST  IM DET TOP PLATE HV STEP   
+2IMBPAST  IM DET BOT PLATE HV STEP   
+2S1HVST   SHIELD A HVPS SETTING       
+2S2HVST   SHIELD B HVPS SETTING       
+2IMHVLV   IMAGING LOWER MCP HV         
+2IMHBLV   IMAGING LOWER & UPPER MCP HV  
+2SPHVLV   SPECT LOWER MCP HV           
+2SPHBLV   SPECT LOWER & UPPER MCP HV   
+2S1HVLV   SHIELD 1 HV ANALOG READOUT  
+2S2HVLV   SHIELD 2 HV ANALOG READOUT   
+
+3.2   Scale Factors for Temperatures
+
+HRC temperature measurements in engineering telemetry (all
+formats)
+
+K = telemetry count
+L = 5100*K/255
+R = 1/(1/l-1/4500)
+T(C) = 1/[a+b*lnR+c(lnR)^3]-273.16
+
+MNEMONIC    DESCR               a          b         c      
+--------  --------             ---        ---       ---
+2PMT1T   PMT 1 TEMP        0.00133543  0.00025266  2.2001E-07 
+2PMT2T   PMT 2 TEMP        0.00133543  0.00025266  2.2001E-07
+2DTSTATT DET HSG TEMP1     0.00133543  0.00025266  2.2001E-07
+2DCENTRT DET HSG TEMP2     0.00133543  0.00025266  2.2001E-07
+2FHTRMZT FE BOX TEMP       0.00133543  0.00025266  2.2001E-07    
+2CHTRPZT CE BOX TEMP       0.00133543  0.00025266  2.2001E-07    
+2FRADPYT +Y TEMP           0.00133543  0.00025266  2.2001E-07
+2CEAHVPT -Y TEMP           0.00133543  0.00025266  2.2001E-07 
+2CONDMXT CONDUIT TEMP      0.00133543  0.00025266  2.2001E-07
+2UVLSPXT SNOUT TEMP        0.00133543  0.00025266  2.2001E-07
+
+
+HRC temperature measurements in science telemetry (formats 1 
+and 2)
+
+T(C) = a+bK+cK^2+dK^3 where K = telemetry count
+
+MNEMONIC    DESCR            a         b         c          d 
+     
+--------  --------          ---       ---       ---        ---
+
+2FEPRATM  FE PREAMP TEMP   131.47   -2.29     1.42E-2   -3.55E-05
+2SPINATM  SPECT DET TEMP   131.47   -2.29     1.42E-2   -3.55E-05
+2IMINATM  IMAGING DET TEMP 131.47   -2.29     1.42E-2   -3.55E-05
+2LVPLATM  LVPS PLATE TEMP   58.61  -6.74E-01  3.45E-03  -9.90E-06
+2SPHVATM  SPECT HVPS TEMP   58.61  -6.74E-01  3.45E-03  -9.90E-06
+2IMHVATM  IMAG HVPS TEMP    58.61  -6.74E-01  3.45E-03  -9.90E-06
+2SMTRATM  SEL MOTOR TEMP   -54.93   8.37E-01 -4.09E-03   9.89E-06
+2FE00ATM  FE TEMP           58.61  -6.74E-01  3.45E-03  -9.90E-06
+2CE00ATM  CE TEMP 0         58.61  -6.74E-01  3.45E-03  -9.90E-06
+2CE01ATM  CE TEMP 1         58.61  -6.74E-01  3.45E-03  -9.90E-06
+
+
+4.0   HRC TELEMETRY CAUTION & WARNING LIST 
+ 
+4.1   HRC Data in Engineering Telemetry
+
+BILEVEL TELEMETRY
+
+Mnem      DESCRIPTION
+------- -----------------------------------------------------
+2FSMRST FAILSAFE MASTER RELAY ON/OFF   Warning if state = "1"
+2FSCAST FAILSAFE CALSRC RELAY ON/OFF   Warning if state = "1"
+2FSPYST FAILSAFE +Y SHUTTER ON/OFF     Warning if state = "1"
+2FSNYST FAILSAFE -Y SHUTTER ON/OFF     Warning if state = "1"
+
+ACTIVE ANALOG TELEMETRY
+
+Mnem      DESCRIPTION
+
+2P05VAVL SEC +5 BUS VOLTAGE A    Caution > 5.25V, Warning > 5.5V
+2P15VAVL SEC +15 BUS VOLTAGE A   Caution > 16V, Warning > 17V
+2N15VAVL SEC -15 BUS VOLTAGE A   Caution < -16V, Warning < -17V
+2P24VAVL SEC +24 BUS VOLTAGE A   Caution > 25V, Warning > 26V
+2P05VBVL SEC +5 BUS VOLTAGE B    Caution > 5.25V, Warning > 5.5V
+2P15VBVL SEC +15 BUS VOLTAGE B   Caution > 16V, Warning > 17V
+2N15VBVL SEC -15 BUS VOLTAGE B   Caution < -16V, Warning < -17V
+2P24VBVL SEC +24 BUS VOLTAGE B   Caution > 25V, Warning > 26V
+
+PASSIVE ANALOG TELEMETRY 
+
+Mnem      DESCRIPTION
+
+2PMT1T   HRC PMT 1 TEMP    Caution > 45C, Warning > 50C T_Pmt1
+                           Caution <-35C, Warning <-38C
+2PMT2T   HRC PMT 2 TEMP    Caution > 45C, Warning > 50C T_Pmt2
+                           Caution <-35C, Warning <-38C
+2DTSTATT HRC DET HSG TEMP1 Caution > 35C, Warning > 40C T_OutDet
+                           Caution <-09C, Warning <-12C
+2DCENTRT HRC DET HSG TEMP2 Caution > 35C, Warning > 40C T_OutDet
+                           Caution <-09C, Warning <-12C
+2FHTRMZT HRC FE BOX TEMP   Caution > 45C, Warning > 50C T_FeaBox
+                           Caution <-35C, Warning <-38C
+2CHTRPZT HRC CE BOX TEMP   Caution > 45C, Warning > 50C T_CEAbox
+                           Caution <-35C, Warning <-38C
+2FRADPYT +Y TEMP           Caution > 45C, Warning > 50C T_PY
+                           Caution <-37C, Warning <-40C
+2CEAHVPT -Y TEMP           Caution > 50C, Warning > 55C T_MY
+                           Caution <-35C, Warning <-38C
+2CONDMXT CONDUIT TEMP      Caution > 45C, Warning > 50C T_conduit
+                           Caution <-35C, Warning <-38C
+2UVLSPXT SNOUT TEMP        Caution > 45C, Warning > 50C T_Snout
+                           Caution <-45C, Warning <-48C
+
+4.2   HRC Data in Science Telemetry
+
+SERIAL DIGITAL TELEMETRY
+
+MNEMONIC   DESCRIPTION
+
+2TLEVART  TOTAL EVENT RATE   Caution > 150 /s, Warning > 200 /s
+2SHEVART  SHIELD EVENT RATE  Caution > 15000 /s, Warning>20000 /s
+2SPTPAST  SP DET TOP HV STEP Caution > step 90, Warning > step 92
+2SPBPAST  SP DET BOT HV STEP Caution > step 102,Warning> step 104
+2IMTPAST  IM DET TOP HV STEP Caution > step 79, Warning > step 81
+2IMBPAST  IM DET BOT HV STEP Caution > step 91, Warning > step 93
+2SMOIAST  MOTOR OVERCURRENT  Caution if "1"  
+2SMOTAST  MOTOR OVERTEMP     Caution if "1"  
+2SPMDASL  SPECT/IMG MODE SEL Caution if "1"
+2SPCL ST  SP HVPS ILIM ENA   Caution if "0"        
+2IMCL ST  IM HVPS ILIM ENA   Caution if "0"        
+2S1HV ST  SHIELD 1 HVPS SET  Caution > step 12, Warning > step 13
+2S2HV ST  SHIELD 2 HVPS SET  Caution > step 4, Warning > step 5
+2C05PALV  +5V BUS MONITOR    Caution > +5.2V, Warning > +5.5V
+2C15PALV  +15V BUS MONITOR   Caution > +15.5V, Warning > +17V
+2C15NALV  -15V BUS MONITOR   Caution < -15.5V, Warning < -17V
+2C24PALV  +24V BUS MONITOR   Caution > +24.5V, Warning > +26V
+2IMHVLV  IMAG LOWER MCP HV   Caution < step 80, Warning < step 78
+2IMHBLV  IMAG UPPER MCP HV   Caution < step 87, Warning < step 85
+2SPHVLV  SPEC LOWER MCP HV   Caution < step 74, Warning < step 72
+2SPHBLV  SPEC UPPER MCP HV   Caution < step 81, Warning < step 79
+2S1HVLV  SHIELD 1 HV ANALOG  Caution < step 81, Warning < step 79
+2S2HVLV  SHIELD 2 HV ANALOG  Caution < step 86, Warning < step 84
+2PRBSCR  PRIMARY BUS CURRENT Caution > step 2.3A, Warning > 2.5A
+2PRBSVL  PRIMARY BUS VOLTAGE Caution > step 35V, Warning > 37V 
+2FEPRATM  FE PREAMP TEMP     Caution > 50C, Warning > 55C        
+                             Caution <-42C, Warning <-45C        
+2SPINATM  SPECT DET TEMP     Caution > 35C, Warning > 40C
+                             Caution <-11C, Warning <-14C   
+2IMINATM  IMAGING DET TEMP   Caution > 35C, Warning > 40C
+                             Caution <-11C, Warning <-14C        
+2LVPLATM  LVPS PLATE         Caution > 50C, Warning > 55C
+                             Caution <-32C, Warning <-35C        
+2SPHVATM  SPECT HVPS TEMP    Caution > 50C, Warning > 55C
+                             Caution <-32C, Warning <-35C
+2IMHVATM  IMAG HVPS TEMP     Caution > 50C, Warning > 55C
+                             Caution <-32C, Warning <-35C        
+2SMTRATM  SEL MOTOR TEMP     Caution > 45C, Warning > 50C
+                             Caution <-17C, Warning <-20C       
+2FE00ATM  FE TEMP            Caution > 45C, Warning > 50C
+                             Caution <-32C, Warning <-35C       
+2CE00ATM  CE TEMP 0          Caution > 45C, Warning > 50C
+                             Caution <-32C, Warning <-35C       
+2CE01ATM  CE TEMP 1          Caution > 45C, Warning > 50C
+                             Caution <-32C, Warning <-35C       

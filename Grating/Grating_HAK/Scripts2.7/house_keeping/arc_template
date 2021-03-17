@@ -1,0 +1,14 @@
+operation = retrieve
+dataset = flight
+detector = hrc
+level = 1.5
+tstart=#START#
+tstop=#STOP#  
+go
+operation = retrieve
+dataset = flight
+detector = acis
+level = 1.5
+tstart=#START#
+tstop=#STOP#  
+go

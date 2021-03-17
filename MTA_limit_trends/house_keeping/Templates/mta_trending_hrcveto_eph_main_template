@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HRC Shield Rates vs. EPHIN Rates</title>
+    <style>
+        .blue {
+            background-color:   #d9e6fc;
+        }
+        td {
+            padding: 5px;
+        }
+    </style>
+        <script type="text/javascript">
+
+
+    function WindowOpener(file) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=400,resize=no");
+        msgWindow.document.clear();
+        msgWindow.document.write("<html><head><title>Envelope Trending </title></head>");
+        msgWindow.document.write("<body bgcolor='white'>");
+        msgWindow.document.write("<iframe src='../Limit_table/"+file+"' border=0 width=760 height=400 target=blank></iframe>")
+        msgWindow.document.write("</body></html>")
+        msgWindow.document.close();
+        msgWindow.focus();
+    }
+
+    function popitup(url) {
+        newwindow=window.open(url,'name','height=400, width=760');
+        if (window.focus) {newwindow.focus()}
+    }
+</script>
+
+
+
+</head>
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<header>
+<h2>HRC Shield Rates vs. EPHIN Rates</h2>
+
+    <div style='padding-bottom:50px;width:100%; margin:0 auto;'>
+        <div style='width:60%; float:left;margin-left:20px;'>
+
+            <p>
+            This page shows the replation between shevart (shield events) and ephin key rates.
+            </p>
+            <p>
+            The data are divided into one-year length to show the possible time evolution 
+            of the relation between the shevart and the msi
+            </p>
+        </div>
+        <div style='float:right;'>
+
+            <a href="javascript:popitup('https://cxc.cfa.harvard.edu/mta/MSID_Trends/how_to_create_hrcveto_eph.html')" 
+                  style="text-align:right">How the plots are created</a><br />
+            <a href="mta_trending_main.html">Open MSID Trending Page</a> <br />
+            <a href=""></a>   <br />
+            <a href=""></a>
+        </div>
+    </div>
+</header>
+<div style='clear: left;'>
+</div>
+
+
+<table border=1 cellpadding=2 cellspacing=2 style='margin-left:auto; margin-right:auto;'>
+    <tbody>
+
+    <tr><th class="blue">&#160;</th>
+<th colspan=4 class="blue">Full Range</th>
+</tr>
+<tr>
+<th>HRC Shield Rates vs. EPHIN Rates</th</tr>
+<td><a href="./Hrcveto_eph/hrcveto_eph_mid_hrcveto_eph.html">Avg</a></td>
+<td><a href="./Hrcveto_eph/hrcveto_eph_min_hrcveto_eph.html">Min</a></td>
+<td><a href="./Hrcveto_eph/hrcveto_eph_max_hrcveto_eph.html">Max</a></td>
+</tr>
+<tr><th colspan=4>&#160;</th></tr>
+
+</tr>
+
+
+    </tbody>
+
+</table>
+
+<div style="padding-top:30px">
+</div>

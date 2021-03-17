@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>STEREO</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>STEREO</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts copies data and plots from NOAA site and display the data and plots on:
+http://cxc.cfa.harvard.edu/mta/RADIATION/STEREO2/stereo.html/
+</p>
+<p>
+NOAA Space Weather Predition Center site is: 
+<a href='http://legacy-www.swpc.noaa.gov/stereo/'>http://legacy-www.swpc.noaa.gov/stereo/</a>.
+Note that side B is currently not working. 
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/space_weather/STEREO/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Stereo.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>calculate.csh</td>          <td>Nov 17, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta4/space_weather/STEREO/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Oct 21, 2015</th><td>Initially logged</td></tr>
+<tr><th>Oct 21, 2015</th><td>Data link to NOAA site updated</td></tr>
+<tr><th>Nov 17, 2015</th><td>moved from rhodes to c3po-v</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> ftp://ftp.sec.noaa.gov/pub/lists/stereo/sta_impact_5m.txt</li>
+<li> ftp://ftp.sec.noaa.gov/pub/lists/stereo/stb_impact_5m.txt</li>
+<li> http://legacy-www.swpc.noaa.gov/stereo/data/impact_A_5m_7d.gif</li>
+<li> http://legacy-www.swpc.noaa.gov/stereo/data/impact_B_5m_7d.gif</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None  
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/space_weather/STEREO/
+    <ul>
+    <li>stereoAdata </li>
+    <li>stereoBdata </li>
+    </ul>
+</li>
+<li>
+/data/mta4/www/RADIATION/STEREO2/
+    <ul>
+    <li>stereo.html </li>
+    <li> impact_A_5m_7d.gif </li>
+    <li> impact_B_5m_7d.gif </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta4/space_weather/STERE
+</li>
+<li>
+run:   calculate.csh (run on rhodes)
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+2,6,11,16,21,26,31,36,41,46,51,56 * * * * /data/mta4/space_weather/STEREO/calculate.csh>> $HOME/Logs/stereo.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='http://cxc.cfa.harvard.edu/mta/RADIATION/STEREO2/stereo.html'>
+http://cxc.cfa.harvard.edu/mta/RADIATION/STEREO2/stereo.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

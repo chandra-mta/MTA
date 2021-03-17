@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Corner Pixels</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Corner Pixels</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Update ACIS corner pixel data and web page:
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/Corner_pix/cpix.html
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Corner_pix/Scripts
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Corner_pix.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><th>process_corner_pix.py</th>  <td>Nov 23, 2015</th></tr>
+<tr><th>cpix.pro</th>               <td>Nov 19, 2015</th></tr>
+<tr><th>cpix_afaint.pro</th>        <td>Nov 19, 2015</th></tr>
+<tr><th>cpix_links.pro</th>         <td>Nov 19, 2015</th></tr>
+<tr><th>cpix_plot.pro</th>          <td>Nov 19, 2015</th></tr>
+<tr><th>curvefit.pro</th>           <td>Nov 19, 2015</th></tr>
+<tr><th>flipy.pro</th>              <td>Nov 19, 2015</th></tr>
+<tr><th>get_data.pro</th>           <td>Nov 19, 2015</th></tr>
+<tr><th>run_get_data.pro</th>       <td>Nov 19, 2015</th></tr>
+<tr><th>run_plot.pro </th>          <td>Nov 19, 2015</th></tr>
+<tr><th>recent_obs.perl</th>        <td>Nov 23, 2015</th></tr>
+<tr><th>move_old_files.py</th>      <td>Jan 05, 2016</th></tr>
+<tr><th>trend_plot_wrap_script</th> <td>Jan 05, 2016</th></tr>
+<tr><th>trend_plot_main_script</th> <td>Jan 05, 2016</th></tr>
+<tr><th>plot_corner_pix_trend.py</th><td>Jan 05, 2016</th></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+</p>
+<table border = 0>
+<tr><th>Sep 10, 2014</th><td>Initially logged</td></tr>
+<tr><th>Nov 23, 2015</th><td>Major update; now data are obtained from archive database</td></tr>
+<tr><th>Jan 05, 2016</th><td>A bug related archiving old file fixed</td></tr>
+<tr><th>Jan 05, 2016</th><td>Plotting routine updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+ acis*evt1.fits form archive
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+acsds
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_acis_sci_run/Corner_pix
+    <ul>
+        <li> cpix.html </li>
+        <li> I2cp_afaint.html</li>
+        <li> I2cp_faint.html</li>
+        <li> I2cp.html</li>
+        <li> I2cp_vfaint.html</li>
+        <li> I3cp_afaint.html</li>
+        <li> I3cp_faint.html</li>
+        <li> I3cp.html</li>
+        <li> I3cp_vfaint.html</li>
+        <li> S2cp_afaint.html</li>
+        <li> S2cp_faint.html</li>
+        <li> S2cp.html</li>
+        <li> S2cp_vfaint.html</li>
+        <li> S3cp_afaint.html</li>
+        <li> S3cp_faint.html</li>
+        <li> S3cp.html</li>
+        <li> S3cp_vfaint.html</li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_acis_sci_run/Corner_pix/Trend_Plots/
+    <ul>
+        <li> acisf*hist.gif</li>
+        <li> acisf*ahist.gif</li>
+        <li> *afaint_*.gif</li>
+        <li> *vfaint_*.gif</li>
+        <li> *faint_*.gif</li>
+    </ul>
+</li>
+/data/mta_www/mta_acis_sci_run/Corner_pix/Week/
+    <ul>
+        <li>index.html</li>
+        <li>acisf&lt;obsid&gt;cp.gif</li>
+        <li>acisf&lt;obsid&gt;_I2hist.gif</li>
+        <li>acisf&lt;obsid&gt;_I3hist.gif</li>
+        <li>acisf&lt;obsid&gt;_S2hist.gif</li>
+        <li>acisf&lt;obsid&gt;_S3hist.gif</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li> go to: /data/mta/Script/Corner_pix/Exc </li>
+<li> run:    process_corner_pix.py </li>
+<li> run:    move_old_files.py </li>
+<li> run:    recent_obs.perl</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<ul>
+<!--
+<li>5 3 * * 1 cd /data/mta/Script/Corner_pix/Exc; /data/mta/Script/Corner_pix/Scripts/process_corner_pix.py >> corner_pix.cron</li> 
+<li>35 3 * * 1 cd /data/mta/Script/Corner_pix/Scripts/; move_old_files.py >> $HOME/Logs/corner_pix_move.cron</li> 
+<li>5 4 * * 1 cd /data/mta/Script/Corner_pix/Scripts/; perl recent_obs.perl >> $HOME/Logs/recent_obs.cron </li>
+-->
+<li>5 3 * * *  cd /data/mta/Script/Corner_pix/Scripts/; /data/mta/Script/Corner_pix/Scripts/trend_plot_wrap_script >> $HOME/Logs/corner_pix_plots.cron </li>
+</ul>
+
+
+<h3>Web Addreess</h3>
+<ul>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/Corner_pix/cpix.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/Corner_pix/cpix.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/Corner_pix/Week/recent_data.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/Corner_pix/Week/recent_data.html
+</a>
+</li>
+</ul>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

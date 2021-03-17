@@ -1,0 +1,5 @@
+"/data/mta/Script/ACIS/Rej_events/Scripts/"                 : bin_dir
+"/data/mta/Script/ACIS/Rej_events/Scripts/house_keeping/"   : house_keeping
+"/data/mta/Script/ACIS/Rej_events/Data/"                    : data_dir
+"/data/mta_www/mta_acis_sci_run/Events_rej/"                : html_dir
+"/data/mta/Script/Python3.6/MTA/"                           :mta_dir

@@ -1,0 +1,196 @@
+
+++++++++++++++++++++++++++++
+Creating SIM Movement Plots
+++++++++++++++++++++++++++++
+
+This directory cotains scripts related to creation of 
+SIM movement plots in /data/mta_www/mta_sim/.
+
+Dir: /data/mta_www/mta_sim/Scripts/SIM_move
+See also: https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Spacecraft/bs_sim_move.html
+
+
+Scripts
++++++++
+
+run_sim_warp_script     --- setting environment 
+run_sim_main_script     
+
+mkmonth_list.py         --- create ./Outputs/months file
+                            which is a list of months and range in DOM
+
+runtscpos.pro           --- idl script to run all other idl scripts
+                            and move plots and data to appropriate locations
+
+tscpos.pro              --- read data and creates plots
+
+tsc_mv_trend.pro        --- create trend plots. called by tscpos.pro
+
+cmp_as_planned.pro      --- create plots which compare planned movement and
+                            actual moves. called by tscpos.pro
+
+mkwebsum.pro            --- create "sum.html" page which is modified and
+                            moved to the main location by runscrpos.pro
+
+mkweeksum.pro           --- create "wksum.html" page which is modified 
+                            and moved to the main location by runscpos.pro
+
+list_values.pro         --- given an inarray (floating point, sorted) will return
+                            an array containing inarray's unique values
+
+simmoves.pro            --- given arrays of times and positions, will return 
+                            a structured a of start time, stop time, start 
+                            position, end position for each move
+
+filterinst.pro          --- returns a filtered instrument list
+                            it eliminates observations that fall within the
+                            detector ranges, but should not be counted
+                            as having the detector in place
+
+
+Environmental Setting
++++++++++++++++++++++
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_lib
+s:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+
+both are done in run_sim_main_script
+
+Input 
++++++
+/data/mta/www/mta_sim/Scripts/sim_data.out  (tscpos.pro)
+
+/home/mta/Chex/pred_state.rdb               (cmp_as_planned.pro)
+
+Output
+++++++
+In the directory: /data/mta_www/mta_sim/,
+
+ tscpos.out
+
+ 3tscpos.gif
+ inst1.gif
+ inst2.gif
+ inst3.gif
+ inst4.gif
+ 3fapos.gif
+ 3mrmmxmv.gif
+ 3mrmmxmv2.gif
+ 3mrmmxmv3.gif
+ 3tscpos_day.gif
+ 3fapos_day.gif
+ 3mrmmxmv_day.gif
+ 3tscpos_week.gif
+ 3fapos_week.gif
+ 3mrmmxmv_week.gif
+ tscposdiff_al.gif
+ faposdiff_al.gif
+ tscposdiff_dy.gif
+ faposdiff_dy.gif
+ tscposdiff_wk.gif
+ faposdiff_wk.gif
+ tsc12a.gif
+ tsc12b.gif
+ tsc13a.gif
+ tsc13b.gif
+ tsc14a.gif
+ tsc14b.gif
+ tsc21a.gif
+ tsc21b.gif
+ tsc23a.gif
+ tsc23b.gif
+ tsc24a.gif
+ tsc24b.gif
+ tsc31a.gif
+ tsc31b.gif
+ tsc32a.gif
+ tsc32b.gif
+ tsc34a.gif
+ tsc34b.gif
+ tsc41a.gif
+ tsc41b.gif
+ tsc42a.gif
+ tsc42b.gif
+ tsc43a.gif
+ tsc43b.gif
+ tsc12aw.gif
+ tsc12bw.gif
+ tsc14aw.gif
+ tsc14bw.gif
+ tsc21aw.gif
+ tsc21bw.gif
+ tsc24aw.gif
+ tsc24bw.gif
+ tsc42aw.gif
+ tsc42bw.gif
+
+ index.html
+ wksum.html
+
+* following html pages are not updated but needed
+--------------------------------------------------
+ mrmmxmv.html
+ tscpos.html
+ fapos.html
+ daily.html
+ weekly.html
+
+
+In the directory: /data/mta_www/mta_sim/Trend/, 
+
+ trend_tmove.gif
+ trend_fmove.gif
+ trend_tdist.gif
+ trend_fdist.gif
+ trend_month1.gif
+ trend_month2.gif
+ trend12a.gif
+ trend12hist.gif
+ trend13a.gif
+ trend13hist.gif
+ trend14a.gif
+ trend14hist.gif
+ trend21a.gif
+ trend21hist.gif
+ trend23a.gif
+ trend23hist.gif
+ trend24a.gif
+ trend24hist.gif
+ trend31a.gif
+ trend31hist.gif
+ trend32a.gif
+ trend32hist.gif
+ trend34a.gif
+ trend34hist.gif
+ trend41a.gif
+ trend41hist.gif
+ trend42a.gif
+ trend42hist.gif
+ trend43a.gif
+ trend43hist.gif
+ trend_trate.gif
+
+ index.html
+
+* following html pages are not updated but needed
+--------------------------------------------------
+ AItoAS.html
+ AItoHI.html
+ AItoHS.html
+ AStoAI.html
+ AStoHI.html
+ AStoHS.html
+ HItoAI.html
+ HItoAS.html
+ HItoHS.html
+ HStoAI.html
+ HStoAS.html
+ HStoHI.html
+
+
+Cron Job
++++++++++
+
+14 4 * * * cd /data/mta_www/mta_sim/Scripts/SIM_move; /data/mta_www/mta_sim/Scripts/SIM_move/run_sim_warp_script >> $HOME/Logs/sim_movement_linux.cron 2>&1
+

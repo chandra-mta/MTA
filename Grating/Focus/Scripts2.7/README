@@ -1,0 +1,62 @@
+
+##########################
+Gratings Focus Trending
+##########################
+
+--------
+Scripts:
+--------
+/data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script
+/data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_main_script
+        ---- these runs several grating related scripts including this one
+
+update_grating_focus_data_lists.py      ---- extract data and update focus data tables
+
+        dat needed:
+            <gdata_dir>/obslist  --- a list of grating observations
+            <gdata_dir>/<Mon><dd>/<obsid>/obsid_<obsid>_Sky_summary.html
+
+        output:
+            <data_dir>/acis_hetg
+            <data_dir>/acis_letg
+            <data_dir>/hrc_letg
+
+plot_grating_focus.py                  ---- plotting data
+
+        data needed:
+            <data_dir>/acis_hetg
+            <data_dir>/acis_letg
+            <data_dir>/hrc_letg
+
+        output:
+            <web_dir>/acis_letg_ax_lrf_focus.png
+            <web_dir>/acis_letg_streak_lrf_focus.png
+            <web_dir>/acis_hetg_ax_lrf_focus.png
+            <web_dir>/acis_hetg_streak_lrf_focus.png
+            <web_dir>/hrc_letg_ax_lrf_focus.png
+            <web_dir>/hrc_letg_streak_lrf_focus.png
+
+----------
+Directory:
+----------
+'/data/mta/Script/Grating/Focus/Scripts/'                   : bin_dir
+'/data/mta/Script/Grating/Focus/Scripts/house_keeping/'     : house_keeping
+'/data/mta/Script/Grating/Focus/Data/'                      : data_dir
+'/data/mta/Script/Python_script2.7/'                        : mta_dir
+'/data/mta_www/mta_grat/Focus/'                             : web_dir
+'/data/mta_www/mta_grat/Grating_Data/'                      : gdata_dir
+
+----------
+Web Page:
+----------
+http://cxc.cfa.harvard.edu/mta_days/mta_grat/index.html
+
+---------
+Cron Job:
+---------
+r2d2-v as mta
+
+32 2 3,13,23 * * cd /data/mta/Script/Grating/Grating_HAK/Exc; /data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script >> $HOME/Logs/run_grating.cron
+
+
+    --- this runs several grating related scripts

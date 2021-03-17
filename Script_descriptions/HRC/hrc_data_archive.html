@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC Data Archive</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC Data Archive</h2>
+
+
+<h3>Description</h3>
+<p>
+There are archives of all HRC data in /data/hrc/s/ and /data/hrc/i/. It
+contains data processed the best way we know how (applying all known Cal
+corrections, keeping all information intact). This way, everything we need is
+pre-calculated and waiting for any kind of analysis we might need to run.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc6/wilton/isobe/Project9/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>HRC_I</td></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><td>reprocess_warp_script</td>       <td>Mar 09, 2017</td></tr>
+<tr><td>reprocess_main_script</td>       <td>Mar 09, 2017</td></tr>
+<tr><td>DBI.py</td>                      <td>Feb 22, 2017 (not used Spe 27, 2017)</td></tr>
+<tr><td>OcatSQL.py</td>                  <td>Feb 22, 2017 (not used Spe 27, 2017)</td></tr>
+<tr><td>re_process_hrc_data.py</td>      <td>Oct 04, 2017</td></tr>
+<tr><td>fix_dtcor.pl</td>                <td>Sep 27, 2017</td></tr>
+<tr><td>fix_rangelev+widthres.pl</td>    <td>Sep 27, 2017</td></tr>
+<tr><td>mk_new_badpix.pl</td>            <td>Sep 27, 2017</td></tr>
+<tr><td>run_hpe.pl</td>                  <td>Sep 27, 2017</td></tr>
+<tr><td>stat+gti_filter.pl</td>          <td>Sep 27, 2017</td></tr>
+
+<tr><td>HRC_S</td></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><td>reprocess_warp_script</td>       <td>Mar 09, 2017</td></tr>
+<tr><td>reprocess_main_script</td>       <td>Mar 09, 2017</td></tr>
+<tr><td>DBI.py</td>                      <td>Mar 08, 2017 (not used Spe 27, 2017)</td></tr>
+<tr><td>OcatSQL.py</td>                  <td>Mar 08, 2017 (not used Spe 27, 2017)</td></tr>
+<tr><td>re_process_hrc_data.py</td>      <td>Oct 04, 2017</td></tr>
+<tr><td>fix_dtcor.pl</td>                <td>Sep 27, 2017</td></tr>
+<tr><td>fix_rangelev+widthres.pl</td>    <td>Sep 27, 2017</td></tr>
+<tr><td>mk_new_badpix.pl</td>            <td>Sep 27, 2017</td></tr>
+<tr><td>run_hpe.pl</td>                  <td>Sep 27, 2017</td></tr>
+<tr><td>stat+gti_filter.pl</td>          <td>Sep 27, 2017</td></tr>
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project9/Scripts/HRC_I/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Jun 02, 2017</th><td>Initially logged</td></tr>
+<tr><th>Sep 27, 2017</th><td>Modifying the scripts to adapt the envirnment setting changes</td></tr>
+<tr><th>Sep 27, 2017</th><td>Moving to different cpu (removing data/mta/dependency)</td></tr>
+<tr><th>Oct 04, 2017</th><td>File permission changed (774).</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/obs_ss/sot_ocat.out
+</li>
+<li>
+SQL database access
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/hrc/i, /data/hrc/s
+    <ul>
+    <li> &lt;obsid&gt;/analysis/hrcf&lt;obsid&gt;_evt2.fits</li>
+    <li> &lt;obsid&gt;/analysis/new_dtfstat.fits</li>
+    <li> &lt;obsid&gt;/analysis/obsid.list</li>
+    <li> &lt;obsid&gt;/primary/hrcf*_dtf1.fits.gz</li>
+    <li> &lt;obsid&gt;/primary/hrcf*_fov1.fits.gz</li>
+    <li> &lt;obsid&gt;/primary/pcadf*_asol1.fits.gz</li>
+    <li> &lt;obsid&gt;/primary/pcad.lst</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*bpix1.fits.gz</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*evt1.fits.gz</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*msk1.fits.gz</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*mt1.fits.gz</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*std_dtfstat1.fits.gz</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*std_flt1.fits.gz</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*evt1_new.fits</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*evt1_new_stflt.fits</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*new_bpix1.fits</li>
+    <li> &lt;obsid&gt;/secondary/hrcf*obs.par</li>
+    <li> &lt;obsid&gt;/secondary/hrc_process_events.par</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+cd /data/aschrc6/wilton/isobe/Project9/Exc/
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project9/Scripts/Hrc_S/re_process_hrc_data.py
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project9/Scripts/Hrc_I/re_process_hrc_data.py
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+15 11 * * * cd /data/aschrc6/wilton/isobe/Project9/Exc; /data/aschrc6/wilton/isobe/Project9/Scripts/Hrc_S/reprocess_warp_script> /home/isobe/Logs/reprocess_hrc_s.cron
+<br />
+15 9 * * * cd /data/aschrc6/wilton/isobe/Project9/Exc; /data/aschrc6/wilton/isobe/Project9/Scripts/Hrc_I/reprocess_warp_script> /home/isobe/Logs/reprocess_hrc_i.cron
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web page
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Need to add several more proccesses.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

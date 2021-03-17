@@ -1,0 +1,68 @@
+++++++++++++++++
+ACIS Gain Trend
+++++++++++++++++
+
+This directory holds scripts to extract and compute acis gain, and plot the trend.
+
+
+Directories
++++++++++++++
+"/data/mta/www/mta_acis_gain/"                  : web_dir           --- where the wab pages are kept
+"/data/mta/Script/ACIS/Gain/Data/"              : data_dir          --- where the data are kept
+"/data/mta/Script/ACIS/Gain/Exc/"               : exc_dir           --- where the programs are run
+"/data/mta/Script/ACIS/CTI/Data/Results/"       : cti_dir           --- cti data are kept here
+"/data/mta/Script/ACIS/Gain/house_keeping/"     : house_keeping     --- house hold directory
+"/data/mta/Script/Python3.8/MTA/"               : mta_dir           --- mta related python script 
+"/data/mta/Script/ACIS/Gain/Script/"            : bin_dir           --- this direcotry
+
+
+Scripts
+++++++++
+
+acis_gain_wrap_script       intial environment setting script
+acis_gain_main_script       tsh script to run all script
+
+acis_gain_extract_data.py
+-------------------------
+extract gain data from acis evt1 files.
+
+input: as an argv, if you give "live",  the data from the last month will be used.
+                   if you give <year> <month>,  the data from the specifict year/month will be used.
+       if you run this script  without argv, a test will be run.
+
+other data needed:
+    /data/mta/Script/ACIS/CTI/Data/Results/ti_ccd<ccd#>     ---- find which one is < -119.7C
+
+    arc5gl --- acis evt1 files 
+
+output:
+    <data_dir>/ccd<ccd#>_<quad#>
+
+acis_gain_plot_trend.py
+------------------------
+plotting gain and offset trends
+
+input: <data_dir>/ccd<ccd#>_<quad#>
+
+output: <web_dir>/Plot/gain_plot_ccd<ccd#>.png
+        <web_dir>/Plot/offset_plot_ccd<ccd#>.png
+
+
+acis_gain_update_html.py
+------------------------
+update the main html page and data tables  
+
+input: <hosue_keeping>/acis_gain.html
+
+output: <web_dir>/acis_gain.html
+
+
+HTML
+++++
+https://cxc.harvard.edu/mta_days/mta_acis_gain/acis_gain.html
+
+Cron Job
+++++++++
+mta on c3po-v:
+0 3 3 * *  cd /data/mta/Script/ACIS/Gain/Exc; /data/mta/Script/ACIS/Gain/Script/acis_gain_wrap_script >> $HOME/Logs/acis_gain.cron
+

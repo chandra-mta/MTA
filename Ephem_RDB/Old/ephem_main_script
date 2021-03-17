@@ -1,0 +1,6 @@
+cd /data/mta/Script/Ephem/Exc
+
+setenv IDL_PATH "+/data/mta/Script/Ephem/Scripts/:+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser:"
+
+
+/data/mta/Script/Ephem/Scripts/ephem_run_script.py

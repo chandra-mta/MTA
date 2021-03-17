@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Comprehensive Summary </title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<style  type='text/css'>
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+a:link {color:#00CCFF;}
+a:visited {color:yellow;}
+</style>
+</head>
+<body style="color:#FFFFFF;background-color:#000000">
+
+<h1 style="text-align:center;">Comprehensive Summary of State Changes</h1>
+<hr />
+
+<ul>
+    <li><a href='./#YEAR#/acis_file.pdf' download='acis_file.pdf'>ACIS Temperature</a><br />
+        <img src="./#YEAR#/acis_file.gif" width=90%> 
+    </li>
+    <li style='padding-top:15px'><a href='./#YEAR#/sim_file.pdf' download='sim_file.pdf'>SIM Positions</a><br />
+        <img src="./#YEAR#/sim_file-0.gif" width=90%> 
+        <img src="./#YEAR#/sim_file-1.gif" width=90%> 
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/fapos.pdf' download='fapos.pdf'>SEA FA Position; Details</a><br />
+        <img src="./#YEAR#/fapos-0.gif" width=90%> 
+        <img src="./#YEAR#/fapos-1.gif" width=90%> 
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/tscpos.pdf' download='tscpos.pdf'>SEA TSC POSITION; Details</a><br />
+        <img src="./#YEAR#/tscpos-0.gif" width=90%>
+        <img src="./#YEAR#/tscpos-1.gif" width=90%> 
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/acc_sim_file.pdf' download='acc_sim_file.pdf'>INTEGRATED SIM POSITIONS</a><br />
+        <img src="./#YEAR#/acc_sim_file.gif" width=90%> 
+    </li>
+    <li Type=disk style='padding-top:15px'>Grating Positions</a></li>
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/4hposaro.pdf' download='4hposaro.pdf'>HETG ROTATION ANGLE POSITION MONITOR A</a><br />
+        <img src="./#YEAR#/4hposaro.gif" width=90%> 
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/4hposbro.pdf' download='4hposbro.pdf'>HETG ROTATION ANGLE POSITION MONITOR B</a><br />
+        <img src="./#YEAR#/4hposbro.gif" width=90%> 
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/lteg_file.pdf' download='lteg_file.pdf'>LETG ROTAION ANGLE POSITION MONITOR</a><br />
+        <img src="./#YEAR#/lteg_file.gif" width=90%> 
+    </li>
+    <!--
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/grating_file.pdf' download='grating_file.pdf'>Grating Interlocks</a><br />
+        <img src="./#YEAR#/grating_file.gif" width=90%> 
+    </li>
+    -->
+    <li Type=disk style='padding-top:15px'><a href='./#YEAR#/pcad_file.pdf' download='pcad_file.pdg'>PCAD mode</a><br />
+        <img src="./#YEAR#/pcad_file.gif" width=90%> 
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/acc_pcad_file.pdf' download='acc_pcad_file.pdf'>PCAD modes: Integreated Time</a><br />
+        <img src="./#YEAR#/acc_pcad_file-0.gif" width=90%>
+        <img src="./#YEAR#/acc_pcad_file-1.gif" width=90%>
+    </li>
+    <!--
+    <li Type=disk style='padding-top:15px'><a href='./#YEAR#/rad_mon.pdf' download='rad_mon.pdf'>RAD MON Process State</a><br />
+        <img src="./#YEAR#//rad_mon.gif" width=90%> 
+    </li>
+    -->
+    <li Type=disk style='padding-top:15px'><a href='./#YEAR#/state_file' download='state_file.pdf'>Other Status</a><br />
+        <img src="./#YEAR#/state_file-0.gif" width=90%>
+        <img src="./#YEAR#/state_file-1.gif" width=90%> 
+    </li>
+</ul>
+<div style='padding-top:15px;padding-bottom:15px;'>
+<hr />
+</div>
+<ul><li Type=disk><a href="./#YEAR#//comprehensive_data_summary#YEAR#/">ASCII Data</a></li></ul>
+<div style='padding-top:15px;padding-bottom:25px;'>
+<hr />
+<div>
+<a href="http://asc.harvard.edu/mta_days/mta_trends/trends.html">Link to MTA Trend Page</a></body>
+</html>
+

@@ -1,0 +1,5 @@
+'/data/mta/Script/ALIGNMENT/Abs_pointing/Scripts/'                  : bin_dir
+'/data/mta/Script/ALIGNMENT/Abs_pointing/Scripts/house_keeping/'    : house_keeping
+'/data/mta/Script/ALIGNMENT/Abs_pointing/Data/'                     : data_dir
+'/data/mta/www/mta_aiming/'                                         : web_dir
+'/data/mta/Script/Python3.8/MTA/'                                   : mta_dir

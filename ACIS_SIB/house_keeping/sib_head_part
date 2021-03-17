@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta/REPORTS/Template/mta.css" />
+<style  type='text/css'>
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+td{text-align:center;padding:8px}
+</style>
+<title>ACIS Science Instrument Background Main Page</title>
+
+<script>
+function WindowOpener(imgname) {
+msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=1100,height=1600,resize=yes");
+msgWindow.document.clear();
+msgWindow.document.write("<html><title>Trend plot:"+imgname+"</title>");
+msgWindow.document.write("<body bgcolor='white'>");
+msgWindow.document.write("<img src='./"+imgname+"' border =0 ><p></p></body></html>")
+msgWindow.document.close();
+msgWindow.focus();
+}
+</script>
+
+</head>
+<body>
+<h2>ACIS Science Instrument Background</h2>
+
+<h3>Enteir Period</h3>
+<p>
+<img src='./Plots/Plot_long_term/full_plot_ccd_combined.png' style='text-aligh:center; width:90%'>
+</P>
+
+<h3>Last Three Months</h3>
+<p>
+<img src='./Plots/Plot_quarter/quarter_plot_ccd_ccd567.png' style='text-aligh:center; width:90%'>
+
+
+<P style='padding-top:30px;'>
+This page shows scientific instrument background (SIB) data based on ACIS observations, using Level 1 data.
+The SIB is computed using the following steps.
+</P>
+<ul>
+<li>First, locate the main source and remove about 200 pixel radius around the source.</li>
+<li>Locsate all point sources using celldetect function</li>
+<li>To lower the probability of leakage from bright sources, increase the size of covered area around 
+the sources to three times of that of celldetect estiamate</li>
+<li>Add up all the removed area. The ratio <removed area>/<entire area> will be used later to correct SIB value.</li>
+<li>Compute SIB of the data</li>
+<li>SIB value is corrected by deviding the ratio esitmated above</li>
+</ul>
+
+<P>
+If you are interested in checking the scientific instrument background
+computed with Level 2 data set, please to go to
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sib/sib_main_lev2.html'>level 2 SIB page</a>.
+</P>
+
+<p>
+On each page, you find:
+</p>
+<ul>
+<li>All CCD combined SIB plots</li>
+<li>CCD5, 6, and 7 SIB plots</li>
+<li>Each CCD plot with no energy range separated</li>
+<li>Each CCD plot with 6 energy ranges. The energy ranges are:</li>
+</ul>
+<div style='padding-top:5px;text-align:left'>
+<table border = 1 >
+<tr><th>Name   </th><th>Low (keV)</th><th>Hight(KeV)</th><th>Description            </th></tr>
+<tr><th>SSoft  </th><td> 0.00    </td><td>  0.50    </td><td>Super soft photons     </td></tr>
+<tr><th>Soft   </th><td> 0.50    </td><td>  1.00    </td><td>Soft photons           </td></tr>
+<tr><th>Med    </th><td> 1.00    </td><td>  3.00    </td><td>Moderate energy photons</td></tr>
+<tr><th>Hard   </th><td> 3.00    </td><td>  5.00    </td><td>Hard Photons           </td></tr>
+<tr><th>Harder </th><td> 5.00    </td><td> 10.00    </td><td>Very Hard photons      </td></tr>
+<tr><th>Hardest</th><td>10.00    </td><td> &#160    </td><td>Beyond 10 keV          </td></tr>
+</table>
+
+<h3 style='padding-top:30px'>
+The following three links give long term trending pages.
+</h3>
+
+<h3><a href='./Plots/Plot_quarter/quarter.html'>Last Three Month Details</a>
+
+<h3><a href='./Plots/Plot_past_year/past_one_year.html'>Last Twelve Month Details</a>
+
+<h3><a href='./Plots/Plot_long_term/long_term.html'>Entire Period Details</a>
+
+<h3 style='padding-top:30px'>
+The links on the following tables give one year trend of the year and trend of each month of the year.
+</h3>
+
+<table border=1>
+<tr><th>Year</th>
+<th>Full Year</th>
+<th>Jan</th><th>Feb</th><th>Mar</th>
+<th>Apr</th><th>May</th><th>Jun</th>
+<th>Jul</th><th>Aug</th><th>Sep</th>
+<th>Oct</th><th>Nov</th><th>Dec</th>
+</tr>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Real Time Data Mirror Site</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Real Time Data Mirror Site</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This page describes real time data mirror site realted direcotries and scripts.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<!-- physical location of the files -->
+<table border=0>
+<tr><th>Location:</th> <td>/data/mta_www/MIRROR</td></tr>
+<tr><th>&#160;</th>    <td>/data/mta/space_weather</td></tr>
+</table>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: No created yet.
+</p>
+
+
+<hr />
+
+
+<h3>/data/mta_www/MIRROR</h3>
+<p>
+This directory contains mirror site web pages and related script directories.
+</p>
+<p>
+For more details, please read <em>/data/mta_www/MIRROR/README</em> and <em>README</em> files in each directory.
+</p>
+<table border=0>
+<tr> <th><u>Web pages:</u></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><th>index.html</th>          <td>---</td> <td>the main mirror sot page.</td</tr>
+
+<tr><th>ace_fast.html</th>       <td>---</td> <td>ACE quick look page.</td</tr>
+<tr><th>ACE_fast_plots</th>      <td>---</td> <td>a directory to hold ACE quick look plots</td</tr>
+
+<tr><th>ace.html</th>            <td>---</td> <td>real time ACE observation page</td</tr>
+<tr><th>ace_i.html</th>          <td>---</td> <td>real time ACe observation page/ pinter friendly version</td</tr>
+<tr><th>ACE_plots</th>           <td>---</td> <td>a directory to hold ACE related plots</td</tr>
+
+<tr><th>G13E.html</th>           <td>---</td> <td>real time G13 electron observation page</td</tr>
+<tr><th>G13E_plots</th>          <td>---</td> <td>a directory to hold G13E related plots</td</tr>
+
+<tr><th>G13.html</th>            <td>---</td> <td>real time G13 proton observation page</td</tr>
+<tr><th>G13_plots</th>           <td>---</td> <td>a directory to hold G13 related plots</td</tr>
+
+<tr><th>G15.html</th>            <td>---</td> <td>real time G15 proton observation page</td</tr>
+<tr><th>G15_plots</th>           <td>---</td> <td>a directory to hold G15 related plots</td</tr>
+
+<tr><th>RADIATION/XMM</th>       <td>---</td> <td>a directory to save XMM related plots. RADIATION Page itself
+                        (http://cxc.cfa.harvard.edu/mta/RADIATION/) is not mirrored.
+<tr><th>Logosave</th>            <td>---</td> <td>a directory to hold logos</td</tr>
+
+<tr> <th><u>Script Directories:</u></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><th>OPS</th>                 <td>---</td> <td>TST related scripts</td</tr>
+<tr><th>Snap</th>                <td>---</td> <td>Snapshot related scripts</td</tr>
+<tr><th>SOH</th>                 <td>---</td> <td>State of Health related scripts</td</tr>
+</table>
+
+
+
+<hr />
+
+
+<h3>/data/mta/space_weather</h3>
+<p>
+This site contains real time space weather data independent of
+the main site.  Most data collections, reductions, and plotting
+are done on colossus-v with a few help from r2d2-v. The main site
+computation are done on c3po-v at /data/mta4/space_weather.
+</p>
+<p>
+For more details, please pread <em>/data/mta/space_weather/README</em> and <em>/data/mta/space_weather/XMM/README</em>.
+</p>
+
+<table border=0>
+<tr> <th><u>Script Directories:</u></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><th>G13_dir</th>        <td>---</td>    <td>a directroy contains scripts to create G13.html page</td></tr>
+<tr><th>G13E_dir</th>       <td>---</td>    <td>a directroy contains scripts to create G13E.html page</td></tr>
+<tr><th>G15_dir</th>        <td>---</td>    <td>a directroy contains scripts to create G15.html page</td></tr>
+<tr><th>ACE_dir</th>        <td>---</td>    <td>a directroy contains scripts to create ace.html/ace_i.html page</td></tr>
+<tr><th>ACE_fast_dir</th>   <td>---</td>    <td>a directroy contains scripts to create ace_fast.html page</td></tr>
+<tr><th>XMM</th>            <td>---</td>    <td>a directory contains scripts to create XMM related plots</td></tr>
+</table>
+
+
+
+
+
+<hr />
+
+
+
+
+<table border = 0>
+<tr><th>Nov 06, 2015</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>colossus-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<ul>
+<li>
+Space Weather related
+    <ul>
+    <li>3,8,13,18,23,28,33,38,43,48,53,58 * * * * cd /data/mta/space_weather/G13_dir/ ;  ./G13_calc.csh> $HOME/Logs/goes13_linux.cron </li>
+    <li>5,10,15,20,25,30,35,40,45,50,55 * * * *   cd /data/mta/space_weather/G13E_dir/ ; ./G13_Ecalc.csh> $HOME/Logs/goes13e_linux.cron </li>
+    <li>4,9,14,19,24,29,34,39,44,49,54,59 * * * * cd /data/mta/space_weather/G15_dir/ ;  ./G15_calc.csh> $HOME/Logs/goes15_linux.cron </li>
+    <li>2,7,12,17,22,27,32,37,42,47,52,57 * * * * cd /data/mta/space_weather/ACE_dir/ ;  ./calculate.csh> $HOME/Logs/ace_bu.cron </li>
+    <li>0 * * * *                                 cd /data/mta/space_weather/ACE_fast_dir/ ; ./calculate_fast.csh> $HOME/Logs/ace_fast_bu.cron </li>
+    <li>0,10,20,30,40,50 * * * *  cd /data/mta/space_weather/XMM ; perl /data/mta/space_weather/XMM/copy_cxo_data.perl >> $HOME/Logs/xmm_copy_cxo_data_bu.cron </li>
+    <li>2,12,22,32,42,52 * * * * cd /data/mta/space_weather/XMM ; ./get_data> $HOME/Logs/xmm_get_bu.cron </li>
+    </ul>
+</li>
+<li>
+Snapshop related
+    <ul>
+    <li>* * * * *    cd /data/mta/www/MIRROR/Snap/Exc/; /data/mta/www/MIRROR/Snap/Scripts/tlogr.pl     >> $HOME/Logs/RT/tlogr_colossus.cron </li>
+    <li>0,30 * * * * cd /data/mta/www/MIRROR/Snap/Exc/; /data/mta/www/MIRROR/Snap/Scripts/run-acorn.pl > $HOME/Logs/RT/run-acorn_bu.cron </li>
+    <li>1 0 * * *    cd /data/mta/www/MIRROR/Snap/Exc/; /data/mta/www/MIRROR/Snap/Scripts/snarcl.pl    > $HOME/Logs/RT/snarcl_bu.cron </li>
+    </ul>
+</li>
+<li>
+SOH related
+    <ul>
+    <li>1,31 * * * * /data/mta/www/MIRROR/SOH/Scripts/run-acorn.pl      > $HOME/Logs/RT/run-acorn-soh_bu.cron </li>
+    <li>2,32 * * * * /data/mta/www/MIRROR/SOH/Scripts/run-acorn-pcad.pl > $HOME/Logs/RT/run-acorn-pcad_bu.cron </li>
+
+    <li>* * * * * /data/mta/www/MIRROR/SOH/Scripts/rt_checker.pl        >>$HOME/Logs/RT/rt_checker_bu.cron      </li>
+    <li>* * * * * /data/mta/www/MIRROR/SOH/Scripts/rt_checker_ccdm.pl   >>$HOME/Logs/RT/rt_checker_ccdm_bu.cron </li>
+    <li>* * * * * /data/mta/www/MIRROR/SOH/Scripts/rt_checker_pcad.pl   >>$HOME/Logs/RT/rt_checker_pcad_bu.cron </li>
+    <li>* * * * * /data/mta/www/MIRROR/SOH/Scripts/rt_checker_safe.pl   >>$HOME/Logs/RT/rt_checker_safe_bu.cron </li>
+    </ul>
+</li>
+<li>
+MIRROR site TST related
+    <ul>
+    <li>9,24,39,54 * * * *                        /data/mta_www/MIRROR/OPS/ACE/get_kp.pl    >> $HOME/Logs/RT/run_ace_bu.cron     </li>
+    <li>3,8,13,18,23,28,33,38,43,48,53,58 * * * * /data/mta_www/MIRROR/OPS/ACE/fmon.pl      >> $HOME/Logs/RT/run_ace2_bu.cron    </li>
+    <li>2,7,12,17,22,27,32,37,42,47,52,57 * * * * /data/mta_www/MIRROR/OPS/GOES/get_go.pl   >> $HOME/Logs/RT/run_goes_bu.cron    </li>
+    <li>2,7,12,17,22,27,32,37,42,47,52,57 * * * * /data/mta_www/MIRROR/OPS/GOES/I4/get_go.pl>> $HOME/Logs/RT/run_goes_i4_bu.cron </li>
+    <li>4,9,14,19,24,29,34,39,44,49,54,59 * * * * /data/mta_www/MIRROR/OPS/CRM3/crm.pl      >> $HOME/Logs/RT/run_crm3_bu.cron    </li>
+    <li>*  * * * *                                /data/mta_www/MIRROR/OPS/ephem/gephem.pl  >> $HOME/Logs/RT/run_gephem_bu.cron  </li>
+    <li>36 3 * * *  /data/mta_www/MIRROR/OPS/SOHO/solwin.pl              >> $HOME/Logs/soho_bu.cron          </li>
+    <li>22 2 * * *  /data/mta_www/MIRROR/OPS/ephem/TLE/get_tle.pl        >> $HOME/Logs/tle_bu.cron           </li>
+    <li>21 3 * * *  cd /data/mta_www/MIRROR/OPS/ephem; ./ephem.pl        >> $HOME/Logs/ephem_bu.cron         </li>
+    <li>45 3 * * *  /data/mta_www/MIRROR/OPS/ACE/longterm/get_epam_kp.pl >> $HOME/Logs/ace_longterm_bu.cron  </li>
+    <li>41 3 * * 0  /data/mta_www/MIRROR/OPS/ephem/longterm/dephem.pl    >> $HOME/Logs/dephem_bu.cron        </li>
+    </ul>
+</li>
+</ul>
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/MIRROR/index.html'>
+https://cxc.cfa.harvard.edu/mta_days/MIRROR/index.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

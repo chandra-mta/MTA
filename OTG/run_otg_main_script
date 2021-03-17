@@ -1,0 +1,19 @@
+cd /data/mta/Script/Dumps/Exc/
+
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages"
+
+/data/mta/Script/Dumps/Scripts/run_filter_scripts.py
+
+/data/mta/Script/Dumps/Scripts/run_otg_proc.py
+
+/data/mta/Script/Dumps/Scripts/update_rdb_and_html.py
+
+/data/mta/Script/Dumps/Scripts/plot_otg_data.py
+
+/data/mta/Script/Dumps/Scripts/getnrt_control.py
+
+/data/mta/Script/Dumps/Scripts/update_rdb.py
+
+/data/mta/Script/Dumps/Scripts/move_tl_files.py
+
+/data/mta/Script/Dumps/Scripts/update_dea_rdb.py

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>SIM Twist Monitoring</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>SIM Twist Monitoring</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts data and plots them for:
+<br /> Fid light shift
+<br /> SIM shift/twist 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/ALIGNMENT/Sim_twist/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Alignment_sim_twist
+</p>
+
+
+<table border=0>
+<tr><td>sim_twist_wrap_script</td>              <td>Apr 19, 2017</td></tr>
+<tr><td>sim_twist_main_script</td>              <td>Jun 05, 2017</td></tr>
+<tr><td>alignment_sim_twist_extract.py</td>     <td>Apr 19, 2017</td></tr>
+<tr><td>fid_light_data_extract.py</td>          <td>Jun 12, 2017</td></tr>
+<tr><td>sim_twist_trend_plot.py</td>            <td>Jun 05, 2017</td></tr>
+<tr><td>fid_light_trend_plot.py</td>            <td>Apr 19, 2017</td></tr>
+<tr><td>DBI.py</td>                             <td>Apr 19, 2017</td></tr>
+
+<tr><td colspan=2>The following scripts are retired.     </td></tr>
+
+
+<tr><td>alignment_sim_twist_wrap_script</td>             <td>Jun 05, 2013</td></tr>
+<tr><td>alignment_sim_twist_main_script</td>             <td>Jul 02, 2013</td></tr>
+<tr><td>alignment_sim_twist_wrap_script_test</td>        <td>Sep 22, 2014</td></tr>
+<tr><td>alignment_sim_twist_main_script_test</td>        <td>Sep 22, 2014</td></tr>
+<tr><td>alignment_sim_twist_extract_acadata.perl</td>    <td>Aug 03, 2014</td></tr>
+<tr><td>alignment_sim_twist_extract.perl</td>            <td>Sep 03, 2014</td></tr>
+<tr><td>alignment_sim_twist_extract_plot_only.perl</td>  <td>Apr 30, 2014</td></tr>
+<tr><td>alignment_sim_twist_extract_plot_part.perl</td>  <td>Jul 04, 2013</td></tr>
+<tr><td>alignment_sim_twist_extract_qtr_plot.perl</td>   <td>Apr 16, 2013</td></tr>
+<tr><td>alignment_sim_twist_extract_year_plot.perl</td>  <td>Aug 04, 2014</td></tr>
+<tr><td>alignment_sim_twist_fid_trend_plots.perl</td>    <td>Aug 04, 2014</td></tr>
+<tr><td>alignment_sim_twist_relation_plot.perl</td>      <td>Jun 04, 2013</td></tr>
+<tr><td>alignment_sim_twist_remove_dupl.perl</td>        <td>Aug 04, 2014</td></tr>
+<tr><td>alignment_sim_twist_update_html.perl</td>        <td>Apr 16, 2013</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ALIGNMENT/Sim_twist/Alignment_sim_twist/README.
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Initially logged</td></tr>
+<tr><th>Apr 19, 2017</th><td>All scripts are replaced by python version</td></th>
+<tr><th>Jun 12, 2014</th><td>data selection time period bug fixed.</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+From archive (using arc4gl): pcadf*_asol1.fits
+</li>
+<li>
+From archive (using arc4gl): pcadf*fidpr1fits
+</li>
+<li>
+From archive (using arc4gl): pcadf*acen1.fits
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<!--
+<ul>
+<li>
+ASCDS (source /home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+</ul>
+-->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ALIGNMENT/Sim_twist/Data/
+    <ul>
+    <li> data_extracted_&lt;year&gt; </li>
+    <li> data_info_&lt;year&gt; </li>
+    <li> H-I-1, H-I-2, H-I-3, H-I-4</li>
+    <li> I-1, I-2, I-3, I-4, I-5, I-6</li>
+    <li> S-1, S-2, S-3, S-4, S-5, S-6</li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sim_twist/Plots
+    <ul>
+    <li> dtheta_plot_&lt;year&gt;_&lt;0, 1, 2, 3&gt;.png </li>
+    <li> dtheta_plot_&lt;year&gt;.png </li>
+    <li> twist_plot_&lt;year&gt;_&lt;0, 1, 2, 3&gt;.png </li>
+    <li> twist_plot_&lt;year&gt;.png </li>
+    <li> sim_plot_&lt;year&gt;.png </li>
+    <li> H-I-1.png, H-I-2.png, H-I-3.png, H-I-4.png</li>
+    <li> I-1.png, I-2.png, I-3.png, I-4.png, I-5.png, I-6.png</li>
+    <li> S-1.png, S-2.png, S-3.png, S-4.png, S-5.png, S-6.png</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ALIGNMENT/Sim_twist/Exec
+</li>
+<li>
+run: /data/mta/Script/ALIGNMENT/Sim_twist/Alignment_sim_twist/alignment_sim_twist_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<p>
+No test available.
+</p>
+<!--
+<ol> 
+<li>
+go to: cd /data/mta/Script/ALIGNMENT/Sim_twist/Exec
+</li>
+<li>
+run: /data/mta/Script/ALIGNMENT/Sim_twist/Alignment_sim_twist/alignment_sim_twist_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The test results will be save in /data/mta/Script/ALIGNMENT/Sim_twist/Test_out. Compare them to those in 
+/data/mta/Script/ALIGNMENT/Sim_twist/Test_result_comp.
+
+</p>
+-->
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+<!--
+0 1 3 * *   cd /data/mta/Script/ALIGNMENT/Sim_twist/Exec; /data/mta/Script/ALIGNMENT/Sim_twist/Alignment_sim_twist/alignment_sim_twist_wrap_script >> $HOME/Logs/sim_twist.cron 2>&1
+-->
+0 1 3 * *   cd /data/mta/Script/ALIGNMENT/Sim_twist/Exec; /data/mta/Script/ALIGNMENT/Sim_twist/Scripts/sim_twist_wrap_script  >> $HOME/Logs/sim_twist.cron
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sim_twist/sim_twist.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_sim_twist/sim_twist.html
+</a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sim_twist/fid_light_drift.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_sim_twist/fid_light_drift.html
+<br />
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Test functions should be added.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

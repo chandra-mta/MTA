@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC BackstopCommand List</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC  Backstop Command List and HRC HK values</h2>
+
+
+<h3>Description</h3>
+<p>
+This set of scripts extract command sequence from backstop log (planned commands),
+and actual conditions from HRC HK data, and compare them to see whether there are
+any discrepancies. If there are, one of the script sends out email warning to
+notify the discrepancies.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc6/wilton/isobe/Project2/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                   <th>Last Updated</th></tr>
+<tr><td>hrc_backstop_wrap_script</td>      <td>Aug 07, 2013</td></tr>
+<tr><td>hrc_backstop_main_script</td>      <td>Oct 13, 2017</td></tr>
+<tr><td>check_cmd_diff.perl</td>           <td>Mar 22, 2017</td></tr>
+<tr><td>check_dither_diff.perl</td>        <td>Mar 22, 2017</td></tr>
+<tr><td>comp_voltage.perl</td>             <td>Mar 22, 2017</td></tr>
+<tr><td>comp_voltage2.perl</td>            <td>Mar 22, 2017</td></tr>
+<tr><td>extract_backstop_comm.perl</td>    <td>Ocr 04, 2017</td></tr>
+<tr><td>hrc_config_dither_info.perl</td>   <td>Ocr 04, 2017</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project2/Scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Oct 17, 2017</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+ /data/mpcrit1/mplogs/&lt;year&gt;/&lt;mon&gt;/ofls/*.backstop
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /home/isobe/.ascrc
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+    /data/aschrc6/wilton/isobe/Project2/Data
+    <ul>
+        <li>hrc_backstop_extracted2007</li>
+    </ul>
+</li>
+<li>
+    /data/aschrc6/wilton/isobe/Project2/Records
+    <ul>
+        <li>bk_chk_<date></li>
+        <li>email_<date></li>
+        <li>mismatch_<date></li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+    cd to : cd /data/aschrc6/wilton/isobe/Project2/
+</li>
+<li>
+    set:    source /home/isobe/.ascr
+<li>
+    run:    perl /data/aschrc6/wilton/isobe/Project2/Script/extract_backstop_comm.perl
+</li>
+<li>
+    run:    perl /data/aschrc6/wilton/isobe/Project2/Script/check_cmd_diff.perl
+</li>
+<li>
+    run:    perl /data/aschrc6/wilton/isobe/Project2/Script/check_dither_diff.perl
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+45 5 * * *   cd /data/aschrc6/wilton/isobe/Project2/;
+        /data/aschrc6/wilton/isobe/Project2/Script/hrc_backstop_wrap_script
+                    > /data/aschrc6/wilton/isobe/Project2/Records/extract_log 2>&1
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+None
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Need to add several more proccesses.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+</body>
+</html>

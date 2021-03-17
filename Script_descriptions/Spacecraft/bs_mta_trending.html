@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Updating Data in MTA Deriv</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Updating Data in MTA Deriv</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Update MTA trending data/html pages in /data/mta4/www/mta_deriv/
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/Deriv/Script/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/MTA_Deriv.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>run_all</td>                <td>Sep 22, 2015</td></tr>
+<tr><td>./Idl_scripts/*pro</td>     <td>Sep 22, 2015</td></tr>
+<tr><td>./Idl_scripts/get_comp_data <td>Sep 22, 2015</td></tr>
+<tr><td>./Idl_scripts/get_grad_data <td>Sep 22, 2015</td></tr>
+<tr><td>./Idl_scripts/find_moving_avg.perl  <td>Sep 22, 2015</td></tr>
+<tr><td>/home/mta/IDL/op_limits.db  <td>Sep 25, 2017</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta4/www/Deriv/Script/README
+</p>
+<table border = 0>
+<tr><th>Sep 24, 2015</th><td>Initially logged</td></tr>
+<tr><th>Sep 30, 2015</th><td>Cron job activated</td></tr>
+<tr><th>Sep 25, 2017</th><td>op_limits.db is symbolic linked to /data/mta4/MTA/data/op_limits/op_limits.db</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/DataSeeker/data/repository/*.rdb
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>source /home/mta/.ascrc</li>
+<li>/home/mta/bin/reset_param</li>
+<li>punlearn dataseeker</li>
+<li>pset dataseeker repository="/data/mta/DataSeeker/data/repository"
+
+<li>setenv IDL_PATH "+/home/mta/IDL:${IDL_PATH}"<br />
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:+/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"<br />
+setenv IDL_PATH "+/data/mta4/Deriv/Script/Idl_scripts"  </li>
+
+<li>setenv PFILES "/data/mta/Script/Deriv/cxcds_param:./param;/home/ascds/DS.release/param:/proj/cm/DS.ots/ftools.v5.0.1.SunOS5.8/SunOS_5.8_sparc/syspfiles"</li>
+
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/Deriv/
+    <ul>
+    <li>
+    *.fits
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta4/www/DAILY/mta_deriv/
+    <ul>
+    <li> *.html </li>
+    <li> *.gif  </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta4/Deriv/
+</li>
+<li>
+run: /data/mta4/Deriv/Script/run_all
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+10 2 * * 0,3 cd /data/mta4/Deriv/;/data/mta4/Deriv/run_all >> $HOME/Logs/mta_deriv_run_all.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/DAILY/mta_deriv/index.html'>
+https://cxc.cfa.harvard.edu/mta/DAILY/mta_deriv/index.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

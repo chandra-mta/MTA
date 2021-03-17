@@ -1,0 +1,62 @@
+
+MTA Group Managed Software/Script List
++++++++++++++++++++++++++++++++++++++
+
+Dir: /data/mta_www/mta_script_list
+
+
+This directory contains a perl cgi script which reads and creates a page
+listing a MTA managed software/scripts list.
+
+To see the page, open the following link on the browser:
+
+    https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.cgi
+
+How to create an entry to the list
++++++++++++++++++++++++++++++++++++
+
+0  Please login as "mta" so that anyone from mta can edit the file you created.
+
+1. Go to your directory (Scott, Brad, Takashi). If you are new and don't 
+   have a directory set up, please contact tisobe@cfa.harvard.edu. 
+
+2. Copy a template (e.g. sw_template.html) to an appropriately named file.
+   Please keep your prefix (sw, bs, ti) for the case that we need to reorganized the 
+   structure of the directories in future. 
+
+3. In the file, fill the name of the task of the script/software between
+   <title> tags. E.g., "<title>ACIS CTI</title>".
+
+4. In the "Note" section, put the current problems/concern. This will display
+   at the top of the main page. If there is nothing to mention, Keep "None".
+
+5. Although the template shows general suggestions, you can modify them 
+   as you needed, except style sheet and the format of <title> tags and "Note" section.
+
+6. If you like to create the separate category like "MTA Related",
+   created a directory in your directory. The name convention is, for example,
+   "MTA_Related" for the above case. The script uses the directory name
+   as the category name without "_".
+
+As for an example, please see:
+
+    /data/mta_www/mta_script_list/Takashi/MTA_Related/ti_aics_cti.html
+
+
+
+Files/Directories
++++++++++++++++++
+
+mta_script_list.cgi     ---- perl cgi script to show the MTA managed script/software list
+
+index.cgi               ---- symbolic linked to mta_script_list.cgi
+
+template.html           ---- most current template; this is symbolic linked to each user's directory
+
+house_keeping           ---- house keeping directory containing a style sheet etc
+
+<USER NAME>             ---- the directory that you need to add your script pages
+
+README                  ---- this page
+
+Old                     ---- a directory to keep none current items

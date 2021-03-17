@@ -1,0 +1,12 @@
+
+Dir: /data/mta/Script/Ftp_clean
+
+cleanup_ftp_site.py is a simple script to remove unwanted files from
+/stage/xmmops_ftp. 
+
+Cron job:
+as mta on c3po-v
+
+14 3 * * * cd /stage/xmmops_ftp/; /data/mta/Script/Ftp_clean/cleanup_ftp_site.py >$HOME/Logs/ftp_cleanup.cron 2>&1
+
+

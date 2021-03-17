@@ -1,0 +1,23 @@
+cd /data/mta/Script/Dumps/Exc/
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/Dumps/Scripts/run_filter_scripts.py
+echo "run_filter_scripts.py done"
+
+/data/mta/Script/Dumps/Scripts/run_otg_proc.py
+echo "run_otg_proc.py done"
+
+/data/mta/Script/Dumps/Scripts/update_rdb_and_html.py
+echo "update_rdb_and_html.py done"
+
+/data/mta/Script/Dumps/Scripts/plot_otg_data.py
+echo "plot_otg_data.py done"
+
+/data/mta/Script/Dumps/Scripts/check_prev_getnrt_process.py
+
+/data/mta/Script/Dumps/Scripts/getnrt_control.py
+echo "getnrt_control.py done"
+
+/data/mta/Script/Dumps/Scripts/update_rdb.py
+echo "update_rdb.py done"

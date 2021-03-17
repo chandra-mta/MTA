@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Update Chandra Ephemeris Files</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Update Chandra Ephemeris Files</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Get updat-to-date Chandra ephemeris data and estimate ephemeris points.
+</p>
+<p>
+This is a part of
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_related.html'>
+TST related collections of scripts
+</a>.
+</p>
+
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/proj/rac/ops/ephem
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>:  https://github.com/tisobe/Chandra_Ephemeris
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>ephem.pl</td>               <td>Jul 02, 2015</td></tr>
+<tr><td>ephem.idl</td>              <td>Feb 10, 2015</td></tr>
+<tr><td>read_ephemeris.pro</td>     <td>Feb 10, 2015</td></tr>
+<tr><td>lephem.pro</td>             <td>Feb 10, 2015</td></tr>
+<tr><td>geopack/cocochan</td>       <td>Feb 10, 2015</td></tr>
+<tr><td>gsme_plots.idl</td>         <td>Oct 08, 2015</td></tr>
+<tr><td>rac_arread.pro</td>         <td>Oct 08, 2015</td></tr>
+<tr><td>timeconv.pro</td>           <td>Oct 08, 2015</td></tr>
+<tr><td>cheph.pro</td>              <td>Feb 19, 2015</td></tr>
+<tr><td>solun_eph</td>              <td>Feb 20, 2015</td></tr>
+<tr><td>gephem.pl</td>              <td>Feb 19, 2015</td></tr>
+<tr><td>TLE/get_tle.pl</td>         <td>Feb 10, 2015</td></tr>
+<tr><td>TLE/cocoxmm</td>            <td>Feb 10, 2015</td></tr>
+<tr><td>longterm/dephem.pl</td>     <td>Nov 16, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read:
+</p>
+<ul>
+<li>/data/mta4/proj/rac/ops/ephem/README </li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_tle.html'>TLE</a>
+</li>
+</ul>
+<p>
+for more details.
+</p>
+<p>
+Although the following scriptss are not epemeris data related (CRM: Chandra Radiation Model),
+these scripts are run by ephem.pl.
+</p>
+<table border=0>
+<tr><th>Script Name</th>                         <th>Last Updated</th></tr>
+<tr><td>/data/mta4/proj/rac/ops/CRM/runcrm</td>  <td>Feb 10, 2015</td></tr>
+<tr><td>/data/mta4/proj/rac/ops/CRM2/runcrm</td> <td>Feb 10, 2015</td></tr>
+<tr><td>/data/mta4/proj/rac/ops/CRM3/runcrm</td> <td>Feb 10, 2015</td></tr>
+</table>
+
+<p> 
+None MTA managed script.
+</p>
+<table border=0>
+<tr><th>Script Name</th>                    <th>Last Updated</th></tr>
+<tr><td>/proj/rac/ops/ephem/dsn.pl</td>     <td>Dec 06, 2006</td></tr>
+</table>
+
+<p>
+<b>Note</b>:  'dsn.pl' produces the comm schedule at  /proj/rac/ops/ephem/dsn_summary.dat. 
+/pool14/chandra/DSN.schedule  is symbolic linked to this.  This link is used to create:
+<a href='https://icxc.cfa.harvard.edu/dsop/dsn_summary.dat'>https://icxc.cfa.harvard.edu/dsop/dsn_summary.dat</a>
+by <a href='https://icxc.harvard.edu/dsop/GTO/essrm9.php'>https://icxc.harvard.edu/dsop/GTO/essrm9.php</a>
+which is physically located at: /proj/web-icxc/htdocs/dsop/GTO/essrm9.php. This php script also uses:
+</p>
+<ul>
+    <li> <a href='http://www.swpc.noaa.gov/today.html'>http://www.swpc.noaa.gov/today.html</a> (does not exist anymore) </li>
+    <li> DSOps mysql telemetry_status database </li>
+    <li><a href='http://asc.harvard.edu/cgi-gen/mta/Snap/snap.cgi'>http://asc.harvard.edu/cgi-gen/mta/Snap/snap.cgi</a></li>
+</ul>
+
+<p>
+<b style='font-size:90%'>FORTRAN Package:   </b>
+</p>
+<p>
+geopack: fortran codes convert Chandra ECI linear coords to GSE, ESE coods.
+cocochan.f  is written by Robrt Cameron. README file for the older version can be found at:
+/data/mta4/proj/rac/ops/ephem/geopack/README.
+</p>
+<p>
+wcstools: this is a package of programs and a library of utility subroutines for setting 
+and using the world coordinate systems (WCS) in the headers of the most common astronomical 
+image formats, FITS and IRAF .imh, to relate image pixels to sky coordinates.
+Please read:
+<a href='http://tdc-www.harvard.edu/software/wcstools/'>http://tdc-www.harvard.edu/software/wcstools/</a>
+for more details.
+</p>
+
+
+<table border = 0>
+<tr><th>Jul 21, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to Github</td></tr>
+<tr><th>Sep 30, 2015</th><td>Description updated</td></tr>
+<tr><th>Oct 08, 2015</th><td>Two missing idl sub codes are found and added.</td></tr>
+<tr><th>Nov 16, 2015</th><td>long term data conversion problem (from rhodes to c3po-v) is addressed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> /dsops/GOT/aux/DEPH.dir/DE#####.EPH </li>
+<!--
+<li> /data/mta4/www/RADIATION/CRM2/GSM.gif</li>
+<li> /data/mta4/www/RADIATION/CRM2/GSE.gif</li>
+-->
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+none
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/proj/rac/ops/ephem/
+    <ul>
+    <li>
+    PE.EPH    
+    </li>
+    <li>
+    PE.EPH.dat 
+    </li>
+    <li>
+    PE.EPH.gsme
+    </li>
+    <li>
+    PE.EPH.gsme_in_Re
+    </li>
+    <li>
+    solun_eph.da
+    </li>
+    <li>
+    gephem.dat
+    </li>
+<!--
+    <li>
+    GSE.gif (see Note below)
+    </li>
+    <li>
+    GSM.gif (see Note below)
+    </li>
+-->
+    </ul>
+</li>
+<li>
+/data/mta4/proj/rac/ops/
+    <ul>
+    <li>
+    CRM/CRM_p.dat
+    </li>
+    <li>
+    CRM2/CRM2_p.dat
+    </li>
+    <li>
+    CRM3/CRM3_p.dat
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta4/proj/rac/ops/ephem/TLE/
+</li>
+<li>
+run:  get_tle.pl
+</li>
+<li>
+go to: cd data/mta4/proj/rac/ops/ephem/
+</li>
+<li>
+run: ephem.pl
+</li>
+<li>
+run: gephem.pl
+</li>
+<li> 
+run: dephem.pl
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts 
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+22 2 * * *  /data/mta4/proj/rac/ops/ephem/TLE/get_tle.pl        >> $HOME/Logs/get_tle_linux.cron 2>&1<br />
+21 3 * * *  /data/mta4/proj/rac/ops/ephem/ephem.pl              >> $HOME/Logs/ephem_linux.cron   2>&1<br />
+0  3 * * 0  /data/mta4/proj/rac/ops/ephem/longterm/dephem.pl    >> $HOME/Logs/ephem_linux.cron   2>&1<br />
+*  * * * *  /data/mta4/proj/rac/ops/ephem/gephem.pl             >> $HOME/Logs/gephem_linux.cron  2>&1<br />
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web page is available for this set of scripts.
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+* Plotting rounitnes to create GSE.gif and GEM.gif are not working. Deug the scripts.
+<br />
+* create test procedure<br />
+<br />
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

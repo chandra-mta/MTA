@@ -1,0 +1,2236 @@
+#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+
+#####################################################################################    
+#                                                                                   #
+#       create_interactive_page.py: create interactive html page for a given msid   #
+#                                                                                   #
+#           author: t. isobe (tisobe@cfa.harvard.edu)                               #
+#                                                                                   #
+#           last update: Jan 23, 2020                                               #
+#                                                                                   #
+#####################################################################################
+
+import os
+import sys
+#
+#--- set python environment if it is not set yet
+#
+if 'PYTHONPATH' not in os.environ:
+    os.environ['PYTHONPATH'] = "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages"
+    try:
+        os.execv(sys.argv[0], sys.argv)
+    except Exception:
+        print('Failed re-exec:', exc)
+        sys.exit(1)
+
+import re
+import string
+import time
+import numpy
+import astropy.io.fits  as pyfits
+import Ska.engarchive.fetch as fetch
+import Chandra.Time
+#
+#--- interactive plotting module
+#
+import mpld3
+from mpld3 import plugins, utils
+#
+#--- pylab plotting routine related modules
+#
+import matplotlib as mpl
+#mpl.use('Agg')
+
+from pylab import *
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')
+import matplotlib.font_manager as font_manager
+import matplotlib.lines as lines
+#
+#--- reading directory list
+#
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+with  open(path, 'r') as f:
+    data = [line.strip() for line in f.readlines()]
+
+for ent in data:
+    atemp = re.split(':', ent)
+    var  = atemp[1].strip()
+    line = atemp[0].strip()
+    exec("%s = %s" %(var, line))
+#
+#--- append path to a private folder
+#
+sys.path.append(bin_dir)
+sys.path.append(mta_dir)
+#
+#--- import several functions
+#
+import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
+import envelope_common_function as ecf  #---- collection of functions used in envelope fitting
+import find_moving_average      as fma  #---- moving average 
+import find_moving_average_bk   as fmab #---- moving average (backword fitting version)
+import robust_linear            as rbl  #---- robust liniear fitting
+#
+#--- other settings
+#
+na     = 'na'
+#
+#--- read category data
+#
+cfile         = house_keeping + 'sub_html_list_all'
+category_list = mcf.read_data_file(cfile)
+#
+#--- set several values used in the plots
+#
+color_table  = ['blue', 'red', '#FFA500']
+marker_table = ['s',   '*',    '^',     'o']
+marker_size  = [50,    80,     70,      50]
+
+css = """
+    p{
+        text-align:left;
+    }
+"""
+#
+#---  get dictionaries of msid<-->unit and msid<-->description
+#
+[udict, ddict] = ecf.read_unit_list()
+
+web_address = 'https://' + web_address
+#
+#--- alias dictionary
+#
+afile  = house_keeping + 'msid_alias'   
+data   = mcf.read_data_file(afile)      
+alias  = {}
+alias2 = {}
+for ent in data:
+    atemp = re.split('\s+', ent)
+    alias[atemp[0]]  = atemp[1]
+    alias2[atemp[1]] = atemp[0]
+#
+#--- a list of thoese with sub groups
+#
+sub_list_file  = house_keeping + 'sub_group_list'
+sub_group_list = mcf.read_data_file(sub_list_file)
+
+#-------------------------------------------------------------------------------------------
+#-- create_interactive_page: update all msid listed in msid_list                                 --
+#-------------------------------------------------------------------------------------------
+
+def create_interactive_page(msid, group, start, stop, step):
+    """
+    create an interactive html page for a given msid
+    input:  msid    --- msid
+            group   --- group name
+            start   --- start time
+            stop    --- stop time
+            step    --- bin size in seconds
+    """
+    start = ecf.check_time_format(start)
+    stop  = ecf.check_time_format(stop)
+#
+#--- create msid <---> unit dictionary
+#
+    [udict, ddict] = ecf.read_unit_list()
+#
+#--- read mta database
+#
+    mta_db = ecf.read_mta_database()
+#
+#--- read mta msid <---> sql msid conversion list
+#
+    mta_cross = ecf.read_cross_check_table()
+#
+#--- get limit data table for the msid
+#
+    try:
+        tchk  = ecf.convert_unit_indicator(udict[msid])
+    except:
+        tchk  = 0
+
+    glim  = ecf.get_limit(msid, tchk, mta_db, mta_cross)
+#
+#--- extract data from archive
+#
+    chk = 0
+    try:
+        out     = fetch.MSID(msid, start, stop)
+        tdata   = out.vals
+        ttime   = out.times
+    except:
+#
+#--- if no data in archive, try mta local database
+#
+        try:
+            [ttime, tdata] = get_mta_fits_data(msid, group, start, stop)
+#
+#--- if it is also failed, return the empty data set
+#
+        except:
+            chk = 1
+#
+#--- only short_p can change step size (by setting "step")
+#
+    if chk == 0:
+        data_p = process_day_data(msid, ttime, tdata, glim,  step=step)
+#
+#--- put the data in fits format --- this is an extra step but accomoating 
+#--- create_html_page which is copied from elsewhere
+#
+        try:
+            fits_data = create_inter_fits(msid, data_p)
+        except:
+            fits_data = 'na'
+#
+#--- for the case, the data is mta special cases
+#
+    else:
+        fits_data = 'na'
+#
+#--- create interactive html page
+#
+    create_html_page(msid, group, fits_data, step)
+
+#-------------------------------------------------------------------------------------------
+#-- create_inter_fits: update/create fits data files of msid                              --
+#-------------------------------------------------------------------------------------------
+
+def create_inter_fits(msid, gdata):
+    """
+    update/create fits data files of msid
+    input:  msid    --- msid
+            gdata   --- a list of 15 lists related to the data (see col below)
+    output: tbhdu   --- data set in fits format
+    """
+    cols  = ['time', msid, 'med', 'std', 'min', 'max', 'ylower',\
+             'yupper', 'rlower', 'rupper', 'dcount',\
+             'ylimlower', 'ylimupper', 'rlimlower', 'rlimupper']
+
+    dlist = []
+    for k in range(0, len(cols)):
+        aent = numpy.array(gdata[k])
+        dcol = pyfits.Column(name=cols[k], format='F', array=aent)
+        dlist.append(dcol)
+
+    dcols = pyfits.ColDefs(dlist)
+    tbhdu = pyfits.BinTableHDU.from_columns(dcols)
+
+    return tbhdu
+
+#----------------------------------------------------------------------------------------
+#-- create_html_page: create indivisual html pages for all msids in database           --
+#----------------------------------------------------------------------------------------
+
+def create_html_page(msid, group,  fits_data, bin_size):
+    """
+    """
+    try: 
+        unit    = udict[msid]
+        descrip = ddict[msid]
+    except:
+        unit    = ''
+        descrip = ''
+#
+#--- pdata is two dim array of data (see read_data for details). flist is sub category 
+#--- of each data set
+#
+    if fits_data == 'na':
+        pout  = '<h1 style="padding-top:40px;padding-bottom:40px;">NO DATA FOUND</h1>\n'
+
+    else:
+        [pdata, byear] = read_msid_data_full(fits_data, msid)
+#
+#--- create the plot
+#
+        pout  = create_trend_plots(msid, group, pdata, byear, unit, 'week', 'mid')
+#
+#--- create html page
+#
+    create_plot_html_page(msid, group, 'week', 'mid',  descrip, pout, bin_size)
+
+#----------------------------------------------------------------------------------
+#-- create_plot_html_page: create a html page to display the trend plot          --
+#----------------------------------------------------------------------------------
+
+def create_plot_html_page(msid, group, ltype, mtype, descrip, pout, bin_size):
+    """
+    create a html page to display the trend plot
+    input:  msid        --- msid
+            group       --- group name to which msid belongs
+            ltype       --- week, short etc, but usually week for the interactive
+            mtype       --- mid, max, min, but usually mid
+            descrip     --- description of the msid
+            pout        --- plot in html format' it is <blank> if this is a static version
+    output: plot <web_dir>/Interactive/<msid>_tmin_avg.html
+    """
+#
+#--- copy an empty page to the position so that the user won't get an error message
+#
+    hname = web_dir + 'Interactive/' + msid + '_inter_avg.html'
+
+    cmd = 'cp ' + house_keeping + '/Templates/no_page_yet ' + hname
+    os.system(cmd)
+    cmd = 'chmod 777 ' + hname
+    os.system(cmd)
+#
+#--- read javascript file
+#
+    jscript = read_template('java_script_deposit')
+#
+#--- pop up limit table web address
+#
+    file_name = web_address + group +  '/Limit_table/' + msid + '_limit_table.html'
+#
+#--- start creating html page
+#
+    repl = [["#MSID#",  msid.upper()], ["#JAVASCRIPT#", jscript], ["#STYLE#", '']]
+    out = read_template('html_head', repl )
+#
+#--- title of the page 
+#
+    if bin_size == 0.0:
+        out = out + '<h2>' + msid + ' <span style="font-size:90%;">(Full Resolution)</span></h2>'
+    else:
+        out = out + '<h2>' + msid + ' <span style="font-size:90%;">(Bin Size: ' 
+        out = out + str(bin_size) +' sec)</span></h2>'
+#
+#--- popup limit table link
+#
+    out = out + '<div style="paddng-top:10px"><h3>'
+    out = out + 'Open <a href="javascript:popitup(\'' + file_name + '\')" '
+    out = out + 'style="text-align:right">Limit Table</a>.'
+    out = out + '</h3>\n'
+    out = out + '</div>\n'
+#
+#--- interactive page case
+#
+    if (pout == False) or (str(pout) == 'na'):
+        out = out + '<h3 style="padding-top:200px;padding-bottom:200px">No Data/No Plot</h3>'
+    else:
+        out = out +  '<div style="text-align:center;">'
+        out = out +  pout
+        out = out + '</div>'
+#
+#---- changing the time span, step etc again
+#
+    phpfile  = web_address + "Interactive/msid_data_interactive.php"
+    int_note = web_address + 'interactive_note.html'
+
+    out = out + '<div style="padding-bottom:10px;font-size:90%;">\n';
+    out = out + '<h3>Change the Interactive Plot Parameters ('
+    out = out + '<a href="javascript:popitup(\'' + int_note + '\')" '
+    out = out + 'style="text-align:right">Usage Note</a>)</h3>\n'
+    out = out + '<form method="post" action=' + phpfile + '>\n'
+    out = out + '<b>Starting Time:</b> <input type="text" name="tstart"  size=20>\n'
+    out = out + '<b>Stopping Time:</b> <input type="text" name="tstop"  size=20>\n'
+    out = out + '<b>Bin Size:</b>      <input type="text" name="binsize"  value=300.0 size=10>\n '
+
+    out = out + '<input type="hidden" name="ltype" value="' + ltype + '">\n'
+    out = out + '<input type="hidden" name="mtype" value="' + mtype + '">\n'
+    out = out + '<input type="hidden" name="msid"  value="' + msid  + '">\n'
+    out = out + '<input type="hidden" name="group" value="' + group + '">\n'
+    out = out + '</br><span style="text-align:right;"><input type=submit '
+    out = out + 'name="submit" value="Submit"></span>\n'
+    out = out + '<br />\n'
+    out = out + '</form>\n'
+    out = out + '</div>\n'
+
+    out = out + read_template('interact_descript')
+#
+#--- close html page
+#
+    out = out + read_template('html_close')
+#
+#--- write out the html data
+#
+    mcf.rm_files(hname)
+    with open(hname, 'w') as fo:
+        fo.write(out)
+
+    cmd = 'chmod 777 ' + hname
+    os.system(cmd)
+
+    
+#--------------------------------------------------------------------------------
+#-- create_trend_plots: create interactive trend plot                         ---
+#--------------------------------------------------------------------------------
+
+def create_trend_plots(msid, group, pdata, byear,  unit, ltype, mtype):
+    """
+    create static and interactive trend plot
+    input:  msid    --- msid
+            group   --- the gruop name to which msid belogs
+            pdata   --- a list of arrays of data; see read_data for details
+            year    --- a base year for the short term plot
+            unit    --- unit of msid
+            ltype   --- 'short' or 'long'           --- period length indicator
+            mtype   --- 'mid', 'min', or 'max'      --- data type indicator
+    output: pout    --- plot in html format
+    """
+#
+#--- special treatment for temp unit "F"
+#
+    if unit == 'F':
+        unit = 'K'
+
+    if not (len(pdata) > 0 and len(pdata[0]) > 0):
+        print(msid + ': empty data file')
+        return na
+
+    if len(pdata[0]) < 10:
+        return False
+#
+#--- get a data position of mtype data in pdata 
+#
+    pos    = select_data_position(mtype)
+#
+#--- compute predictive trends
+#
+    [tlim, tmax, cnt_a, cnt_b, cnt_d,  min_a, min_b, min_d,\
+     max_a, max_b, max_d, xcent, y_avg,  y_min, y_max] \
+                        = predict_trend(pdata[0], pdata[pos], ltype, mtype)
+#
+#--- set plotting ranges
+#
+    [xmin, xmax, xpos] = set_x_plot_range(pdata[0], ltype)
+    xchk = xmax - xmin
+
+    [ymin, ymax, ypos] = set_y_plot_range(pdata[0], pdata[pos], ltype)
+#
+#--- set warning area range lists
+#
+    [time_save, rb1_save, rb2_save, yb1_save,\
+     yb2_save, yt1_save, yt2_save, rt1_save, rt2_save]\
+                  = set_warning_area(pdata, xmin, xmax, ymin, ymax)
+#
+#--- open and set plotting surface  ------------
+#
+    plt.close('all')
+
+    fig, ax = plt.subplots(1, figsize=(8,6))
+
+    props = font_manager.FontProperties(size=14)
+    mpl.rcParams['font.size']   = 14
+    mpl.rcParams['font.weight'] = 'bold'
+#
+#--- set plotting axes
+#
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
+
+    [xlabel, ylabel] = set_axes_label(msid, unit, ltype, byear)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+
+    ax.yaxis.labelpad = 30 
+#
+#--- set the size of plot
+#
+    fig.set_size_inches(10.0, 5.0)
+    fig.tight_layout()
+#
+#--- shade limit areas
+#
+    if (xchk > 3) and (rb2_save[0] != -999):
+        ax.fill_between(time_save, rb1_save, rb2_save, facecolor='red',\
+                        alpha=0.2, interpolate=True)
+
+        ax.fill_between(time_save, yb1_save, yb2_save, facecolor='yellow',\
+                        alpha=0.2, interpolate=True)
+    
+        ax.fill_between(time_save, yt1_save, yt2_save, facecolor='yellow',\
+                        alpha=0.2, interpolate=True)
+    
+        ax.fill_between(time_save, rt1_save, rt2_save, facecolor='red',\
+                        alpha=0.2, interpolate=True)
+#
+#---- trending plots
+#
+    pindex = pdata[17].astype(int)      #--- pdata is all float; convert into integer
+
+    points  = ax.scatter(pdata[0], pdata[pos], color=numpy.array(color_table)[pindex],\
+                         alpha=0.5, marker='o', s=20 ,lw=0)
+    points2 = points
+#
+#--- create a png file
+#
+    fig.set_size_inches(11.7, 5.8)          #--- re-adjusting the size of plot to match others
+#
+#--- pop up page are created here
+#
+    labels = create_label_html(pdata[0:17], msid, unit, ltype)
+#
+#--- link the popup page to the plot
+#
+    plugins.connect(fig, mpld3.plugins.PointHTMLTooltip(points2, labels,\
+                        css=css, voffset=20, hoffset=-50)) 
+#
+#--- convert the plot into html format
+#
+    pout =  mpld3.fig_to_html(fig)
+
+    plt.close('all')
+    return pout
+
+#----------------------------------------------------------------------------------
+#-- drop_suffix: drop suffix of msid (eps. those of HRC msids)                   --
+#----------------------------------------------------------------------------------
+
+def drop_suffix(msid):
+    """
+    hrc has 4 different categories (all, hrc i, hrc s, off); use the same limit range
+    input:  msid    --- msid
+    output: pmsid   --- msid without suffix
+    """
+    pmsid  =  msid.replace('_i^',   '')
+    pmsid  = pmsid.replace('_s^',   '')
+    pmsid  = pmsid.replace('_off^', '')
+
+    return pmsid
+
+#----------------------------------------------------------------------------------
+#-- set_axes_label: set axes labels                                              --
+#----------------------------------------------------------------------------------
+
+def set_axes_label(msid, unit, ltype, byear):
+    """
+    set axes labels
+    input:  msid    --- msid
+            unit    --- unit
+            ltype   --- short or long type plot indicator
+            byear   --- the year of the short plot
+    output: xlabel  --- x axis label
+            ylabel  --- y axis label
+    """
+
+    if ltype in ['five', 'long']:
+        xlabel = 'Time (year)'
+    else:
+        xlabel = 'Time (yday of ' + str(int(byear)) + ')'
+
+    if unit != '':
+        if unit in ('DEGF', 'DEGC'):
+            unit = 'K'
+        ylabel = msid + ' (' + unit + ')'
+    else:
+        ylabel = msid
+
+    return [xlabel, ylabel]
+
+#----------------------------------------------------------------------------------
+#-- save_plot_html: save a html formated plot in a file                          --
+#----------------------------------------------------------------------------------
+
+def save_plot_html(msid, fig, ltype, mtype, tail):
+    """
+    save a html formated plot in a file
+    input:  msid    --- msid
+            fig     --- matplot format plot information
+            tail    --- sufix to put on the file name
+    output: oname   --- a file saving the plot: <web_dir>/Future/<msid>_<tail>
+    """
+
+    fig.set_size_inches(8.0, 5.8)
+    fig.tight_layout()
+    sout =  mpld3.fig_to_html(fig)
+
+    oname = web_dir + 'Future/' + msid + '_'  + ltype + '_' + mtype + '_' + tail
+
+    with open(oname, 'w') as fo:
+        fo.write(sout)
+
+#----------------------------------------------------------------------------------
+#-- create_label_html: creating a information label of the each data point       --
+#----------------------------------------------------------------------------------
+
+def create_label_html(indata, msid, unit, ltype):
+    """
+    creating a information label of the each data point
+    input:  indata  --- full data table
+            msid    --- msid
+            unit    --- unit 
+            ltype   --- short or long term plot
+    output: hlist   --- a list of lines
+    """
+#
+#--- open up the data
+#
+    [ftime, dnum, start, stop, avg, med, std, dmin, dmax, ylow, ytop,  \
+                        rlow, rtop, yl_lim, yu_lim, rl_lim, ru_lim] =indata
+
+    hlist = []
+    for k in range(0, len(start)):
+
+        if ltype == 'long':
+            ptime = compute_yday(ftime[k])
+        else:
+            ptime = "%3.2f" % round(ftime[k], 2)
+
+        line = '<table border=1 cellpadding=2 style="text-align:center;background-color:yellow;">'
+
+        tdline = '<td style="text-align:center;">'
+
+        line = line + '<tr><th>Time</th>'
+        line = line + tdline + ptime          + '</td></tr>'
+
+        line = line + '<tr><th># of Data </th>'
+        line = line + tdline + str(dnum[k])   + '</td></tr>'
+
+        line = line + '<tr><th>Average   </th>'
+        line = line + tdline + str(avg[k])    + '</td></tr>'
+
+        line = line + '<tr><th>Median    </th>'
+        line = line + tdline + str(med[k])    + '</td></tr>'
+
+        line = line + '<tr><th>Sandard Deviation </th>'
+        line = line + tdline + str(std[k])    + '</td></tr>'
+
+        line = line + '<tr><th>Min       </th>'
+        line = line + tdline + str(dmin[k])   + '</td></tr>'
+
+        line = line + '<tr><th>Max       </th>'
+        line = line + tdline + str(dmax[k])   + '</td></tr>'
+
+        line = line + '<tr><th>% of Lower Yellow Violation </th>'
+        line = line + tdline + str(ctop(ylow[k]))   + '%</td></tr>'
+
+        line = line + '<tr><th>% of Upper Yellow Violation </th>'
+        line = line + tdline + str(ctop(ytop[k]))   + '%</td></tr>'
+
+        line = line + '<tr><th>% of Lower Red Violation    </th>'
+        line = line + tdline + str(ctop(rlow[k]))   + '%</td></tr>'
+
+        line = line + '<tr><th>% of Upper Red Violation    </th>'
+        line = line + tdline + str(ctop(rtop[k]))   + '%</td></tr>'
+
+        line = line + '<tr><th>Lower Yellow Limit </th>'
+        line = line + tdline + str(yl_lim[k]) + '</td></tr>'
+
+        line = line + '<tr><th>Upper Yellow Limit </th>'
+        line = line + tdline + str(yu_lim[k]) + '</td></tr>'
+
+        line = line + '<tr><th>Lower Red Limit    </th>'
+        line = line + tdline + str(rl_lim[k]) + '</td></tr>'
+
+        line = line + '<tr><th>Upper Red Limit    </th>'
+        line = line + tdline + str(ru_lim[k]) + '</td></tr>'
+
+        line = line + '</table>'
+        line = line + '<div style="padding-bottom:10px;"></div>'
+
+        hlist.append(line)
+        
+    return hlist
+
+#----------------------------------------------------------------------------------
+#-- compute_yday: convert fractional year to <year>-<ydate> format               --
+#----------------------------------------------------------------------------------
+
+def compute_yday(ltime):
+    """
+    convert fractional year to <year>-<ydate> format
+    input:  ltime   --- fractional year
+    output: ptime   --- <year>-<ydate>
+    """
+
+    year = int(ltime)
+    if mcf.is_leapyear(year):
+        base = 366
+    else:
+        base = 365
+
+    yday = int((ltime - year) * base)
+    lday = str(yday)
+    lday = mcf.add_leading_zero(lday, dlen=3)
+
+    ptime = str(year) + '-' + lday
+
+    return ptime
+
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+
+def ctop(val):
+
+    out = "%2.1f" % round(100 * val, 1)
+
+    return out
+
+#----------------------------------------------------------------------------------
+#-- set_warning_area: set yellow and red violation zones                         --
+#----------------------------------------------------------------------------------
+
+def set_warning_area(pdata, xmin, xmax, ymin, ymax):
+    """
+    set yellow and red violation zones
+    input:  pdata   --- a two dimensional array of data (see read_data)
+            xmin    --- xmin
+            xmax    --- xmax
+            ymin    --- ymin
+            ymax    --- ymax
+    output: a list of lists:
+                    time_save   --- time list
+                    rb1_save    --- lower boundary of the bottom red area
+                    rb2_save    --- top   boundary of the bottom red area
+                    yb1_save    --- lower boundary of the bottom yellow area
+                    yb2_save    --- top   boundary of the bottom yellow area
+                    yt1_save    --- lower boundary of the top yellow area
+                    yt2_save    --- top   boundary of the top yellow area
+                    rt1_save    --- lower boundary of the top red area
+                    rt2_save    --- top   boundary of the top red area
+    """
+
+    l_len = len(pdata[0]) + 2
+#
+#--- filling up the beginning of the plot to the end of the plot
+#
+    aa        = numpy.array([xmin])
+    bb        = numpy.array([xmax])
+    time_save = three_array_add(aa, pdata[0], bb)
+
+    rb1_save  = [ymin] * l_len
+    rb2_save  = adjust_lim_list(pdata[15])
+    yb1_save  = rb2_save
+    yb2_save  = adjust_lim_list(pdata[13])
+
+    yt1_save  = adjust_lim_list(pdata[14])
+    yt2_save  = adjust_lim_list(pdata[16])
+    rt1_save  = yt2_save
+    rt2_save  = [ymax] *l_len
+
+    return [time_save, rb1_save, rb2_save, yb1_save, yb2_save, \
+            yt1_save, yt2_save, rt1_save, rt2_save]
+
+#----------------------------------------------------------------------------------
+#-- adjust_lim_list: adjust the limit area so that it covers xmin to xmax        --
+#----------------------------------------------------------------------------------
+
+def adjust_lim_list(alist):
+    """
+    adjust the limit area so that it covers xmin to xmax
+    input:  alist   --- data list
+    output: slist   --- adjusted list
+    """
+#
+#--- some data has open limit at beginning; fill them
+#
+    val = alist[0]
+    pos = 0
+    for k in range(0, len(alist)):
+        if abs(alist[k]) >= 9e6:
+            continue
+        if abs(alist[k]) == 999:
+            continue
+        if abs(alist[k]) == 998:
+            continue
+        val = alist[k]
+        pos = k
+        break
+
+    if pos > 0:
+        for k in range(0, pos+1):
+            alist[k] = val
+#
+#--- make sure that the area covers from xmin to xmax
+#
+    aa    = numpy.array([val])
+    bb    = numpy.array([alist[-1]])
+    slist = three_array_add(aa, alist, bb)
+#
+#--- special adjustment for the no limit cases
+#
+    alist = list(slist)
+    slist = []
+    for ent in alist:
+        if abs(ent) >= 9e6:
+            slist.append(ent/abs(ent) * 9e12)
+        elif abs(int(ent)) in [998,999]:
+            slist.append(ent/abs(ent) * 9e12)
+        else:
+            slist.append(ent)
+    slist = numpy.array(slist)
+
+    return slist
+
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+
+def three_array_add(a1, a2, a3):
+
+    slist = numpy.concatenate((a1, a2))
+    slist = numpy.concatenate((slist, a3))
+
+    return slist
+
+#----------------------------------------------------------------------------------
+#-- read_msid_data_full: read the data of msid                                       ---
+#----------------------------------------------------------------------------------
+
+def read_msid_data_full(hdu, msid):
+    """
+    read the data of msid
+    input:  hdu     --- data in fits format
+            msid    --- msid
+    output: pdata   --- a two dimensional array of data
+                        xtime  = pdata[0]
+                        dnum   = pdata[1]
+                        start  = pdata[2]
+                        stop   = pdata[3]
+                        avg    = pdata[4]
+                        med    = pdata[5]
+                        std    = pdata[6]
+                        dmin   = pdata[7]
+                        dmax   = pdata[8]
+                        ylow   = pdata[9]
+                        ytop   = pdata[10]
+                        rlow   = pdata[11]
+                        rtop   = pdata[12]
+                        yl_lim = pdata[13]
+                        yu_lim = pdata[14]
+                        rl_lim = pdata[15]
+                        ru_lim = pdata[16]
+                        pcolor = pdata[17] --- 0, 1, or 2: see color_table at beginning
+            byear   --- base year for short term plot
+    """
+
+    today  = ecf.find_current_stime()
+    data   = hdu.data
+
+    dtime  = data['time']
+
+    dnum   = data['dcount']
+    avg    = data[msid]
+    med    = data['med']
+    std    = data['std']
+    dmin   = data['min']
+    dmax   = data['max']
+    ylow   = data['ylower']
+    ytop   = data['yupper']
+    rlow   = data['rlower']
+    rtop   = data['rupper']
+    yl_lim = data['ylimlower']
+    yu_lim = data['ylimupper']
+    rl_lim = data['rlimlower']
+    ru_lim = data['rlimupper']
+
+    skp    = 3
+    dtime  = dtime[0::skp]
+    dnum   = dnum[0::skp]
+    avg    = avg[0::skp]
+    med    = med[0::skp]
+    std    = std[0::skp]
+    dmin   = dmin[0::skp]
+    dmax   = dmax[0::skp]
+    ylow   = ylow[0::skp]
+    ytop   = ytop[0::skp]
+    rlow   = rlow[0::skp]
+    rtop   = rtop[0::skp]
+    yl_lim = yl_lim[0::skp]
+    yu_lim = yu_lim[0::skp]
+    rl_lim = rl_lim[0::skp]
+    ru_lim = ru_lim[0::skp]
+#
+    byear = 1999
+    xtime = []
+    for k in range(0, len(dtime)):
+        yday = mcf.chandratime_to_yday(dtime[k])
+        year = int(float(mcf.convert_date_format(dtime[k], ifmt='chandra', ofmt='%Y')))
+        if k == 0:
+            byear = year
+        else:
+            if year > byear:
+                if mcf.is_leapyear(year):
+                    base = 366
+                else:
+                    base = 365
+                yday += base 
+
+        xtime.append(yday)
+
+    start  = []
+    stop   = []
+    pcolor = []
+    rm_id  = []
+
+    for k in range(0, len(xtime)):
+        if k > 0:
+            tstart = 0.5 * ( float(xtime[k-1] + float(xtime[k])))
+            tstop  = float(xtime[k]) + 0.5 * (float(xtime[k]) -  float(xtime[k-1]))
+        else:
+            tstart = float(xtime[k]) - 0.5 * (float(xtime[k+1]) -  float(xtime[k]))
+            tstop  = float(xtime[k]) + 0.5 * (float(xtime[k+1]) -  float(xtime[k]))
+        start.append(tstart)
+        stop.append(tstop)
+
+        if abs(yl_lim[k]) > 6e6:
+            pcolor.append(0)
+
+        else:
+            if (avg[k] not in [998, 999])     and ((avg[k] > ru_lim[k]) or (rtop[k] > 0.7)):
+                pcolor.append(1)
+
+            elif (avg[k] not in [-999, -998]) and ((avg[k] < rl_lim[k]) or (rlow[k] > 0.7)):
+                pcolor.append(1)
+
+            elif (avg[k] not in  [998, 999])  and ((avg[k] > yu_lim[k]) or (ytop[k] > 0.7)): 
+                pcolor.append(2)
+
+            elif (avg[k] not in [-999, -998]) and ((avg[k] < yl_lim[k]) or (ylow[k] > 0.7)):
+                pcolor.append(2)
+
+            else:
+             pcolor.append(0)
+        if dmax[k] > 9.0e8 or dmin[k] < -9.0e8:
+            rm_id.append(k)
+
+#
+#--- if the avg is totally flat, the plot wil bust; so change tiny bit at the last entry
+#
+    if len(avg) > 0:
+        test = numpy.std(avg)
+    else:
+        test = 0
+
+    if test == 0:
+        alen = len(avg) - 1
+        avg[alen] = avg[alen] * 1.0001
+        
+    pcolor = numpy.array(pcolor)
+
+    plist  = [xtime, dnum,  start, stop, avg, med, std,  \
+                dmin, dmax, ylow, ytop, rlow, rtop, yl_lim, yu_lim, rl_lim, ru_lim, pcolor]
+#
+#--- if there is extremely large values, drop them
+#
+    rm_rate = float(len(rm_id)) / float(len(xtime))
+    if rm_rate < 0.1:
+        plist = remove_extreme(plist, rm_id)
+#
+#--- convert into numpy array then all to float entry
+#
+    pdata  = numpy.array(plist)
+    pdata  = pdata.astype(float)
+
+    return [pdata, byear]
+
+#----------------------------------------------------------------------------------
+#-- remove_extreme: remove the elements of the lists by given indecies           --
+#----------------------------------------------------------------------------------
+
+def remove_extreme(plist, rm_id):
+    """
+    remove the elements of the lists by given indecies
+    input:  plist   --- a list of lists
+            rm_id   --- a list of indecies to be removed
+    output: u_lsit  --- a list of updated lists
+    """
+
+    u_list = []
+    for alist in plist:
+        new_a = numpy.delete(numpy.array(alist), rm_id)
+        u_list.append(new_a)
+
+
+    return u_list
+
+#----------------------------------------------------------------------------------
+#-- convert_stime_into_year: convert time in seconds from 1998.1.1 to fractional year 
+#----------------------------------------------------------------------------------
+
+def convert_stime_into_year(stime):
+    """
+    convert time in seconds from 1998.1.1 to fractional year
+    input:  stime   --- time in seconds from 1998.1.1
+    output: ytime   --- time in fractional year
+            year    --- year 
+            base    --- the number of the days in that year, either 365 or 366
+    """
+
+    date = Chandra.Time.DateTime(stime)
+
+    year = float(date.year)
+    yday = float(date.yday)
+    hrs  = float(date.hour)
+    mins = float(date.min)
+    secs = float(date.sec)
+
+    if mcf.is_leapyear(year):
+        base = 366
+    else:
+        base = 365
+
+    ytime = year + (yday + hrs / 24.0 + mins / 1440.0 + secs / 86400.0) / base
+
+    return [ytime, year, base]
+
+#----------------------------------------------------------------------------------
+#-- set_x_range: find plotting x range                                          ---
+#----------------------------------------------------------------------------------
+
+def set_x_plot_range(x, ltype):
+    """
+    setting x plotting range
+    input:  x       --- a list of x values
+            ltype   --- data type; week, short, one, five, long
+    output: xmin    --- xmin
+            xmax    --- xmax
+            xpos    --- x position of the text to be placed
+    """
+
+    if ltype  == 'long':
+        xmin  = 1999
+        xmax  = ecf.current_time() + 1
+        xmax  = int(xmax)
+
+    elif ltype == 'five':
+        xmax  = ecf.current_time() + 1
+        xmax  = "%4.1f" % round(xmax, 1)
+        xmax  = int(float(xmax))
+        xmin  = xmax - 6.0
+        xmin  = "%4d" % round(xmin, 1)
+        xmin  = int(float(xmin))
+
+    elif ltype == 'short':
+        xmax  = max(x)
+        xmax  = "%4.1f" % round(xmax, 1)
+        xmax  = int(float(xmax))
+        xmin  = xmax - 90.0
+        xmin  = "%4d" % round(xmin, 1)
+        xmin  = int(float(xmin))
+        xmax += 10
+
+    else:
+        xmin  = min(x)
+        xmax  = max(x)
+        xdff  = xmax - xmin
+        xmin -= 0.01 * xdff
+        xmax += 0.06 * xdff
+        xmin  = 0.1 * (int(10*xmin) -1)
+        xmax  = 0.1 * (int(10*xmax) +1)
+
+    xdiff = xmax - xmin
+    xpos  = xmin + 0.05 * xdiff
+    if ltype =='':
+        xpos  = xmax - 0.1 * xdiff
+
+    return [xmin, xmax, xpos]
+
+#----------------------------------------------------------------------------------
+#-- set_y_plot_range: find plotting y range                                     ---
+#----------------------------------------------------------------------------------
+
+def set_y_plot_range(x, y=[], ltype=''):
+    """
+    find plotting y range
+    input:  x       --- a list of y if only one array is given; otherwise a list of x
+            y       --- a list of y data if it is given
+            ltype   --- week, short, one, five, long
+    output: [ymin, ymax, ypos]
+    """
+    if y != []:
+#
+#--- remove all dummy values and the values outside of the range
+#
+        bound  = max(x) - set_x_bound(ltype)
+    
+        udata = []
+        for k in range(0, len(x)):
+            if x[k] < bound:
+                continue
+    
+            elif y[k] in [-999, -998,-99, 99, 998, 999]:
+                continue
+    
+            else:
+                udata.append(y[k])
+    else:
+        udata = []
+        for k in range(0, len(x)):
+            if x[k] in [-999, -998,-99, 99, 998, 999]:
+                continue
+            else:
+                udata.append(x[k])
+#
+#--- remove possible extreme outlayers from both ends before getting min and max
+#
+    udata.sort()
+
+    lcnt  = len(udata)
+    p     = int(0.02 * lcnt)
+    test  = udata[p:lcnt-p]
+
+    ymin  = min(test)
+    ymax  = max(test)
+    if ymin == ymax:
+        ymax = ymin + 0.5
+        ymin = ymin - 0.5
+    else:
+        ydiff = ymax - ymin 
+        ymin -= 0.2 * ydiff
+        ymax += 0.2 * ydiff
+
+    ydiff = ymax - ymin
+    ypos  = ymax - 0.1 * ydiff
+
+    return  [ymin, ymax, ypos]
+
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+
+def set_x_bound(ltype):
+
+    if ltype == 'week':
+        bound = 8.0
+    elif ltype == 'short':
+        bound = 100.0
+    elif ltype == 'one':
+        bound = 370.0
+    elif ltype == 'five':
+        bound = 5.5
+    else:
+        bound = 100.
+
+    return bound
+
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+
+def select_data_position(mtype):
+
+    if mtype == 'mid':
+        pos = 4
+    elif mtype == 'min':
+        pos = 7
+    elif mtype == 'max':
+        pos = 8
+
+    return pos
+
+#----------------------------------------------------------------------------------
+#-- predict_trend: create moving average of envelope around the average data      -
+#----------------------------------------------------------------------------------
+
+def predict_trend(xtime, yset, ltype, mtype):
+    """
+    create moving average of envelope around the average data
+    input:  xtime   --- time in seconds from 1998.1.1
+            yset    --- y data set from the following:
+                        pdata   --- a two dimensional arry of data.
+                        xtime  = pdata[0]
+                        dnum   = pdata[1]
+                        start  = pdata[2]
+                        stop   = pdata[3]
+                        avg    = pdata[4]
+                        med    = pdata[5]
+                        std    = pdata[6]
+                        dmin   = pdata[7]
+                        dmax   = pdata[8]
+                        ylow   = pdata[9]
+                        ytop   = pdata[10]
+                        rlow   = pdata[11]
+                        rtop   = pdata[12]
+                        yl_lim = pdata[13]
+                        yu_lim = pdata[14]
+                        rl_lim = pdata[15]
+                        ru_lim = pdata[16]
+                        pcolor = pdata[17]
+            ltype   --- long or short
+            mtype   --- mid, min, or max
+    output: tlim    --- prediction starting point in time
+            tmax    --- prediction ending point in time
+            min_a   --- intercept of the bottom prediciton line
+            min_b   --- slope of the bottom prediction line
+            max_a   --- intercept of the top prediction line
+            max-b   --- slope of the top prediction line
+            xcent   --- a list of x value for moving average
+            y_avg   --- a list of moving average of  center value
+            y_min   --- a list of moving averages of y min envelop
+            y_max   --- a list of moving averages of y max envelop
+    """
+#
+#--- pdata[0] is time and pdata[5] is med, pdata[6] is std
+#
+    dlen   = len(xtime)
+    tmax   = max(xtime)
+
+    period = set_period(ltype)
+    if ltype == 'week':
+        period *=2
+
+    tlim   = tmax - period
+#
+#--- center envelope
+#
+    [x, y]     = select_y_data_range(xtime, yset, period, top=2)
+    [xmc, ymc] = get_moving_average_fit(x, y, period)
+#
+#--- bottom envelope
+#
+    [xbot, ybot] = select_y_data_range(xtime, yset, period, top=0)
+    [xmb, ymb]   = get_moving_average_fit(xbot, ybot, period)
+#
+#--- top envelope
+#
+    [xtop, ytop] = select_y_data_range(xtime, yset, period, top=1)
+    [xmt, ymt]   = get_moving_average_fit(xtop, ytop, period)
+
+    if len(xmb) == 0:
+        ymb = ymc
+    elif len(xmb) < len(xmc):
+        [xmb, ymb] = adjust_entry(xmc, xmb, ymb)
+
+    if len(xmt) == 0:
+        ymt = ymc
+    elif len(xmt) < len(xmc):
+        [xmt, ymt] = adjust_entry(xmc, xmt, ymt)
+#
+#--- estimate intercept and slope from the last two data points
+#
+    try:
+        [min_a, min_b, min_d] = get_int_slope(xbot, ybot, [xmb[-2], xmb[-1]], [ymb[-2], ymb[-1]], period)
+    except:
+        [min_a, min_b, min_d] = [0,0,0]
+    try:
+        [cnt_a, cnt_b, cnt_d] = get_int_slope(x,    y,    [x[-2],   x[-1]],   [y[-2],   y[-1]],   period, two=0)
+    except:
+        [cnt_a, cnt_b, cnt_d] = [0,0,0]
+    try:
+        [max_a, max_b, max_d] = get_int_slope(xtop, ytop, [xmt[-2], xmt[-1]], [ymt[-2], ymt[-1]], period)
+    except:
+        [max_a, max_b, max_d] = [0,0,0]
+
+#
+#---- adjust length of lists
+#
+    xlen  = len(xmc)
+    yblen = len(ymb)
+    ytlen = len(ymt)
+
+    if xlen < yblen:
+        ymb = ymb[:xlen]
+    elif xlen > yblen:
+        diff  = xlen - yblen
+        for k in range(0, diff):
+            ymb.append(ymb[-1])
+
+    if xlen < ytlen:
+        ymt = ymt[:xlen]
+    elif xlen > ytlen:
+        diff  = xlen - ytlen
+        for k in range(0, diff):
+            ymt.append(ymt[-1])
+
+    return [tlim, tmax, cnt_a, cnt_b, cnt_d,  min_a, min_b, min_d, max_a, max_b,max_d, xmc, ymc, ymb, ymt]
+
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+
+def adjust_entry(xc, x, y):
+
+    diff = len(xc) - len(x)
+    if xc[0] < x[0]:
+        yval = y[0]
+        temp = []
+        for k in range(0, diff):
+            temp.append(yval)
+
+        y = temp + y
+
+    else:
+        yval = y[-1]
+        temp = []
+        for k in range(0, diff):
+            temp.append(yval)
+
+        y =  y + temp
+
+    return [xc, y]
+
+
+#----------------------------------------------------------------------------------
+#-- set_period: assign numeric step interval for the given time interval indicator 
+#----------------------------------------------------------------------------------
+
+def set_period(ltype):
+    """
+    assign numeric step interval for the given time interval indicator
+    input:  ltype   --- week, short, one, finve, long
+    output: period  --- numeric step value for the ltype
+    """
+
+    if ltype ==  'long':
+        period = 1.0            #--- a year interval
+    elif ltype == 'five':
+        period = 1.0            #--- a half year interval
+    elif ltype == 'week':
+        period = 1.0            #--- a day interval
+    elif ltype == 'year':       
+        period = 30.0           #--- 30 day interval
+    else:
+        period = 10.0           #--- 10 day interval
+
+    return period
+
+#----------------------------------------------------------------------------------
+#-- get_moving_average_fit: get moving average                                   --
+#----------------------------------------------------------------------------------
+
+def get_moving_average_fit(x, y, period):
+    """
+    get moving average 
+    input:  x       --- a list of x values
+            y       --- a list of y values
+            period  --- a period of the step
+    output: [tx1, tx2]  --- a list of lists of x and y values of moving average
+    """
+#
+#--- first find moving average forward, then find moving average backward from the end
+#
+    try:
+        out1 = fma.find_moving_average(x,  y, period , 0)
+    except:
+        out1 = [[],[]]
+    try:
+        out2 = fmab.find_moving_average(x, y, period , 0)
+    except:
+        out2 = [[],[]]
+#
+#--- combined two of them so that fill all the way
+#
+    tx1 = out1[0]
+    ty1 = out1[1]
+
+    tx2 = out2[0]
+    ty2 = out2[1]
+
+    tx3 = []
+    ty3 = []
+    for k in range(0, len(tx2)):
+        if tx2[k] > tx1[-1]:
+            tx3.append(tx2[k])
+            ty3.append(ty2[k])
+
+    tx1 = tx1 + tx3
+    ty1 = ty1 + ty3
+
+    return [tx1, ty1]
+
+#----------------------------------------------------------------------------------
+#-- select_y_data_range: select data based on middle, top 25%, or bottom 25% area -
+#----------------------------------------------------------------------------------
+
+def select_y_data_range(xtime, yval, period, top=1):
+    """
+    select data based on middle, top 25%, or bottom 25% area 
+    input:  xtime   --- a list of x values
+            yval    --- a list of y values
+            period  --- a compartment size
+            top     --- position of the selction: 0: bottom 25%, 1: top 25%, other middle 96%
+    output: xadjust --- a list of x data in the selected range
+            yadjust --- a list of y data in the selected range
+    """
+#
+#--- set percentaile limit values
+#
+    if top == 0:
+        p1 = 2
+        p2 = 25
+    elif top == 1:
+        p1 = 75
+        p2 = 98
+    else:
+        p1 = 2
+        p2 = 98
+
+    xt   = numpy.array(xtime)
+    yt   = numpy.array(yval)
+    aind = xt.argsort()
+    xt   = xt[aind[::]]
+    yt   = yt[aind[::]]
+    xadjust = []
+    yadjust = []
+#
+#--- set step size and numbers of periods: select the data span to 20% of the period given 
+#--- so that the bottom and top spans do not change much during the data selection period
+#
+    step  = 0.2 * period
+    start = xt[0]
+    stop  = xt[-1]
+    snum  = int((stop - start) / step) + 1
+
+    begin = 0
+    for k in range(0, snum):
+#
+#--- select the data in that period
+#
+        xs = []
+        ys = []
+        sn = 0
+        lstop = (k+1) * step + start
+        for m in range(begin, len(xt)):
+            if xt[m] > lstop:
+                break
+            else:
+                xs.append(xt[m])
+                ys.append(yt[m])
+                sn += 1
+
+        if len(xs) < 1:
+            continue
+#
+#--- reset the starting spot for the next round
+#
+        begin += sn
+#
+#--- find given percentaile range
+#
+        limb = percentile(ys, p1)
+        limt = percentile(ys, p2)
+        lavg = 0.5 * (limb + limt)
+
+        for n in range(0, len(xs)):
+#
+#--- if the data is in the range, use the value
+#
+            if (ys[n] >= limb) and (ys[n] <= limt):
+                xadjust.append(xs[n])
+                yadjust.append(ys[n])
+#
+#--- if not, use the average
+#
+            else:
+                xadjust.append(xs[n])
+                yadjust.append(lavg)
+
+    return [xadjust, yadjust]
+
+#----------------------------------------------------------------------------------
+#-- percentile: extract the value for the given percentale value                 --
+#----------------------------------------------------------------------------------
+
+def percentile(v_list, percent, key=lambda x:x):
+    """
+    extract the value for the given percentale value
+    input:  v_list  --- a list of the data
+            percent --- a percentile position (e.t. 75 for 75% percentile)
+    output: the vaule at the percentile position
+    """
+    if len(v_list) < 1:
+        return 0.0
+#
+#-- if it is asking 50% point
+#
+    if percent == 50:
+        return numpy.median(numpy.array(v_list))
+#
+#--- otherwise, do other checking
+#
+    v_list.sort()
+
+    if not v_list:
+        return None
+
+    k = (len(v_list)-1) * (percent/100.0)
+    f = math.floor(k)
+    c = math.ceil(k)
+    if f == c:
+        return key(v_list[int(k)])
+
+    d0 = key(v_list[int(f)]) * (c-k)
+    d1 = key(v_list[int(c)]) * (k-f)
+    return d0 + d1
+
+#----------------------------------------------------------------------------------
+#-- create_secondary_bound: create boundray around the data based on med value   --
+#----------------------------------------------------------------------------------
+
+def create_secondary_bound(m_list, b_list, loc=0):
+    """
+    create boundray around the data based on med value
+    this is used only when the main moving average boundary failed to be created
+    input:  m_list  --- a list of main data
+            b_list  --- a list of boundary data (either min or max data list)
+            loc:    --- whether is this bottom or top boundary 0: lower or 1: upper
+    output: e_list  --- a list of estimated values
+    """
+    if len(b_list) < 1:
+        return []
+    else:
+        med = numpy.median(numpy.array(b_list))
+        sign = 1.0
+        if loc == 0:
+            sign = -1.0
+        e_list = []
+        for ent in m_list:
+            val = ent + sign * med
+            e_list.append(val)
+    
+        return e_list
+
+#----------------------------------------------------------------------------------
+#-- get_int_slope: estimate a + b * x line  with a robust method               ----
+#----------------------------------------------------------------------------------
+
+def get_int_slope(x, y, xl, yl, period, two=1):
+    """
+    estimate a + b * x line  with a robust method and then compare with a
+    simple two point estimate and choose a shallower slope fitting
+    input:  x       --- a list of x values
+            y       --- a list of y values
+            xl      --- a secondary list of x value
+            yl      --- a seocndary list of y value
+    output: a       --- intercept
+            b       --- slope
+    """
+#
+#--- choose the data only in the last one year or 10 day (for short)
+#
+    if not  isinstance(x, numpy.ndarray):
+        x = numpy.array(x)      #---- CHECK WHY THESE ARE NOT ARRAY!!!!!!
+        y = numpy.array(y)
+
+    bound = max(x) - period
+    index = numpy.where(x > bound)
+    xtemp = x[index]
+    ytemp = y[index]
+#
+#--- limit data in well inside of the good data
+#
+    [xsave, ysave] = select_data_with_y_sigma(xtemp, ytemp, 3.5)
+#
+#--- if there are not enough data, give up the fitting
+#
+    if len(xsave) < 3:
+        return [999, 999, 999]
+    try:
+#
+#--- fit least sq straight line
+#
+        try:
+            [a, b, dx]  = rbl.robust_fit(xsave, ysave)
+            [ax, bx, d] = least_sq(xsave, ysave)
+        except:
+            [a, b, d] = least_sq(xsave, ysave)
+#
+#--- two point fit
+#
+        [al, bl]  = get_int_slope_supl(xl, yl)
+#
+#--- choose a shallower slope fit
+#
+
+        if two > 0:
+            if abs(bl) < abs(b):
+                a = al
+                b = bl
+    except:
+        a = 999
+        b = 999
+        d = 999
+
+    return [a, b, d]
+
+#----------------------------------------------------------------------------------
+#-- select_data_with_y_cond: select data within sval signma in y direction       --
+#----------------------------------------------------------------------------------
+
+def select_data_with_y_sigma(x, y, sval):
+    """
+    select data within sval signma in y direction
+    input   x       --- a array of x values
+            y       --- a array of y values
+            sval    --- sigma value to be covered
+    output: [xo, yo]    --- a list of arrays of data in the boundaries
+    """
+    if len(x) > 0:
+        avg = numpy.mean(y)
+        std = numpy.std(y)
+        yb  = avg - sval * std
+        yt  = avg + sval * std
+    
+        index = numpy.where(y > yb)
+        xs    = x[index]
+        ys    = y[index]
+    
+        index = numpy.where(ys < yt)
+        xo    = xs[index]
+        yo    = ys[index]
+    else:
+        xo    = x
+        yo    = y
+
+    return [xo, yo]
+
+
+#----------------------------------------------------------------------------------
+#-- get_int_slope: estimate a + b * x line from the last two data points         --
+#----------------------------------------------------------------------------------
+
+def get_int_slope_supl(x, y):
+    """
+    estimate a + b * x line from the last two data points
+    input:  x       --- a list of x values
+            y       --- a list of y values
+    output: icept   --- intercept
+            slope   --- slope
+    """
+
+    k  = len(x)
+    k1 = k -1
+    k2 = k -2
+    while x[k1] == x[k2]:
+        k2 -= 1
+        if k2 < 0:
+            return [0, 0]
+
+    try:
+        slope = (y[k1] - y[k2]) / (x[k1] - x[k2])
+        icept = y[k1] - slope * x[k1]
+
+        return [icept, slope]
+    except:
+        return [999,999]
+
+#---------------------------------------------------------------------------------------------------
+#-- least_sq: compute a linear fit parameters using least sq method  ---
+#---------------------------------------------------------------------------------------------------
+
+def least_sq(xval, yval, ecomp = 1, remove=100):
+
+    """
+    compute a linear fit parameters using least sq method
+    Input:  xval    --- a list of independent variable
+            yval    --- a list of dependent variable
+            ecomp   --- indicator whether to compute the slope error; 0: no, >0: yes
+            remove  --- when you want to remove the outlayers, set this value lower than 100 (%)
+    Output: aa      --- intersect
+            bb      --- slope
+            be      --- slope error
+    """
+    if remove < 100:
+        [xval, yval] = remove_extreme_vals(xval, yval, p=remove)
+    
+    itot= len(xval)
+    tot = float(itot)
+    sx  = 0.0
+    sy  = 0.0
+    sxy = 0.0
+    sxx = 0.0
+    syy = 0.0
+    
+    for j in range(0, itot):
+        sx  += xval[j]
+        sy  += yval[j]
+        sxy += xval[j] * yval[j]
+        sxx += xval[j] * xval[j]
+        syy += yval[j] * yval[j]
+    
+    delta = tot * sxx - sx * sx
+    if delta == 0:
+        return [0.0, 0.0, 0.0]
+    else:
+        try:
+            aa = (sxx * sy  - sx * sxy) / delta
+        except:
+            aa = 0.0
+        try:
+            bb = (tot * sxy - sx * sy)  / delta
+        except:
+            bb = 0.0
+
+        be = 0.0
+    
+        if ecomp > 0:
+            if tot - 2 < 1:
+                bb = 999.
+            else:
+                try:
+                    ss = (syy + tot*aa*aa + bb*bb*sxx - 2.0 *(aa*sy - aa*bb*sx + bb*sxy)) /(tot - 2.0)
+                    be = math.sqrt(tot * ss / delta)
+                except:
+                    be = 999.
+     
+        return (aa, bb, be)
+
+#-----------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+
+def remove_extreme_vals(x, y, p=98):
+    """
+    remove outlayers
+    input:  x   --- x values
+    y   --- y values
+    p   --- how much include in the data in percentage; e.g.98-- remove top and bottom 1%
+    """
+    if len(x) < 10:
+        return [x, y]
+    
+    xa = numpy.array(x)
+    ya = numpy.array(y)
+    
+    cut= 100 - p
+    bcut   =  0.5 * cut
+    tcut   = p + bcut
+    blim   = numpy.percentile(ya, bcut)
+    tlim   = numpy.percentile(ya, tcut)
+    select = [(ya > blim) & (ya < tlim)]
+    
+    xo = list(xa[select])
+    yo = list(ya[select])
+    
+    return [xo, yo]
+
+
+#----------------------------------------------------------------------------------
+#-- predict_violation: predict possible limti violations                         --
+#----------------------------------------------------------------------------------
+
+def predict_violation(a, b, current, vlimit, side = 1):
+    """
+    predict possible limti violations
+    input:  a       --- intercept of the predicted line
+            b       --- slope of the predicted line
+            current --- the current value
+            vlimit  --- limit value
+            side    --- lower (0) or upper (1) limit
+    output: rtime   --- estimated violation time. if no violation return 0
+    """
+    if b == 999:
+        return 0
+
+    vlimit = float(vlimit)
+
+    rtime  = 0
+    now      = a + b * current
+    if side > 0:
+        if now > vlimit:
+            rtime = current
+    else:
+        if now < vlimit:
+            rtime = current
+
+    if rtime == 0:
+#
+#--- if the slope is too steep, something is not right; so ignore the future estimation
+#
+        if  (b == 0) or (b == 999):
+            rtime = 0
+        else:
+            estimate = (vlimit - a) / b
+            if estimate > current:
+                rtime = estimate
+            else:
+                rtime = 0
+
+    return rtime
+
+#----------------------------------------------------------------------------------
+#-- check_dir_exist: chek whether the directory exists, and if not, create one    -
+#----------------------------------------------------------------------------------
+
+def check_dir_exist(tdir):
+    """
+    chek whether the directory exists, and if not, create one
+    input:  tdir    --- directory name
+    output: tdir    --- created directory
+    """
+    if not os.path.isdir(tdir):
+        cmd = 'mkdir ' + tdir
+        os.system(cmd)
+
+#----------------------------------------------------------------------------------
+#-- read_template: read template                                                 --
+#----------------------------------------------------------------------------------
+
+def read_template(fname, repl=[]):
+    """
+    read template
+    input:  fname   --- template file name
+            repl    --- a list of lists:[<tag to be replaced>, <replacing value>]
+    output: out     --- template read
+    """
+    infile = house_keeping + 'Templates/' + fname
+    with  open(infile, 'r') as f:
+        out    = f.read()
+#
+#--- if substitue strings are given, replace them before return
+#
+    if len(repl) > 0:
+        for rset in repl:
+            out = out.replace(rset[0], rset[1])
+
+    return out
+
+#----------------------------------------------------------------------------------
+#-- set_req: setting the input arguments                                         --
+#----------------------------------------------------------------------------------
+
+def set_req(argv):
+    """
+    setting the input arguments 
+    input:  argv    --- input from the argv line
+    output: r_dict  --- a dictionry containing argument keys and values
+    """
+
+    keys = ['qtype', 'msid_list', 'ds', 'ms']
+    vals = ['inter', 'msid_list', 'all', 'all']
+    r_dict = dict(zip(keys, vals))
+
+    for k in range(1, len(argv)):
+        atemp = re.split('=', argv[k])
+        r_dict[atemp[0]] = atemp[1]
+
+    return r_dict
+        
+#----------------------------------------------------------------------------------
+#-- create_limit_table: create a limit table for msid                            --
+#----------------------------------------------------------------------------------
+
+def create_limit_table(msid, group,  unit,  xmin, xmax):
+    """
+    create a limit table for msid
+    input:  msid    --- msid
+            unit    --- unit
+            xmin    --- xmin
+            xmax    --- xmax
+    output: <web_dir>/Limit_table/<msid>_limit_table.html
+    """
+#
+#--- read limit data
+#
+    pmsid  = drop_suffix(msid)
+    l_list = ecf.set_limit_list(pmsid)
+#
+#--- read header part
+#
+    title  = msid + ' limit table'
+    repl   = [["#MSID#",  title], ["#JAVASCRIPT#", ''], ["#STYLE#", ""]]
+    line   = read_template('html_head', repl )
+#
+#--- except a few, all temperatures are in K
+#
+    if unit == 'DEGF':
+        tline = msid.upper() + ' (K)'
+    elif unit == 'DEGC':
+        tline = msid.upper() + ' (K)'
+    elif unit == '':
+        tline = msid.upper()
+    else:
+        tline = msid.upper() + ' (' + unit + ')'
+
+    bgline = '<th style="background-color:'
+
+    line = line + '<h2>' + tline + '</h2>\n'
+    line = line + '<table border=1 cellpadding=2>\n'
+    line = line + '<tr><th>Start Time</th>\n'
+    line = line + '<th>Stop Time</th>\n'
+    line = line + bgline + 'yellow">Yellow Lower</th>\n'
+    line = line + bgline + 'yellow">Yellow Upper</th>\n'
+    line = line + bgline + 'red">Red Lower</th>\n'
+    line = line + bgline + 'red">Red Upper</th>\n'
+    line = line + '</tr>\n'
+
+    for k in range(0, len(l_list)):
+        alist = l_list[k]
+
+        [astart, byear, base] = convert_stime_into_year(float(alist[0]))
+        [astop,  byear, base] = convert_stime_into_year(float(alist[1]))
+#
+#--- there are often the data with <start>=<stop>, drop them
+#
+        if astart == astop:
+            continue
+
+        astart  = float('%4.2f' % (round(astart,2)))
+        astop   = float('%4.2f' % (round(astop, 2)))
+
+        if k == 0:
+            if astart > xmin:
+                astart = '---'
+
+        if k == (len(l_list) -1):
+            astop = "---"
+#
+#---    alist: ymin, ymax, rmin, rmax in position of 2 to 5
+#
+        tlist   = [astart, astop] + alist[2:6]
+#
+#--- create each row
+#
+        line = line + '<tr>\n'
+
+        for tval in  tlist:
+            line = line + '<td style="text-align:center;">' + str(tval) + '</td>\n'
+
+        line = line + '</tr>\n'
+
+    line = line + '</table>\n'
+    line = line + '</body>\n</html>\n'
+
+    o_dir = web_dir + group + '/'
+    check_dir_exist(o_dir)
+    o_dir = o_dir + 'Limit_table/'
+    check_dir_exist(o_dir)
+
+    file_name = o_dir + msid + '_limit_table.html'
+    with  open(file_name, 'w') as fo:
+        fo.write(line)
+
+#-------------------------------------------------------------------------------------------
+#-- process_day_data: extract data from the archive and compute the stats           ---
+#-------------------------------------------------------------------------------------------
+
+def process_day_data(msid, time, data, glim, step = 3600.0):
+    """
+    extract data from the archive and compute the stats
+    input:  msid    --- msid of the data
+            time    --- array of time
+            data    --- array of data
+            glim    --- a list of limit tables
+            step    --- interval of the data. defalut: 3600 sec
+    output: a list of lists which contain:
+                btime   --- a list of time in sec from 1998.1.1
+                bdata   --- a list of the  mean of each interval
+                bmed    --- a list of the median of each interval
+                bstd    --- a list of the std of each interval
+                bmin    --- a list of the min of each interval
+                bmax    --- a list of the max of each interval
+                byl     --- a list of the rate of yellow lower violation
+                byu     --- a list of the rate of yellow upper violation
+                brl     --- a list of the rate of red lower violation
+                bru     --- a list of the rate of red upper violation
+                bcnt    --- a list of the total data counts
+                byl     --- a list of the lower yellow limits
+                byu     --- a list of the upper yellow limits
+                brl     --- a list of the lower red limits
+                bru     --- a list of the upper red limits
+    """
+    btime = []
+    bdata = []
+    bmed  = []
+    bstd  = []
+    bmin  = []
+    bmax  = []
+    byl   = []
+    byu   = []
+    brl   = []
+    bru   = []
+    bcnt  = []
+    vsave = []
+#
+#--- extract data from archive
+#
+    try:
+        data  = numpy.array(data)
+        dtime = numpy.array(time)
+#
+#--- remove all "nan" data
+#
+        mask  = ~(numpy.isnan(data))
+        data  = data[mask]
+        dtime = dtime[mask]
+#
+#--- there are glitch values much larger than the real value; remove them
+#
+        mask  = [data < 9e6]
+        data  = data[mask]
+        dtime = dtime[mask]
+#
+#--- devide the data into a 'step' size
+#
+        spos  = 0
+        chk   = 1
+        send  = dtime[spos]  + step
+
+        for k in range(0, len(dtime)):
+
+            if dtime[k] < send:
+                chk = 0
+            else:
+                rdata = data[spos:k]
+                avg   = rdata.mean()
+                if len(rdata) < 1:
+                    med   = 0.0
+                else:
+                    med   = numpy.median(rdata)
+                sig   = rdata.std()
+                amin  = rdata.min()
+                amax  = rdata.max()
+                stime = dtime[spos + int(0.5 * (k-spos))]
+                vlimits = find_violation_range(glim, stime)
+                [yl, yu, rl, ru, tot] = find_violation_rate(rdata, vlimits)
+
+                btime.append(stime)
+                bdata.append(avg)
+                bmed.append(med)
+                bstd.append(sig)
+                bmin.append(amin)
+                bmax.append(amax)
+                byl.append(yl)
+                byu.append(yu)
+                brl.append(rl)
+                bru.append(ru)
+                bcnt.append(tot)
+                vsave.append(vlimits)
+
+                spos = k
+                send = dtime[k] + step
+                chk  = 1
+#
+#--- check whether there are any left over; if so add it to the data lists
+#
+        if chk == 0:
+            rdata = data[spos:k]
+            if len(rdata) < 1:
+                avg = 0.0
+                med = 0.0
+            else:
+                avg   = rdata.mean()
+                med   = numpy.median(rdata)
+            sig   = rdata.std()
+            amin  = rdata.min()
+            amax  = rdata.max()
+            stime = dtime[spos + int(0.5 * (k-spos))]
+            vlimits = find_violation_range(glim, stime)
+            [yl, yu, rl, ru, tot] = find_violation_rate(rdata, vlimits)
+
+            btime.append(dtime[spos + int(0.5 * (k-spos))])
+            bdata.append(avg)
+            bmed.append(med)
+            bstd.append(sig)
+            bmin.append(amin)
+            bmax.append(amax)
+            byl.append(yl)
+            byu.append(yu)
+            brl.append(rl)
+            bru.append(ru)
+            bcnt.append(tot)
+            vsave.append(vlimits)
+
+        out = [btime, bdata, bmed, bstd, bmin, bmax, byl, byu, brl, bru, bcnt]
+#
+#--- adding limits to the table
+#
+        vtemp   = [[], [], [], []]
+        for k in range(0, len(vsave)):
+            for m in range(0, 4):
+                vtemp[m].append(vsave[k][m])
+        out = out + vtemp
+    
+    except:
+        ftime = 0
+        fdata = 0
+        fmed  = 0
+        fstd  = 0
+        fmin  = 0
+        fmax  = 0
+        ylow  = 0
+        yupper= 0
+        rlow  = 0
+        rupper= 0
+        tcnt  = 0
+
+        vlimits = [-9.0e9, -9.0e9, 9.0e9, 9.0e9]
+        out  = [ftime, fdata, fmed, fstd, fmin, fmax, ylow, yupper, rlow, rupper, tcnt]
+
+    return out
+
+#-------------------------------------------------------------------------------------------
+#-- find_violation_range: set violation range                                             --
+#-------------------------------------------------------------------------------------------
+
+def find_violation_range(glim, time):
+    """
+    set violation range
+    input:  glim    --- a list of lists of violation set [start, stop, yl, yu, rl, ru]
+            time    --- time of the violation check
+    output: vlimit  --- a four element list of [yl, yu, rl, ru]
+    """
+
+    vlimit = [-9.0e9, -9.0e9, 9.0e9, 9.0e9]
+
+    for lim_set in glim:
+        start = float(lim_set[0])
+        stop  = float(lim_set[1])
+        if (time >= start) and (time < stop):
+            vlimit = [lim_set[2], lim_set[3], lim_set[4], lim_set[5]]
+
+    return vlimit
+
+#-------------------------------------------------------------------------------------------
+#-- find_violation_rate: find rate of yellow, red violations in both lower and upper limits 
+#-------------------------------------------------------------------------------------------
+
+def find_violation_rate(carray, limits):
+    """
+    find rate of yellow, red violations in both lower and upper limits
+    input:  carray  --- numpy array of the data
+            limits  --- a list of limit [yellow lower, yellow upper, red lower, red upper]
+    output: [yl, yu, rl, ru, tot]:  rate of yellow lower
+                                    rate of yellow upper
+                                    rate of red lower
+                                    rate of red upper
+                                    totla number of the data
+    """
+    tot  = len(carray)
+    ftot = float(tot)
+
+    yl  = find_num_of_elements(carray, limits[0], side=0)
+    yu  = find_num_of_elements(carray, limits[1], side=1)
+    rl  = find_num_of_elements(carray, limits[2], side=0)
+    ru  = find_num_of_elements(carray, limits[3], side=1)
+    yl -= rl
+    yu -= ru
+
+    yl /= ftot
+    yu /= ftot
+    rl /= ftot
+    ru /= ftot
+
+    return [yl, yu, rl, ru, tot]
+
+#-------------------------------------------------------------------------------------------
+#-- find_num_of_elements: find the numbers of elements above or lower than limit 
+#-------------------------------------------------------------------------------------------
+
+def find_num_of_elements(carray, lim, side=0):
+    """
+    find the numbers of elements above or lower than limit comparing to the total data #
+    input:  carray  --- numpy array of the data
+            lim     --- the limit value
+            side    --- lower:0 or upper:1 limit
+    output: cnt     --- the numbers of the values beyond the limit
+    """
+#
+#--- assume that the huge limit value means that there is no limit
+#
+    if abs(lim) > 1e6:
+        return 0
+
+
+    if side == 0:
+        out = numpy.where(carray < lim)
+    else:
+        out = numpy.where(carray > lim)
+
+    try:
+        cnt = len(out[0])
+    except:
+        cnt = 0
+
+    return cnt 
+
+#--------------------------------------------------------------------------------
+#-- get_mta_fits_data: fetch data from mta local database                      --
+#--------------------------------------------------------------------------------
+
+def get_mta_fits_data(msid, group, start, stop):
+    """
+    fetch data from mta local database
+    input:  msid    --- msid
+            start   --- start time in seconds from 1998.1.1
+            stop    --- stop time in seconds from 1998.1.1
+    output: time    --- time in second from 1998.1.1 for the given period
+            vals    --- vals of msid for the given period
+    """
+#
+#--- find a parent group name
+#
+    pgroup  = 'Comp_save/'
+    mc1     = re.search('Deahk', group)
+    mc2     = re.search('Grad',  group)
+    if mc1 is not None:
+        pgroup = 'Deahk_save/'
+    elif mc2 is not None:
+        pgroup = 'Grad_save/'
+#
+#--- find which year(s) the requested period falls
+#
+    date  = Chandra.Time.DateTime(start)
+    byear = int(float(date.year))
+    date  = Chandra.Time.DateTime(stop)
+    eyear = int(float(date.year))
+    
+    chk   = 0
+    for year in range(byear, eyear+1):
+        fits = deposit_dir + pgroup + group + '/' + msid + '_full_data_' + str(year) + '.fits'
+        if not os.path.isfile(fits):
+            fits = deposit_dir + pgroup + group + '/' + msid + '_full_data_' + str(year) + '.fits.gz'
+            if not os.path.isfile(fits):
+                continue
+#
+#--- extract the data for the given period
+#
+        f = pyfits.open(fits)
+        data  = f[1].data
+        f.close()
+        if chk == 0:
+            time = data['time']
+            vals = data[msid]
+            ext  = [(time > start) & (time < stop)]
+            time = time[ext]
+            vals = vals[ext]
+            chk  = 1
+        else:
+            tmp1 = data['time']
+            tmp2 = data[msid]
+            ext  = [(tmp1 > start) & (tmp1 < stop)]
+            tmp1 = tmp1[ext]
+            tmp2 = tmp2[ext]
+            time = numpy.append(time, tmp1)
+            vals = numpy.append(vals, tmp2)
+     
+    if chk > 0:
+        return [time, vals]
+    else:
+#
+#--- if no data, return False
+#
+        return False
+
+#------------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+
+#        msid   = '1cbat'
+#        group  = 'Acistemp'
+#        tstart = '2019:001:00:00:00'
+#        tstop  = '2019:002:00:00:00'
+#        step   = 300.0
+#        create_interactive_page(msid, group, tstart, tstop, step)
+
+#        msid   = 'hstrtgrd1'
+#        group  = 'Gradhstrut'
+#        tstart = '2019:001:00:00:00'
+#        tstop  = '2019:002:00:00:00'
+#        step   = 300.0
+#        create_interactive_page(msid, group, tstart, tstop, step)
+
+    if len(sys.argv) ==  5:
+        msid   = sys.argv[1]
+        group  = sys.argv[2]
+        tstart = sys.argv[3]
+        tstop  = sys.argv[4]
+        step   = 300.0
+
+        create_interactive_page(msid, group, tstart, tstop, step)
+
+    elif len(sys.argv) == 6:
+        msid   = sys.argv[1]
+        group  = sys.argv[2]
+        tstart = sys.argv[3]
+        tstop  = sys.argv[4]
+        step   = int(float(sys.argv[5]))
+        
+        create_interactive_page(msid, group, tstart, tstop, step)
+
+    else:
+        print("Usage: create_interactive_page.py <msid> <group> <start> <stop> <bin size> ")

@@ -1,0 +1,76 @@
+
+##############################################################################
+####               ACIS Histgram mode Trending                            ####
+##############################################################################
+
+This directory contains a set of phthon scripts which extract acis histram mode
+information and plots the trends. 
+
+
+--------------------------
+Entivonmental Requirements
+--------------------------
+
+Scripts are written in python and required v2.7 with Cen OS6 and run with
+/proj/sot/ska/bin/python.
+
+-----------
+Directories
+-----------
+
+'/data/mta/Script/ACIS/Acis_hist/Scripts/'         :bin_dir         --- where all scripts are kept
+'/data/mta/MTA/data/'                              :bdata_dir       --- some information are kept here
+'/data/mta/www/mta_acis_hist/'                     :web_dir         --- the location of output/web directory
+'/data/mta/Script/ACIS/Acis_hist/Data/'            :data_dir        --- all computed results are kept here
+'/data/mta/Script/ACIS/Acis_hist/house_keeping/'   :house_keeping   --- house keeping related files holder
+'/data/mta_www/mta_temp/mta_states/MJ/'            :mj_dir          --- where state information is kept
+'/usr/bin/'                                        :op_dir          --- system directory
+'/data/mta/Script/ACIS/Acis_hist/Exc/'             :exc_dir         --- execution directory
+'/data/mta/Script/Python3.6/MTA/'                  :mta_dir         --- mta related python function depository
+
+-------
+Scripts
+-------
+
+acis_hist_wrap_script       --- setting the environment
+acis_hist_main_script       --- running python scritps
+
+
+acis_hist_extract_data.py
+-------------------------
+extract acis histgram data and estimates Mn, Al, and Ti K-alpha line parameters
+
+    Input option:   <none>  --- find the last month's date
+                    --m     --- the script will ask year and month
+                    --date=<year>:<month>    run for <year> <month>
+
+    Input:  mj_dir/<year>/comprehensive_data_summary<year>
+            arc4gl results
+
+    Output: /data/mta/Script/ACIS/Acis_hist/Data/ccd<ccd>_node<node>_<pos>
+            /data/mta/www/mta_acis_hist/Plot_indivisual/CCD<ccd#>/node<nod#>/<loc>/hist_<yyyy>_<mm>.png
+
+     This script uses ascds system function "arc5gl" which is done through ska.shell setting
+
+
+acis_hist_plot_trend_interactive.py
+-----------------------
+ plot trend of acis histgram data and create interactive html page
+
+    Input: data are red from /data/mta/Script/ACIS/Acis_hist/Data/ccd<ccd>_node<node>_<pos>
+
+    Output:  /data/mta/www/mta_acis_hist/Html_pages/acis_hist_ccd<ccd#>_<loc>_<type>.html
+             /data/mta/www/mta_acis_hist/Fittings/ccd<ccd#>_<type>_<loc>_fitting_results
+
+Web Address
+------------
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_hist/acis_hist_main.html
+
+
+--------
+Cron Job
+--------
+on luke-v as mta:
+
+0 2 3  * *  cd /data/mta/Script/ACIS/Acis_hist/Exc; /data/mta/Script/ACIS/Acis_hist/Scripts/acis_hist_wrap_script >> $HOME/Logs/acis_hist.cron 2>&1
+

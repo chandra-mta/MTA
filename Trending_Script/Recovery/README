@@ -1,0 +1,16 @@
+
+This directory contrains the scripts which recover the data fron archive. 
+
+
+
+https://icxc.cfa.harvard.edu/dbtm/EST/package.html
+
+operation=retrieve   
+dataset = mta      
+detector = grad    
+level = 0.5        
+filetype = gradhcone
+tstart=01/01/14,00:00:00
+tstop=01/02/14,00:00:00
+go                 
+

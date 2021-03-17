@@ -1,0 +1,79 @@
+
+How to create SIM plots for Monthly Report
+------------------------------------------
+
+Run
+/data/mta/Script/Month/SIM/Scripts/sim_wrap_script
+or
+/data/mta/Script/Month/SIM/create_monthly_sim_plots
+
+where the latter is symbolic linked to the former. 
+
+This will create the following four plots:
+
+monthly_grat_ang.png
+monthly_grat.png
+monthly_sim.png
+rotation.png
+
+
+Script Descriptons
+------------------
+
+All scripts require to run under:
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+run_all_sim_script.py
+----------------------
+This is the master script to run three sim plotting script
+
+Input: none
+
+Output: four png plot
+
+
+aorwspd_plot.py
+---------------
+This python script plots AORWSPD movement for monthly report.
+
+Input: (as arguments)
+        <none>  ---     test mode invoked
+
+        <year> <month>  --- if the data for the <year> <month> does not
+                            exist, the script will extract the data and
+                            update the database
+
+
+Output: rotation.png
+
+Data:   /data/mta/Script/Month/SIM/house_keeping/monthly_avg
+
+Other need: dataseeker access
+            /data/mta/Script/Month/SIM/house_keeping
+            this directory keep login info and database
+
+
+grating_plot.py
+---------------
+This python script plots grating movement plots
+
+Input:  <none>  --- test mode invoked
+        run     --- plot the most recent plots
+
+Output: monthly_grat_ang.png / monthly_grat.png
+
+Data:   /data/mta/www/mta_otg/OTG_sorted.rdb
+
+
+sim_plot.py
+-----------
+This python script plots TSC and FA movement plot
+
+Input: <none>   --- test mode invoked
+        run     --- plot the most recent plots
+
+
+Output: monthly_sim.png
+
+Data:   /home/brad/Tscpos/sim_data.out (or /data/mta_www/mta_sim/Scripts/sim_data.out)

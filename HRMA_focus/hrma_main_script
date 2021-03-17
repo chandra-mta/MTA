@@ -1,0 +1,10 @@
+cd /data/mta/Script/Hrma_src/Exc
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/Hrma_src/Scripts/extract_hrma_focus_data.py
+/data/mta/Script/Hrma_src/Scripts/hrma_plot_trends.py
+/data/mta/Script/Hrma_src/Scripts/update_slide_html.py
+
+chmod -R 755      /data/mta4/www/DAILY/mta_src/*
+chgrp -R mtagroup /data/mta4/www/DAILY/mta_src/*

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>EdE Trend Plots</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>EdE Trend Plots</h2>
+
+<b><u>Last Updated: May 27, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of script extract EdE values and plot their trends. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Grating/EdE/EdE_Trends/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/EdE_Trends
+</p>
+
+<table border=0>
+<tr><td>ede_wrap_script</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>ede_main_script</td>            <td>Jul 28, 2014</td></tr>
+<tr><td>ede_wrap_script_test</td>       <td>May 15, 2013</td></tr>
+<tr><td>ede_main_script_test</td>       <td>Jun 05, 2013</td></tr>
+<tr><td>ede_comp_stat.perl</td>         <td>Jun 05, 2013</td></tr>
+<tr><td>ede_find_value.perl</td>        <td>Jun 05, 2013</td></tr>
+<tr><td>ede_hrma.perl</td>              <td>Jun 05, 2013</td></tr>
+<tr><td>ede_main.perl</td>              <td>Jun 05, 2013</td></tr>
+<tr><td>ede_mk_stat_table.perl</td>     <td>Jun 05, 2013</td></tr>
+<tr><td>ede_oba_example.perl</td>       <td>Jun 05, 2013</td></tr>
+<tr><td>ede_oba.perl</td>               <td>Jun 05, 2013</td></tr>
+<tr><td>ede_plot.perl</td>              <td>Jun 05, 2013</td></tr>
+<tr><td>ede_sort_dom.perl</td>          <td>May 15, 2013</td></tr>
+<tr><td>plot_capella_ede.perl</td>      <td>May 27, 2015</td></tr>
+<tr><td>ede_plot.py</td>                <td>Jun 18, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Grating/EdE/EdE_Trends/README.
+</p>
+<table border = 0>
+<tr><th>Sep 18, 2014</th><td>Initially logged</td></tr>
+<tr><th>May 27, 2014</th><td>Capella data plot routine updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/www/mta_grat/*/*/obsid_*_L1.5_S1HEGp1_linelist.txt
+</li>
+<li>
+/data/mta/www/mta_grat/*/*/obsid_*_L1.5_S1MEGp1_linelist.txt
+</li>
+<li>
+/data/mta/www/mta_grat/*/*/obsid_*_L1.5_S1LEGp1_linelist.txt
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS (source /home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_grat/EdE_trend/EdE_Data/
+    <ul>
+    <li> acis_&lt;grating&gt;_&lt;line pos&gt;_data </li>
+    <li> hrc_&lt;grating&gt;_&lt;line pos&gt;_data </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_grat/EdE_trend/EdE_Plots
+    <ul>
+    <li> acis_&lt;grating&gt;_&lt;line pos&gt;_plot.png </li>
+    <li> acis_&lt;grating&gt;_&lt;line pos&gt;_low_res__plot.png </li>
+    <li> hrc_&lt;grating&gt;_&lt;line pos&gt;_plot.png </li>
+    <li> hrc_&lt;grating&gt;_&lt;line pos&gt;_low_res__plot.png </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Grating/EdE/Exc
+</li>
+<li>
+run: /data/mta/Script/Grating/EdE/EdE_Trends/ede_wrap_script
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Grating/EdE/Exc
+</li>
+<li>
+run: /data/mta/Script/Grating/EdE/EdE_Trends/ede_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be saved in /data/mta/Script/Grating/EdE/Test_out. Compare the results with those in 
+/data/mta/Script/Grating/EdE/Test_comp_results/.
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+30 9 * * 0  cd /data/mta/Script/Grating/EdE/Exc; /data/mta/Script/Grating/EdE/EdE_Trends/ede_wrap_script      >> $HOME/Logs/ede_trends 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days//mta_grat/EdE_trend/ede_trend.html'>
+https://cxc.cfa.harvard.edu/mta_days//mta_grat/EdE_trend/ede_trend.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Rewrite all perl scripts in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

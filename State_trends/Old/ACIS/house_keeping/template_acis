@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Comprehensive Summary </title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<style  type='text/css'>
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+a:link {color:#00CCFF;}
+a:visited {color:yellow;}
+</style>
+</head>
+<body style="color:#FFFFFF;background-color:#000000">
+<title> Abridged Summary </title>
+<h1 style="text-align:center">Abridged Summary of State Changes</h1><div style='padding-top:10px;padding-bottom:10px'>
+<hr />
+</div>
+<p>
+Please select one of the following reports:
+</p>
+
+<ul>
+    <li><a href='./#YEAR#/sim_file.pdf' download='#YEAR#/sim_file.pdf'>SIM Positions</a><br />
+        <img src="./#YEAR#/sim_file.gif" width=90%>
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/fapos.pdf' download='fapos.pdf'>SEA FA Position; Details</a><br />
+        <img src="./#YEAR#/fapos-0.gif" width=90%><br />
+        <img src="./#YEAR#/fapos-1.gif" width=90%>
+    </li>
+    <li Type=square style='padding-top:15px'><a href='./#YEAR#/tscpos.pdf' download='tscpos.pdf'>SEA TSC POSITION; Details</a><br />
+        <img src="./#YEAR#/tscpos-0.gif" width=90%><br />
+        <img src="./#YEAR#/tscpos-1.gif" width=90%>
+    </li>
+    <li Type=disk style='padding-top:15px'><a href='./#YEAR#/grating-file.pdf' download='grating-file.pdf'>Grating Status</a><br />
+        <img src="./#YEAR#/grating_file-0.gif" width=90%><br />
+        <img src="./#YEAR#/grating_file-1.gif" width=90%> <br />
+        <img src="./#YEAR#/grating_file-2.gif" width=90%>
+    </li>
+    <li Type=disk style='padding-top:15px'><a href='./#YEAR#/state_file.pdf' download='state_file.pdf'>Other Status</a><br />
+        <img src="./#YEAR#/state_file.gif" width=90%>
+    </li>
+</ul>
+
+
+
+<div style='padding-top:10px;padding-bottom:10px'>
+<ul> <li Type=disk><a href="http://asc.harvard.edu/mta_days/mta_temp/ACIS/#YEAR#/sim_data_summary">ASCII Data</a></li></ul>
+</div>
+</body>
+</html>

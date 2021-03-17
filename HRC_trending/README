@@ -1,0 +1,64 @@
+##########################
+Updating HRC Trending Page
+##########################
+
+This set of scripts update:
+https://cxc.cfa.harvard.edu/mta_days/mta_hrc/Trending/hrc_trend.html
+
+The first half of the page is a copy of:
+http://cxc.cfa.harvard.edu/contrib/cxchrc/HRC_trendings/ArLac/arlac_energy_trend.html
+
+and the latter half shows the trend of HRC sheild rate and HRC temperature trends.
+
+========
+Scripts:
+========
+
+hrc_trending_wrap_script
+hrc_trending_main_script            #--- the environment setting scripts
+
+update_hrc_shield_and_temp_plot.py  #--- main scripts to create plots and update html page
+
+=====
+Data:
+=====
+
+/data/mta/Script/HRC/Data
+    shield_rate                     #--- HRC shield rate data
+    hrc_temp_data                   #--- HRC temperature trend data
+
+============
+Data Needed:
+============
+
+/data/mta/DataSeeker/data/repository/aorbital.rdb       #---- chandra orbital data
+
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/ArLac/arlac_energy_trend.html
+                                                        #---- the first half of html page
+
+dataseeker output:  mtahrc..hrcveto_avg
+                    mtahrc..hrctemp_avg
+
+==========
+Direcotry:
+==========
+'/data/mta/Script/HRC/Scripts/'                 : bin_dir
+'/data/mta/Script/HRC/Data/'                    : data_dir
+'/data/mta/Script/HRC/Scripts/house_keeping/'   : house_keeping
+'/data/mta_www/mta_hrc/Trending/'               : web_dir
+'/data/mta/Script/Python_script2.7/'            : mta_dir
+
+==========
+Html Page:
+==========
+
+/data/mta_www/mta_hrc/Trending
+https://cxc.cfa.harvard.edu/mta_days/mta_hrc/Trending/hrc_trend.html
+
+=========
+Cron Job:
+=========
+
+r2d2-v as mta
+
+TBD

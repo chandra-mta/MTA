@@ -1,0 +1,91 @@
+
+########################
+ACIS Corner Pixel Trends
+########################
+
+/data/mta/Script/Corner_pix/Scripts
+====================================
+The direcotry contains scripts which extract data and plot acis corner pixel trends
+
+++++++++
+Scripts
+++++++++
+
+trend_plot_wrap_script
+trend_plot_main_script              ---- contorl scripts
+
+analyze_acis_corner_pixels.py       ---- extract acis evt1 data and analyze corner pixels
+plot_corner_pix_trend.py            ---- create trending plots related acis corner pixels
+update_obs_table_html.py            ---- update corner pixel html page
+
+++++++
+Input
+++++++
+
+acis evt1 data are extacted from archive using arc5gl 
+
++++++++
+Output
++++++++
+
+/data/mta/Scripts/Corner_pix/Data/
+-----------------------------------
+
+<ccdid>_<dtype>.dat
+
+    where ccdid = I2, I3, S2, S3
+          dtyep = faint, afaint, vfaint
+columns:
+    time           
+    obsid   
+    slope           
+    cent mean   
+    cent std    
+    width mean  
+    width std   
+    skew cent   
+    skew c std  
+    skew width  
+    skew w std  
+    skewness
+
+
+/data/mta_www/mta_acis_sci_run/Corner_pix:
+===========================================
+
+cpix.html       --- updated main web page
+
+
+Plots/
+trending plots of:
+
+<ccd id>_<dtype>_<atype>_<stype>png
+<ccd_id>_<dtype>_slope.png
+<ccd_id>_<dtype>_skewness.png
+where:
+    ccd_id: I2, I3, S2, S3
+    dtype:  all, faint, vfaint
+    atype:  norm, skew      --- normal fit or skewed normal fit
+    stype:  cent, width (mean value)
+            cent_s, width_s (std value)
+
+Plots/Ind_Plots/acis<obsid>_plots:
+----------------------------
+Example:
+    acisf00723_I2_hist.png      --- histogram around peak
+    acisf00723_I3_hist.png
+    acisf00723_norm_cp.png      --- trend of peak positions along bin # for normal dist
+    acisf00723_S2_hist.png
+    acisf00723_S3_hist.png
+    acisf00723_skew_cp.png      --- trend of peak positions along bin # for skewed normal dist
+
+Web page:
+------
+http://cxc.harvard.edu/mta_days/mta_acis_sci_run/Corner_pix/cpix.html
+
+Cron Job:
+---------
+mta @ c3po-v
+
+5 3 * * 1 cd /data/mta/Script/Corner_pix/Exc; /data/mta/Script/Corner_pix/Scripts/trend_plot_wrap_script >> corner_pix.cron 2>&1
+

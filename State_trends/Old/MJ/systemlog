@@ -1,0 +1,63 @@
+info           2018-06-18 01:00:14  ------------------------------------------------------------
+info           2018-06-18 01:00:14  Acorn Kernel Version 1.52
+info           2018-06-18 01:00:14  Command Line: acorn -f ./temp_file -nCO /data/mta/MTA/data/State_trends//simpos_acis.scr -T -o 
+info           2018-06-18 01:00:14  Loading /home/ascds/DS.release/config/mta/data/cxcds_ipcl_translation.list
+info           2018-06-18 01:00:14  Loading Subsystem script /data/mta/MTA/data/State_trends//simpos_acis.scr
+info           2018-06-18 01:00:14  Loading /home/ascds/DS.release/config/tp_template/P014//tmsrment.txt
+info           2018-06-18 01:00:15  Loading /home/ascds/DS.release/config/tp_template/P014//tloc.txt
+info           2018-06-18 01:00:15  Loading /home/ascds/DS.release/config/tp_template/P014//tsmpl.txt
+info           2018-06-18 01:00:15  Loading /home/ascds/DS.release/config/tp_template/P014//tsc.txt
+info           2018-06-18 01:00:15  Loading /home/ascds/DS.release/config/tp_template/P014//tcal_sw.txt
+info           2018-06-18 01:00:15  Loading /home/ascds/DS.release/config/tp_template/P014//tlmt_sw.txt
+info           2018-06-18 01:00:16  Loading /home/ascds/DS.release/config/tp_template/P014//tlmt.txt
+info           2018-06-18 01:00:16  Loading /home/ascds/DS.release/config/tp_template/P014//tes_sw.txt
+info           2018-06-18 01:00:16  Loading /home/ascds/DS.release/config/tp_template/P014//tes.txt
+info           2018-06-18 01:00:16  Loading /home/ascds/DS.release/config/tp_template/P014//tpc.txt
+info           2018-06-18 01:00:16  Loading /home/ascds/DS.release/config/tp_template/P014//tpp.txt
+info           2018-06-18 01:00:16  TraceLog started for mjsimpos category.
+info           2018-06-18 01:00:16  TemplateMap initialized for Ipcl P014, Inst PI.
+info           2018-06-18 01:00:16  Found EHS header during first read of minor frame
+info           2018-06-18 01:00:31  Terminate Stripper.
+               2018-06-18 01:00:31   shut down.
+info           2018-06-18 01:00:34  ------------------------------------------------------------
+info           2018-06-18 01:00:34  Acorn Kernel Version 1.52
+info           2018-06-18 01:00:34  Command Line: acorn -f ./temp_file -nCO /data/mta/MTA/data/State_trends//simpos_acis.scr -T -o 
+info           2018-06-18 01:00:34  Loading /home/ascds/DS.release/config/mta/data/cxcds_ipcl_translation.list
+info           2018-06-18 01:00:34  Loading Subsystem script /data/mta/MTA/data/State_trends//simpos_acis.scr
+info           2018-06-18 01:00:34  Loading /home/ascds/DS.release/config/tp_template/P014//tmsrment.txt
+info           2018-06-18 01:00:34  Loading /home/ascds/DS.release/config/tp_template/P014//tloc.txt
+info           2018-06-18 01:00:34  Loading /home/ascds/DS.release/config/tp_template/P014//tsmpl.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tsc.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tcal_sw.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tlmt_sw.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tlmt.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tes_sw.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tes.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tpc.txt
+info           2018-06-18 01:00:35  Loading /home/ascds/DS.release/config/tp_template/P014//tpp.txt
+info           2018-06-18 01:00:35  TraceLog started for mjsimpos category.
+info           2018-06-18 01:00:35  TemplateMap initialized for Ipcl P014, Inst PI.
+info           2018-06-18 01:00:35  Found EHS header during first read of minor frame
+info           2018-06-18 01:00:48  Terminate Stripper.
+               2018-06-18 01:00:48   shut down.
+info           2018-06-18 01:00:50  ------------------------------------------------------------
+info           2018-06-18 01:00:50  Acorn Kernel Version 1.52
+info           2018-06-18 01:00:50  Command Line: acorn -f ./temp_file -nCO /data/mta/MTA/data/State_trends//simpos_acis.scr -T -o 
+info           2018-06-18 01:00:50  Loading /home/ascds/DS.release/config/mta/data/cxcds_ipcl_translation.list
+info           2018-06-18 01:00:50  Loading Subsystem script /data/mta/MTA/data/State_trends//simpos_acis.scr
+info           2018-06-18 01:00:50  Loading /home/ascds/DS.release/config/tp_template/P014//tmsrment.txt
+info           2018-06-18 01:00:50  Loading /home/ascds/DS.release/config/tp_template/P014//tloc.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tsmpl.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tsc.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tcal_sw.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tlmt_sw.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tlmt.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tes_sw.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tes.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tpc.txt
+info           2018-06-18 01:00:51  Loading /home/ascds/DS.release/config/tp_template/P014//tpp.txt
+info           2018-06-18 01:00:51  TraceLog started for mjsimpos category.
+info           2018-06-18 01:00:51  TemplateMap initialized for Ipcl P014, Inst PI.
+info           2018-06-18 01:00:51  Found EHS header during first read of minor frame
+info           2018-06-18 01:01:05  Terminate Stripper.
+               2018-06-18 01:01:05   shut down.

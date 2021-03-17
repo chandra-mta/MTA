@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ACA Trending</title>
+    <script language="JavaScript">
+    function WindowOpener(imgname, plttitle) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=yes,location=no,scrollbars=no,status=no,width=680,height=400,resize=no");
+        msgWindow.document.close();
+        msgWindow.document.open();
+        msgWindow.document.write("<html><title>Monitor plot:   "+imgname+"</title>");
+        msgWindow.document.write("<body bgcolor='white'>");
+        msgWindow.document.write("<center>");
+        msgWindow.document.write("<h3>"+plttitle+"</h3>");
+        msgWindow.document.write("</center>");
+        msgWindow.document.write("<img src='"+imgname+"' border=0 width=640 height=320><P></body></html>")
+        msgWindow.document.close();
+        msgWindow.focus(); 
+    }
+    function ViewPlots(imgnames, plttitles) {
+        pltWindow = open("","mag_i_avgs","scrollbars=yes,menubar=yes,width=680,height=640");
+        pltWindow.document.close();
+        pltWindow.document.open();
+        pltWindow.document.write(" <html><head><title>Monitor plots</title></head> ");
+        pltWindow.document.write("<body bgcolor='white'>");
+        pltWindow.document.write("<center>");
+        for(var ii=0; ii<imgnames.length;ii++) {
+            pltWindow.document.write("<h3>"+plttitles[ii]+"</h3>");
+            pltWindow.document.write("<img src='"+imgnames[ii]+"' border=0 width=640 height=320><P>");
+        }
+        pltWindow.document.write("</center>");
+        pltWindow.document.write("</body></html>");
+        pltWindow.document.close(); 
+        pltWindow.focus(); 
+    }
+    </script>
+    <style>
+        td{text-align:center;}
+
+        th.rotate{writing-mode: vertical-lr; text-orientation: upright;}
+        span.rotate{
+            writing-mode: vertical-lr; 
+            text-orientation: upright;
+            padding-right:20px;
+        }
+    </style>
+</head>
+
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FaEBD7;
+font-family:Georgia, "Times New Roman", Times, serif">
+
+
+<div style='float:right'>
+<a href="../aca_trend_year#YEAR#.html">Back to Year #YEAR#</a>
+<br />
+<a href="../index.html">Back to Top Page</a>
+</div>
+
+<h2>ACA Trending: #MON# #YEAR# </h2>
+
+
+<p>
+Click an image to enlarge it.
+The slopes are in Mag / day.
+</p>
+
+<table border=1 cellpadding=3>
+<tr>
+<th rowspan=2 ><span class='rotate'>ACIS</span></th>
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_1.png', 'Average Magnitude for Fid 1')">
+    <img src='./Plots/MAG_I_AVG_1.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP1# STD: #MAG_STD1#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_2.png', 'Average Magnitude for Fid 2')">
+    <img src='./Plots/MAG_I_AVG_2.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP2# STD: #MAG_STD2#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_3.png', 'Average Magnitude for Fid 3')">
+    <img src='./Plots/MAG_I_AVG_3.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP3# STD: #MAG_STD3#
+</td>        
+<td>&#160;</td>
+</tr>
+<tr>
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_4.png', 'Average Magnitude for Fid 4')">
+    <img src='./Plots/MAG_I_AVG_4.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP4# STD: #MAG_STD4#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_5.png', 'Average Magnitude for Fid 5')">
+    <img src='./Plots/MAG_I_AVG_5.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP5# STD: #MAG_STD5#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_6.png', 'Average Magnitude for Fid 6')">
+    <img src='./Plots/MAG_I_AVG_6.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP6# STD: #MAG_STD6#
+</td>        
+<td>&#160;</td>
+</tr>
+
+
+<th><span class='rotate'>HRCI</span></th>
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_7.png', 'Average Magnitude for Fid 7')">
+    <img src='./Plots/MAG_I_AVG_7.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP7# STD: #MAG_STD7#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_8.png', 'Average Magnitude for Fid 8')">
+    <img src='./Plots/MAG_I_AVG_8.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP8# STD: #MAG_STD8#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_9.png', 'Average Magnitude for Fid 9')">
+    <img src='./Plots/MAG_I_AVG_9.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP9# STD: #MAG_STD9#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_10.png', 'Average Magnitude for Fid 10')">
+    <img src='./Plots/MAG_I_AVG_10.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP10# STD: #MAG_STD10#
+</td>
+</tr>
+<tr>
+
+<th><span class='rotate'>HRCS</span></th>
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_11.png', 'Average Magnitude for Fid 11')">
+    <img src='./Plots/MAG_I_AVG_11.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP11# STD: #MAG_STD11#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_12.png', 'Average Magnitude for Fid 12')">
+    <img src='./Plots/MAG_I_AVG_12.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP12# STD: #MAG_STD12#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_13.png', 'Average Magnitude for Fid 13')">
+    <img src='./Plots/MAG_I_AVG_13.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP13# STD: #MAG_STD13#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/MAG_I_AVG_14.png', 'Average Magnitude for Fid 14')">
+    <img src='./Plots/MAG_I_AVG_14.png' style='width:90%'></a>
+    <br />
+    Slope: #MAG_SLP14# STD: #MAG_STD14#
+</td>        
+</tr>
+
+</table>
+
+<div style='padding-bottom:20px;'></div>
+
+#TABLE#
+
+<div style='padding-bottom:20px;'></div>
+
+<hr />
+<h2>Level 1 Slot Trending: #MON# #YEAR#</h2>
+
+<p>
+Click an image to enlarge it.
+The slopes are per day.
+</p>
+
+<table border=1 cellpadding=3>
+<tr><th>Slot</tH><th>Pos_Err</th><th>Delta Magnitude</th><th>Angynea</th><th>Angznea</th></tr>
+
+
+<tr>
+<th>0</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_0.png', 'Pos_Err Slot 0')">
+    <img src='./Plots/POS_ERR_0.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP0# STD: #POS_STD0#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_0.png', 'DIFF_Err Slot 0')">
+    <img src='./Plots/DIFF_0.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP0# STD: #DIFF_STD0#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_0.png', 'ANGYNEA Slot 0')">
+    <img src='./Plots/ANGYNEA_0.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP0# STD: #ANGY_STD0#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_0.png', 'ANGZNEA Slot 0')">
+    <img src='./Plots/ANGZNEA_0.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP0# STD: #ANGZ_STD0#
+</td>        
+</tr>
+
+<tr>
+<th>1</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_1.png', 'Pos_Err Slot 1')">
+    <img src='./Plots/POS_ERR_1.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP1# STD: #POS_STD1#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_1.png', 'DIFF_Err Slot 1')">
+    <img src='./Plots/DIFF_1.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP1# STD: #DIFF_STD1#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_1.png', 'ANGYNEA Slot 1')">
+    <img src='./Plots/ANGYNEA_1.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP1# STD: #ANGY_STD1#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_1.png', 'ANGZNEA Slot 1')">
+    <img src='./Plots/ANGZNEA_1.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP1# STD: #ANGZ_STD1#
+</td>        
+</tr>
+
+
+<tr>
+<th>2</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_2.png', 'Pos_Err Slot 2')">
+    <img src='./Plots/POS_ERR_2.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP2# STD: #POS_STD2#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_2.png', 'DIFF_Err Slot 2')">
+    <img src='./Plots/DIFF_2.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP2# STD: #DIFF_STD2#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_2.png', 'ANGYNEA Slot 2')">
+    <img src='./Plots/ANGYNEA_2.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP2# STD: #ANGY_STD2#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_2.png', 'ANGZNEA Slot 2')">
+    <img src='./Plots/ANGZNEA_2.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP2# STD: #ANGZ_STD2#
+</td>        
+</tr>
+
+
+<tr>
+<th>3</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_3.png', 'Pos_Err Slot 3')">
+    <img src='./Plots/POS_ERR_3.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP3# STD: #POS_STD3#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_3.png', 'DIFF_Err Slot 3')">
+    <img src='./Plots/DIFF_3.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP3# STD: #DIFF_STD3#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_3.png', 'ANGYNEA Slot 3')">
+    <img src='./Plots/ANGYNEA_3.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP3# STD: #ANGY_STD3#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_3.png', 'ANGZNEA Slot 3')">
+    <img src='./Plots/ANGZNEA_3.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP3# STD: #ANGZ_STD3#
+</td>        
+</tr>
+
+
+<tr>
+<th>4</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_4.png', 'Pos_Err Slot 4')">
+    <img src='./Plots/POS_ERR_4.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP4# STD: #POS_STD4#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_4.png', 'DIFF_Err Slot 4')">
+    <img src='./Plots/DIFF_4.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP4# STD: #DIFF_STD4#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_4.png', 'ANGYNEA Slot 4')">
+    <img src='./Plots/ANGYNEA_4.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP4# STD: #ANGY_STD4#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_4.png', 'ANGZNEA Slot 4')">
+    <img src='./Plots/ANGZNEA_4.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP4# STD: #ANGZ_STD4#
+</td>        
+</tr>
+
+
+<tr>
+<th>5</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_5.png', 'Pos_Err Slot 5')">
+    <img src='./Plots/POS_ERR_5.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP5# STD: #POS_STD5#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_5.png', 'DIFF_Err Slot 5')">
+    <img src='./Plots/DIFF_5.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP5# STD: #DIFF_STD5#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_5.png', 'ANGYNEA Slot 5')">
+    <img src='./Plots/ANGYNEA_5.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP5# STD: #ANGY_STD5#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_5.png', 'ANGZNEA Slot 5')">
+    <img src='./Plots/ANGZNEA_5.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP5# STD: #ANGZ_STD5#
+</td>        
+</tr>
+
+
+<tr>
+<th>6</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_6.png', 'Pos_Err Slot 6')">
+    <img src='./Plots/POS_ERR_6.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP6# STD: #POS_STD6#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_6.png', 'DIFF_Err Slot 6')">
+    <img src='./Plots/DIFF_6.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP6# STD: #DIFF_STD6#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_6.png', 'ANGYNEA Slot 6')">
+    <img src='./Plots/ANGYNEA_6.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP6# STD: #ANGY_STD6#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_6.png', 'ANGZNEA Slot 6')">
+    <img src='./Plots/ANGZNEA_6.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP6# STD: #ANGZ_STD6#
+</td>        
+</tr>
+
+
+<tr>
+<th>7</th>
+<td>
+    <a href="javascript:WindowOpener('Plots/POS_ERR_7.png', 'Pos_Err Slot 7')">
+    <img src='./Plots/POS_ERR_7.png' style='width:90%'></a>
+    <br />
+    Slope: #POS_SLP7# STD: #POS_STD7#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/DIFF_7.png', 'DIFF_Err Slot 7')">
+    <img src='./Plots/DIFF_7.png' style='width:90%'></a>
+    <br />
+    Slope: #DIFF_SLP7# STD: #DIFF_STD7#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGYNEA_7.png', 'ANGYNEA Slot 7')">
+    <img src='./Plots/ANGYNEA_7.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGY_SLP7# STD: #ANGY_STD7#
+</td>        
+<td>
+    <a href="javascript:WindowOpener('Plots/ANGZNEA_7.png', 'ANGZNEA Slot 7')">
+    <img src='./Plots/ANGZNEA_7.png' style='width:90%'></a>
+    <br />
+    Slope: #ANGZ_SLP7# STD: #ANGZ_STD7#
+</td>        
+</tr>
+</table>
+
+<p><b>Note</b><p>
+<table border=0 cellpadding=2>
+    <tr><th> pos_err: </th><td> ((ra_err*cos(dec))^2 + dec_err^2)^0.5</td></tr>
+    <tr><th> diff:    </th><td> mag_aca - mag_aca_avg</td></tr>
+    <tr><th> slope:   </th><td> slope agaist time (sec)</td></tr>
+    <tr><th> std:     </th><td> standard deviation of the data</td></tr>
+</table>
+
+<div style='padding-bottom:20px;'></div>
+<h3>When looking at Guide Stars</h3>
+#GUIDE_LOOK#
+
+<div style='padding-bottom:20px;'></div>
+<h3>When Looking at FIDs</h3>
+#FID_LOOK#
+
+<div style='padding-bottom:20px;'></div>
+<h3>When looking at Monitor Stars</h3>
+#MON_LOOK#
+
+<div style='padding-bottom:20px;'></div>
+
+<hr />
+<p>
+If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>
+tisobe@cfa.harvard.edu</a>.
+</p>
+
+</body>
+<html>

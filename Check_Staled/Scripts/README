@@ -1,0 +1,32 @@
+
+Staled Process Checker
+######################
+
+This script will check wehter there are any process running more than a day and report back to admin
+
+Script:
+-------
+check_staled_process.py
+
+input: none
+output:     email to admin
+
+cron job
+--------
+r2d2-v as mta:
+23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+
+c3po-v as mta
+23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+
+colossus-v as mta
+23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+
+han-v as mta
+23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+
+luke-v as mta
+23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+
+
+

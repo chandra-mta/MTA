@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<style  type='text/css'>
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+td{text-align:center;padding:8px}
+a:link {color:blue;}
+a:visited {color:red;}
+span.nobr {white-space:nowrap;}
+</style>
+
+<script>
+function MyWindowOpener(imgname) {
+msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no ,width=1200,height=1000,resize=yes");
+msgWindow.document.close();
+msgWindow.document.write("<!DOCTYPE html><html><head><title>ACIS Histgram:   "+imgname+"</title></head>");
+msgWindow.document.write("<body style='background-color:white'>");
+msgWindow.document.write("<img src='/mta_days/mta_acis_hist/"+imgname+"' style='border-width:0px;width:1000px;height:800px'><p></body></html>");
+msgWindow.focus();
+}
+</script>
+
+<title> ACIS Histogram Data Plots </title></head>
+<body style='background-color:#FFEBCD'>
+
+<h2 style="text-align:center;margin-left:auto;margin-right:auto">ACIS Histogram Data Plots</h2><p>
+We have tended Event Histogram mode in order to characterize the ACIS response.
+Two distinctive data are tended. One is data where ACIS is exposed to an
+external source, and the other is data where ACIS is seeing a background.
+</p>
+
+<img src='./Plot_indivisual/CCD3/node1/low/hist_2013_10.png' style='width:50%; float:right'>
+
+<p>
+When HRC-S is located at the focal point (sim position:+250.1 mm: -100800 - -98400 motor steps),
+ACIS is exposed to the external source. When this happens, ACIS observes
+Al K alpha, Mn K alpha, and Ti K alpha lines. 
+We collect these histogram mode data for each month, combine them,
+and fit a Gaussian profile to each peak, and find out
+a peak position, a peak width, and a count rate. The peak portion is recoded
+in ADU (bin position), the peak width is FWHM and in ADU, the count rate is
+counts/sec (each histogram file typically contains 1650 frames or 5,348 sec).
+One example fitting is shown on right.
+</p>
+<p>
+There are also two different data sets in this histogram mode. One was obtained from
+CCD row positions 21-221, and the other are the row positions 801-1001.
+Since charges travel more in the latter, the peaks are more spread compared to the former cases.
+</p>
+<p>
+When HRC-I is located at the focal point (sim position:+127.0 mm: -51700 - -49300 motor steps),
+ACIS is seeing a background. Since there are not enough counts per observation, and
+there are not many HRC-I observations, we did not create trend plots, but we created a
+composite background plot for each CCD, Node, and CCD row. The bin size for
+the background is 40 ADU so that there are 100 bins in the plot, and count rate is counts/second.
+</p>
+<p>
+The following table contains:
+<p>
+<ol>
+<li> CCD Name and row sampled</li>
+<li> Trends of Peak Positions in ADU against Time (Year). Three peaks (Al, Ti, and Mn) are plotted
+separately. Each point is from a month average of the observation.
+</li>
+<li>Trends of Peak Widths (FWHM) in ADU against Time (Year).
+</li>
+<li>Trends of Peak Counts in log(Counts/sec) against Time (Year).
+</li>
+</li>
+</ol>
+
+<p style="padding-top:20px;padding-bottom:20px">
+Reference:<br />
+<a href='http://asc.harvard.edu/cal/Acis/Cal_prods/bkgrnd/current/background.html'>
+http://asc.harvard.edu/cal/Acis/Cal_prods/bkgrnd/current/background.html</a><br />
+Using C handra Level 0 Event Histogram Files to Characterize the High-Energy Particle Background (PS file)<br />
+Biller, B., Plucinsky, P., Edgar, R. 01/22/02<br>
+</p>
+<p>Please select Data:</p>
+<table border=1 style="border-width:2px;align-text:center;margin-left:auto;margin-right:auto">
+<tr>
+<th>CCD</th>
+<th>Peak Position</th>
+<th>Peak Width</th>
+<th>Peak Counts</th>
+<!--            <th>Background Counts</th> -->
+<!--            <th>Background Plots</th> -->
+</tr>
+<tr><th>CCD 1</th>
+
+<td><a href="./Html_pages/acis_hist_cccd1_low_pos.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd1_high_pos.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd1_low_width.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd1_high_width.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd1_low_cnt.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd1_high_cnt.html">801-1001</a></td>
+</tr>
+<tr><th>CCD 2</th>
+
+<td><a href="./Html_pages/acis_hist_cccd2_low_pos.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd2_high_pos.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd2_low_width.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd2_high_width.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd2_low_cnt.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd2_high_cnt.html">801-1001</a></td>
+</tr>
+<tr><th>CCD 3</th>
+
+<td><a href="./Html_pages/acis_hist_cccd3_low_pos.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd3_high_pos.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd3_low_width.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd3_high_width.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd3_low_cnt.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd3_high_cnt.html">801-1001</a></td>
+</tr>
+<tr><th>CCD 6</th>
+
+
+<td><a href="./Html_pages/acis_hist_cccd6_low_pos.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd6_high_pos.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd6_low_width.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd6_high_width.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd6_low_cnt.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd6_high_cnt.html">801-1001</a></td>
+</tr>
+<tr><th>CCD 7</th>
+
+<td><a href="./Html_pages/acis_hist_cccd7_low_pos.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd7_high_pos.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd7_low_width.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd7_high_width.html">801-1001</a></td>
+<td><a href="./Html_pages/acis_hist_cccd7_low_cnt.html">21-221</a><br>
+    <a href="./Html_pages/acis_hist_cccd7_high_cnt.html">801-1001</a></td>
+</tr>
+</table>
+
+<!--
+<h3 style="padding-top:20px;padding-bottom:20px">Fitted Paramters</h3>
+<ul>
+<li><a href="./Plot_trend/ccd1_low_fitting_data">CCD1 Line Fitting Plot_trend 21 - 221 </a></li>
+<li><a href="./Plot_trend/ccd1_high_fitting_data">CCD1 Line Fitting Plot_trend 801 - 1001</a></li>
+
+<li><a href="./Plot_trend/ccd2_low_fitting_data">CCD2 Line Fitting Plot_trend 21 - 221 </a></li>
+<li><a href="./Plot_trend/ccd2_high_fitting_data">CCD2 Line Fitting Plot_trend 801 - 1001</a></li>
+
+<li><a href="./Plot_trend/ccd3_low_fitting_data">CCD3 Line Fitting Plot_trend 21 - 221 </a></li>
+<li><a href="./Plot_trend/ccd3_high_fitting_data">CCD3 Line Fitting Plot_trend 801 - 1001</a></li>
+
+<li><a href="./Plot_trend/ccd6_low_fitting_data">CCD6 Line Fitting Plot_trend 21 - 221 </a></li>
+<li><a href="./Plot_trend/ccd6_high_fitting_data">CCD6 Line Fitting Plot_trend 801 - 1001</a></li>
+</ul>
+-->
+
+
+
+<hr />
+<p style='padding-top:30px;padding-bottom:30px'>
+Last updated: #DATE#     
+</p>
+</body>
+</html>

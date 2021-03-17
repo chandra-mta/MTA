@@ -1,0 +1,79 @@
+#################
+Gryro Deift Rate
+#################
+
+This group of scripts create trend plots of stability of the spacecraft
+around the grating movement.
+
+--------
+Scripts:
+--------
+
+gyro_drift_wrap_script
+gyro_drift_main_script      --- environment set scripts
+
+extract_gyro_data.py        --- extract data, create a model on the data, create data table, and 
+                                make individual grating movement plots.
+    data needed:
+        /data/mta_www/mta_otg/OTG_filtered.rdb
+        ska database
+    out:
+        <data_dir>/gyro_drift_<catg>
+        <data_dir>/Polinomial_results/<GRATING>_<ACTION>/<time>_pol_fit_result
+        <web_dir>/Individual_plots/<GRATING>_<ACTION>/<time>/gyro_drift_<catg>.png
+
+create_gyro_drift_ind_page.py  --- create html pages to show individual grating movement plots.
+
+    data needed:
+        <data_dir>/gyro_drift_<catg>
+
+    out:
+        <web_dir>/Individual_plots/<GRATING>_<ACTION>/<catg>_<grating>_<action>.html
+
+plot_gyro_drift_trends.py   --- plot time trending plots
+
+    data needed:
+        <data_dir>/gyro_drift_<catg>
+
+    out:    
+        <web_dir>/Trending_plots/<catg>_<grating>_<action>_<position>.png
+
+--------------------
+Environment Setting:
+--------------------
+
+setenv SKA /proj/sot/ska
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+----------
+Directory:
+----------
+
+'/data/mta/Script/Grating/Gyro/Scripts/'                : bin_dir
+'/data/mta/Script/Grating/Gyro/Scripts/house_keeping/'  : house_keeping
+'/data/mta/www/mta_grat/Gyro/'                          : web_dir
+'/data/mta/Script/Grating/Gyro/Result_dir/'             : result_dir
+'/data/mta/Script/Grating/Gyro/Data/'                   : data_dir
+'/data/mta/Script/Python3.8/MTA/'                       : mta_dir
+
+
+---------
+Web Page:
+---------
+
+https://cxc.cfa.harvard.edu/mta_days/mta_grat/Gyro/gyro_main.html
+
+
+---------
+Cron Job:
+---------
+on c3po-v as mta
+
+0 1 * * 0    cd /data/mta/Script/Grating/Gyro/Exc; /data/mta/Script/Gyro/Scripts/gyro_drift_wrap_script > $HOME/Logs/gyro_drift 2>&1
+
+o
+
+
+
+

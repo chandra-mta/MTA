@@ -1,0 +1,49 @@
+<script type="text/javascript">
+
+
+    function WindowOpener(file) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=400,resize=no");
+        msgWindow.document.clear();
+        msgWindow.document.write("<html><head><title>Envelope Trending </title></head>");
+        msgWindow.document.write("<body bgcolor='white'>");
+        msgWindow.document.write("<iframe src='../Limit_table/"+file+"' border=0 width=760 height=400 target=blank></iframe>")
+        msgWindow.document.write("</body></html>")
+        msgWindow.document.close();
+        msgWindow.focus();
+    }
+
+    function popitup(url) {
+        newwindow=window.open(url,'name','height=400, width=760');
+        if (window.focus) {newwindow.focus()}
+    }
+
+    function jsUcfirst(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    function open_msid_page(msid) {
+        msid   = msid.toLowerCase();
+        var oFrame = document.getElementById("msid_group");
+        var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+        var arrLines = strRawContents.split("\n");
+        for (var i = 0; i < arrLines.length; i++) { 
+            var curLine = arrLines[i];
+            var dline   = curLine.split('\t');
+            var chk = dline[0].localeCompare(msid);
+            if(chk == 0){
+                for(var k = 1; k < dline.length; k++){
+                    if(dline[k] != ''){
+                        var link = 'https://cxc.cfa.harvard.edu/mta/MSID_Trends/';
+                        link = link + jsUcfirst(dline[k]);
+                        link = link + '/' + jsUcfirst(msid);
+                        link = link + '/' + msid + '_mid_static_long_plot.html';
+                        window.open(link, "_self");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+</script>
+

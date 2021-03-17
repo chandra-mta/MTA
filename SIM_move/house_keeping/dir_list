@@ -1,0 +1,7 @@
+'/data/mta/Script/SIM_move/Scripts/'                    : bin_dir
+'/data/mta/Script/SIM_move/Scripts/house_keeping/'      : house_keeping
+'/data/mta/Script/SIM_move/Data/'                       : data_dir
+'/data/mta/Script/Dumps/'                               : dump_dir
+'/data/mta/Script/Python3.8/MTA/'                       : mta_dir
+'/data/mta_www/mta_sim/'                                : web_dir
+'/data/mta/Script/SIM_move/Test_out/'                   : web_dir_test

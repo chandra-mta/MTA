@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Grating Motion</title>
+
+
+    <script type="text/javascript">
+        function WindowOpener(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=600,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Gyro Drift Plots</title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=600, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+ </script>
+
+</head>
+
+<body style="background-color:#FAEBD7; font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>Grating Movement and Gyro Drift</h2>
+
+<div style='float:right;'>
+<a href='https://cxc.cfa.harvard.edu/mta_days//mta_grat/Gyro/gyro_main.html'><b><em>Back to Main Page</em></b></a>
+</div>
+
+<h3>
+<ul>
+    <li>Movement:  #CATG#</li>
+    <li>Grating:   #GRAT#</li>
+    <li>Direction: #ACT#</li>
+</ul>
+</h3>
+
+<p style='padding-bottom:10px;'>
+
+The plots on left panels are gyro drift rates of <em>#CATGL#</em> around <em>#ACT2#</em>.
+The plotted values are 10**8 of the actual values. The red lines indicate the start time 
+and the end time of the grating movement. The green line fitted are 5th degree of polynomial 
+line around the grating movement. The difference between the fitted line and the actual 
+data points are plotted on the right side panels. The values plotted are 10**10 of the 
+actual values. 
+</p>
+
+<table border=0>
+<tr><th>Before: </th><td>average and std of before the grating started moving</td></tr>
+<tr><th>During: </th><td>average and std of during the grating was moving</td></tr>
+<tr><th>After:  </th><td>average and std of after the grating stopped moving</td></tr>
+<tr><th>Before/During:</th><td>ratio of stds of before and during movements</td></tr>
+<tr><th>After/During: </th><td>ratio of stds of after and during movements</td></tr>
+<tr><th>After/Before: </th><td>ratio of stds of after and before movements</td></tr>
+</table>
+
+<div style='padding-bottom:20px;'>
+</div>
+
+<p>
+Click a figure to enlarge it.
+</p>
+
+<table border=0 style='width:95%; margin-left:auto;margin-right:auto;'>
+<tr>
+    <th style='width:20%;'>&#160;</th>
+    <th style='width:25%;'>&#160;</th>
+    <th style='width:25%;'>&#160;</th>
+    <th style='width:30%;'>&#160;</th>
+</tr>
+
+#TABLE#
+
+</table>
+
+<div style='padding-bottom:20px;'>
+</div>
+
+<hr />
+<p>
+If you have any questions about this page, please contact 
+<a href="mailto:tisobe@cfa.harvard.edu">mailto:tisobe@cfa.harvard.edu</a>.
+</p>
+
+<p><b><i>Last Modified: Jun 10, 2018</i></b></p>
+
+</body>
+</html>
+

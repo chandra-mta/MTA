@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title><span style='color:red'>TST Related Scripts *</span></title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>TST Related Scripts *</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/proj/rac/ops/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: no git deposit. See indivisual links for the git addresses
+</p>
+
+<p>
+Please go to each link below to see more details.
+</p>
+
+<table border=0>
+<tr><th>Script Name</th>     </tr>
+<tr><th><a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_ace.html'>ACE related</a></th</tr>
+<tr><th><a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_goes.html'>GOES related</a></th></tr>
+<tr><th><a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_soho.html'>SOHO related</a></th></tr>
+<tr><th><a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_crm.html'>CRM related</a></tr></tr>
+<tr><th><a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_ephemeris.html'>Ephemeris related</a></tr></tr>
+<tr><th><a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_tle.html'>TLE related</a></tr></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta4/proj/rac/ops/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Jul 21, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to github</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+<ul>
+<li>
+see each sub directory for input
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+see each sub directory for output
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+see each sub directory for how to run the scirpts 
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+no test is available for this set of scripts
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+22 2 * * *  /data/mta4/proj/rac/ops/ephem/TLE/get_tle.pl        >> $HOME/Logs/get_tle_linux.cron 2>&1<br />
+21 3 * * *  /data/mta4/proj/rac/ops/ephem/ephem.pl              >> $HOME/Logs/ephem_linux.cron   2>&1<br />
+*  * * * *  /data/mta4/proj/rac/ops/ephem/gephem.pl             >> $HOME/Logs/gephem_linux.cron  2>&1<br />
+31 3 7 * *  /data/mta4/proj/rac/ops/ACE/longterm/get_epam_kp.pl >> $HOME/Logs/get_epam_kp_linux.cron 2>&1<br />
+41 3 * * 0  /data/mta4/proj/rac/ops/ephem/longterm/dephem.pl    >> $HOME/Logs/dephem_linux.cron  2>&1<br />
+36 3 * * *  /data/mta4/proj/rac/ops/SOHO/solwin.pl              >> $HOME/Logs/solwin_linux.cron  2>&1<br />
+9,24,39,54 * * * * /data/mta4/proj/rac/ops/ACE/get_kp.pl        >> $HOME/Logs/get_kp_linux.cron  2>&1<br />
+#<br />
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * /data/mta4/proj/rac/ops/GOES/get_go.pl    >> $HOME/Logs/get_go_linux.cron 2>&1<br />
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * /data/mta4/proj/rac/ops/GOES/I4/get_go.pl >> $HOME/Logs/get_go_i4_linux.cron 2>&1<br />
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /data/mta4/proj/rac/ops/ACE/fmon.pl       >> $HOME/Logs/fmon_linux.cron   2>&1<br />
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * /data/mta4/proj/rac/ops/CRM/crm.pl        >> $HOME/Logs/crm_linux.cron    2>&1<br />
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * /data/mta4/proj/rac/ops/CRM2/crm.pl       >> $HOME/Logs/crm2_linux.cron   2>&1<br />
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * /data/mta4/proj/rac/ops/CRM2/crm_test2.pl >> $HOME/Logs/crm_t2_linux.cron 2>&1<br />
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * /data/mta4/proj/rac/ops/CRM3/crm.pl       >> $HOME/Logs/crm3_linux.cron   2>&1<br />
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web pages
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

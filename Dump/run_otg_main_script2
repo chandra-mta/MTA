@@ -1,0 +1,9 @@
+cd /data/mta/Script/Dumps/Exc/
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/Dumps/Scripts/move_tl_files.py
+echo "move_tl_files.py done"
+
+/data/mta/Script/Dumps/Scripts/update_dea_rdb.py
+echo "update_dea_rdb.py done"

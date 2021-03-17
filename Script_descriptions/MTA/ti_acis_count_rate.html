@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Count Rate</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Count Rate</h2>
+
+<b><u>Last Updated: Nov 18, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of script extracts ACIS count rates for each CCD and creates trend plots.
+
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/ACIS/Count_rate/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Acis_hist/Acis_Count_Rate
+</p>
+
+
+<table border=0>
+<tr><td>count_rate_wrap_script</td>       <td>Oct 28, 2013</td></tr>
+<tr><td>count_rate_main_script</td>       <td>Feb 19, 2014</td></tr>
+<tr><td>count_rate_wrap_script_test</td>  <td>Sep 30, 2013</td></tr>
+<tr><td>count_rate_main_script_test</td>  <td>Sep 30, 2014</td></tr>
+<tr><td>count_rate_main.py</td>           <td>Oct 02, 2014</td></tr>
+<tr><td>plot_count_rate.py</td>           <td>Nov 18, 2014</td></tr>
+<tr><td>print_html_page.py</td>           <td>Jun 24, 2014</td></tr>
+<tr><td>update_data_files.py</td>         <td>Nov 18, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ACIS/Count_rate/Scripts/README
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 30, 2014</th><td>Unit test added </td></tr>
+<tr><th>Oct 20, 2014</th><td>file check mechanism added </td></tr>
+<tr><th>Nov 18, 2014</th><td>a bug fixed/input format updated </td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+ /dsops/ap/sdp/cache/*/acis/*evt1.fits
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_dose_count/
+    <ul>
+    <li>monthly_avg_data_ccd&lt;ccd&gt;.data</li>
+    <li>acis_ccd7_dose_plot.png</li>
+    <li>long_term_plot.png</li>
+    <li>month_avg_img.png</li>
+    <li>month_avg_spc.png</li>
+    <li>month_avg_bi.png</li>
+    </ul>
+<li>
+/data/mta_www/mta_dose_count/&lt;MMM&gt;&lt;YYYY&gt;  (e.g. JUN2014)
+    <ul>
+    <li>
+    ccd&lt;ccd&gt;
+    </li>
+    <li>
+    acis_dose_ccd&lt;ccd&gt;.png
+    </li>
+    <li>
+    ephin_rate
+    </li>
+    <li>
+    ephin_rate.png
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/Count_rate/Exc2/
+</li>
+<li>
+run: /data/mta/Script/ACIS/Count_rate/Scripts/count_rate_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/Count_rate/Exc2/
+</li>
+<li>
+run: /data/mta/Script/ACIS/Count_rate/Scripts/count_rate_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+You will see something like the following:
+</p>
+<pre>
+mta@r2d2-v-824: count_rate_wrap_script_test
+tput: unknown terminal "dummy"
+..
+----------------------------------------------------------------------
+Ran 2 tests in 3.441s
+
+OK
+
+</pre>
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 3,9,15,21 * * *    cd /data/mta/Script/ACIS/Count_rate/Exc2/; /data/mta/Script/ACIS/Count_rate/Scripts/count_rate_wrap_script >> $HOME/Logs/acis_dose_py.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_dose_count/main_acis_dose_plot.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_dose_count/main_acis_dose_plot.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Add automated test functions.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html><html>
+<head>
+	<title>E - EdE Plot</title>
+</head>
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+<h2>HETG</h2>
+<p style="text-align:right;">
+<a href="letg_ede_plot.html">Open: LETG</a></br>
+<a href="metg_ede_plot.html">Open: METG</a></br>
+<a href="../index.html">Back to Main Page</a></p>
+<table border = 0 >
+<tr><th style="width:45%;">Minus Side</th><th style="width:45%;">Plus Side</th></tr>
+#TABLE#
+</table>
+</body>
+</html>

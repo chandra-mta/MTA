@@ -1,0 +1,13 @@
+
+cd /data/mta/Script/Grating/Grating_EdE/Exc
+
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+
+
+/data/mta/Script/Grating/Grating_EdE/Scripts/extract_grating_ede.py
+/data/mta/Script/Grating/Grating_EdE/Scripts/create_ede_plots.py
+
+
+chgrp    mtagroup /data/mta/Script/Grating/Grating_EdE/Scripts/Data/*
+chgrp -R mtagroup /data/mta_www/mta_grat/EdE/Plots/*
+chgrp    mtagroup /data/mta_www/mta_grat/EdE/*html

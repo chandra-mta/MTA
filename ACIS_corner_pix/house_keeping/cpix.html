@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MTA ACIS Corner Pixel Monitoring Page</title>
+
+    <script> 
+        function WindowOpener(imgname) { 
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1100,height=600,resize=no"); 
+            msgWindow.document.clear(); 
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</title>"); 
+            msgWindow.document.write("<body bgcolor='white'>"); 
+            msgWindow.document.write("<img src='./"+imgname+"' border =0 style='width:95%;' >");
+            msgWindow.document.write("</body></html>") 
+            msgWindow.document.close(); 
+            msgWindow.focus(); 
+        } 
+
+        function WindowOpener2(imgname) { 
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1100,height=1100,resize=no"); 
+            msgWindow.document.clear(); 
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</title>"); 
+            msgWindow.document.write("<body bgcolor='white'>"); 
+            msgWindow.document.write("<img src='./"+imgname+"' border =0 style='width:95%;' >");
+            msgWindow.document.write("</body></html>") 
+            msgWindow.document.close(); 
+            msgWindow.focus(); 
+        }
+    </script> 
+
+</head>
+
+<body  style="background-color: #FAEBD7;">
+
+<h2>
+MTA ACIS Corner Pixels
+</h2>
+
+<p style='padding-left:30px;padding-right:30px'>
+The links below show plots of average corner pixel centroid slope and mean for
+ACIS observations.  Separate plots are shown for FAINT MODE (3X3) and 
+VFAINT MODE (5X5) observations. 
+</p>
+
+<p style='padding-left:30px;padding-right:30px'>
+Metric is the centroid of a gaussian fit to the
+histogram of corner pixel PHA values of detected events.
+</p>
+
+<p style='padding-left:30px;padding-right:30px'>
+Corner pixels are defined as:
+</p>
+<center>
+<table border=0>
+<tr align=center>
+    <th>FAINT</th><th width=50>&#160;</th><th>VFAINT</th><th width=50>&#160;</th><th>AFAINT</th>
+</tr>
+<tr align=center>
+    <td>(3X3) event island</td><td width=50>&#160;</td>
+    <td>(5X5) event island</td><td width=50>&#160;</td><td>(5X5) event island</td>
+<tr align=center>
+    <td>
+        <table border=1>
+            <tr align=center><td>(1,1)</td><td>-----</td><td>(1,3)</td></tr>
+            <tr align=center><td>-----</td><td>*    </td><td>-----</td></tr>
+            <tr align=center><td>(3,1)</td><td>-----</td><td>(3,3)</td></tr>
+        </table>
+    </td>
+    <td width=50>&#160;</td>
+    <td>
+        <table border=1>
+            <tr align=center><td>(1,1)</td><td>(1,2)</td><td>(1,3)</td><td>(1,4)</td><td>(1,5)</td></tr>
+            <tr align=center><td>(2,1)</td><td>(2,2)</td><td>-----</td><td>(2,4)</td><td>(2,5)</td></tr>
+            <tr align=center><td>(3,1)</td><td>-----</td><td>*    </td><td>-----</td><td>(3,5)</td></tr>
+            <tr align=center><td>(4,1)</td><td>(4,2)</td><td>-----</td><td>(4,4)</td><td>(4,5)</td></tr>
+            <tr align=center><td>(5,1)</td><td>(5,2)</td><td>(5,3)</td><td>(5,4)</td><td>(5,5)</td></tr>
+        </table>
+    </td>
+    <td width=50>&#160</td>
+    <td>
+        <table border=1>
+            <tr align=center><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td></tr>
+            <tr align=center><td>-----</td><td>(2,2)</td><td>-----</td><td>(2,4)</td><td>-----</td></tr>
+            <tr align=center><td>-----</td><td>-----</td><td>*    </td><td>-----</td><td>-----</td></tr>
+            <tr align=center><td>-----</td><td>(4,2)</td><td>-----</td><td>(4,4)</td><td>-----</td></tr>
+            <tr align=center><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td></tr>
+            </table>
+        </table>
+    </td>
+</tr>
+</table>
+
+</center>
+<div style='padding-top:20px; padding-bottom:30px'>
+<hr />
+</div>
+
+<center>
+
+<!--
+<table border=1>
+<tr>
+<td><a href="./Save">Interesting Obsids</a>
+<td><a href="./Week">Recent Obsids</a>
+</table>
+-->
+<br>
+
+<!-- start data table -->
+<table border=1 align=center>
+<tr align=center>
+    <th>&#160;</th>
+    <th>ALL</th>
+    <th>FAINT MODE</th>
+    <th>VFAINT MODE</th>
+    <th>AFAINT MODE</th>
+    <th>Data</th>
+</tr>
+
+
+<tr>
+    <th style='width:7%;'>CCD 2</th>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I2_all_norm_cent.png')">
+        <img src='Plots/I2_all_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I2_faint_norm_cent.png')">
+        <img src='Plots/I2_faint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I2_vfaint_norm_cent.png')">
+        <img src='Plots/I2_vfaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I2_afaint_norm_cent.png')">
+        <img src='Plots/I2_afaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:7%;text-align:center;'>
+        <a href='./Data/I2_faint.dat'>Faint</a><br />
+        <a href='./Data/I2_vfaint.dat'>VFaint</a>
+        <a href='./Data/I2_afaint.dat'>AFaint</a>
+    </td>
+</tr>
+
+<tr>
+    <th style='width:7%;'>CCD 3</th>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I3_all_norm_cent.png')">
+        <img src='Plots/I3_all_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I3_faint_norm_cent.png')">
+        <img src='Plots/I3_faint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I3_vfaint_norm_cent.png')">
+        <img src='Plots/I3_vfaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/I3_afaint_norm_cent.png')">
+        <img src='Plots/I3_afaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:7%;text-align:center'>
+        <a href='./Data/I3_faint.dat'>Faint</a><br />
+        <a href='./Data/I3_vfaint.dat'>VFaint</a>
+        <a href='./Data/I3_afaint.dat'>AFaint</a>
+    </td>
+</tr>
+
+
+<tr>
+    <th style='width:7%;'>CCD 6</th>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S2_all_norm_cent.png')">
+        <img src='Plots/S2_all_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S2_faint_norm_cent.png')">
+        <img src='Plots/S2_faint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S2_vfaint_norm_cent.png')">
+        <img src='Plots/S2_vfaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S2_afaint_norm_cent.png')">
+        <img src='Plots/S2_afaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:7%;text-align:center;'>
+        <a href='./Data/S2_faint.dat'>Faint</a><br />
+        <a href='./Data/S2_vfaint.dat'>VFaint</a>
+        <a href='./Data/S2_afaint.dat'>AFaint</a>
+    </td>
+</tr>
+
+
+<tr>
+    <th style='width:7%;'>CCD 7</th>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S3_all_norm_cent.png')">
+        <img src='Plots/S3_all_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S3_faint_norm_cent.png')">
+        <img src='Plots/S3_faint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S3_vfaint_norm_cent.png')">
+        <img src='Plots/S3_vfaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:19%;'> 
+        <a href="javascript:WindowOpener('Plots/S3_afaint_norm_cent.png')">
+        <img src='Plots/S3_afaint_norm_cent.png' style='width:95%;'></a>
+    </td>
+    <td style='width:7%;text-align:center;'>
+        <a href='./Data/S3_faint.dat'>Faint</a><br />
+        <a href='./Data/S3_vfaint.dat'>VFaint</a>
+        <a href='./Data/S3_afaint.dat'>AFaint</a>
+    </td>
+</tr>
+
+</table>
+</center>
+
+<div style='padding-bottom:20px;'>
+</div>
+<h2>
+MTA ACIS Corner Pixels: Recent Observatons
+</h2>
+<p>
+Click to see a plot. Note that not all plots are created for the given obsid.
+</p>
+
+<table border=1 cellpadding=2 cellspacing=2>
+<tr>
+    <th>Obsid   </th>
+    <th>I2ahist </th>
+    <th>I3ahist </th>
+    <th>S2ahist </th>
+    <th>S2ahist </th>
+    <th>acp </th>
+    <th>I2hist  </th>
+    <th>I3hist  </th>
+    <th>S2hist  </th>
+    <th>S3hist  </th>
+    <th>cp  </th>
+</tr>
+
+#TABLE#
+
+</table>
+
+
+
+</center>
+<div style='padding-top:10px; padding-bottom:10px'>
+<hr />
+</div>
+<p>
+Last Updated: #UPDATE#
+</p>
+
+<p style='padding-bottom:10px;'>
+If you have any questions about this page, please contact:
+<a href='mailto:tiosbe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+</p>
+</body>
+</html>
+

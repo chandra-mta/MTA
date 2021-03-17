@@ -1,0 +1,152 @@
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+
+#############################################################################################
+#                                                                                           #
+#       update_html.py: updating html pages                                                 #
+#                                                                                           #
+#               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
+#                                                                                           #
+#               last update: Mar 10, 2021                                                   #
+#                                                                                           #
+#############################################################################################
+
+import os
+import sys
+import re
+import string
+import random
+import time
+import operator
+import math
+
+#
+#--- reading directory list
+#
+path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+
+with open(path, 'r') as f:
+    data = [line.strip() for line in f.readlines()]
+
+for ent in data:
+    atemp = re.split(':', ent)
+    var  = atemp[1].strip()
+    line = atemp[0].strip()
+    exec("%s = %s" %(var, line))
+
+sys.path.append(mta_dir)
+#
+#--- import several functions
+#
+import mta_common_functions   as mcf    #---- contains other functions commonly used in MTA scripts
+#
+#--- temp writing file name
+#
+rtail  = int(time.time() * random.random())
+zspace = '/tmp/zspace' + str(rtail)
+
+#---------------------------------------------------------------------------------------
+#-- update_html: check whether the update is needed and if so, run the update        ---
+#---------------------------------------------------------------------------------------
+
+def update_html(update):
+    """
+    check whether the update is needed and if so, run the update
+    input:  update  --- if it is 1, run the update without chekcing the file exist or not
+    output: none, but updated html pages (in <web_dir>)
+    """
+#
+#--- find today's date
+#
+    today = time.localtime()
+    year  = today.tm_year
+#
+#--- if update is asked, just run the update
+#
+    if update > 0:
+        run_update(year)
+#
+#--- otherwise, find the last update, and if needed, run the update
+#
+    else:
+        cmd   = 'ls ' + web_dir +'*.html > ' + zspace
+        os.system(cmd)
+        with  open(zspace, 'r') as f:
+            out   = f.read()
+        mcf.rm_files(zspace)
+#
+#--- chekcing the file existance (looking for year in the file name)
+#
+        mc    = re.search(str(year), out)
+
+        if mc is None:
+            run_update(year)
+            
+
+#---------------------------------------------------------------------------------------
+#-- run_update: update all html pages and add a new one for the year, if needed      ---
+#---------------------------------------------------------------------------------------
+
+def run_update(year):
+    """
+    update all html pages and add a new one for the year, if needed
+    input:  year    --- this year
+    output: none but updated html pages and a new one for this year (in <web_dir>)
+    """
+
+    ifile = house_keeping + 'html_template'
+    with open(ifile, 'r') as f:
+        data = f.read()
+#
+#--- full range page
+#
+    line = '<li>\n'
+    line = line + '<span style="padding-right:15px;color:red;font-size:105%">\n'
+    line = line + 'Full Range \n'
+    line = line + '</span>\n'
+    line = line + '</li>\n'
+
+    for lyear in range(1999, year+1):
+        line = line + '<li><a href="./sim_' + str(lyear) + '.html">' + str(lyear) + '</a></li>\n'
+
+    out = data.replace('#YEARLIST#', line)
+    out = out.replace('#YEAR#', 'fullrange')
+    
+    ofile = web_dir + 'fullrange.html'
+    with open(ofile, 'w') as fo:
+        fo.write(out)
+#
+#--- each year page
+#
+    for lyear in range(1999, year+1):
+        line = '<li>\n'
+        line = line + '<span style="padding-right:15px">\n'
+        line = line + '<a href="./fullrange.html">Full Range</a>\n'
+        line = line + '</span>\n'
+        line = line + '</li>\n'
+
+        for eyear in range(1999, year+1):
+            if eyear == lyear:
+                line = line + '<span style="color:red;font-size:105%">\n'
+                line = line + str(eyear) + '\n'
+                line = line + '</span>\n'
+                line = line + '</li>\n'
+            else:
+                line = line + '<li><a href="./sim_' + str(eyear) + '.html">' + str(eyear) + '</a></li>\n'
+
+        out = data.replace('#YEARLIST#', line)
+        out = out.replace('#YEAR#', str(lyear))
+    
+        ifile = web_dir + 'sim_' + str(lyear) + '.html'
+        with  open(ifile, 'w') as fo:
+            fo.write(out)
+
+#---------------------------------------------------------------------------------------
+ 
+if __name__ == "__main__":
+
+    if len(sys.argv) == 2:
+        update = 1
+    else:
+        update = 0
+
+    update_html(update)

@@ -1,0 +1,13 @@
+
+compute_year_slope_avg,py will provide a yearly cti change (slope values) and
+yearly average of the CTI for the given year in a table entory format. 
+
+Usage: compute_year_slope_avg.py <year>    where year is e.g., 2016
+
+Use the output with the memo in:
+
+/data/mta_www/mta_cti/Memo/
+
+for 2017 memo: cti_memo2017.html.
+
+Figures are copied from /data/mta_www/mta_cti/Data_Plot/mn_ccd<ccd>_quad0.png

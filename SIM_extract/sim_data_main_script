@@ -1,0 +1,8 @@
+cd /data/mta_www/mta_sim/Scripts/SIM_extract
+
+setascds
+
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+
+
+/data/mta_www/mta_sim/Scripts/SIM_extract/extract_sim_data.py

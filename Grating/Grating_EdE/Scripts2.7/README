@@ -1,0 +1,50 @@
+####################
+Gratings E/de vs. E
+####################
+
+--------
+Scripts:
+--------
+/data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script
+/data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_main_script
+        ---- these runs several grating related scripts including this one
+
+
+extract_grating_ede.py      ---- extract data
+    data needed:         
+            <gdata_dir>/*/*/*Sky_<catg>_linelist.rdb
+    output:
+            <data_dir>/<garting>_data
+
+
+create_ede_plots.py         ---- create plots 
+    data needed:
+            <data_dir>/<grating>_data
+    output:
+            <web_dir>/Plots/<grating>_<p or m>_<start_year>_<stop_year>.png
+
+-----------
+Directory:
+-----------
+'/data/mta/Script/Grating/Grating_EdE/Scripts/Scripts/'         : bin_dir
+'/data/mta/Script/Grating/Grating_EdE/Scripts/house_keeping/'   : house_keeping
+'/data/mta/Script/Grating/Grating_EdE/Data/'                    : data_dir
+'/data/mta/Script/Python_script2.7/'                            : mta_dir
+'/data/mta_www/mta_grat/EdE/'                                   : web_dir
+'/data/mta_www/mta_grat/Grating_Data/'                          : gdata_dir
+
+----------
+Web adress
+----------
+
+http://cxc.cfa.harvard.edu/mta_days/mta_grat/
+
+--------
+Cron Job
+--------
+r2d2-v as mta:
+
+32 2 3,13,23 * * cd /data/mta/Script/Grating/Grating_HAK/Exc; /data/mta/Script/Grating/Grating_HAK/Scripts/run_grating_wrap_script >> $HOME/Logs/run_grating.cron
+
+    --- this runs several grating related scripts
+

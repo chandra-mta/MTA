@@ -1,0 +1,15 @@
+source /home/mta/.ascrc
+
+rm -rf param
+mkdir param
+source /home/mta/bin/reset_param
+
+/usr/local/bin/perl /data/mta/Script/OBT/State_trends/state_mj_run.perl
+
+/usr/local/bin/perl /data/mta/Script/OBT/State_trends/state_mj_size_check.perl
+
+chgrp mtagroup /data/mta_www/mta_temp/mta_states/MJ/*
+chgrp mtagroup /data/mta_www/mta_temp/mta_states/MJ/*/*
+
+chgrp mtagroup /data/mta/Script/OBT/MJ//*
+chgrp mtagroup /data/mta/Script/OBT/MJ//house_keeping/*

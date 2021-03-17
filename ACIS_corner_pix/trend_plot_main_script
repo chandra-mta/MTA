@@ -1,0 +1,8 @@
+cd /data/mta/Script/Corner_pix/Exc/
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/Corner_pix/Scripts/analyze_acis_corner_pixels.py
+/data/mta/Script/Corner_pix/Scripts/plot_corner_pix_trend.py
+/data/mta/Script/Corner_pix/Scripts/update_obs_table_html.py
+

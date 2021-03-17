@@ -1,0 +1,191 @@
+
+###################################################
+ACIS Bad Pixel Detection and ACIS Bias Computation
+    python version
+###################################################
+
+This set of scripts find bad pixels and bad columns on ACIS CCDs and creates a report.
+At the same time, using the same dataset, it also computes ACIS CCD bisa values and compare it with
+overclock values of the CCDs.
+
+Environmental Setting
+-----------------------
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+
+Data Required
+--------------
+As for the daily operations, the script reads data from:
+
+/dsops/ap/sdp/cache/*/acis/*bias0.fits
+
+It also needs files:
+<house_keeping>/past_input_data     --- a list of the past input fits files to check which data are not analyzed yet.
+<house_keeping>/Defect/bad_pix_list --- Known bad pixel list
+<house_keeping>/Defect/bad_col_list --- Known bad column  list
+
+If a  data file list ist is given (data directory name in which data are kept), the data are
+read from that diectory. 
+
+
+Scripts
+-------
+Location: /data/mta/Script/ACIS/Bad_pixels/Script/
+
+acis_bad_pixel_wrap_script      --- driving script
+acis_bad_pixel_main_script      --- main python program runing script
+
+acis_bad_pixel_test_wrap_script --- driving script for test
+acis_bad_pixel_test_main_script --- test running script
+
+bad pixel related operation
+---------------------------
+find_bad_pix.py             
+        find ACIS bad pixels and bad columns and records daily variations
+
+create_history_files.py     
+         create various history files out from hist_ccd<ccd>/hist_col<ccd>  
+
+plot_history.py             
+        create  various history plots for warm pixels and warm columns 
+
+create_data_table.py        
+        create a data display html sub pages  
+
+bias computation operation
+--------------------------
+run_compute_bias_data.py        
+        extract bias related data
+
+plot_bias.py                
+        create various history plots of bias related data
+
+plot_bias_trend.py          
+         plotting bias - overclock trend
+
+other
+-----
+bad_pix_common_function.py
+        collections of functions used in ACIS Bad Pixel Scripts
+
+from /data/mta/Script/Python3.8/MTA/:
+find_moving_average.py
+        a function which computes moving average and top and bottom envelops of the data
+
+mta_common_functions.py
+        collections of functions often used by mta python scripts
+
+
+Directory List
+---------------
+a list of directories related to bad pixels are kept in <house_keeping>/dir_list_py
+
+'/data/mta/Script/ACIS/Bad_pixels/Script/':        bin_dir      ---- all python scripts are kept here
+'/data/mta/MTA/data/':                             bdat_dir     ---- basic information related operation
+'/data/mta/www/mta_bad_pixel/':                    web_dir      ---- web directory 
+'/data/mta/Script/ACIS/Bad_pixels/Exc/':           exc_dir      ---- script execution is done here
+'/data/mta/Script/ACIS/Bad_pixels//Data/':         data_dir     ---- all output data are kept here
+'/data/mta/Script/ACIS/Bad_pixels/house_keeping/': house_keeping---- house keeping directory
+'/data/mta/Script/Python_script3.8/':              mta_dir      ---- mta related python scripts are kept here
+'/usr/local/bin/':                                 op_dir       ---- the location where system functions are kept
+
+a list of directories related to bias computations are kept in <house_keeping>/bias_dir_list_py
+
+'/data/mta/Script/ACIS/Bad_pixels/Script/'        :bin_dir       ---- all python scripts are kept here
+'/data/mta/MTA/data/'                             :badat_dir     ---- basic information related operation
+'/data/mta/www/mta_bias_bkg/'                     :web_dir       ---- web directory
+'/data/mta/Script/ACIS/Bad_pixels/Exc/'           :exc_dir       ---- script execution is done here
+'/data/mta/Script/ACIS/Bad_pixels/Bias_data/'     :data_dir      ---- all output data are kept here
+'/data/mta/Script/ACIS/Bad_pixels/house_keeping/' :house_keeping ---- house keeping directory
+'/data/mta/Script/Python_script3.8/'              :mta_dir       ---- mta related python scripts are kept here
+'/usr/local/bin/'                                 :op_dir        ---- the location where system functions are kept
+
+Output
+------
+Bad_pixel Related
+-----------------
+<house_keeping>/Defect/CCD<ccdd>/
+    bad pixels/bad column found in the articular data
+
+<data_dir>/Disp_dir/
+all_past_bad_pix<ccd>:  a list of all past bad pixels
+all_past_bad_col<ccd>:  a list of all past bad columns
+bad_ccd<ccd>_cnt:       a history of how many bad pixels showed up on the CCD
+bad_col<ccd>_cnt:       a history of how many bad columns showed up on the CCD
+ccd<ccd>:               today's bad pixel locations
+ccd<ccd>_cnt:           a history of how many bad pixels, how many appeard, and how many disappeared on the day
+change_ccd<ccd>:        history of newly appeared or disapped bad pixel location 
+col<ccd>:               today's bad column locations
+col<ccd>_cnt:           a history of how many bad columns, how many appeard, and how many disappeared on the day
+cum_ccd<ccd>_cnt:       cumulative count of bad pixel
+data_used.<ccd>:        which fits files are used to get the data of the day
+flickering<ccd>:        a list of flickering bad pixels
+flickering_col<ccd>:    a list of flickering bad columns
+flk_ccd<ccd>:           a history of flickering pixels
+flk_ccd<ccd>_cnt:       a history of flickering pixel numbers
+front_ccd_cnt:          a history of all bad pixels, newly appeared, disapped of front CCDs (1, 2, 3, 4, 6, 8, 9)
+front_hccd_cnt:         a history of all hot pixels, newly appeared, disapped of front CCDs (1, 2, 3, 4, 6, 8, 9)
+front_col_cnt:          a history of all bad columns, newly appeared, disapped of front CCDs (1, 2, 3, 4, 6, 8, 9)
+hccd<ccd>_cnt:          a history of hot pixel counts
+hflickering<ccd>:       hot flicerking pixel list
+hist_ccd<ccd>:          a history of bad pixel locations
+hist_col<ccd>:          a history of bad column locations
+hist_hccd<ccd>:         a history of hot pixel locations
+imp_ccd<ccd>:           a history of disappeared bad pixel locations
+imp_col<ccd>:           a history of disappeared bad column locations
+imp_hccd<ccd>:          a history of disappeared hot pixel locations
+new_ccd<ccd>:           a history of newly appeared bad pixel locations
+new_col<ccd>:           a history of newly appeared bad column locations
+new_chcd<ccd>:          a history of newly appeared hot pixel locations
+new_hot_pix_save:       a list of new hot pixel list front CCDs
+new_hot_pix_save5:      a list of new hot pixel list CCD5
+new_hot_pix_save7:      a list of new hot pixel list CCD7
+totally_new<ccd>:       a list of previously unknown bad pixel appeared today
+totally_new_col<ccd>:   a list of previously unknown bad column appeared today
+
+<html_dir>/Plots
+hist_plot_ccd<ccd>.png          a history plot of bad pixels
+hist_plot_col<ccd>.png          a history plot of bad columns
+hist_plot_front_side.png        a history plot of all bad pixels of front CCDs
+hist_col_plot_front_side.png    a history plot of all bad columns of fron CCDs
+
+<html_dir>/Html_dir
+ccd_data<ccd>.html              a html page which displaysi
+                                    "Current Warm Pixels"  "Flickering Warm Pixels"  "Past Warm Pixels"
+                                    "Current Hot Pixels"   "Flickering Hot Pixels"   "Past Hot Pixels"
+                                    "Current Warm Columns" "Flickering Warm Columns" "Past Warm Columns"
+Bias Related
+------------
+<bias_data_dir>/Bias_save/CCD<cvcd>/quad<quad>      bias and overclock history file
+<bias_data_dir>/Info_dir/CCD<cvcd>/quad<quad>       information about CCD which did the bias observation
+
+<bias_html_dir>/Plots/Bias_bkg/ccd<ccd>.png                                             bias plot
+<bias_html_dir>/Plots/Overclock/ccd<ccd>.png                                            overclockplot
+
+<bias_html_dir>/Plots/Param_diff/CCD<ccd>/ccd<ccd>_bias_q<quad>/bias_ang1.png           bias plot separeated by arg1 parameters
+<bias_html_dir>/Plots/Param_diff/CCD<ccd>/ccd<ccd>_bias_q<quad>/no_ccds.png             bias plot separeated by # of CCDs used
+<bias_html_dir>/Plots/Param_diff/CCD<ccd>/ccd<ccd>_bias_q<quad>/obs_mode.png            bias plot separeated by observation mode
+<bias_html_dir>/Plots/Param_diff/CCD<ccd>/ccd<ccd>_bias_q<quad>/partial_readout.png     bias plot separeated by readout mode
+
+<bias_html_dir>/Plots/Sub/ccd<ccd>.png                                                  <bias>-<overclock> plot
+<bias_html_dir>/Plots/Sub2/ccd<ccd>.png                                                 <bias>-<overclock> plot with moving average trending
+
+<bias_html_dir>/bias_home.html                      a bias related html page
+
+How to Run
+----------
+
+/data/mta/Script/ACIS/Bad_pixels/Script/acis_bad_pixel_wrap_script        --- to run the daily update
+
+Web Stie
+--------
+https://cxc.harvard.edu/mta_days/mta_bad_pixel/mta_bad_pixel_list.html
+https://cxc.harvard.edu/mta_days/mta_bias_bkg/bias_home.html
+
+Cron job
+--------
+on c3po-v as mta
+
+15 3  * * *  cd /data/mta/Script/ACIS/Bad_pixels/Exc; /data/mta/Script/ACIS/Bad_pixels/Script/acis_bad_pixel_wrap_script  >>$HOME/Logs/acis_bad_pix.cron  2>&1
+45 3 * * 6  cd /data/mta/Script/ACIS/Bad_pixels/Exc; /data/mta/Script/ACIS/Bad_pixels/Script/acis_bias_plot_wrap_script  >> $HOME/Logs/acis_bias_bkg.cron  2>&1
+

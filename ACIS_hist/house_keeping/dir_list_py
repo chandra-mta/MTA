@@ -1,0 +1,10 @@
+'/data/mta/Script/ACIS/Acis_hist/Scripts/'                  : bin_dir 
+'/data/mta/MTA/data/'                                       : bdata_dir
+'/data/mta/www/mta_acis_hist/'                              : web_dir
+'/data/mta/Script/ACIS/Acis_hist/Data/'                     : data_dir
+'/data/mta/Script/ACIS/Acis_hist/house_keeping/'            : house_keeping
+'/data/mta_www/mta_temp/mta_states/Data/MJ/'                : mj_dir
+'/usr/bin/'                                                 : op_dir
+'/data/mta/Script/ACIS/Acis_hist/Exc/'                      : exc_dir
+'/data/mta/Script/Python3.6/MTA/'                           : mta_dir
+'/data/mta/Script/Python3.6/lib/python3.6/site-packages/'   : sp_dir

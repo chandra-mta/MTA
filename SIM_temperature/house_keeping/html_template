@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>MTA SIM Motor Temperature Page</title>
+</head>
+
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<center>
+<h1> MTA SIM Motor Temperatures</h1>
+</center>
+
+<p style='margin-left:50px;margin-right:50px'>
+  We track the SIM Translation Drive Motor Temperature using msid 3TRMTRAT.
+  Below are plots for the given period showing temperature changes during
+  each translation.
+  Solid lines indicate the start temperatures (<span style='color:blue'>blue</span>) and stop
+  temperatures (<span style='color:red'>red</span>) smoothed by a factor of 30.
+</p>
+<p style='margin-left:50px;margin-right:50px'>
+  The second plot is the time trend of &Delta;T, and the third plot is the time trend of
+  spacecraft pitch angle (pt_suncent_ang) for reference.  
+  We also plot the relationship between &Delta;T vs. move distance.
+</p>
+
+    <table border=0>
+    <tr>
+        <th style='width:20%; text-align:left; vertical-align:top',>
+            <p style='padding-top:40px'>
+            Please Select Range:
+            </p>
+            <table border=1, cellpadding=2>
+            <tr><td>
+            <ul>
+            #YEARLIST#
+            </ul>
+            </td>
+            </tr>
+            </table>
+
+        </th>
+        <td>
+            <img src='./Plots/sim_temp_#YEAR#.png' width=80%>
+            <br />
+            <img src='./Plots/sim_translation_#YEAR#.png' width=80%>
+
+        </td>
+    </tr>
+    <table>
+
+<div style='padding-top:30px'>
+<hr />
+<p style='padding-left:20px'>
+If you have any questions about this page, please contact
+<a href='mailto:tisobe@cfa.harvard.edh'>tisobe@cfa.harvard.edu</a>.
+</p>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,14 @@
+
+cd /data/mta/Script/Gyro/Exc
+
+setenv SKA /proj/sot/ska
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/Gyro/Scripts/extract_gyro_data.py
+/data/mta/Script/Gyro/Scripts/create_gyro_drift_ind_page.py
+/data/mta/Script/Gyro/Scripts/plot_gyro_drift_trends.py
+
+chgrp -R mtagroup /data/mta/Script/Gyro/Data/*
+chgrp    mtagroup /data/mta_www/mta_grat/Gyro/Trending_plots/*.png
+chgrp -R mtagroup /data/mta_www/mta_grat/Gyro/*

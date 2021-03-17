@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Update ACE/GOES Data</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Update ACE/GOES Data</h2>
+
+<b><u>Jun 08, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/MTA_Rad/Scripts
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>get_radiation_data.py</td>  <td>Nov 19, 2014</td></tr>
+<tr><td>get_rad_main_script</td>    <td>Jun 08, 2015</td></tr>
+<tr><td>get_rad_wrap_script</td>    <td>Nov 06, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta/Script/MTA_Rad/Scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Nov 20, 2014</th><td>Initially logged</td></tr>
+<tr><th>Jun 08, 2015</th><td>ska_envs.csh is now used</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+ftp.sec.noaa.gov/pub/lists/ace/*_ace_epam_5m.txt
+</li>
+<li>
+ftp.sec.noaa.gov/pub/lists/pchan/*_Gp_pchan_5m.txt
+</li>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Det_Data_adjust/mn_ccd*
+</li>
+<li>
+ephsca.fits from dataseeker
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/www/DAILY/mta_rad/
+    <ul>
+    <li>
+    ace_data.txt
+    </li>
+    <li>
+    goes_data.txt
+    </li>
+    <li>
+    ephsca.fits
+    </li>
+    <li>
+    cti_data.txt
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta4/www/DAILY/mta_rad/ACE/
+    <ul>
+    <li>
+    *_ace_epam_5m.txt
+    </li>
+    </ul>
+<li>
+/data/mta4/www/DAILY/mta_rad/GOES/
+    <ul>
+    <li>
+    *_Gp_pchan_5m.txt
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/MTA_Rad/Exc/
+</li>
+<li>
+run:   /data/mta/Script/MTA_Rad/Scripts/get_rad_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this script yet.
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+17 6 * * *  cd /data/mta/Script/MTA_Rad/Exc/; /data/mta/Script/MTA_Rad/Scripts/get_rad_wrap_script >> $HOME/Logs/get_radiation_data.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/template.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_script_list/template.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Upload to github. Add unit test. 
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

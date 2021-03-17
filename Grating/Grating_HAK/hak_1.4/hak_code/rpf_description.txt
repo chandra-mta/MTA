@@ -1,0 +1,185 @@
+
+Summary
+-------
+This file describes the "rdb parameter file" (rpf)
+format and routines.  These are useful for storage
+and retrieval of "scalar" parameters.  The format
+is closely related to a FITS-based format proposed
+by Arnold Rots of CXC, attached.
+
+7/3/99 dd Initial version coded.
+
+
+I/O:
+----
+The rpf is stored in rdb format, and read and written to
+an IDL structure using rdb_read and rdb_write:
+
+  IDL> rpf = rdb_read('rpf_file.rdb', HEADER=rpf_header)
+
+  IDL> rdb_write,'rpf_file.rdb', rpf, HEADER=rpf_header
+
+
+Using it
+--------
+All manipulations of the values are carried out on the
+IDL structure (not the file.)
+With the structure read into IDL, e.g., into "rpf", parameter values (and
+error, description, and units) can be queried using:
+
+  IDL> rpf_get_value, rpf, pname, pvalue [, $
+        ERROR=error, DESC=desc, UNIT=unit]
+
+the value is returned in pvalue.  A parameter can be modified:
+
+  IDL> rpf_put_value, rpf, pname, pvalue [, $
+        ERROR=error, DESC=desc, UNIT=unit]
+
+New parameters can be added:
+
+  IDL> rpf_add_param, rpf, pname[, pvalue] [, $
+        ERROR=error, DESC=desc, UNIT=unit]
+
+or deleted:
+
+  IDL> rpf_delete_param, rpf, pname
+
+But how does it all begin?  An initial rpf structure is created with:
+
+  IDL> rpf_create, rpf, HEADER=rpf_header
+
+This structure will have one parameter in it named 'rpf_creation_time'
+with a string value filled by SYSTIME().  The rpf_header returned
+contains a simple rpf identification; user specific information
+can be prepended as rdb comments, as in:
+
+  rpf_header = [ ['# My favorite parameters', $
+                 '# for CXC Analysis.'], $
+                 rpf_header]
+
+Finally, while the rdb format file is fairly human readable, 
+even nicer formatted output is available from:
+
+  rpf_list, rpf [,HEADER=rpf_header] [, $
+                  FILE_OUT='my_parameters.txt'] [,/SILENT]
+
+Example
+-------
+
+ IDL> rpf_create, rpf, HEADER=rpf_header
+ IDL> rpf_add_param, rpf, 'Operator', 'dd'
+ IDL> rpf_add_param, rpf, 'HEG Period', 2000.0, $
+           ERROR=0.1, UNIT='A', DESC='rough value'
+ IDL> rpf_add_param, rpf, 'MEG Period', 4000.0, $
+           ERROR=0.2, UNIT='A', DESC='rough value'
+ IDL> rpf_add_param, rpf, 'CALDB', '/nfs/wiwaxia/d4/ASC/data/caldb', $
+           DESC='this could change'
+
+ IDL> rpf_header = [ ['# Example', '# some params'], rpf_header]
+ IDL> rdb_write, 'my_params.rdb', rpf, HEADER=rpf_header, /SILENT
+
+ IDL> $more my_params.rdb
+# Example
+# some params
+# 
+# rdb parameter file ("rpf") format
+# 
+name    datatype        scalarvalue     unit    error   stringvalue     description
+S       S       N       S       N       S       S
+rpf_creation_time       StringValue     0.00000         0.00000 Sat Jul  3 17:36:38 1999
+Operator        StringValue     0.00000         0.00000 dd
+HEG Period      ScalarValue     2000.00 A       0.100000                rough value
+MEG Period      ScalarValue     4000.00 A       0.200000                rough value
+CALDB   StringValue     0.00000         0.00000 /nfs/wiwaxia/d4/ASC/data/caldb  this could change
+
+ IDL> rpf = rdb_read('my_params.rdb', HEADER=rpf_header, /SILENT)
+
+ IDL> rpf_list, rpf, HEADER=rpf_header
+
+ # Example
+ # some params
+ # 
+ # rdb parameter file ("rpf") format
+ # 
+ S     rpf_creation_time : "Sat Jul  3 17:36:38 1999" 
+ S              Operator : "dd"                        
+ N            HEG Period :  2000.0000 +/- 0.10000000 A         rough value
+ N            MEG Period :  4000.0000 +/- 0.20000000 A         rough value
+ S                 CALDB : "/nfs/wiwaxia/d4/ASC/data/caldb"    this could ...
+
+ IDL> rpf_get_value, rpf, 'HEG Period', heg
+ IDL> rpf_get_value, rpf, 'MEG Period', meg
+ IDL> print, meg/heg
+      2.00000
+
+Reference Document
+------------------
+From: Arnold Rots <arots@head-cfa.harvard.edu>
+Subject: A Parameter File FITS Format
+Date: Wed, 7 Apr 1999 15:44:08 -0400 (EDT)
+
+Thinking about a convention for a FITS format to hold parameter lists,
+with or without time information, here is an extension of the
+suggestion I made last month to Dave H.
+
+A FITS HDU with:
+
+ HDUCLASS= 'ASC'
+ HDUCLAS1= 'PARAMLIST'
+
+which may contain any of the following columns:
+
+ Time          double
+ Name          string
+ DataType      string ("ScalarValue"|"StringValue"|"VectorValue"|"FileName"|"None")
+ ScalarValue   double
+ Error         double
+ StringValue   string
+ VectorValue   pointer
+ VectorLength  int
+ FileName      string
+ Description   string
+ Unit          string
+
+All columns except "Name" and "DataType" are optional, though for each
+value that appears in the "DataType" column (except "None") there
+needs to be a similarly named column;  i.e., if the value
+"StringValue" appears in the "DataType" columns, there needs to be a
+column "StringValue".
+Only one of the columns "ScalarValue", "StringValue", "VectorValue",
+and "FileName" has a non-null value on any row (none if
+DataType='None').
+Vector data are stored in the heap.
+The Time column is also optional.  When present, a non-NaN value
+indicates the start time of the validity interval for the value in its
+row.  Values are assumed valid until overridded by another value for
+the same parameter, stamped with a later time label.
+
+If one really wanted, one could split Scalar and Vector into IntScalar,
+DblScalar, IntVector, DblVector.
+
+Example:
+
+Time    Name    DataType     ScalarValue  StringValue  FileName  Unit  Description
+
+NaN     Infile  FileName     NaN          NULL         inp.fits  NULL  Input file name
+1000    Gain    ScalarValue  10.1         NULL         NULL      V/m   Rubber band gain
+NaN     Gossip  None         NaN          NULL         NULL      NULL  This is just an idle comment line
+2000    Gain    ScalarValue  20.2         NULL         NULL      V/m   A change in rubber band gain
+
+Actually, for the non-time-constrained parameters, Time could be NaN
+or 0.0.
+
+
+I think it is a very general and flexible format and it should be easy
+to write a FITS-to-pfile translator.
+
+  - Arnold
+
+- --------------------------------------------------------------------------
+Arnold H. Rots                                         AXAF Science Center
+Smithsonian Astrophysical Observatory                tel:  +1 617 496 7701
+60 Garden Street, MS 81                              fax:  +1 617 495 7356
+Cambridge, MA 02138                             arots@head-cfa.harvard.edu
+USA                                     http://hea-www.harvard.edu/~arots/
+- --------------------------------------------------------------------------

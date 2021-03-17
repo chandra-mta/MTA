@@ -1,0 +1,1 @@
+M=dummy; export TERM; /bin/tcsh  < /data/mta/Script/OBT/Scripts/obt_main_script

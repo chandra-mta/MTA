@@ -1,0 +1,159 @@
+
+--------------------------------------------------------------
+Now this process is automated by cron job (as of Sep 18, 2015)
+--------------------------------------------------------------
+
+Lev1:
+50 22 2,10,20,30  * * cd /data/mta/Script/ACIS/SIB/Correct_excess/Lev1; /data/mta/Script/ACIS/SIB/Correct_excess/Lev1/run_extract_evt1_wrap_script
+
+---- this script runs a few times a months to accumulate sib data for Lev1
+
+
+
+15 3  3 * *   cd /data/mta/Script/ACIS/SIB/Correct_excess/Lev1; /data/mta/Script/ACIS/SIB/Correct_excess/Lev1/run_create_evt1_wrap_script 
+
+---- this script runs at the beginning of the month to complete Lev1 data for the previous month
+
+Lev2:
+50 22 2,10,20,30  * * cd /data/mta/Script/ACIS/SIB/Correct_excess/Lev2; /data/mta/Script/ACIS/SIB/Correct_excess/Lev2/run_extract_evt2_wrap_script
+
+---- this script runs a few times a months to accumulate sib data for Lev2
+
+15 3  3 * *   cd /data/mta/Script/ACIS/SIB/Correct_excess/Lev2; /data/mta/Script/ACIS/SIB/Correct_excess/Lev2/run_create_evt2_wrap_script
+
+
+---- this script runs at the beginning of the month to complete Lev2 data for the previous month
+
+
+Related Scripts:
+---------------
+in Sib_corr:
+run_evt1_script.py          --- collect data
+create_sib_data_evt1.py     --- complate the report
+
+run_evt2_script.py          --- collect data for Lev2
+create_sib_data_evt2.py     --- complate the report for Lev2
+
+
+
+
+
+
+
+###########################################################################################################
+
+
+0. Go to a directory: /data/mta/Script/Sib/Correct_excess/ or wherever you want to work at.
+
+1. get a list of observations between <start> and <stop>.
+
+	 /usr/local/bin/perl Sib_corr/sib_corr_find_observation.perl  <start> <stop>     (DS10, on c3po-v)
+
+   where the format for <start> and <stop> is MM/DD/YY,HH:MM:SS. The output will be directed 
+   into "./acis_obs" file. This script must be run on rhodes. Steps 3, 4, and 5 can be run on colossus.
+   (probably running on colossus is faster).
+
+2. Remove all abell clusters, planets, comets, and all bright x ray sources
+   such as crab, cas A  and M87.
+
+3. A new list contains lines like:
+	03412   FXRT011030      ACIS-S  Nov 29 2001 11:09AM     123505739       9771    100032
+
+   copy the acis_obs to Lev1 and Lev2 directories
+
+4. run the main script:
+
+	In each directory run "wrap_script" to induce all process.
+
+5. correct count rate by
+
+#	/opt/local/bin/perl /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/correct_factor.perl 
+
+#    setenv HEADAS /soft/lheasoft/headas/x86_64-pc-linux
+#    source $HEADAS/headas-init.csh
+
+    source /home/mta/.ascrc
+
+	rm -rf param
+	mkdir param
+	source /home/mta/bin/reset_param
+#
+#    unsetenv PERLLIB
+#    unsetenv PERL5LIB
+#
+#    set path = (/proj/cm/Release/install.linux64.DS10/bin/  $path)
+#    set path = (/proj/cm/Release/install.linux64.DS10/ots/bin/ $path)
+#
+#    ------------------------------------------------------
+#	set path = (/home/ascds/DS.release/bin/  $path)
+#	set path = (/opt/local/bin/ $path)
+    ------------------------------------------------------
+
+	/usr/local/bin/perl ./correct_factor.perl
+
+6. exclude all high count rate observations by:
+#	/opt/local/bin/perl /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/find_excess_file.perl
+	/usr/local/bin/perl ./find_excess_file.perl (on Lev 2)
+   remove the same files from Lev 1.  ---- run : perl  move_exess_list.perl (added 05/02/14)
+
+7. Combined these data
+
+	/usr/local/bin/perl /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/sib_corr_comb.perl <start time> <end time>
+
+	where <start time>:	<year>:<y_date>:<hour>:<min>:<sec>
+	      <end time>:	<year>:<y_date>:<hour>:<min>:<sec>
+
+	The results are in Data   (such as ./Data/lres_ccd3_merged.fits)
+
+    Move the data into /data/mta/Sscript/ACIS/SIB/Data/Data_<year>_<mon> and also for lev2
+
+8 Plot data --- you may want to restart c3po-v...
+
+#	/usr/local/bin/perl ./sib_corr_plot_lres.perl <year> <month>
+#	/usr/local/bin/perl ./sib_corr_plot_lres.perl (for Lev 2) (undr Lev2 directory)
+		----- run this on rhodes (need to access /data/mta4/MTA/data/no_data.gif)
+
+    ***** RUN PYTHON SCRIPTS BELOW TO PLOT DATA *****
+
+	where <year>		year of the observation
+	      <month>		month of the observations
+
+	the results are in ./Plots/
+
+
+9. Created plots for long terms for lev 2 data
+
+	run:
+#		/usr/local/bin/perl Sib_corr/acis_sib_one_year_plot_lev1.perl
+#		/usr/local/bin/perl Sib_corr/acis_sib_long_term_lev1.perl
+#		/usr/local/bin/perl Sib_corr/acis_sib_comb_plot_lev1.perl
+#		/usr/local/bin/perl Sib_corr/update_lev1_html.perl
+#		/usr/local/bin/perl Sib_corr/acis_sib_one_year_plot_lev2.perl
+#		/usr/local/bin/perl Sib_corr/acis_sib_long_term_lev2.perl
+#		/usr/local/bin/perl Sib_corr/acis_sib_comb_plot_lev2.perl
+#		/usr/local/bin/perl Sib_corr/update_lev2_html.perl
+
+    move data from /data/mta/Script/ACIS/SIB/Correct_excess/Lev1/Data/ to  /data/mta/Script/ACIS/SIB/Data/Data_<year>_<month>
+    (you may need to create the directory first)
+
+        setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+        /data/mta/Script/ACIS/SIB/Correct_excess/Scripts/ccd_comb_plot.py
+        /data/mta/Script/ACIS/SIB/Correct_excess/Scripts/update_html.py 
+
+    move data from /data/mta/Script/ACIS/SIB/Correct_excess/Lev2/Data/ to  /data/mta/Script/ACIS/SIB/Lev2/Data/Data_<year>_<month>
+    (you may need to create the directory first)
+
+        /data/mta/Script/ACIS/SIB/Correct_excess/Scripts/ccd_comb_plot.py lev2
+        /data/mta/Script/ACIS/SIB/Correct_excess/Scripts/update_html.py   lev2
+
+	prepare for the next month:
+		/usr/local/bin/perl Sib_corr/prep_next_month.perl <yyyyy> <mm>     (e.g. 2011 05)
+
+10. Clearn up.
+	move all resulted fits files (from Data directory) and plots (from Plots) to a web site
+	/data/mta/www/mta_sib/...
+
+	then, remove all fits files from Input, Outdir, and Data. It could take upto 10% of a disk space.
+
+	clearn up Reg_files/*
+

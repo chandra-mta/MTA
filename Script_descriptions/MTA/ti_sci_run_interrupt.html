@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Science Run Interruption</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Science Run Interruption</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts generates plots of ACE, Ephin, and GOES radiation plots around
+a science run interruption due to high radiations.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Interrupt/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Sci_run_interrupt
+</p>
+
+
+<table border=0>
+<tr><td>sci_run_wrap_script</td>            <td>Jun 06, 2013</td></tr>
+<tr><td>sci_run_main_script</td>            <td>Jun 06, 2013</td></tr>
+<tr><td>sci_run_wrap_script_test</td>       <td>May 17, 2013</td></tr>
+<tr><td>sci_run_main_script_test</td>       <td>May 17, 2013</td></tr>
+<tr><td>compute_ace_stat.py</td>            <td>Sep 12, 2017</td></tr>
+<tr><td>compute_stat.py</td>                <td>Apr 11, 2012</td></tr>
+<tr><td>convertTimeFormat.py</td>           <td>Apr 11, 2012</td></tr>
+<tr><td>extract_data.py</td>                <td>Sep 12, 2017</td></tr>
+<tr><td>extract_ephin.py</td>               <td>Sep 12, 2017</td></tr>
+<tr><td>extract_goes.py</td>                <td>Sep 12, 2017</td></tr>
+<tr><td>extract_noaa.py</td>                <td>Sep 12, 2017</td></tr>
+<tr><td>interruptFunctions.py</td>          <td>Sep 12, 2017</td></tr>
+<tr><td>interruptPlotFunctions.py</td>      <td>Apr 30, 2013</td></tr>
+<tr><td>plot_data.py</td>                   <td>Sep 12, 2017</td></tr>
+<tr><td>plot_ephin.py</td>                  <td>Apr 29, 2014</td></tr>
+<tr><td>plot_goes.py</td>                   <td>Apr 29, 2013</td></tr>
+<tr><td>plot_noaa_rad.py</td>               <td>Apr 29, 2014</td></tr>
+<tr><td>sci_run_add_to_rad_zone_list.py</td><td>Apr 11, 2013</td></tr>
+<tr><td>sci_run_compute_gap.py</td>         <td>Sep 12, 2017</td></tr>
+<tr><td>sci_run_get_radiation_data.py</td>  <td>Sep 12, 2017</td></tr>
+<tr><td>sci_run_get_rad_zone_info.py</td>   <td>Apr 11, 2013</td></tr>
+<tr><td>sci_run_print_html.py</td>          <td>Sep 13, 2017</td></tr>
+<tr><td>clean_up_xmm_data.perl</td>         <td>May 27, 2015</td></tr>
+<tr><td>compute_xmm_stat_plot_for_report.py</td>          <td>May 27, 2015</td></tr>
+<tr><td>run_interruption.py</td>            <td>Nov 07, 2017</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Interrupt/Scripts/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+<tr><th>May 27, 2015</th><td>XMM plot added</td></tr>
+<tr><th>Sep 13, 2017</th><td>Scripts updated to accomodate the system modifications</td></th>
+<tr><th>Nov 07, 2017</th><td>a minor bug fixed</td></th>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/www/DAILY/mta_rad/ACE/&lt;timestamp&gt;_epam_5m.txt
+</li>
+<li>
+/data/mpcrit1/mplogs/&lt;year&gt;/&lt;month_date&gt;/ofls/*.dot
+</li>
+<li>
+http://www.swpc.noaa.gov/ftpdir/lists/pchan/&lt;timestamp$_Gp_pchan_5m.txt
+</li>
+<li>
+http://acis.mit.edu/asc/txgif/gifs/&lt;year&gt;-&lt;yday&gt;.gif
+</li>
+<li>
+/data/mta4/space_weather/XMM/xmm.archive
+</li>
+
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_interrupt/Data_dir/
+    <ul>
+    <li> &lt;timestamp&gt;_dat.txt </li>
+    <li> &lt;timestamp&gt;_eph.txt </li>
+    <li> &lt;timestamp&gt;_goes.txt </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_interrupt/Ephin_plot/
+    <ul>
+    <li> &lt;timestamp&gt;_eph.png </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_interrupt/GOES_plot/
+    <ul>
+    <li> &lt;timestamp&gt;_goes.png </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_interrupt/Main_plot/
+    <ul>
+    <li> &lt;timestamp&gt;.png </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_interrupt/Stat_dir/
+    <ul>
+    <li> &lt;timestamp&gt;_ace_stat</li>
+    <li> &lt;timestamp&gt;_eph_stat</li>
+    <li> &lt;timestamp&gt;_goes_stat</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+run: /data/mta/Script/Interrupt/Scripts/get_goes_from_noao.py
+</li>
+<li>
+go to: cd /data/mta/Script/Interrupt/Exc
+</li>
+<li>
+run:  /data/mta/Script/Interrupt/Scripts/sci_run_wrap_script
+</li>
+<li>
+<b>----Interactive Part----</b>
+</li>
+<li>go to: /data/mta/Script/Interrupt/Exc</li>
+<li>
+edit:  interruption_time_list<br />
+   * add &lt;event name&gt; &lt;starting time&gt; &lt;stopping time&gt; &lt;gap&gt; &lt;operation type&gt<br />;
+   where<br />
+   &lt;event name&gt;:   name of the event; usually in the from of 20120317 (yyyymmdd)<br />
+   &lt;strting time&gt;: interruption starting time in UTC in the format of 2011:08:04:07:03<br />
+   &lt;stopping time&gt;:interruption ending time in UTC in the format of   2011:08:07:10:25<br />
+   &lt;gap&gt;:  total lost science time in ksec, excluding radiation zone. this will<br />
+   be updated later; so a raugh estimate is fine<br >
+</li>
+<li> set: setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"</li>
+<li>run: /data/mta/Script/Interrupt/Scripts/extract_data.py</li>
+<li>run: /data/mta/Script/Interrupt/Scripts/plot_data.py</li>
+<li>run: /data/mta/Script/Interrupt/Scripts/compute_xmm_stat_plot_for_report.py yyyymmdd </li>
+<li>run: /data/mta/Script/Interrupt/Scripts/sci_run_print_html.py with interruption_time_list as an answer</li>
+<li>run: /data/mta/Script/Interrupt/Scripts/sci_run_print_html.py with na as an answer</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>go to: /data/mta/Script/Interrupt/Exc</li>
+<li> set: setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"</li>
+<li>run: /data/mta/Script/Interrupt/Scripts/extract_data.py (answer:<b>test</b> instead of time_list file name)</li>
+<li>run: /data/mta/Script/Interrupt/Scripts/plot_data.py (answer:<b>test</b> instead of time_list file name)</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be save in /data/mta/Script/Interrupt/Test_out. Compare the results with those in
+/data/mta/Script/Interrupt/Test_comp_results/.
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 1 * * 0  /data/mta/Script/Interrupt/Scripts/get_goes_from_noao.py >> $HOME/Logs/get_goes_from_noao.cron 2>&1
+15 1 * * 0  cd /data/mta/Script/Interrupt/Exc; /data/mta/Script/Interrupt/Scripts/sci_run_wrap_script >> $HOME/Logs/sci_run_interrupt.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_interrupt/rad_interrupt.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_interrupt/rad_interrupt.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

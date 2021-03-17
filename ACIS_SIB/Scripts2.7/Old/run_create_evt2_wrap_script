@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/ACIS/SIB/Correct_excess/Lev2/run_create_evt2_main_script

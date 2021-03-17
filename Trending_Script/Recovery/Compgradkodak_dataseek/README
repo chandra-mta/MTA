@@ -1,0 +1,25 @@
+
+This directroy contains scripts to recover compgradkodak.fits using dataseeker function.
+However, they are not efficient. Use thoese kept in:
+
+/data/mta/Script/Trending/Recovery/Compgradkodak_ska
+
+
++++++++++
+Scripts:
++++++++++
+recover_compgradkodak.py: 
+-------------------------
+    recover compgradkodak_fits from beginning 
+    input:  start_year  --- the year of the starting date
+            start_yday  --- the ydate of the starting date
+            stop_year   --- the year of the stopping date
+            stop_yday   --- the ydate of the sopttping date
+                    if start_year is not given (e.g.""), then it will re-compute the entire period
+            pfits       --- the previous fits file; the new data will be appended
+                    if this is not given, the new result will be written on  compgradkodak.fits
+    output: compgradkodak.fits
+
+recover_suppl_functions.py:
+----------------------------
+    supplmental collections of functions

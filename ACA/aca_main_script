@@ -1,0 +1,30 @@
+cd /data/mta/Script/ACA/Exc
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/ACA/Scripts/process_data_for_the_month.py
+
+/data/mta/Script/ACA/Scripts/update_monitor_data.py
+
+/data/mta/Script/ACA/Scripts/update_monthly_averaged_slot_dataset.py
+
+/data/mta/Script/ACA/Scripts/update_stat_table.py
+
+/data/mta/Script/ACA/Scripts/update_slot_stat_table.py
+
+/data/mta/Script/ACA/Scripts/create_aca_long_term_mag_plot.py
+
+/data/mta/Script/ACA/Scripts/create_aca_long_term_slot_plot.py
+
+/data/mta/Script/ACA/Scripts/update_aca_html_pages.py
+
+
+rm -rf /data/mta/Script/ACA/Exc/Fits_save/*fits*
+
+rm -rf /data/mta/Script/ACA/Exc/Fits_save/Temp_comp_area/*
+
+chmod -R 755   /data/mta/Script/ACA/Data/*
+chgrp mtagroup /data/mta/Script/ACA/Data/*
+
+chmod -R 755   /data/mta4/www/DAILY/mta_pcad/ACA/*
+chgrp mtagroup /data/mta4/www/DAILY/mta_pcad/ACA/*

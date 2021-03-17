@@ -1,0 +1,8 @@
+
+cd /data/mta/Script/Weekly/Scripts/
+
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages/"
+
+
+/data/mta/Script/Weekly/Scripts/create_weekly_report.py 
+

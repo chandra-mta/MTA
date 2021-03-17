@@ -1,0 +1,14 @@
+'/data/mta/Script/Exposure/'                        : main_dir
+'/data/mta/Script/Exposure/Scripts/'                : bin_dir
+'/data/mta/Script/Exposure/Scripts/ACIS_Scripts/'   : acis_bin_dir
+'/data/mta/Script/Exposure/Scripts/HRC_Scripts/'    : hrc_bin_dir
+'/data/mta/Script/Exposure/Scripts/house_keeping/'  : house_keeping
+'/data/mta/www/mta_max_exp/'                        : web_dir
+'/data/mta/www/mta_max_exp/Data/'                   : data_out
+'/data/mta/www/mta_max_exp/Plots/'                  : plot_dir
+'/data/mta/www/mta_max_exp/Images/'                 : img_dir
+'/data/mta/www/mta_max_exp/Month/'                  : mon_acis_dir
+'/data/mta/www/mta_max_exp/Cumulative/'             : cum_acis_dir
+'/data/mta/www/mta_max_exp/Month_hrc/'              : mon_hrc_dir
+'/data/mta/www/mta_max_exp/Cumulative_hrc/'         : cum_hrc_dir
+'/data/mta/Script/Python3.8/MTA/'                   : mta_dir

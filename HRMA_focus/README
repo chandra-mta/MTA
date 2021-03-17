@@ -1,0 +1,60 @@
+####################
+MTA SRC2 Monitoring
+####################
+
+This directory holds scripts to created HRMA focus related plots.
+
+
+++++++++
+Scripts
+++++++++
+
+hrma_wrap_script
+hrma_main_script                --- environment setting script
+
+extract_hrma_focus_data.py      --- extract data
+hrma_plot_trends.py             --- plot data
+update_slide_html.py            --- update html pages
+
+++++++++++++++
+house_keeping:
+++++++++++++++
+
+dir_list                        --- a list of directory
+template.html                   --- sliding html page template
+
++++++++++++
+directories
++++++++++++
+'/data/mta/Script/Hrma_src/Scripts/'                :bin_dir
+'/data/mta/Script/Hrma_src/Data/'                   :data_dir
+'/data/mta/Script/Hrma_src/Scripts/house_keeping/'  :house_keeping
+'/data/mta4/www/DAILY/mta_src/'                     :web_dir
+'/data/mta/Script/Python3.8/MTA/'                   :mta_dir
+
++++++++++
+Input 
++++++++++
+acsf*evt2.fits and hrcf*evt2.fits from archive
+
++++++++
+Output
++++++++
+<data_dir>/hrma_src_data
+<web_dir>/Plots/<category>/<instrument>/*png
+<web_dir>/<caotegory>/<inst>_dist_<cateogry>_year.html
+<web_dir>/hrma_main.html      --- main html page 
+
+++++++++
+web page
+++++++++
+
+https://cxc.cfa.harvard.edu/mta_days/mta_src/
+
++++++++++
+Cron Job
++++++++++
+
+mta @ boba-v
+
+2 19 * * 6  cd /data/mta/Script/Hrma_src/Exc; /data/mta/Script/Hrma_src/Scripts/hrma_wrap_script >> $HOME/Logs/hrma_focus.cron

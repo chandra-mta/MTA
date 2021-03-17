@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh < /data/mta/Script/Exposure/Scripts/ACIS_Scripts/acis_dose_main_script

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS CTI</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS CTI</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts cti data, estimates trends, and plots the trends.
+
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/ACIS/CTI/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/ACIS_CTI
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>acis_cti_wrap_script</td>         <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_main_script</td>         <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_wrap2_script</td>        <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_main2_script</td>        <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_test_wrap_script</td>    <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_test_main_script</td>    <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_get_data.py</td>         <td>Sep 10, 2014</td></tr>
+<tr><td>acis_cti_plot.py</td>             <td>Jun 13, 2014</td></tr>
+<tr><td>acis_cti_plot_two_section.py</td> <td>May 21, 2014</td></tr>
+<tr><td>acis_cti_run_script.py</td>       <td>Sep 11, 2014</td></tr>
+<tr><td>acis_cti_trend_dom.py</td>        <td>Jun 16, 2014</td></tr>
+<tr><td>clean_table.py</td>               <td>Mar 17, 2014</td></tr>
+<tr><td>create_adjusted_cti_tables.py</td><td>May 21, 2014</td></tr>
+<tr><td>create_cti_data_table.py</td>     <td>May 23, 2014</td></tr>
+<tr><td>cti_detrend_factor.py</td>        <td>Sep 16, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+</p>
+<table border = 0>
+<tr><th>Sep 11, 2014</th><td>Test method updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/www/mp_reports/photons/acis/cti/*
+</li>
+<li>
+/data/mta/Script/ACIS/CTI/Data/*/*
+</li>
+<li>
+we also need acis evt1 file extracted by arc4gl
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Results
+    <ul>
+    <li>
+    file name1
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Det_Results
+    <ul>
+    <li>
+    file name1
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Data119, Data7000, Data2000, Data_adjust, Data_cat_adjust
+    <ul>
+    <li>
+    file name2
+    </li>
+    </ul>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Det_Data119, Det_Data7000, Det_Data2000, Det_Data_adjust, Det_Data_cat_adjust
+    <ul>
+    <li>
+    file name2
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/CTI/Exc
+</li>
+<li>
+run: /data/mta/Script/ACIS/CTI/Scripts/acis_cti_wrap_script
+</li>
+<li>
+run: /data/mta/Script/ACIS/CTI/Scripts/acis_cti_wrap_script2
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ACIS/CTI/Exc
+</li>
+<li>
+run: /data/mta/Script/ACIS/CTI/Scripts/acis_cti_test_wrap_script
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+You will get something like:
+</p>
+<pre>
+mta@r2d2-v-209: /data/mta/Script/ACIS/CTI/Scripts/acis_cti_test_wrap_script 
+tput: unknown terminal "dummy"
+..
+----------------------------------------------------------------------
+Ran 2 tests in 61.646s
+
+OK
+..
+----------------------------------------------------------------------
+Ran 2 tests in 360.953s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 1.920s
+
+OK
+
+</pre>
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+35 2  * * *  cd /data/mta/Script/ACIS/CTI/Exc;/data/mta/Script/ACIS/CTI/Scripts/acis_cti_wrap_script >>  $HOME/Logs/acis_cti.cron 2>&1
+35 3  * * 7  cd /data/mta/Script/ACIS/CTI/Exc;/data/mta/Script/ACIS/CTI/Scripts/acis_cti_wrap_script2 >> $HOME/Logs/acis_cti.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_cti/cti_page.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_cti/cti_page.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+'/data/mta/Script/Hrma_src/Scripts/'                :bin_dir
+'/data/mta/Script/Hrma_src/Data/'                   :data_dir
+'/data/mta/Script/Hrma_src/Scripts/house_keeping/'  :house_keeping
+'/data/mta4/www/DAILY/mta_src/'                     :web_dir
+'/data/mta/Script/Python3.8/MTA/'                   :mta_dir

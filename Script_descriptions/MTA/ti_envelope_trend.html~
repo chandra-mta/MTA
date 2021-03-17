@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Envelope Trending</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Envelope Trending</h2>
+
+<b><u>Last Updated: Pct 01, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This sets of scripts estimate envelopes around the data for a given msid, and estimate approximate date of
+a yellow limit violation, if it happens in the next 10 yrs.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>:<br />
+/data/mta/Script/Fitting/Trend_script/
+<br />
+/data/mta/Script/Fitting/Exc/Full_range/
+<br />
+/data/mta/Script/Fitting/Exc/Quarterly/
+<br />
+/data/mta/Script/Fitting/Exc/Weekly/
+<br />
+/data/mta/Script/Fitting/Exc/Full_range_deriv/
+<br />
+/data/mta/Script/Fitting/Exc/Quarterly_deriv/
+<br />
+/data/mta/Script/Fitting/Exc/Weekly_deriv/
+<br />
+
+
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Trend_script
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td colspan=2><u><em>First Directory</em></u></td></tr>
+<tr><td>find_limit_envelope.perl</td>                   <td>Jun 05, 2013</td></tr>
+<tr><td>find_limit_envelope_control_ds.perl</td>        <td>Mar 06, 2014</td></tr>
+<tr><td>find_limit_plot_long_term_recomp_fit.perl</td>  <td>Jun 05, 2013</td></tr>
+<tr><td>find_limit_envelope_control_deriv.perl</td>     <td>Jun 05, 2013</td></tr>
+<tr><td>find_limit_envelope_mk_html.perl</td>           <td>Jun 05, 2013</td></tr>
+<tr><td>find_limit_violation_table.perl</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>update_break_point_table.perl</td>              <td>Jun 05, 2013</td></tr>
+<tr><td>create_break_point_master_html.perl</td>        <td>Jun 05, 2013</td></tr>
+<tr><td>create_break_point_table.perl</td>              <td>Jun 05, 2013</td></tr>
+<tr><td>read_table.perl</td>                            <td>Sep 10, 2014</td></tr>
+<tr><td colspan=2><u><em>Second to Fourth Directories</em></u></td></tr>
+<tr><td>wrap_script</td>                                <td>Jan 22, 2009</td></tr>
+<tr><td>main_script</td>                                <td>------, 2014</td></tr>
+<tr><td colspan=2><u><em>Fifth to Sevnth Directories</em></u></td></tr>
+<tr><td>wrap_script_ds</td>                             <td>Jan 22, 2009</td></tr>
+<tr><td>main_script_ds</td>                             <td>------, 2013</td></tr>
+<!-- <tr><td>find_limit_envelope_control_plot_only.perl</td> <td>Sep 10, 2014</td></tr>-->
+<!-- <tr><td>create_master.perl</td>                         <td>Sep 10, 2014</td></tr> -->
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Fitting/Trend_script/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+a fits file extracted by dataseeker for a given msids
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS (/home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+<li>cp /data/mta/Script/Fitting/hosue_keeping/Save_data/test .</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+output location1
+    <ul>
+    <li>
+    file name1
+    </li>
+    </ul>
+</li>
+<li>
+output location2
+    <ul>
+    <li>
+    file name2
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li> go to: cd /data/mta/Script/Fitting/Exc/Weekly </li>
+<li> run: /data/mta/Script/Fitting/Exc/Weekly/wrap_ds_script </li>
+<li> go to: cd /data/mta/Script/Fitting/Exc/Quarterly </li>
+<li> run: /data/mta/Script/Fitting/Exc/Quarterly/wrap_ds_script </li>
+<li> go to: cd /data/mta/Script/Fitting/Exc/Full_range</li>
+<li> run: /data/mta/Script/Fitting/Exc/Full_range/wrap_ds_script</li>
+<li> go to: cd /data/mta/Script/Fitting/Exc/Weekly_deriv</li>
+<li> run: /data/mta/Script/Fitting/Exc/Weekly_deriv/wrap_deriv_script</li>
+<li> go to : cd /data/mta/Script/Fitting/Exc/Quarterly_deriv</li>
+<li> run: /data/mta/Script/Fitting/Exc/Quarterly_deriv/wrap_deriv_script</li>
+<li> go to : cd /data/mta/Script/Fitting/Exc/Full_range_deriv</li>
+<li> run: /data/mta/Script/Fitting/Exc/Full_range_deriv/wrap_deriv_script</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li> go to: cd /data/mta/Script/Fitting/Exc/Full_range/Test </li>
+<li> run:   /data/mta/Script/Fitting/Exc/Full_range/Test/wrap_ds_script</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be saved in /data/mta/Script/Fitting/Test_out/. Compare the results with those in
+/data/mta/Script/Fitting/Test_comp_result/.
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 1 * * *  cd /data/mta/Script/Fitting/Exc/Weekly;           /data/mta/Script/Fitting/Exc/Weekly/wrap_ds_script     >> $HOME/Logs/envelope_wkly_ds.cron 2>&1
+<br />
+0 1 * * 0  cd /data/mta/Script/Fitting/Exc/Quarterly;        /data/mta/Script/Fitting/Exc/Quarterly/wrap_ds_script  >> $HOME/Logs/envelope_qtly_ds.cron 2>&1
+<br />
+0 1 1 * *  cd /data/mta/Script/Fitting/Exc/Full_range;       /data/mta/Script/Fitting/Exc/Full_range/wrap_ds_script >> $HOME/Logs/envelope_frly_ds.cron 2>&1
+<br />
+0 1 * * *  cd /data/mta/Script/Fitting/Exc/Weekly_deriv;     /data/mta/Script/Fitting/Exc/Weekly_deriv/wrap_deriv_script     >> $HOME/Logs/envelope_wkly_deriv.cron 2>&1
+<br />
+0 1 * * 0  cd /data/mta/Script/Fitting/Exc/Quarterly_deriv;  /data/mta/Script/Fitting/Exc/Quarterly_deriv/wrap_deriv_script  >> $HOME/Logs/envelope_qtly_deriv.cron 2>&1
+<br />
+0 1 1 * *  cd /data/mta/Script/Fitting/Exc/Full_range_deriv; /data/mta/Script/Fitting/Exc/Full_range_deriv/wrap_deriv_script >> $HOME/Logs/envelope_frly_deriv.cron 2>&1
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/template.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_script_list/template.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+ /data/mta4/Deriv/gradhcone.fits are missing several data entries and failed update weekly data properly. 
+ This is partly due to the problem related to trending output. 
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+The scripts will be rewritten in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

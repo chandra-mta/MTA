@@ -1,0 +1,8 @@
+setascds
+rm -rf param
+mkdir param
+source /home/mta/bin/reset_param
+set path = (/home/ascds/DS.release/bin/  $path)
+set path = (/home/ascds/DS.release/otsbin/  $path)
+
+/usr/local/bin/perl /data/mta/Script/Month/FOCAL/get_ftemp_data.perl #START# #STOP#

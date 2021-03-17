@@ -1,0 +1,144 @@
+
+Scripts in this directory create an E/dE trend page plots, table, and the page itself.
+
+In a directory of /data/mta/Script/Grating/EdE_Trends:
+
+---------------
+ede_wrap_script
+---------------
+A wrapping script to run ede_main_script
+
+
+---------------
+ede_main__script
+---------------
+A main script to perl script ede_main.perl and ede_plot.py
+
+
+---------------------
+extract_line_stat.py    
+---------------------
+
+This script finds E/dE values for a given line and a grating
+
+Input:	$line: line energy (such as 1.022)
+	$grat: grating, hetg, metg, or letg
+	$dfile: data file, such as <data_dir>/acis_hetg_1022_data (to read the past data)
+
+	grating data are taken from one of the following data files
+
+	/data/mta/www/mta_grat/Grating_Data/*/*/obsid_*_L1.5_S1HEGp1_linelist.txt
+	/data/mta/www/mta_gra/Grating_Datat/*/*/obsid_*_L1.5_S1MEGp1_linelist.txt
+	/data/mta/www/mta_gra/Grating_Datat/*/*/obsid_*_L1.5_S1LEGp1_linelist.txt
+
+Output:	
+        <data_dir>/<inst>_<grating>_<line>_data
+		example: <data_dir>/acis_hetg_1022_data
+
+
+
+-----------
+ede_plot.py
+-----------
+This script plots DOM - E/dE relation ship. It fits two straight line by
+a weighted linear least square method, and a robust method.
+
+Input: 	$file: input data file name (e.g., EdE_Data/acis_htg_1022_data)
+
+Output:	png files (name exaple: EdE_Plots/acis_htg_1022_plot.png);
+
+
+
+-------------------------
+ede_temperature_plots.py
+-------------------------
+plot OBA/HRMA temperature - EdE relations
+
+Input: 	$file: input data file name (e.g., EdE_Data/acis_htg_1022_data)
+        ska archived data for msids, (e.g., 4rt556t or oobth25)
+
+Output: EdE_trend/HRMA/Plots/<inst>_<grat>_<line>_<msid>_plot.png
+        EdE_trend/OBA/Plots/<inst>_<grat>_<line>_<msid>_plot.png
+
+---------------------
+plot_capella_ede.perl
+---------------------
+This script plot E/dE vs DOM specifically for Capella data saved on 
+/data/mta/Script/Grating/EdE/Capplla.
+
+Input: data file such as acis_hetg.dat (read /data/mta/Script/Grating/EdE/Capplla/table for more details).
+Output: plot_lines.gif
+
+This script must be run on rhodes with /opt/local/bin/perl as it uses PGPLOT perl module
+
+
+-------------------------------------------------
+Directories and files outside of this directory
+-------------------------------------------------
+
+
+'/data/mta/Script/Grating/EdE_trend/Scripts/'               : bin_dir
+'/data/mta_www/mta_grat/EdE_trend/'                         : web_dir
+'/data/mta_www/mta_grat/EdE_trend/EdE_Data/'                : data_dir
+'/data/mta/Script/Grating/EdE_trend/Scripts/house_keeping/' : house_keeping
+'/usr/local/bin/'                                           : op_dir
+'/data/mta/Script/Python_script2.7/'                        : mta_dir
+'/data/mta_www/mta_grat/Grating_Data/'                      : gdata_dir
+
+
+/data/mta/Script/Grating/Exc:		run directory
+
+$bin_dir = '/data/mta4/MTA/bin/';		bin directory	 (need to run on rhodes)
+$web_dir = '/data/mta_www/mta_grat/EdE_trend/';	Web direcotry
+			---- these two directories can be changed in ede_main.perl
+
+
+$bin_dir/ede*				all scripts described above are kept in this bin directory
+
+
+$web_dir/EdE_Data: 			saving E/dE data
+					such as acis_htg_0824_data
+
+$web_dir/EdE_Plots:			saving time - E/dE plots
+					such as acis_htg_0824_plot.gif
+
+$web_dir/OBA				saving OBA related data
+
+$web_dir/OBA/ACIS_HTG_1022		saving data such as oobthr23_out and oba_2.gif
+$web_dir/OBA/ACIS_MTG_1022		
+$web_dir/OBA/HRC_LTG_1022		
+
+$web_dir/OBA/acis_htg_stat.html		ACIS HTEG statistics html page
+$web_dir/OBA/acis_mtg_stat.html		ACIS MTEG statistics html page
+$web_dir/OBA/hrc_ltg_stat.html		HRC  LTEG statistics html page
+
+$web_dir/HRMA				saving HRMA related data
+
+$web_dir/HRMA/ACIS_HTG_1022		saving data such as 4rt568t_out and hrma_1.gif
+$web_dir/HRMA/ACIS_MTG_1022		
+$web_dir/HRMA/HRC_LTG_1022		
+
+$web_dir/HRMA/acis_htg_stat2.html	ACIS HTEG statistics html page
+$web_dir/HRMA/acis_mtg_stat2.html	ACIS MTEG statistics html page
+$web_dir/HRMA/hrc_ltg_stat2.html	HRC  LTEG statistics html page
+
+$web_dir/Memo				saving memos related E/dE
+$web_dir/Memo/EdE			E/dE memo of Capella
+$web_dir/Memo/EdE2			E/dE memo of all grating data
+$web_dir/Memo/EdE_Temp			E/dE and OBA/HRMA relation
+
+
+$web_dir/ede_trend.html			E/dE main html page
+$web_dir/ede_time.html			Time -  E/dE relaiton html page
+$web_dir/ede_temp.html			OBA/HRMA - E/dE relaiton html page
+$web-dir/stat_result.html		Time - E/dE relation statistics html page
+
+$web_dir/Template			keeps copies of html pages, just in a case the others are lost
+
+---------
+Cron Job
+---------
+r2d2-v as mta:
+
+32 3 3,13,23 * *  cd /data/mta/Script/Grating/EdE_trend/Exc; /data/mta/Script/Grating/EdE_trend/Scripts/ede_wrap_script      >> $HOME/Logs/ede_trends 2>&1
+

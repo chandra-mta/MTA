@@ -1,0 +1,80 @@
+
+####################
+updates op_limits.db
+####################
+
+++++++++
+Scripts
+++++++++
+compare_database_wrap_script
+compare_database_main_script
+----------------------------
+        ---- environment setting scripts
+
+compare_database_and_update.py
+-------------------------------
+This script compares the current mta limit data base to glimmon and update the former
+
+    Data:
+    -----
+    /data/mta4/MTA/data/op_limits/op_limits.db      --- the current mta limit database
+    glimmondb.sqlite3                               --- glimmon sqlite database
+    
+    Note:
+    Currently, we need to download glimmondb.sqlite3 from:
+    
+        http://occweb.cfa.harvard.edu/twiki/ChandraCode/G_LIMMONSQLite3Database
+    
+    If you like to know how to use  glimmon database, please reffer to the above site.
+    
+    Currently it is saved in: /proj/sot/ska/data/glimmon_archive/glimmondb.sqlite3, but
+    only can be seen from GRETA network (email from M. Dahmer 03/01/16)
+    
+    Output:
+    -------
+    ./op_limits_new    --- updated mta limit database locally saved
+    ./Past_data/op_limits.db_<time stamp>       ---- the past op_limits.db
+    ./Past_data/glimmondb.sqlite3_<time stamp>  ---- the past sql database
+
+
+clean_table.py
+--------------
+This script cleans up the ./op_limits.db so that the data are ordered in time, no duplicates,
+and tab delimited.
+input:
+    ./op_limit_new
+output:
+    ./op_limits.db    --- updated mta limit database locally saved
+    /data/mta4/MTA/data/op_limits/op_limits.db  ---- the database to be actually used
+    email --- if there are some problems, email is sent out to  the admin perosn
+
+validate_op_limits.py
+---------------------
+When you want to valicate the current data, run this one. If there are any problem, 
+op_limit_problems will be created and report the problems.
+input: ./op_limits.db   --- current op_limits.db
+        Past_data/op_limits.db_080119   --- current most clean data set
+                                            this may change in the future
+output: ./op_limit_problems
+
+
+++++++++++++++++++++
+Environment setting
+++++++++++++++++++++
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
++++++++
+Others
++++++++
+Past_data:  hold the past op_limits.db and  glimmondb.sqlite3
+
+/data/mta4/MTA/data/op_limits/op_limits.db: the real op_limits.db depository
+
+
+++++++++
+Cron Job
+++++++++
+on boba-v as mta
+
+35 4 1 * * cd /data/mta/Script/MSID_limit; /data/mta/Script/MSID_limit/Scripts/compare_database_wrap_script > $HOME/Logs/op_limit_updates.cron 2>&1
+

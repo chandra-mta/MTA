@@ -1,0 +1,8 @@
+cd /data/mta/Script/ACIS/Rej_events/Scripts
+
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages/"
+
+
+/data/mta/Script/ACIS/Rej_events/Scripts/update_rejected_event_data.py
+/data/mta/Script/ACIS/Rej_events/Scripts/plot_rejected_event_data.py
+

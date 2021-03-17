@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solar Pannel Trending</title>
+
+    <script type="text/javascript">
+        function WindowOpener(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=550,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Envelope Trending </title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./Plots/" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=400, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+    </script>
+</head>
+
+<body style="background-color:#FAEBD7; font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>Solar Panel/Electric Power/Fine Sensor with Solar Angle</h2>
+
+<h3>Solar Panel Temperature and Solar Angle</h3>
+
+<p>
+To understand whether the temperatures of the solar panels change as time passes, we plotted -Y SADA 
+temperature, +Y SADA temperature, -Y solar panel temperature, and +Y solar panel temperature against 
+mission time. The data are divided into a 20 degree intervals of the solar pitch angle starting at 40 
+degrees (minimum pitch is a little greater than 46) to search for any dependencies of these quantities 
+on the solar angle, and then each data group is plotted against the time in years.
+</p>
+
+<p>
+The red lines indicate top and bottom envelopes, and an average of the data. For SADA data, all lines 
+are estimated by a 4th degree polynomial fits to a 1 day moving box. The top envelope is the polynomial 
+fits for the maximum values of each 1 day period, the bottom envelope is that of the minimum, and 
+the middle line is that of the average. 
+</p>
+
+<p>
+The shaded area is the MTA safe operation range. 
+</p>
+
+
+<iframe src='./solar_temperature.html'style='width:95%;height:540px;'></iframe>
+
+
+<p>
+Note that the solar panel temperature drops to 304K semi-regularly every 6 months or so (some cases 
+3 months, and in other cases, 1 year) for a very short time (up to 2 hrs). This occurs during the 
+Earth eclipse seasons when the tempearature is expected to go down. One example is plotted on the following
+plot. The green vertial lines indicate the timing of the eclipes. 
+</p>
+
+
+<div style='text-align:center'>
+<img src='./Plots/eclipse.gif' width=55%'>
+</div>
+
+
+
+<h3>Fine Sensor Temperature and Solar Angle</h3>
+
+<p>
+Fine sensor temperatures are the other quantities may behave differently with different solar angles. 
+The plot below shows the plots for the fine sensor temperature. As before, all red lines are computed 
+by the polynomial fits method and the shaded area is the operational range. 
+</p>
+
+<iframe src='./sensor_temperature.html'style='width:95%;height:420px;'></iframe>
+
+
+
+
+<h3>Spacecraft Electric Power and Solar Angle</h3>
+
+<p>
+Similar plots are made for spacecraft bus current/voltage (ELBI/ELBV), and electric power (HRMA power/OBA 
+power). The currents is in Amp., voltage is Volts, and the power is in Watts. Figure 3 shows the plots 
+of these quantities of the solar angle interval between 80 and 100. As before, the red lines are the 
+envelopes and the averages obtained by the polynomial fits.
+</p>
+
+<iframe src='./solar_electric.html'style='width:95%;height:540px;'></iframe>
+
+
+<h3>ELBI and SADA Temperature</h3>
+
+<p>
+Spacecraft electric powers are obiviously related to the solar panel efficiency, and hence the temperature 
+of the solar panels. The plot below shows the spacecraft bus current agaist +Y SASA temperature. 
+</p>
+
+<div style='text-align:center;'>
+<img src='Plots/sada_elbi.png' width=55%>
+</div>
+
+
+
+
+
+
+<hr />
+<p>
+If you have any questions about this page, please contact <a href='tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>.
+</p>
+<p>
+<i> Last update Jul 06, 2018 </i>
+</p>

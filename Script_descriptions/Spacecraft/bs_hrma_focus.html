@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRMA Focus</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRMA Focus</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Updating HRMA Focus page: https://cxc.cfa.harvard.edu/mta_days/mta_src/
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<table border=0>
+<tr><th>Location:</th>      <td>/data/mta4/www/DAILY/mta_src/Scripts/</td></tr>
+<tr><th>&#160;   </th>      <td>/data/mta4/git/mta_src/Detect/ (this is not currently used)</td></tr>
+</table>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/HRMA_focus.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td><b>/data/mta4/www/DAILY/mta_src/Scripts/</b><td>&#160;</td></tr>
+<tr><td>hrma_focus.py</td>          <td>Apr 26, 2016</td></tr>
+<tr><td>run.pro</td>                <td>Mar 04, 2016</td></tr>
+<tr><td>src_mon.pro</td>            <td>Apr 26, 2016</td></tr>
+<tr><td>run_txt.pro</td>            <td>Nov 24, 2015</td></tr>
+<tr><td>src_mon_txt.pro</td>        <td>Mar 27, 2013</td></tr>
+<tr><td>do_plots.pro</td>           <td>Dec 05, 2003</td></tr>
+<tr><td>filelen.pro</td>            <td>Feb 05, 2001</td></tr>
+<tr><td>psf_time_anal.pro</td>      <td>Nov 23, 2015 (pointed to psf_time_anal1.0.pro)</td></tr>
+<tr><td>sdom.pro</td>               <td>Feb 06, 2001</td></tr>
+<tr><td>arctan.pro</td>             <td>Feb 12, 2001</td></tr>
+<tr><td><b>/data/mta4/git/mta_src/Detect/</b><td>&#160;</td></tr>
+<tr><td>mkcommand.py                <td>Sep 20, 2012</td></tr>
+<tr><td>wavdetect_list</td>         <td>Sep 17, 2012</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta4/www/DAILY/mta_src/Scripts/README for more details.
+</p>
+<table border = 0>
+<tr><th>Sep 10, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 28, 2014</th><td>Description updated</td></tr>
+<tr><th>Nov 23, 2015</th><td>Converted to run as cron job on r2d2-v</td></tr>
+<tr><th>Mar 04, 2016</th><td>a bug related file name fixed</td></tr>
+<tr><th>Mar 28, 2016</th><td>idl location specified (hrma_focus.py)</td></tr>
+<tr><th>Apr 26, 2016</th><td>skipping grating observations(hrma_focus.py)</td></tr>
+<tr><th>Apr 26, 2016</th><td>igore small # obs (src_mon.pro)</td></tr>
+
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> /data/mta4/www/DAILY/mta_src/Scripts/house_keeping/src_mon.txt </li>
+<li> acisf*evt2.fits from archive</li>
+<li> hrcf*evt2.fits from archive</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+    <li>/proj/sot/ska/bin/python</li>
+    <li>ascds (to run arc4gl, celldetect)</li>
+</ul>
+
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/www/DAILY/mta_src/
+    <ul>
+    <li> src_mon.txt</li>
+    <li> index.html </li>
+    <li>tot_all_psf_time.html</li>
+    <li>ACIS-I_psf_time.html</li>
+    <li>as_all_psf_time.html</li>
+    <li>hi_all_psf_time.html</li>
+    <li>hs_all_psf_time.html</li>
+    <li>tot*.gif</li>
+    <li>ACIS-I*.gif</li>
+    <li>ai_*.gif</li>
+    <li>as_*.gif</li>
+    <li>hi_*.gif</li>
+    <li>hs_*.gif</li>
+    </ul>
+
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+    <li> go to: cd /data/mta4/git/mta_src/Exc/ </li>
+    <li> run: /data/mta4/www/DAILY/mta_src/Scripts/hrma_focus.py
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+There is no test for this set of scripts.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+2 19 * * 6  cd /data/mta4/www/DAILY/mta_src/Exc; /data/mta4/www/DAILY/mta_src/Scripts/hrma_focus.py >> $HOME/Logs/hrma_focus.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_src/index.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_src/
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+
+<div style='padding-bottom:10px'>
+</div>
+<hr />
+
+<!--
+<h3 id="col_name">Columns in Table</h3>
+
+<h4> Data Column Entries</h4>
+
+<table style='border-width:0px;margin-left:20px'> 
+
+<tr><td>Warm Pixel:</td><td style="text-align:left"> a list of warm pixels currently observed</td></tr>
+<tr><td>Flickering:</td><td style="text-align:left"> any warm pixels which were on and off 3 times or more in the last 3 months</td></tr>
+<tr><td>Past Warm Pixels:</td><td style="text-align:left"> a list of all pixels appeared as warm pixels in past</td></tr>
+
+<tr><td>Hot Pixel:</td><td style="text-align:left"> a list of hot pixels currently observed</td></tr>
+<tr><td>Flickering:</td><td style="text-align:left"> any hot pixels which were on and off 3 times or more in the last 3 months</td></tr>
+<tr><td>Past Hot Pixels:</td><td style="text-align:left"> a list of all pixels appeared as hot pixels in past</td></tr>
+
+<tr><td>Warm Column:</td><td style="text-align:left"> a list of warm columns currently observed</td></tr>
+<tr><td>Flickering:</td><td style="text-align:left"> any warm columns which were on and off 3 times or more in the last 3 months</td></tr>
+<tr><td>Past Warm Columns:</td><td style="text-align:left"> a list of all columns appeared as warm columns in past</td></tr>
+</table>
+
+-->
+
+
+
+
+
+<h3 style='padding-bottom:20px;>A bad pixel was selected as follows:</h3>
+
+<ul style="font:yellow;font-size:90%">
+<li> acis*bias0.fits in a given period were obtained.</li>
+<li> Compute an average of ADU for each CCD.</li>
+<li> Compare the value of each pixel to the CCD average, if a pixel value
+was 5 sigma higher than the average, a local average (32x32) was computed.</li>
+<li>If the pixel value was still 5 sigma higher than the local average,
+it was marked as a possible candidate for a warm pixel.</li>
+<li> If a "warm" pixel candidate  shows up <b style='color:red'>more than 70%</b> of the time in the last two weeks, 
+the pixel is listed as <b style='color:red'>a warm pixel</b>.</li>
+<li> If a "warm" pixel candidate shows up <b style='color:red'>more than 30% but less than 70%</b> of the time in the last two weeks,
+the pixel is listed as <b style='color:red'>a flickering pixel</b>.</li>
+<li> If the pixels which appeared in "current warm pixels" list, even once in the past
+ the pixels are parmanently listed in "Past Warm Pixels" list.</li>
+<li> Hot pixels are defined as warm pixels with an adu value of greater than
+ the CCD average +1000.</li>
+<li> If the pixel was located at the edge of the CCD (y = 1023, 1024), it is ignored and not
+ included on either the list.</li>
+<li>For a hot pixel, a process was same, except a threshold was 
+a ccd  average plus 1000 counts.</li>
+</ul>
+
+
+
+<h3 style='padding-bottom:20px;'>A bad column was selected as follows:</h3>
+
+<ul style="font:yellow;font-size:90%"><li> each column was averaged out, and compared to an average for an entire ccd.</li>
+<li> If the average of the column was 5 sigma  higher than the average of the ccd
+compare the column average to a local average (10 columns).</li>
+<li> If the column was still 5 sigma higher than the local average, mark it as
+a bad column candidate.</li>
+<li> If a "warm" column candidate  shows up more than 70% of the time in the last two weeks, it is listed as a warm columns.</li>
+<li> If a "warm" column candidate shows up more than 30% but less than 70% of the time in the last two weeks, it is listed as a flickering columns.</li>
+</ul>
+
+
+
+
+<hr /> 
+
+<p style='margin-top:5px'> 
+If you have any quesitons about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>. 
+</p> 
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title><span style='color:red'>Monitoring ACE Proton Flux *</span></title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Monitoring ACE Proton Flux</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This directory contains a couple of perl scripts to monitor the ACE satellite
+proton fluxes for Chandra operations, plus the associated data files.
+The data are downloaded from <a href='ftp://ftp.swpc.noaa.gov/pub/lists/'>NOAA ftp site</a>.
+This is a part of 
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_related.html'>
+TST related collections of scripts
+</a>.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/proj/rac/ops/ACE/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/TST_ACE
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>     <th>Last Updated</th></tr>
+<tr><td>get_kp.pl</td>       <td>Nov 04, 2015</td></tr>
+<tr><td>fmon.pl</td>         <td>Oct 07, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta4/proj/rac/ops/README and /data/mta4/proj/rac/ops/ACE/README file for more details.
+</p>
+
+<table border = 0>
+<tr><th>Jul 21, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to Github</td></tr>
+<tr><th>Oct 07, 2015</th><td>fmon data source modified</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> ftp://ftp.swpc.noaa.gov/pub/lists/ace/ace_epam_5m.txt </li>
+<li> ftp://ftp.swpc.noaa.gov/pub/lists/wingkp/wingkp_list.txt </li>
+<li> /data/mta4/proj/rac/ops/ephem/gephem.dat </li>
+<li> /data/mta4/proj/rac/ops/ACE/fluace.dat (from the previous round) </li>
+<li>/data/mta4/proj/rac/ops/ACE/ace.archive (from the previous round) </li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/proj/rac/ops/ACE/
+    <ul>
+    <li> kp.dat </li>
+    <li> fluace.dat </li>
+    <li> fluace.dat.good </li>
+    <li> fluace.arc </li>
+    <li> ace.archive </li>
+    <li> falert.dat </li>
+    </ul>
+</li>
+</ul>
+
+<p>
+<b>Note</b>: fluace.arc is no longer updated. (last entry 2012 7 31)
+</p>
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta4/proj/rac/ops/ACE/
+</li>
+<li>
+run: get_kp.pl
+</li>
+<li>
+run: fmon.pl
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+no test is available for this set of scripts
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+9,24,39,54 * * * *                        /data/mta4/proj/rac/ops/ACE/get_kp.pl<br />
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /data/mta4/proj/rac/ops/ACE/fmon.pl<br />
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web pages
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

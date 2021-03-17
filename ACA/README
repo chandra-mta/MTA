@@ -1,0 +1,172 @@
+##################
+ACA/Slot Trendings
+##################
+
+Scripts
+=======
+
+aca_wrap_script
+aca_main_script     --- setting the environment and run all python scripts
+
+process_data_for_the_month.py
+------------------------------
+Extract and process aca data for the given year/month
+
+This script runs run_flt_pipe process under ASCDS environment and extrct the data needed
+for the further processes.
+
+input: none
+output: <data_dir>/Fits_save>/<MMM><yy>/*.fits.gz
+         example:
+            pcadf702051833N001_diff_mtafit.fits.gz
+            pcadf702051833N001_diff_mtatr.fits.gz
+            pcadf702051833N001_fid_gsst.fits.gz
+            pcadf702051833N001_fidst.fits.gz
+            pcadf702051833N001_guide_gsst.fits.gz
+            pcadf702051833N001_mag_i_avg_mtafit.fits.gz
+            pcadf702051833N001_mag_i_avg_mtatr.fits.gz
+            pcadf702051833N001_monitor_gsst.fits.gz
+            pcadf702051833N001_pos_err_mtafit.fits.gz
+            pcadf702051833N001_pos_err_mtatr.fits.gz
+            pcadf702051834N001_acacent_mtafit.fits.gz
+            pcadf702051834N001_acacent_mtatr.fits.gz
+            
+        <data_dir>/mag_i_avg_<#>        #--- full magnitude dataset
+        <data_dir>/acis_<#>             #--- monthly average magnitude data set
+        <data_dir>/hrc_i_<#>                 these give avg, min, max, data qualities
+        <data_dir>/hrc_s_<#>                 of each month
+        <web_dir>/<MMM><yy>/ANGYNEA_*.png
+                           /ANGZNEA_*.png
+                           /DIFF_*.png
+                           /POS_ERR_*.png
+                           /MAG_I_AVG_*.png
+                #--- these plots are created by flt_run_pipe process
+
+update_monitor_data.py
+----------------------
+Update ACA slot related data files
+
+input:  <data_dir>/Fits_save>/<MMM><yy>/<head>_diff_mtatr.fits.gz
+        <data_dir>/Fits_save>/<MMM><yy>/<head>_pos_err_mtatr.fits.gz
+        <data_dir>/Fits_save>/<MMM><yy>/<head>_acacent_mtatr.fits.gz
+
+output: <data_dir>/diff_mtatr           ---- list delta magnitudes of all slots
+        <data_dir>/pos_err_mtatr        ---- list positional errors of all slots
+        <data_dir>/acacent_mtatr        ---- list angynea and anyznea of all slots
+
+update_monthly_averaged_slot_dataset.py
+---------------------------------------
+Update monthly averaged slot data files
+
+intput: <data_dir>/diff_mtatr   
+        <data_dir>/pos_err_mtatr 
+        <data_dir>/acacent_mtatr 
+
+outtput:<data_dir>/diff_mtatr_month   
+        <data_dir>/pos_err_mtatr_month
+        <data_dir>/acacent_mtatr_month
+
+update_stat_table.py
+--------------------
+Update magnitude related stat table data files
+
+input:  <data_dir>/acis_<#>
+        <data_dir>/hrc_i_<#>
+        <data_dir>/hrc_s_<#>
+
+output: <data_dir>/monthly_mag_stats   --- monthly stats
+        <data_dir>/yearly_mag_stats    --- yearly stats
+        <data_dir>/recent_mag_stats    --- most recent one year
+        <data_dir>/full_mag_stats      --- entire period
+            the data listed in each files are slope and std of the data of each period
+
+update_slot_stat_table.py
+-------------------------
+Update slotrelated stat table data files
+
+intput: <data_dir>/diff_mtatr   
+        <data_dir>/pos_err_mtatr 
+        <data)dir>/acacent_mtatr 
+
+output: <data_dir>/<name>_year_slope    --- yearly stats
+        <data_dir>/<name>_recent_slope  --- most recent one year
+        <data_dir>/<name>_full_slope    --- entire period
+
+create_aca_long_term_mag_plot.py
+--------------------------------
+Create long term aca magnitude trend plots
+
+input:  <data_dir>/mag_i_avg_<#>
+        <data_dir>/acis_<#>
+        <data_dir>/hrc_i_<#>
+        <data_dir>/hrc_s_<#>
+
+output: <web_dir>/Plots/mag_i_avg_<#>_recent_1yr.png
+        <web_dir>/Plots/<inst>_<#>_full.png
+        <web_dir>/Plots/<year>/mag_i_avg_<#>.png
+        <web_dir>/<MMM><yy>/Plots/MAG_I_AVG_<#>.png
+
+create_aca_long_term_slot_plot.py
+---------------------------------
+Create long term aca slot trend plots
+
+
+intput: <data_dir>/diff_mtatr   
+        <data_dir>/pos_err_mtatr 
+        <data_dir>/acacent_mtatr 
+        <data_dir>/diff_mtatr_month   
+        <data_dir>/pos_err_mtatr_month
+        <data_dir>/acacent_mtatr_month
+
+output: <web_dir>/Plots/<slot name>_<#>_full.png
+        <web_dir>/Plots/<slot name>_<#>_recent_1yr.png
+        <web_dir>/Plots/<year>/<slot name>_<#>.png
+
+
+update_aca_html_pages.py
+------------------------
+
+Update all html files
+
+input:  <exc_dir>/Temp_comp_artea/acatrd.html   --- an old monthly html page
+        <data_dir>/Fits_save>/<MMM><yy>/<head>_guide_gsst.fits.gz
+        <data_dir>/Fits_save>/<MMM><yy>/<head>_fid_gsst.fits.gz
+        <data_dir>/Fits_save>/<MMM><yy>/<head>_monitor_gsst.fits.gz
+
+
+output: <web_dir>/<MMM><yy>/acatrd.html
+        <web_dir>/aca_trend_year<yyyy>.html
+        <web_dir>/index.html
+
+
+Directory:
+==========
+'/data/mta/Script/ACA/Scripts/'                 : bin_dir
+'/data/mta/Script/ACA/Scripts/house_keeping/'   : house_keeping
+'/data/mta/Script/ACA/Data/'                    : data_dir
+'/data/mta/Script/ACA/Exc/'                     : exc_dir
+'/data/mta/Script/Python3.8/MTA/'               : mta_dir
+'/data/mta4/www/DAILY/mta_pcad/ACA/'            : web_dir
+
+Html Directory Structure
+========================
+
+<web_dir>/index.html                --- top page
+<web_dir>/aca_tred_year<yyyy>.html  --- yearly page
+
+<web_dir>/Plots                     --- keeps plots for top pages
+<web_dir>/Plots/<year>              --- keeps plots for yearly pages
+
+<web_dir>/<MMM><yy>/acatrd.html     --- monthly html page
+<web_dir>/<MMM><yy>/Plots           --- keeps plots for the monthly page
+
+
+web site
+--------
+https://cxc.cfa.harvard.edu/mta_days/mta_pcad/ACA/index.html
+
+cron job
+--------
+c3po-v as mta:
+
+18 02 3,8,13,18,23,28 * * cd  /data/mta/Script/ACA/Exc; /data/mta/Script/ACA/Scripts/aca_wrap_script > $HOME/Logs/aca.cron 2>&1

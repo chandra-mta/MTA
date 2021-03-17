@@ -1,0 +1,119 @@
+##############################################################################
+####               ACIS CTI Monitoring and Trending                       ####
+##############################################################################
+
+This directory contains a set of python scripts which extract cti data, estimate
+trends, and plots the trends.
+
+--------------------------
+Entivonmental Requirements
+--------------------------
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+
+While running the scripts, they create "Working_dir" and "Temp_comp_area" under
+"Exc" directoy where all proccess is done. See directory setting below.
+
+-----------
+Directories
+-----------
+
+'/data/mta/Script/ACIS/CTI/Scripts/'        : bin_dir       ---- where all scripts are kept
+'/data/mta/MTA/data/'                       : bin_data      ---- some information are kept here
+'/data/mta_www/mta_cti/'                    : web_dir       ---- the location of output/web directory
+'/data/mta/Script/ACIS/CTI/Data/'           : data_dir      ---- all computed results are kept here
+'/data/mta/Script/ACIS/CTI/house_keeping/'  : house_keeping ---- house keeping related files holder
+'/data/mta/Script/ACIS/CTI/Exc/'            : exc_dir       ---- all processes will be run in this directory
+'/data/mta/Script/Python3.8/MTA/'           : mta_dir       ---- python function depository
+
+-------
+Scripts
+-------
+
+acis_cti_wrap_script:   env setting script calls acis_cti_main_script
+acis_cti_main_script:   controlling script. this runs python scripts to extract data
+acis_cti_wrap_script2:  env setting script calls acis_cti_main_script2
+acis_cti_main_script2:  controlling script. this runs python scripts to plot data
+            --- plotting takes time as there are quite many plots to make.
+                cron job runs only once a week.
+
+acis_cti_get_data.py: 
+---------------------
+    extracts acis evt1 files which are not yet  processed as CTI observations
+        Input:  data are read from  /data/mta/www/mp_reports/photons/acis/cti/*
+        Output: <working_dir>/acisf<obsid>*evt1.fits
+
+        This script uses ascds system function "arc5gl" which is done through ska.shell setting
+
+create_cti_data_table.py:
+-------------------------
+    extracts CTI values from acis evt1 fits files and creates CTI data tables
+        Input:  acis evt1 fits files in <Working_dir>
+        Output: udates <elm>_ccd<ccd#> table (e.g. mn_ccd3) in <data_dir>/Results/
+
+        This script uses ascds system function "flt_run_pipe" which is done through ska.shell setting
+        
+clean_table.py:
+---------------
+    sort and cleaned data tables in <data_dir>/Results
+        Input:  <data_dir>/Results/<elm>_ccd<ccd#>
+        Output: cleaned up <data_dir>/Results/<elm>_ccd<ccd#>
+            <data_dir>/Results/Save_mmddyy  
+                    ---- backup directory which keeps the data tables before cleaning
+                         this directory is created every time clean_table.py is run
+
+cti_detrend_factor.py:
+----------------------
+    update detrend factor table, then update detrend data table
+        Input:  acis lev 1 exposure stat fits files 
+                <data_dir>/Results/<elm>_ccd<ccd#>
+        Output: <house_keeping>/amp_avg_list
+                <data_dir>/Det_Results/<elm>_ccd<ccd#>
+
+        This script uses ascds system function "arc5gl" which is done through ska.shell setting
+
+create_adjusted_cti_tables.py:
+------------------------------
+    create adjusted cti data and print out the results
+        Input:  <data_dir>/Results/<elm>_ccd<ccd#>
+        Output: adjusted cti tables in the following directories (saved under <data_dir>):
+
+            Data2000:               tables in this directory lists cti observations longer than 2,000 secs
+            Data119:                tables in this directory lists cti observations with the focal temp < -119.7C
+            Data7000:               tables in this directory lists cti observations with the focal temp < -119.7C and observation time > 7,000sec
+            Data_adjust:            tables in this directory lists temperature dependecy adjusted cti with observation time > 2,000 sec
+            Data_cat_adjust:        similar to above but using MIT provided values
+
+            Det_Data2000:           detrended version of Data2000
+            Det_Data119:            detrended version of Data119
+            Det_Data7000:           detrended version of Data7000
+            Det_Data_adjust:        detrended version of Data_adjust
+            Det_Data_cat_adjust:    detrended version of Data_cat_adjust
+
+acis_cti_plot_two_section.py
+-----------------------------
+    create trending plots for all data with two trending lines separated at a given date
+    Input:  data table under <data_dir>
+    Output: plots in <web_dir>/*Plots* and <web_dir>/Det_Plots*
+            <web_dir>/*Plots*/fitting_result
+            this script also updates the web page (just update date)
+
+acis_cti_plot.py:   --- retired and replaced by above
+-----------------
+    create trending plots for all data
+    Input:  data table under <data_dir>
+    Output: plots in <web_dir>/*Plots* and <web_dir>/Det_Plots*
+            <web_dir>/*Plots*/fitting_result
+            this script also updates the web page (just update date)
+
+    this script uses pylab to creates plots which is available under /proj/sot/ska/bin/python
+
+--------
+Cron Job
+--------
+mta on c3po-v
+
+35 2  * * *  cd /data/mta/Script/ACIS/CTI/Exc;/data/mta/Script/ACIS/CTI/Scripts/acis_cti_wrap_script >>  $HOME/Logs/acis_cti.cron 2>&1
+35 3  * * 7  cd /data/mta/Script/ACIS/CTI/Exc;/data/mta/Script/ACIS/CTI/Scripts/acis_cti_wrap_script2 >> $HOME/Logs/acis_cti.cron 2>&1
+

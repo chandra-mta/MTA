@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/ACIS/Rej_events/Scripts/rejected_evnt_main_script

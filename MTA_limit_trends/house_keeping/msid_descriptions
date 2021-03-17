@@ -1,0 +1,3033 @@
+1DAHACU		#	Aciseleca	#	AMP	#	DA HEATER CURRENT A
+1DAHACU		#	Aciseleca	#	AMP	#	DA HEATER CURRENT A
+1DAHACU		#	Aciseleca	#	AMP	#	DA HEATER CURRENT A
+1DAHACU		#	Aciseleca	#	AMP	#	DA HEATER CURRENT A
+1DAHACU		#	Aciseleca	#	AMP	#	DA HEATER CURRENT A
+1DAHAVO		#	Aciseleca	#	V	#	DETECTOR ASSY. HTR
+1DAHAVO		#	Aciseleca	#	V	#	DETECTOR ASSY. HTR
+1DAHAVO		#	Aciseleca	#	V	#	DETECTOR ASSY. HTR
+1DAHAVO		#	Aciseleca	#	V	#	DETECTOR ASSY. HTR
+1DAHAVO		#	Aciseleca	#	V	#	DETECTOR ASSY. HTR
+1DAHHAVO	#	Aciseleca	#	V	#	DA HOUSING HTR +28V INPUT A
+1DAHHAVO	#	Aciseleca	#	V	#	DA HOUSING HTR +28V INPUT A
+1DAHHAVO	#	Aciseleca	#	V	#	DA HOUSING HTR +28V INPUT A
+1DAHHAVO	#	Aciseleca	#	V	#	DA HOUSING HTR +28V INPUT A
+1DAHHAVO	#	Aciseleca	#	V	#	DA HOUSING HTR +28V INPUT A
+1DE28AVO	#	Aciseleca	#	V	#	DEA +28V INPUT A
+1DE28AVO	#	Aciseleca	#	V	#	DEA +28V INPUT A
+1DE28AVO	#	Aciseleca	#	V	#	DEA +28V INPUT A
+1DE28AVO	#	Aciseleca	#	V	#	DEA +28V INPUT A
+1DE28AVO	#	Aciseleca	#	V	#	DEA +28V INPUT A
+1DEICACU	#	Aciseleca	#	AMP	#	DEA INPUT CURRENT A
+1DEICACU	#	Aciseleca	#	AMP	#	DEA INPUT CURRENT A
+1DEICACU	#	Aciseleca	#	AMP	#	DEA INPUT CURRENT A
+1DEICACU	#	Aciseleca	#	AMP	#	DEA INPUT CURRENT A
+1DEN0AVO	#	Aciseleca	#	V	#	DEA -6V VOLTAGE A
+1DEN0AVO	#	Aciseleca	#	V	#	DEA -6V VOLTAGE A
+1DEN0AVO	#	Aciseleca	#	V	#	DEA -6V VOLTAGE A
+1DEN0AVO	#	Aciseleca	#	V	#	DEA -6V VOLTAGE A
+1DEN1AVO	#	Aciseleca	#	V	#	DEA -15V VOLTAGE A
+1DEN1AVO	#	Aciseleca	#	V	#	DEA -15V VOLTAGE A
+1DEN1AVO	#	Aciseleca	#	V	#	DEA -15V VOLTAGE A
+1DEN1AVO	#	Aciseleca	#	V	#	DEA -15V VOLTAGE A
+1DEP0AVO	#	Aciseleca	#	V	#	DEA +6V VOLTAGE A
+1DEP0AVO	#	Aciseleca	#	V	#	DEA +6V VOLTAGE A
+1DEP0AVO	#	Aciseleca	#	V	#	DEA +6V VOLTAGE A
+1DEP0AVO	#	Aciseleca	#	V	#	DEA +6V VOLTAGE A
+1DEP1AVO	#	Aciseleca	#	V	#	DEA +15V ANALOG A
+1DEP1AVO	#	Aciseleca	#	V	#	DEA +15V ANALOG A
+1DEP1AVO	#	Aciseleca	#	V	#	DEA +15V ANALOG A
+1DEP1AVO	#	Aciseleca	#	V	#	DEA +15V ANALOG A
+1DEP1AVO	#	Aciseleca	#	V	#	DEA +15V ANALOG A
+1DEP2AVO	#	Aciseleca	#	V	#	DEA +24V ANALOG A
+1DEP2AVO	#	Aciseleca	#	V	#	DEA +24V ANALOG A
+1DEP2AVO	#	Aciseleca	#	V	#	DEA +24V ANALOG A
+1DEP2AVO	#	Aciseleca	#	V	#	DEA +24V ANALOG A
+1DEP2AVO	#	Aciseleca	#	V	#	DEA +24V ANALOG A
+1DEP3AVO	#	Aciseleca	#	V	#	DEA +28V ANALOG A
+1DEP3AVO	#	Aciseleca	#	V	#	DEA +28V ANALOG A
+1DEP3AVO	#	Aciseleca	#	V	#	DEA +28V ANALOG A
+1DEP3AVO	#	Aciseleca	#	V	#	DEA +28V ANALOG A
+1DP28AVO	#	Aciseleca	#	V	#	DPA +28V INPUT A
+1DP28AVO	#	Aciseleca	#	V	#	DPA +28V INPUT A
+1DP28AVO	#	Aciseleca	#	V	#	DPA +28V INPUT A
+1DP28AVO	#	Aciseleca	#	V	#	DPA +28V INPUT A
+1DP28AVO	#	Aciseleca	#	V	#	DPA +28V INPUT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPICACU	#	Aciseleca	#	AMP	#	DPA INPUT CURRENT A
+1DPP0AVO	#	Aciseleca	#	V	#	DPA +5V ANALOG A
+1DPP0AVO	#	Aciseleca	#	V	#	DPA +5V ANALOG A
+1DPP0AVO	#	Aciseleca	#	V	#	DPA +5V ANALOG A
+1DPP0AVO	#	Aciseleca	#	V	#	DPA +5V ANALOG A
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBCU		#	Aciselecb	#	AMP	#	DA HEATER CURRENT B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHBVO		#	Aciselecb	#	V	#	DA HEATER VOLTAGE B
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DAHHBVO	#	Aciselecb	#	V	#	DA HOUSING HEATER INPUT
+1DE28BVO	#	Aciselecb	#	V	#	DEA +28V INPUT B
+1DE28BVO	#	Aciselecb	#	V	#	DEA +28V INPUT B
+1DE28BVO	#	Aciselecb	#	V	#	DEA +28V INPUT B
+1DE28BVO	#	Aciselecb	#	V	#	DEA +28V INPUT B
+1DE28BVO	#	Aciselecb	#	V	#	DEA +28V INPUT B
+1DEICBCU	#	Aciselecb	#	AMP	#	DEA INPUT CURRENT B
+1DEICBCU	#	Aciselecb	#	AMP	#	DEA INPUT CURRENT B
+1DEICBCU	#	Aciselecb	#	AMP	#	DEA INPUT CURRENT B
+1DEICBCU	#	Aciselecb	#	AMP	#	DEA INPUT CURRENT B
+1DEN0BVO	#	Aciselecb	#	V	#	DEA -6V VOLTAGE B
+1DEN0BVO	#	Aciselecb	#	V	#	DEA -6V VOLTAGE B
+1DEN0BVO	#	Aciselecb	#	V	#	DEA -6V VOLTAGE B
+1DEN0BVO	#	Aciselecb	#	V	#	DEA -6V VOLTAGE B
+1DEN0BVO	#	Aciselecb	#	V	#	DEA -6V VOLTAGE B
+1DEN1BVO	#	Aciselecb	#	V	#	DEA -15V VOLTAGE B
+1DEN1BVO	#	Aciselecb	#	V	#	DEA -15V VOLTAGE B
+1DEN1BVO	#	Aciselecb	#	V	#	DEA -15V VOLTAGE B
+1DEN1BVO	#	Aciselecb	#	V	#	DEA -15V VOLTAGE B
+1DEN1BVO	#	Aciselecb	#	V	#	DEA -15V VOLTAGE B
+1DEP0BVO	#	Aciselecb	#	V	#	DEA +6V VOLTAGE B
+1DEP0BVO	#	Aciselecb	#	V	#	DEA +6V VOLTAGE B
+1DEP0BVO	#	Aciselecb	#	V	#	DEA +6V VOLTAGE B
+1DEP0BVO	#	Aciselecb	#	V	#	DEA +6V VOLTAGE B
+1DEP0BVO	#	Aciselecb	#	V	#	DEA +6V VOLTAGE B
+1DEP1BVO	#	Aciselecb	#	V	#	DEA +15V ANALOG B
+1DEP1BVO	#	Aciselecb	#	V	#	DEA +15V ANALOG B
+1DEP1BVO	#	Aciselecb	#	V	#	DEA +15V ANALOG B
+1DEP1BVO	#	Aciselecb	#	V	#	DEA +15V ANALOG B
+1DEP1BVO	#	Aciselecb	#	V	#	DEA +15V ANALOG B
+1DEP2BVO	#	Aciselecb	#	V	#	DEA +24V ANALOG B
+1DEP2BVO	#	Aciselecb	#	V	#	DEA +24V ANALOG B
+1DEP2BVO	#	Aciselecb	#	V	#	DEA +24V ANALOG B
+1DEP2BVO	#	Aciselecb	#	V	#	DEA +24V ANALOG B
+1DEP2BVO	#	Aciselecb	#	V	#	DEA +24V ANALOG B
+1DEP3BVO	#	Aciselecb	#	V	#	DEA +28V ANALOG B
+1DEP3BVO	#	Aciselecb	#	V	#	DEA +28V ANALOG B
+1DEP3BVO	#	Aciselecb	#	V	#	DEA +28V ANALOG B
+1DEP3BVO	#	Aciselecb	#	V	#	DEA +28V ANALOG B
+1DEP3BVO	#	Aciselecb	#	V	#	DEA +28V ANALOG B
+1DP28BVO	#	Aciselecb	#	V	#	DPA +28V INPUT B
+1DP28BVO	#	Aciselecb	#	V	#	DPA +28V INPUT B
+1DP28BVO	#	Aciselecb	#	V	#	DPA +28V INPUT B
+1DP28BVO	#	Aciselecb	#	V	#	DPA +28V INPUT B
+1DP28BVO	#	Aciselecb	#	V	#	DPA +28V INPUT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPICBCU	#	Aciselecb	#	AMP	#	DPA INPUT CURRENT B
+1DPP0BVO	#	Aciselecb	#	V	#	DPA +5V ANALOG B
+1DPP0BVO	#	Aciselecb	#	V	#	DPA +5V ANALOG B
+1DPP0BVO	#	Aciselecb	#	V	#	DPA +5V ANALOG B
+1DPP0BVO	#	Aciselecb	#	V	#	DPA +5V ANALOG B
+1HOPRAPR	#	Acismech	#	Torr	#	IFFERENTIAL HOUSING PRESSURE A
+1HOPRBPR	#	Acismech	#	Torr	#	IFFERENTIAL HOUSING PRESSURE B
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBAT		#	Acistemp	#	K	#	CAMERA BODY TEMP. A
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CBBT		#	Acistemp	#	K	#	CAMERA BODY TEMP. B
+1CRAT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. A
+1CRAT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. A
+1CRAT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. A
+1CRAT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. A
+1CRAT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. A
+1CRBT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. B
+1CRBT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. B
+1CRBT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. B
+1CRBT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. B
+1CRBT		#	Acistemp	#	K	#	COLD RADIATOR TEMP. B
+1DACTBT		#	Acistemp	#	K	#	DA COLLIMATOR TEMP. B
+1DACTBT		#	Acistemp	#	K	#	DA COLLIMATOR TEMP. B
+1DACTBT		#	Acistemp	#	K	#	DA COLLIMATOR TEMP. B
+1DACTBT		#	Acistemp	#	K	#	DA COLLIMATOR TEMP. B
+1DACTBT		#	Acistemp	#	K	#	DA COLLIMATOR TEMP. B
+1DACTBT		#	Acistemp	#	K	#	DA COLLIMATOR TEMP. B
+1DEAMZT		#	Acistemp	#	K	#	DEA -Z PANEL TEMP
+1DEAMZT		#	Acistemp	#	K	#	DEA -Z PANEL TEMP
+1DEAMZT		#	Acistemp	#	K	#	DEA -Z PANEL TEMP
+1DEAMZT		#	Acistemp	#	K	#	DEA -Z PANEL TEMP
+1DPAMYT		#	Acistemp	#	K	#	DPA -Y PANEL TEMP
+1DPAMYT		#	Acistemp	#	K	#	DPA -Y PANEL TEMP
+1DPAMYT		#	Acistemp	#	K	#	DPA -Y PANEL TEMP
+1DPAMYT		#	Acistemp	#	K	#	DPA -Y PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1DPAMZT		#	Acistemp	#	K	#	DPA -Z PANEL TEMP
+1OAHAT		#	Acistemp	#	K	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHAT		#	Acistemp	#	K	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHBT		#	Acistemp	#	K	#	OPEN ACTUATOR HOUSING TEMP. B
+1OAHBT		#	Acistemp	#	K	#	OPEN ACTUATOR HOUSING TEMP. B
+1PDEAAT		#	Acistemp	#	K	#	PSMC DEA PS A TEMP
+1PDEAAT		#	Acistemp	#	K	#	PSMC DEA PS A TEMP
+1PDEAAT		#	Acistemp	#	K	#	PSMC DEA PS A TEMP
+1PDEABT		#	Acistemp	#	K	#	PSMC DEA PS B TEMP
+1PDEABT		#	Acistemp	#	K	#	PSMC DEA PS B TEMP
+1PDEABT		#	Acistemp	#	K	#	PSMC DEA PS B TEMP
+1PIN1AT		#	Acistemp	#	K	#	PSMC TEMP 1A
+1PIN1AT		#	Acistemp	#	K	#	PSMC TEMP 1A
+1PIN1AT		#	Acistemp	#	K	#	PSMC TEMP 1A
+1PIN1AT		#	Acistemp	#	K	#	PSMC TEMP 1A
+1PIN1AT		#	Acistemp	#	K	#	PSMC TEMP 1A
+1WRAT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. A
+1WRAT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. A
+1WRAT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. A
+1WRAT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. A
+1WRAT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. A
+1WRAT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. A
+1WRBT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. B
+1WRBT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. B
+1WRBT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. B
+1WRBT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. B
+1WRBT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. B
+1WRBT		#	Acistemp	#	K	#	WARM RADIATOR TEMP. B
+TB1T1		#	Batt_temp	#	K	#	BATT 1 TEMP 1
+TB1T2		#	Batt_temp	#	K	#	BATT 1 TEMP 2
+TB1T3		#	Batt_temp	#	K	#	BATT 1 TEMP 3
+TB2T1		#	Batt_temp	#	K	#	BATT 2 TEMP 1
+TB2T2		#	Batt_temp	#	K	#	BATT 2 TEMP 2
+TB2T3		#	Batt_temp	#	K	#	BATT 2 TEMP 3
+TB3T1		#	Batt_temp	#	K	#	BATT 3 TEMP 1
+TB3T2		#	Batt_temp	#	K	#	BATT 3 TEMP 2
+TB3T3		#	Batt_temp	#	K	#	BATT 3 TEMP 3
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBATC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. A
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CBBTC		#	Compaciscent	#	C	#	CAMERA BODY TEMP. B
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRATC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. A
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1CRBTC		#	Compaciscent	#	C	#	COLD RADIATOR TEMP. B
+1DACTBTC	#	Compaciscent	#	C	#	DA COLLIMATOR TEMP. B
+1DACTBTC	#	Compaciscent	#	C	#	DA COLLIMATOR TEMP. B
+1DACTBTC	#	Compaciscent	#	C	#	DA COLLIMATOR TEMP. B
+1DACTBTC	#	Compaciscent	#	C	#	DA COLLIMATOR TEMP. B
+1DACTBTC	#	Compaciscent	#	C	#	DA COLLIMATOR TEMP. B
+1DACTBTC	#	Compaciscent	#	C	#	DA COLLIMATOR TEMP. B
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DEAMZTC	#	Compaciscent	#	C	#	DEA -Z PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMYTC	#	Compaciscent	#	C	#	DPA -Y PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1DPAMZTC	#	Compaciscent	#	C	#	DPA -Z PANEL TEMP
+1MAHCATC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP A
+1MAHCATC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP A
+1MAHCATC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP A
+1MAHCATC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP A
+1MAHCATC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP A
+1MAHCATC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP A
+1MAHCBTC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP B
+1MAHCBTC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP B
+1MAHCBTC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP B
+1MAHCBTC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP B
+1MAHCBTC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP B
+1MAHCBTC	#	Compaciscent	#	C	#	DOOR CLOSE ACTUATOR TEMP B
+1MAHOATC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP A
+1MAHOATC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP A
+1MAHOATC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP A
+1MAHOATC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP A
+1MAHOATC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP A
+1MAHOATC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP A
+1MAHOBTC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP B
+1MAHOBTC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP B
+1MAHOBTC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP B
+1MAHOBTC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP B
+1MAHOBTC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP B
+1MAHOBTC	#	Compaciscent	#	C	#	DOOR OPEN ACTUATOR TEMP B
+1OAHATC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHATC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHATC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHATC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHATC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. A
+1OAHBTC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. B
+1OAHBTC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. B
+1OAHBTC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. B
+1OAHBTC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. B
+1OAHBTC		#	Compaciscent	#	C	#	OPEN ACTUATOR HOUSING TEMP. B
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEAATC	#	Compaciscent	#	C	#	PSMC DEA PS A TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PDEABTC	#	Compaciscent	#	C	#	PSMC DEA PS B TEMP
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1PIN1ATC	#	Compaciscent	#	C	#	PSMC TEMP 1A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRATC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. A
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1WRBTC		#	Compaciscent	#	C	#	WARM RADIATOR TEMP. B
+1DPPWRA		#	Compacispwr	#	W	#	DPA POWER A
+1DPPWRA		#	Compacispwr	#	W	#	DPA POWER A
+1DPPWRA		#	Compacispwr	#	W	#	DPA POWER A
+1DPPWRA		#	Compacispwr	#	W	#	DPA POWER A
+1DPPWRB		#	Compacispwr	#	W	#	DPA POWER B
+1DPPWRB		#	Compacispwr	#	W	#	DPA POWER B
+1DPPWRB		#	Compacispwr	#	W	#	DPA POWER B
+1DPPWRB		#	Compacispwr	#	W	#	DPA POWER B
+HRMAAVG		#	Compgradkodak	#	K	#	AVG OF HRMA METRICS
+HRMAAVG		#	Compgradkodak	#	K	#	AVG OF HRMA METRICS
+HRMACAV		#	Compgradkodak	#	K	#	HRMA CAVITY AVG TEMP
+HRMAXGRD	#	Compgradkodak	#	K	#	HRMA AXIAL GRAD
+HRMARADGRD	#	Compgradkodak	#	K	#	HRMA RADIAL GRAD
+OBAAVG		#	Compgradkodak	#	K	#	OBA/TFTE TEMP
+OBAAVG		#	Compgradkodak	#	K	#	OBA/TFTE TEMP
+OBAAVG		#	Compgradkodak	#	K	#	OBA/TFTE TEMP
+OBAAVG		#	Compgradkodak	#	K	#	OBA/TFTE TEMP
+OBACONEAVG	#	Compgradkodak	#	K	#	OBA CONE AVG TEMP
+OBACONEAVG	#	Compgradkodak	#	K	#	OBA CONE AVG TEMP
+OBACONEAVG	#	Compgradkodak	#	K	#	OBA CONE AVG TEMP
+OBACONEAVG	#	Compgradkodak	#	K	#	OBA CONE AVG TEMP
+OBACONEAVG	#	Compgradkodak	#	K	#	OBA CONE AVG TEMP
+OBAAXGRD	#	Compgradkodak	#	K	#	OBA AXIAL GRAD
+OBAAXGRD	#	Compgradkodak	#	K	#	OBA AXIAL GRAD
+OBADIAGRAD	#	Compgradkodak	#	K	#	OBA DIAM GRAD
+FWBLKHDT	#	Compgradkodak	#	K	#	FORWARD BULKHEAD TEMP
+AFTBLKHDT	#	Compgradkodak	#	K	#	AFT BULKHEAD TEMP
+MZOBACONE	#	Compgradkodak	#	K	#	-Z SIDE OBA CONE
+PZOBACONE	#	Compgradkodak	#	K	#	+Z SIDE OBA
+HRMARANGE	#	Compgradkodak	#	K	#	HRMA TOTAL TEMP RANGE
+HRMARANGE	#	Compgradkodak	#	K	#	HRMA TOTAL TEMP RANGE
+HRMARANGE	#	Compgradkodak	#	K	#	HRMA TOTAL TEMP RANGE
+HRMARANGE	#	Compgradkodak	#	K	#	HRMA TOTAL TEMP RANGE
+TFTERANGE	#	Compgradkodak	#	K	#	TFTE VENT/RAD TEMP
+TFTERANGE	#	Compgradkodak	#	K	#	TFTE VENT/RAD TEMP
+TFTERANGE	#	Compgradkodak	#	K	#	TFTE VENT/RAD TEMP
+TFTERANGE	#	Compgradkodak	#	K	#	TFTE VENT/RAD TEMP
+TFTERANGE	#	Compgradkodak	#	K	#	TFTE VENT/RAD TEMP
+HRMASTRUTRNGE	#	Compgradkodak	#	K	#	HRMA STRUT TEMP
+HRMASTRUTRNGE	#	Compgradkodak	#	K	#	HRMA STRUT TEMP
+SCSTRUTRNGE	#	Compgradkodak	#	K	#	SC STRUT TEMP
+SCSTRUTRNGE	#	Compgradkodak	#	K	#	SC STRUT TEMP
+SCSTRUTRNGE	#	Compgradkodak	#	K	#	SC STRUT TEMP
+FLEXADIF	#	Compsimoffset	#	K	#	DIFF FLEX A & SET POINT
+FLEXBDIF	#	Compsimoffset	#	na	#	DIFF FLEX B & SET POINT
+FLEXCDIF	#	Compsimoffset	#	K	#	DIFF FLEX C & SET POINT
+DEAHK17		#	Deahk_elec	#	V	#	DPA Ground Reference 1
+DEAHK18		#	Deahk_elec	#	V	#	DPA 5V Housekeeping A
+DEAHK19		#	Deahk_elec	#	V	#	DPA Ground Reference 2
+DEAHK20		#	Deahk_elec	#	V	#	DPA 5V Housekeeping B
+DEAHK25		#	Deahk_elec	#	V	#	Primary Raw DEA 28V DC
+DEAHK26		#	Deahk_elec	#	V	#	Primary Raw DEA 24V DC
+DEAHK27		#	Deahk_elec	#	V	#	Primary Raw DEA -15.5V
+DEAHK28		#	Deahk_elec	#	V	#	Primary Raw DEA +15.5V
+DEAHK29		#	Deahk_elec	#	V	#	Primary Raw DEA -6V DC
+DEAHK30		#	Deahk_elec	#	V	#	Primary Raw DEA +6V DC
+DEAHK31		#	Deahk_elec	#	mAmp	#	Relative Dose Rad. Monitor Side A
+DEAHK32		#	Deahk_elec	#	V	#	Interface Ground Reference
+DEAHK33		#	Deahk_elec	#	V	#	Backup Raw DEA 28V DC
+DEAHK34		#	Deahk_elec	#	V	#	Backup DEA 24V DC
+DEAHK35		#	Deahk_elec	#	V	#	Backup DEA -15.5V DC
+DEAHK36		#	Deahk_elec	#	V	#	Backup DEA +15.5V DC
+DEAHK37		#	Deahk_elec	#	V	#	Backup DEA -6V DC
+DEAHK38		#	Deahk_elec	#	V	#	Backup DEA +6V DC
+DEAHK39		#	Deahk_elec	#	mAmp	#	Relative Dose Rad. Monitor Side B
+DEAHK40		#	Deahk_elec	#	V	#	Ground
+DEAHK1		#	Deahk_temp	#	C	#	DPA Thermistor 1 - BEP PC Board
+DEAHK2		#	Deahk_temp	#	C	#	DPA Thermistor 2 - BEP Oscillator
+DEAHK3		#	Deahk_temp	#	C	#	DPA Thermistor 3 - FEP 0 Mongoose
+DEAHK4		#	Deahk_temp	#	C	#	DPA Thermistor 4 - FEP 0 PC Board
+DEAHK5		#	Deahk_temp	#	C	#	DPA Thermistor 5 - FEP 0 ACTEL
+DEAHK6		#	Deahk_temp	#	C	#	DPA Thermistor 6 - FEP 0 RAM
+DEAHK7		#	Deahk_temp	#	C	#	DPA Thermistor 7 - FEP 0 Frame Buf
+DEAHK8		#	Deahk_temp	#	C	#	DPA Thermistor 8 - FEP 1 Mongoose
+DEAHK9		#	Deahk_temp	#	C	#	DPA Thermistor 9 - FEP 1 PC Board
+DEAHK10		#	Deahk_temp	#	C	#	DPA Thermistor 10- FEP 1 ACTEL
+DEAHK11		#	Deahk_temp	#	C	#	DPA Thermistor 11- FEP 1 RAM
+DEAHK12		#	Deahk_temp	#	C	#	DPA Thermistor 12- FEP 1 Frame Buf
+DEAHK13		#	Deahk_temp	#	C	#	DEA Video Board ADC
+DEAHK15		#	Deahk_temp	#	C	#	Focal Plane Temp. Board 12
+DEAHK16		#	Deahk_temp	#	C	#	Focal Plane Temp. Board 11
+5EIOT		#	Ephtv		#	K	#	EIO TEMP
+5EIOT		#	Ephtv		#	K	#	EIO TEMP
+5EIOT		#	Ephtv		#	K	#	EIO TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+5EPHINT		#	Ephtv		#	K	#	EPHIN TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEIO		#	Ephtv		#	K	#	EPHIN ELECTRONICS HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+TEPHIN		#	Ephtv		#	K	#	EPHIN SENSOR HOUSING TEMP
+EB1CI		#	Epsbatt		#	AMP	#	BATT 1 CHARGE CURRENT
+EB1CI		#	Epsbatt		#	AMP	#	BATT 1 CHARGE CURRENT
+EB1CI		#	Epsbatt		#	AMP	#	BATT 1 CHARGE CURRENT
+EB1CI		#	Epsbatt		#	AMP	#	BATT 1 CHARGE CURRENT
+EB1DI		#	Epsbatt		#	AMP	#	BATT 1 DISCHARGE CURRENT
+EB1DI		#	Epsbatt		#	AMP	#	BATT 1 DISCHARGE CURRENT
+EB1DI		#	Epsbatt		#	AMP	#	BATT 1 DISCHARGE CURRENT
+EB1DI		#	Epsbatt		#	AMP	#	BATT 1 DISCHARGE CURRENT
+EB1DI		#	Epsbatt		#	AMP	#	BATT 1 DISCHARGE CURRENT
+EB1DI		#	Epsbatt		#	AMP	#	BATT 1 DISCHARGE CURRENT
+EB1V		#	Epsbatt		#	V	#	BATT 1 VOLTAGE
+EB1V		#	Epsbatt		#	V	#	BATT 1 VOLTAGE
+EB1V		#	Epsbatt		#	V	#	BATT 1 VOLTAGE
+EB2CI		#	Epsbatt		#	AMP	#	BATT 2 CHARGE CURRENT
+EB2CI		#	Epsbatt		#	AMP	#	BATT 2 CHARGE CURRENT
+EB2CI		#	Epsbatt		#	AMP	#	BATT 2 CHARGE CURRENT
+EB2CI		#	Epsbatt		#	AMP	#	BATT 2 CHARGE CURRENT
+EB2DI		#	Epsbatt		#	AMP	#	BATT 2 DISCHARGE CURRENT
+EB2DI		#	Epsbatt		#	AMP	#	BATT 2 DISCHARGE CURRENT
+EB2DI		#	Epsbatt		#	AMP	#	BATT 2 DISCHARGE CURRENT
+EB2DI		#	Epsbatt		#	AMP	#	BATT 2 DISCHARGE CURRENT
+EB2DI		#	Epsbatt		#	AMP	#	BATT 2 DISCHARGE CURRENT
+EB2DI		#	Epsbatt		#	AMP	#	BATT 2 DISCHARGE CURRENT
+EB2V		#	Epsbatt		#	V	#	BATT 2 VOLTAGE
+EB2V		#	Epsbatt		#	V	#	BATT 2 VOLTAGE
+EB2V		#	Epsbatt		#	V	#	BATT 2 VOLTAGE
+EB3CI		#	Epsbatt		#	AMP	#	BATT 3 CHARGE CURRENT
+EB3CI		#	Epsbatt		#	AMP	#	BATT 3 CHARGE CURRENT
+EB3CI		#	Epsbatt		#	AMP	#	BATT 3 CHARGE CURRENT
+EB3CI		#	Epsbatt		#	AMP	#	BATT 3 CHARGE CURRENT
+EB3DI		#	Epsbatt		#	AMP	#	BATT 3 DISCHARGE CURRENT
+EB3DI		#	Epsbatt		#	AMP	#	BATT 3 DISCHARGE CURRENT
+EB3DI		#	Epsbatt		#	AMP	#	BATT 3 DISCHARGE CURRENT
+EB3DI		#	Epsbatt		#	AMP	#	BATT 3 DISCHARGE CURRENT
+EB3DI		#	Epsbatt		#	AMP	#	BATT 3 DISCHARGE CURRENT
+EB3DI		#	Epsbatt		#	AMP	#	BATT 3 DISCHARGE CURRENT
+EB3V		#	Epsbatt		#	V	#	BATT 3 VOLTAGE
+EB3V		#	Epsbatt		#	V	#	BATT 3 VOLTAGE
+EB3V		#	Epsbatt		#	V	#	BATT 3 VOLTAGE
+ECNV1V		#	Epsbatt		#	V	#	CONV 1 +15V OUTPUT
+ECNV2V		#	Epsbatt		#	V	#	CONV 2 +15V OUTPUT
+ECNV3V		#	Epsbatt		#	V	#	CONV 3 +15V OUTPUT
+EEPA5V		#	Epsbatt		#	V	#	+5V RCTU_EP A
+EEPB5V		#	Epsbatt		#	V	#	+5V RCTU_EP B
+EOCHRGB1	#	Epsbatt		#	na	#	BATT 1 SOC RANGE (INTEGER 0 TO 10000 = 0 TO 100 )
+EOCHRGB2	#	Epsbatt		#	na	#	BATT 2 SOC RANGE (INTEGER 0 TO 10000 = 0 TO 100 )
+EOCHRGB3	#	Epsbatt		#	na	#	BATT 2 SOC RANGE (INTEGER 0 TO 10000 = 0 TO 100 )
+EOEB1DIC	#	Epsbatt		#	AMP	#	TTERY 1 DISCHARGE CURRENT - COUNTS (EB1DI)
+EOEB1DIC	#	Epsbatt		#	AMP	#	TTERY 1 DISCHARGE CURRENT - COUNTS (EB1DI)
+EOEB1DIC	#	Epsbatt		#	AMP	#	TTERY 1 DISCHARGE CURRENT - COUNTS (EB1DI)
+EOEB1VC		#	Epsbatt		#	na	#	BATTERY 1 VOLTAGE - COUNTS
+EOEB2CIC	#	Epsbatt		#	na	#	BATTERY 2 CHARGE CURRENT - COUNTS ( EB2CI)
+EOEB2CIC	#	Epsbatt		#	na	#	BATTERY 2 CHARGE CURRENT - COUNTS ( EB2CI)
+EOEB2VC		#	Epsbatt		#	na	#	VOLTAGE - COUNTS
+EOEB2VC		#	Epsbatt		#	na	#	VOLTAGE - COUNTS
+EOEB3CIC	#	Epsbatt		#	na	#	BATTERY 3 CHARGE CURRENT - COUNTS ( EB3CI)
+EOEB3CIC	#	Epsbatt		#	na	#	BATTERY 3 CHARGE CURRENT - COUNTS ( EB3CI)
+EOEB3VC		#	Epsbatt		#	na	#	BATTERY 3 VOLTAGE - COUNTS
+EOECNV1C	#	Epsbatt		#	na	#	PCU CONVERTER 1: +15V OUTPUT - ANALOG (ECNV1V)
+EOECNV1C	#	Epsbatt		#	na	#	PCU CONVERTER 1: +15V OUTPUT - ANALOG (ECNV1V)
+EOECNV2C	#	Epsbatt		#	na	#	PCU CONVERTER 2: +15V OUTPUT - ANALOG (ECNV2V)
+EOECNV2C	#	Epsbatt		#	na	#	PCU CONVERTER 2: +15V OUTPUT - ANALOG (ECNV2V)
+EOECNV3C	#	Epsbatt		#	na	#	PCU CONVERTER 3: +15V OUTPUT - ANALOG (ECNV3V)
+EOECNV3C	#	Epsbatt		#	na	#	PCU CONVERTER 3: +15V OUTPUT - ANALOG (ECNV3V)
+EOECNV3C	#	Epsbatt		#	na	#	PCU CONVERTER 3: +15V OUTPUT - ANALOG (ECNV3V)
+EOESAC1C	#	Epsbatt		#	na	#	-Y SOLAR ARRAY CURRENT - COUNTS (ESAMYI)
+EOESAC1C	#	Epsbatt		#	na	#	-Y SOLAR ARRAY CURRENT - COUNTS (ESAMYI)
+EOESAC2C	#	Epsbatt		#	na	#	+Y SOLAR ARRAY CURRENT - COUNTS (ESAPYI)
+EOESAC2C	#	Epsbatt		#	na	#	+Y SOLAR ARRAY CURRENT - COUNTS (ESAPYI)
+HAFTBGRD1	#	Gradablk	#	K	#	RT53-RT54: OBA AFT Bulkhead
+HAFTBGRD1	#	Gradablk	#	K	#	RT53-RT54: OBA AFT Bulkhead
+HAFTBGRD1	#	Gradablk	#	K	#	RT53-RT54: OBA AFT Bulkhead
+HAFTBGRD1	#	Gradablk	#	K	#	RT53-RT54: OBA AFT Bulkhead
+HAFTBGRD2	#	Gradablk	#	K	#	RT54-RT55: OBA AFT Bulkhead
+HAFTBGRD2	#	Gradablk	#	K	#	RT54-RT55: OBA AFT Bulkhead
+HAFTBGRD3	#	Gradablk	#	K	#	RT55-RT53: OBA AFT Bulkhead
+HAFTBGRD3	#	Gradablk	#	K	#	RT55-RT53: OBA AFT Bulkhead
+HAFTBGRD3	#	Gradablk	#	K	#	RT55-RT53: OBA AFT Bulkhead
+HAHEATGRD1	#	Gradahet	#	K	#	RT11-RT12: HRMA Aft Heater Plate circum
+HAHEATGRD2	#	Gradahet	#	K	#	RT12-RT13: HRMA Aft Heater Plate circum
+HAHEATGRD3	#	Gradahet	#	K	#	RT13-RT11: HRMA Aft Heater Plate circum
+HAICYLGRD	#	Gradaincyl	#	K	#	RT23-RT24: HSA Aft Inner Cylinder
+HCAPGRD1	#	Gradcap		#	K	#	RT100-RT101: HRMA CAP circum
+HCAPGRD2	#	Gradcap		#	K	#	RT100-RT104: HRMA CAP ridial
+HCAPGRD3	#	Gradcap		#	K	#	RT101-RT102: HRMA CAP circum
+HCAPGRD4	#	Gradcap		#	K	#	RT101-RT104: HRMA CAP ridial
+HCAPGRD5	#	Gradcap		#	K	#	RT102-RT103: HRMA CAP circum
+HCAPGRD6	#	Gradcap		#	K	#	RT102-RT105: HRMA CAP ridial
+HCAPGRD7	#	Gradcap		#	K	#	RT103-RT101: HRMA CAP circum
+HCAPGRD8	#	Gradcap		#	K	#	RT103-RT106: HRMA CAP ridial
+HFAPGRD1	#	Gradfap		#	K	#	RT1-RT2: HRMA Forward Aperture Plate
+HFAPGRD2	#	Gradfap		#	K	#	RT1-RT4: HRMA Forward Aperture Plate
+HFAPGRD3	#	Gradfap		#	K	#	RT2-RT3: HRMA Forward Aperture Plate
+HFAPGRD4	#	Gradfap		#	K	#	RT2-RT5: HRMA Forward Aperture Plate
+HFAPGRD5	#	Gradfap		#	K	#	RT3-RT1: HRMA Forward Aperture Plate
+HFAPGRD6	#	Gradfap		#	K	#	RT3-RT6: HRMA Forward Aperture Plate
+HFAPGRD7	#	Gradfap		#	K	#	RT4-RT5: HRMA Forward Aperture Plate
+HFAPGRD8	#	Gradfap		#	K	#	RT5-RT6: HRMA Forward Aperture Plate
+HFAPGRD9	#	Gradfap		#	K	#	RT6-RT4: HRMA Forward Aperture Plate
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD1	#	Gradfblk	#	K	#	RT700-RT701: OBA Forward Bulkhead
+HFRDBGRD2	#	Gradfblk	#	K	#	RT701-RT702: OBA Forward Bulkhead
+HFRDBGRD3	#	Gradfblk	#	K	#	RT702-RT703: OBA Forward Bulkhead
+HFRDBGRD3	#	Gradfblk	#	K	#	RT702-RT703: OBA Forward Bulkhead
+HFRDBGRD3	#	Gradfblk	#	K	#	RT702-RT703: OBA Forward Bulkhead
+HFRDBGRD3	#	Gradfblk	#	K	#	RT702-RT703: OBA Forward Bulkhead
+HFRDBGRD3	#	Gradfblk	#	K	#	RT702-RT703: OBA Forward Bulkhead
+HFRDBGRD4	#	Gradfblk	#	K	#	RT703-RT704: OBA Forward Bulkhead
+HFRDBGRD4	#	Gradfblk	#	K	#	RT703-RT704: OBA Forward Bulkhead
+HFRDBGRD5	#	Gradfblk	#	K	#	RT704-RT156: OBA Forward Bulkhead
+HFRDBGRD5	#	Gradfblk	#	K	#	RT704-RT156: OBA Forward Bulkhead
+HFRDBGRD5	#	Gradfblk	#	K	#	RT704-RT156: OBA Forward Bulkhead
+HFRDBGRD5	#	Gradfblk	#	K	#	RT704-RT156: OBA Forward Bulkhead
+HFRDBGRD5	#	Gradfblk	#	K	#	RT704-RT156: OBA Forward Bulkhead
+HFRDBGRD5	#	Gradfblk	#	K	#	RT704-RT156: OBA Forward Bulkhead
+HFRDBGRD7	#	Gradfblk	#	K	#	RT705-RT706: OBA Forward Bulkhead
+HFRDBGRD7	#	Gradfblk	#	K	#	RT705-RT706: OBA Forward Bulkhead
+HFRDBGRD7	#	Gradfblk	#	K	#	RT705-RT706: OBA Forward Bulkhead
+HFRDBGRD8	#	Gradfblk	#	K	#	RT706-RT155: OBA Forward Bulkhead
+HFRDBGRD8	#	Gradfblk	#	K	#	RT706-RT155: OBA Forward Bulkhead
+HFRDBGRD10	#	Gradfblk	#	K	#	RT707-RT708: OBA Forward Bulkhead
+HFRDBGRD10	#	Gradfblk	#	K	#	RT707-RT708: OBA Forward Bulkhead
+HFRDBGRD10	#	Gradfblk	#	K	#	RT707-RT708: OBA Forward Bulkhead
+HFRDBGRD10	#	Gradfblk	#	K	#	RT707-RT708: OBA Forward Bulkhead
+HFRDBGRD10	#	Gradfblk	#	K	#	RT707-RT708: OBA Forward Bulkhead
+HFRDBGRD10	#	Gradfblk	#	K	#	RT707-RT708: OBA Forward Bulkhead
+HFRDBGRD11	#	Gradfblk	#	K	#	RT708-RT709: OBA Forward Bulkhead
+HFRDBGRD11	#	Gradfblk	#	K	#	RT708-RT709: OBA Forward Bulkhead
+HFRDBGRD11	#	Gradfblk	#	K	#	RT708-RT709: OBA Forward Bulkhead
+HFRDBGRD12	#	Gradfblk	#	K	#	RT709-RT710: OBA Forward Bulkhead
+HFRDBGRD12	#	Gradfblk	#	K	#	RT709-RT710: OBA Forward Bulkhead
+HFRDBGRD12	#	Gradfblk	#	K	#	RT709-RT710: OBA Forward Bulkhead
+HFRDBGRD12	#	Gradfblk	#	K	#	RT709-RT710: OBA Forward Bulkhead
+HFRDBGRD12	#	Gradfblk	#	K	#	RT709-RT710: OBA Forward Bulkhead
+HFRDBGRD13	#	Gradfblk	#	K	#	RT710-RT711: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HFRDBGRD14	#	Gradfblk	#	K	#	RT711-RT700: OBA Forward Bulkhead
+HCONEGRD1	#	Gradhcone	#	K	#	RT31-RT32: OBA Cone Panel
+HCONEGRD2	#	Gradhcone	#	K	#	RT31-RT41: OBA Cone Panel
+HCONEGRD2	#	Gradhcone	#	K	#	RT31-RT41: OBA Cone Panel
+HCONEGRD2	#	Gradhcone	#	K	#	RT31-RT41: OBA Cone Panel
+HCONEGRD2	#	Gradhcone	#	K	#	RT31-RT41: OBA Cone Panel
+HCONEGRD2	#	Gradhcone	#	K	#	RT31-RT41: OBA Cone Panel
+HCONEGRD2	#	Gradhcone	#	K	#	RT31-RT41: OBA Cone Panel
+HCONEGRD3	#	Gradhcone	#	K	#	RT32-RT33: OBA Cone Panel
+HCONEGRD3	#	Gradhcone	#	K	#	RT32-RT33: OBA Cone Panel
+HCONEGRD4	#	Gradhcone	#	K	#	RT32-RT42: OBA Cone Panel
+HCONEGRD4	#	Gradhcone	#	K	#	RT32-RT42: OBA Cone Panel
+HCONEGRD4	#	Gradhcone	#	K	#	RT32-RT42: OBA Cone Panel
+HCONEGRD4	#	Gradhcone	#	K	#	RT32-RT42: OBA Cone Panel
+HCONEGRD4	#	Gradhcone	#	K	#	RT32-RT42: OBA Cone Panel
+HCONEGRD4	#	Gradhcone	#	K	#	RT32-RT42: OBA Cone Panel
+HCONEGRD5	#	Gradhcone	#	K	#	RT33-RT34: OBA Cone Panel
+HCONEGRD5	#	Gradhcone	#	K	#	RT33-RT34: OBA Cone Panel
+HCONEGRD6	#	Gradhcone	#	K	#	RT33-RT43: OBA Cone Panel
+HCONEGRD6	#	Gradhcone	#	K	#	RT33-RT43: OBA Cone Panel
+HCONEGRD6	#	Gradhcone	#	K	#	RT33-RT43: OBA Cone Panel
+HCONEGRD6	#	Gradhcone	#	K	#	RT33-RT43: OBA Cone Panel
+HCONEGRD6	#	Gradhcone	#	K	#	RT33-RT43: OBA Cone Panel
+HCONEGRD6	#	Gradhcone	#	K	#	RT33-RT43: OBA Cone Panel
+HCONEGRD7	#	Gradhcone	#	K	#	RT34-RT35: OBA Cone Panel
+HCONEGRD7	#	Gradhcone	#	K	#	RT34-RT35: OBA Cone Panel
+HCONEGRD8	#	Gradhcone	#	K	#	RT34-RT43: OBA Cone Panel
+HCONEGRD8	#	Gradhcone	#	K	#	RT34-RT43: OBA Cone Panel
+HCONEGRD8	#	Gradhcone	#	K	#	RT34-RT43: OBA Cone Panel
+HCONEGRD9	#	Gradhcone	#	K	#	RT35-RT36: OBA Cone Panel
+HCONEGRD9	#	Gradhcone	#	K	#	RT35-RT36: OBA Cone Panel
+HCONEGRD9	#	Gradhcone	#	K	#	RT35-RT36: OBA Cone Panel
+HCONEGRD10	#	Gradhcone	#	k	#	RT35-RT44: OBA Cone Panel
+HCONEGRD10	#	Gradhcone	#	k	#	RT35-RT44: OBA Cone Panel
+HCONEGRD10	#	Gradhcone	#	k	#	RT35-RT44: OBA Cone Panel
+HCONEGRD11	#	Gradhcone	#	K	#	RT36-RT37: OBA Cone Panel
+HCONEGRD11	#	Gradhcone	#	K	#	RT36-RT37: OBA Cone Panel
+HCONEGRD11	#	Gradhcone	#	K	#	RT36-RT37: OBA Cone Panel
+HCONEGRD11	#	Gradhcone	#	K	#	RT36-RT37: OBA Cone Panel
+HCONEGRD11	#	Gradhcone	#	K	#	RT36-RT37: OBA Cone Panel
+HCONEGRD12	#	Gradhcone	#	K	#	RT36-RT45: OBA Cone Panel
+HCONEGRD12	#	Gradhcone	#	K	#	RT36-RT45: OBA Cone Panel
+HCONEGRD13	#	Gradhcone	#	K	#	RT37-RT38: OBA Cone Panel
+HCONEGRD13	#	Gradhcone	#	K	#	RT37-RT38: OBA Cone Panel
+HCONEGRD14	#	Gradhcone	#	K	#	RT37-RT45: OBA Cone Panel
+HCONEGRD14	#	Gradhcone	#	K	#	RT37-RT45: OBA Cone Panel
+HCONEGRD14	#	Gradhcone	#	K	#	RT37-RT45: OBA Cone Panel
+HCONEGRD14	#	Gradhcone	#	K	#	RT37-RT45: OBA Cone Panel
+HCONEGRD14	#	Gradhcone	#	K	#	RT37-RT45: OBA Cone Panel
+HCONEGRD14	#	Gradhcone	#	K	#	RT37-RT45: OBA Cone Panel
+HCONEGRD15	#	Gradhcone	#	K	#	RT38-RT39: OBA Cone Panel
+HCONEGRD16	#	Gradhcone	#	K	#	RT38-RT46: OBA Cone Panel
+HCONEGRD16	#	Gradhcone	#	K	#	RT38-RT46: OBA Cone Panel
+HCONEGRD16	#	Gradhcone	#	K	#	RT38-RT46: OBA Cone Panel
+HCONEGRD16	#	Gradhcone	#	K	#	RT38-RT46: OBA Cone Panel
+HCONEGRD16	#	Gradhcone	#	K	#	RT38-RT46: OBA Cone Panel
+HCONEGRD16	#	Gradhcone	#	K	#	RT38-RT46: OBA Cone Panel
+HCONEGRD17	#	Gradhcone	#	K	#	RT39-RT40: OBA Cone Panel
+HCONEGRD17	#	Gradhcone	#	K	#	RT39-RT40: OBA Cone Panel
+HCONEGRD17	#	Gradhcone	#	K	#	RT39-RT40: OBA Cone Panel
+HCONEGRD17	#	Gradhcone	#	K	#	RT39-RT40: OBA Cone Panel
+HCONEGRD18	#	Gradhcone	#	K	#	RT39-RT46: OBA Cone Panel
+HCONEGRD18	#	Gradhcone	#	K	#	RT39-RT46: OBA Cone Panel
+HCONEGRD18	#	Gradhcone	#	K	#	RT39-RT46: OBA Cone Panel
+HCONEGRD18	#	Gradhcone	#	K	#	RT39-RT46: OBA Cone Panel
+HCONEGRD18	#	Gradhcone	#	K	#	RT39-RT46: OBA Cone Panel
+HCONEGRD18	#	Gradhcone	#	K	#	RT39-RT46: OBA Cone Panel
+HCONEGRD19	#	Gradhcone	#	K	#	RT40-RT31: OBA Cone Panel
+HCONEGRD19	#	Gradhcone	#	K	#	RT40-RT31: OBA Cone Panel
+HCONEGRD19	#	Gradhcone	#	K	#	RT40-RT31: OBA Cone Panel
+HCONEGRD19	#	Gradhcone	#	K	#	RT40-RT31: OBA Cone Panel
+HCONEGRD20	#	Gradhcone	#	K	#	RT40-RT47: OBA Cone Panel
+HCONEGRD20	#	Gradhcone	#	K	#	RT40-RT47: OBA Cone Panel
+HCONEGRD21	#	Gradhcone	#	K	#	RT41-RT42: OBA Cone Panel
+HCONEGRD21	#	Gradhcone	#	K	#	RT41-RT42: OBA Cone Panel
+HCONEGRD21	#	Gradhcone	#	K	#	RT41-RT42: OBA Cone Panel
+HCONEGRD21	#	Gradhcone	#	K	#	RT41-RT42: OBA Cone Panel
+HCONEGRD21	#	Gradhcone	#	K	#	RT41-RT42: OBA Cone Panel
+HCONEGRD22	#	Gradhcone	#	K	#	RT41-RT48: OBA Cone Panel
+HCONEGRD22	#	Gradhcone	#	K	#	RT41-RT48: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD23	#	Gradhcone	#	K	#	RT42-RT43: OBA Cone Panel
+HCONEGRD24	#	Gradhcone	#	K	#	RT42-RT49: OBA Cone Panel
+HCONEGRD24	#	Gradhcone	#	K	#	RT42-RT49: OBA Cone Panel
+HCONEGRD24	#	Gradhcone	#	K	#	RT42-RT49: OBA Cone Panel
+HCONEGRD24	#	Gradhcone	#	K	#	RT42-RT49: OBA Cone Panel
+HCONEGRD25	#	Gradhcone	#	K	#	RT43-RT44: OBA Cone Panel
+HCONEGRD26	#	Gradhcone	#	K	#	RT43-RT49: OBA Cone Panel
+HCONEGRD26	#	Gradhcone	#	K	#	RT43-RT49: OBA Cone Panel
+HCONEGRD26	#	Gradhcone	#	K	#	RT43-RT49: OBA Cone Panel
+HCONEGRD27	#	Gradhcone	#	K	#	RT44-RT45: OBA Cone Panel
+HCONEGRD28	#	Gradhcone	#	K	#	RT44-RT50: OBA Cone Panel
+HCONEGRD28	#	Gradhcone	#	K	#	RT44-RT50: OBA Cone Panel
+HCONEGRD29	#	Gradhcone	#	K	#	RT45-RT46: OBA Cone Panel
+HCONEGRD30	#	Gradhcone	#	K	#	RT45-RT51: OBA Cone Panel
+HCONEGRD30	#	Gradhcone	#	K	#	RT45-RT51: OBA Cone Panel
+HCONEGRD30	#	Gradhcone	#	K	#	RT45-RT51: OBA Cone Panel
+HCONEGRD31	#	Gradhcone	#	K	#	RT46-RT47: OBA Cone Panel
+HCONEGRD31	#	Gradhcone	#	K	#	RT46-RT47: OBA Cone Panel
+HCONEGRD31	#	Gradhcone	#	K	#	RT46-RT47: OBA Cone Panel
+HCONEGRD31	#	Gradhcone	#	K	#	RT46-RT47: OBA Cone Panel
+HCONEGRD31	#	Gradhcone	#	K	#	RT46-RT47: OBA Cone Panel
+HCONEGRD31	#	Gradhcone	#	K	#	RT46-RT47: OBA Cone Panel
+HCONEGRD32	#	Gradhcone	#	K	#	RT46-RT52: OBA Cone Panel
+HCONEGRD32	#	Gradhcone	#	K	#	RT46-RT52: OBA Cone Panel
+HCONEGRD32	#	Gradhcone	#	K	#	RT46-RT52: OBA Cone Panel
+HCONEGRD32	#	Gradhcone	#	K	#	RT46-RT52: OBA Cone Panel
+HCONEGRD33	#	Gradhcone	#	K	#	RT47-RT41: OBA Cone Panel
+HCONEGRD34	#	Gradhcone	#	K	#	RT47-RT52: OBA Cone Panel
+HCONEGRD34	#	Gradhcone	#	K	#	RT47-RT52: OBA Cone Panel
+HCONEGRD34	#	Gradhcone	#	K	#	RT47-RT52: OBA Cone Panel
+HCONEGRD34	#	Gradhcone	#	K	#	RT47-RT52: OBA Cone Panel
+HCONEGRD34	#	Gradhcone	#	K	#	RT47-RT52: OBA Cone Panel
+HCONEGRD35	#	Gradhcone	#	K	#	RT48-RT49: OBA Cone Panel
+HCONEGRD35	#	Gradhcone	#	K	#	RT48-RT49: OBA Cone Panel
+HCONEGRD35	#	Gradhcone	#	K	#	RT48-RT49: OBA Cone Panel
+HCONEGRD36	#	Gradhcone	#	K	#	RT48-RT53: OBA Cone Panel
+HCONEGRD37	#	Gradhcone	#	K	#	RT49-RT50: OBA Cone Panel
+HCONEGRD37	#	Gradhcone	#	K	#	RT49-RT50: OBA Cone Panel
+HCONEGRD37	#	Gradhcone	#	K	#	RT49-RT50: OBA Cone Panel
+HCONEGRD37	#	Gradhcone	#	K	#	RT49-RT50: OBA Cone Panel
+HCONEGRD37	#	Gradhcone	#	K	#	RT49-RT50: OBA Cone Panel
+HCONEGRD38	#	Gradhcone	#	K	#	RT49-RT55: OBA Cone Panel
+HCONEGRD38	#	Gradhcone	#	K	#	RT49-RT55: OBA Cone Panel
+HCONEGRD39	#	Gradhcone	#	K	#	RT50-RT51: OBA Cone Panel
+HCONEGRD39	#	Gradhcone	#	K	#	RT50-RT51: OBA Cone Panel
+HCONEGRD39	#	Gradhcone	#	K	#	RT50-RT51: OBA Cone Panel
+HCONEGRD40	#	Gradhcone	#	K	#	RT50-RT55: OBA Cone Panel
+HCONEGRD40	#	Gradhcone	#	K	#	RT50-RT55: OBA Cone Panel
+HCONEGRD40	#	Gradhcone	#	K	#	RT50-RT55: OBA Cone Panel
+HCONEGRD40	#	Gradhcone	#	K	#	RT50-RT55: OBA Cone Panel
+HCONEGRD41	#	Gradhcone	#	K	#	RT51-RT52: OBA Cone Panel
+HCONEGRD41	#	Gradhcone	#	K	#	RT51-RT52: OBA Cone Panel
+HCONEGRD42	#	Gradhcone	#	k	#	RT51-RT54: OBA Cone Panel
+HCONEGRD42	#	Gradhcone	#	k	#	RT51-RT54: OBA Cone Panel
+HCONEGRD42	#	Gradhcone	#	k	#	RT51-RT54: OBA Cone Panel
+HCONEGRD42	#	Gradhcone	#	k	#	RT51-RT54: OBA Cone Panel
+HCONEGRD42	#	Gradhcone	#	k	#	RT51-RT54: OBA Cone Panel
+HCONEGRD43	#	Gradhcone	#	K	#	RT52-RT48: OBA Cone Panel
+HCONEGRD43	#	Gradhcone	#	K	#	RT52-RT48: OBA Cone Panel
+HCONEGRD43	#	Gradhcone	#	K	#	RT52-RT48: OBA Cone Panel
+HCONEGRD43	#	Gradhcone	#	K	#	RT52-RT48: OBA Cone Panel
+HCONEGRD44	#	Gradhcone	#	K	#	RT52-RT53: OBA Cone Panel
+HCONEGRD44	#	Gradhcone	#	K	#	RT52-RT53: OBA Cone Panel
+HCONEGRD44	#	Gradhcone	#	K	#	RT52-RT53: OBA Cone Panel
+HCONEGRD44	#	Gradhcone	#	K	#	RT52-RT53: OBA Cone Panel
+HHFLXGRD1	#	Gradhhflex	#	K	#	RT113-RT114: HRMA H-Flexure circum
+HHFLXGRD2	#	Gradhhflex	#	K	#	RT113-RT115: HRMA H-Flexure ridial
+HHFLXGRD3	#	Gradhhflex	#	K	#	RT114-RT116: HRMA H-Flexure circum
+HHFLXGRD4	#	Gradhhflex	#	K	#	RT115-RT116: HRMA H-Flexure circum
+HHFLXGRD5	#	Gradhhflex	#	K	#	RT115-RT117: HRMA H-Flexure ridial
+HHFLXGRD5	#	Gradhhflex	#	K	#	RT115-RT117: HRMA H-Flexure ridial
+HHFLXGRD6	#	Gradhhflex	#	K	#	RT116-RT117: HRMA H-Flexure circum
+HHFLXGRD6	#	Gradhhflex	#	K	#	RT116-RT117: HRMA H-Flexure circum
+HHFLXGRD7	#	Gradhhflex	#	K	#	RT117-RT118: HRMA H-Flexure circum
+HHFLXGRD8	#	Gradhhflex	#	K	#	RT117-RT113: HRMA H-Flexure ridial
+HHFLXGRD8	#	Gradhhflex	#	K	#	RT117-RT113: HRMA H-Flexure ridial
+HHFLXGRD9	#	Gradhhflex	#	K	#	RT118-Rt114: HRMA H-Flexure circul
+HHFLXGRD9	#	Gradhhflex	#	K	#	RT118-Rt114: HRMA H-Flexure circul
+HPFLXGRD1	#	Gradhpflex	#	K	#	RT107-RT108: HRMA P-Flexure circum
+HPFLXGRD2	#	Gradhpflex	#	K	#	RT107-RT109: HRMA P-Flexure ridial
+HPFLXGRD3	#	Gradhpflex	#	K	#	RT108-RT110: HRMA P-Flexure cirucm
+HPFLXGRD4	#	Gradhpflex	#	K	#	RT109-RT110: HRMA P-Flexure circum
+HPFLXGRD5	#	Gradhpflex	#	K	#	RT109-RT111: HRMA P-Flexure circum
+HPFLXGRD6	#	Gradhpflex	#	K	#	RT110-Rt112: HRMA P-Flexure ridial
+HPFLXGRD7	#	Gradhpflex	#	K	#	RT111-RT112: HRMA P-Flexure circum
+HPFLXGRD8	#	Gradhpflex	#	K	#	RT111-RT107: HRMA P-Flexure ridial
+HPFLXGRD9	#	Gradhpflex	#	K	#	RT112-RT108: HRMA P-Flexure circul
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD1	#	Gradhstrut	#	K	#	RT25-RT26: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD2	#	Gradhstrut	#	K	#	RT26-RT27: HRMA STRUTS
+HSTRTGRD3	#	Gradhstrut	#	K	#	RT27-RT28: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD4	#	Gradhstrut	#	K	#	RT28-RT29: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD5	#	Gradhstrut	#	K	#	RT29-RT30: HRMA STRUTS
+HSTRTGRD6	#	Gradhstrut	#	K	#	RT30-RT25: HRMA STRUTS
+HSTRTGRD6	#	Gradhstrut	#	K	#	RT30-RT25: HRMA STRUTS
+HOCYLGRD1	#	Gradocyl	#	K	#	RT14-RT19: HSA Oout Cylinder
+HOCYLGRD2	#	Gradocyl	#	K	#	RT19-RT16: HSA Oout Cylinder
+HOCYLGRD3	#	Gradocyl	#	K	#	RT16-RT18: HSA Oout Cylinder
+HOCYLGRD4	#	Gradocyl	#	K	#	RT18-RT15: HSA Oout Cylinder
+HOCYLGRD5	#	Gradocyl	#	K	#	RT15-RT17: HSA Oout Cylinder
+HOCYLGRD6	#	Gradocyl	#	K	#	RT17-RT14: HSA Oout Cylinder
+HPCOLBGRD1	#	Gradpcolb	#	K	#	RT8-RT9:  HRMA Precollimator Baffle
+HPCOLBGRD2	#	Gradpcolb	#	K	#	RT9-RT10: HRMA Precollimator Baffle
+HPRIGRD		#	Gradperi	#	K	#	RT133-RT134: Periscope
+HPRIGRD		#	Gradperi	#	K	#	RT133-RT134: Periscope
+HSSTRTGRD1	#	Gradsstrut	#	K	#	RT75-RT76: Spacecraft Struts
+HSSTRTGRD1	#	Gradsstrut	#	K	#	RT75-RT76: Spacecraft Struts
+HSSTRTGRD1	#	Gradsstrut	#	K	#	RT75-RT76: Spacecraft Struts
+HSSTRTGRD1	#	Gradsstrut	#	K	#	RT75-RT76: Spacecraft Struts
+HSSTRTGRD1	#	Gradsstrut	#	K	#	RT75-RT76: Spacecraft Struts
+HSSTRTGRD2	#	Gradsstrut	#	K	#	RT76-RT77: Spacecraft Struts
+HSSTRTGRD2	#	Gradsstrut	#	K	#	RT76-RT77: Spacecraft Struts
+HSSTRTGRD2	#	Gradsstrut	#	K	#	RT76-RT77: Spacecraft Struts
+HSSTRTGRD2	#	Gradsstrut	#	K	#	RT76-RT77: Spacecraft Struts
+HSSTRTGRD2	#	Gradsstrut	#	K	#	RT76-RT77: Spacecraft Struts
+HSSTRTGRD3	#	Gradsstrut	#	K	#	RT77-RT78: Spacecraft Struts
+HSSTRTGRD3	#	Gradsstrut	#	K	#	RT77-RT78: Spacecraft Struts
+HSSTRTGRD4	#	Gradsstrut	#	K	#	RT78-RT79: Spacecraft Struts
+HSSTRTGRD4	#	Gradsstrut	#	K	#	RT78-RT79: Spacecraft Struts
+HSSTRTGRD5	#	Gradsstrut	#	K	#	RT79-RT80: Spacecraft Struts
+HSSTRTGRD5	#	Gradsstrut	#	K	#	RT79-RT80: Spacecraft Struts
+HSSTRTGRD5	#	Gradsstrut	#	K	#	RT79-RT80: Spacecraft Struts
+HSSTRTGRD6	#	Gradsstrut	#	K	#	RT80-RT75: Spacecraft Struts
+HTFTEGRD1	#	Gradtfte	#	K	#	RT58-RT59: TFTE Forward Cylinder
+HTFTEGRD1	#	Gradtfte	#	K	#	RT58-RT59: TFTE Forward Cylinder
+HTFTEGRD2	#	Gradtfte	#	K	#	RT59-RT60: TFTE Forward Cylinder
+HTFTEGRD2	#	Gradtfte	#	K	#	RT59-RT60: TFTE Forward Cylinder
+HTFTEGRD3	#	Gradtfte	#	K	#	RT60-RT58: TFTE Forward Cylinder
+HTFTEGRD3	#	Gradtfte	#	K	#	RT60-RT58: TFTE Forward Cylinder
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD4	#	Gradtfte	#	K	#	RT61-RT62: TFTE Cone
+HTFTEGRD5	#	Gradtfte	#	K	#	RT62-RT63: TFTE Cone
+HTFTEGRD5	#	Gradtfte	#	K	#	RT62-RT63: TFTE Cone
+HTFTEGRD5	#	Gradtfte	#	K	#	RT62-RT63: TFTE Cone
+HTFTEGRD5	#	Gradtfte	#	K	#	RT62-RT63: TFTE Cone
+HTFTEGRD5	#	Gradtfte	#	K	#	RT62-RT63: TFTE Cone
+HTFTEGRD5	#	Gradtfte	#	K	#	RT62-RT63: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD6	#	Gradtfte	#	K	#	RT63-RT61: TFTE Cone
+HTFTEGRD7	#	Gradtfte	#	K	#	RT64-RT65: TFTE Cover
+HTFTEGRD7	#	Gradtfte	#	K	#	RT64-RT65: TFTE Cover
+HTFTEGRD7	#	Gradtfte	#	K	#	RT64-RT65: TFTE Cover
+HTFTEGRD8	#	Gradtfte	#	K	#	RT65-RT66: TFTE Cover
+HTFTEGRD8	#	Gradtfte	#	K	#	RT65-RT66: TFTE Cover
+HTFTEGRD9	#	Gradtfte	#	K	#	RT66-RT67: TFTE Cover
+HTFTEGRD9	#	Gradtfte	#	K	#	RT66-RT67: TFTE Cover
+HTFTEGRD9	#	Gradtfte	#	K	#	RT66-RT67: TFTE Cover
+HTFTEGRD9	#	Gradtfte	#	K	#	RT66-RT67: TFTE Cover
+HTFTEGRD9	#	Gradtfte	#	K	#	RT66-RT67: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD10	#	Gradtfte	#	K	#	RT67-RT68: TFTE Cover
+HTFTEGRD11	#	Gradtfte	#	K	#	RT68-RT69: TFTE Cover
+HTFTEGRD11	#	Gradtfte	#	K	#	RT68-RT69: TFTE Cover
+HTFTEGRD12	#	Gradtfte	#	K	#	RT TFTE Cover
+4HPOSARO	#	Gratgen		#	na	#	NA
+4HPOSBRO	#	Gratgen		#	na	#	NA
+4LPOSARO	#	Gratgen		#	na	#	NA
+4LPOSBRO	#	Gratgen		#	na	#	NA
+4MP28AV		#	Gratgen		#	V	#	MCE A: +28 VOLT MONITOR
+4MP28BV		#	Gratgen		#	V	#	MCE B: +28 VOLT MONITOR
+4MP5AV		#	Gratgen		#	V	#	MCE A: +5 VOLT MONITOR
+4MP5AV		#	Gratgen		#	V	#	MCE A: +5 VOLT MONITOR
+4MP5BV		#	Gratgen		#	V	#	MCE B: +5 VOLT MONITOR
+2DETART		#	Hrcelec		#	na	#	DETECTOR EVENT RATE A
+2DETART		#	Hrcelec		#	na	#	DETECTOR EVENT RATE A
+2DETART		#	Hrcelec		#	na	#	DETECTOR EVENT RATE A
+2DETART		#	Hrcelec		#	na	#	DETECTOR EVENT RATE A
+2DETBRT		#	Hrcelec		#	na	#	DETECTOR EVENT RATE B
+2DETBRT		#	Hrcelec		#	na	#	DETECTOR EVENT RATE B
+2DETBRT		#	Hrcelec		#	na	#	DETECTOR EVENT RATE B
+2DETBRT		#	Hrcelec		#	na	#	DETECTOR EVENT RATE B
+2CALPALV	#	Hrcelec		#	na	#	Cal pulser amplitude
+2CBHUAST	#	Hrcelec		#	STEP	#	CENTER BLANK HIGH CP
+2CBHUAST	#	Hrcelec		#	STEP	#	CENTER BLANK HIGH CP
+2CBHVAST	#	Hrcelec		#	STEP	#	CENTER BLANK HIGH CP
+2CBHVAST	#	Hrcelec		#	STEP	#	CENTER BLANK HIGH CP
+2CBLUAST	#	Hrcelec		#	STEP	#	CENTER BLANK LOW CP
+2CBLUAST	#	Hrcelec		#	STEP	#	CENTER BLANK LOW CP
+2CBLVAST	#	Hrcelec		#	STEP	#	CENTER BLANK LOW CP
+2CBLVAST	#	Hrcelec		#	STEP	#	CENTER BLANK LOW CP
+2CBLVAST	#	Hrcelec		#	STEP	#	CENTER BLANK LOW CP
+2FCPUAST	#	Hrcelec		#	STEP	#	FORCED COARSE POSITION U AXIS
+2FCPUAST	#	Hrcelec		#	STEP	#	FORCED COARSE POSITION U AXIS
+2FCPUAST	#	Hrcelec		#	STEP	#	FORCED COARSE POSITION U AXIS
+2FCPVAST	#	Hrcelec		#	STEP	#	FORCED COARSE POSITION V AXIS
+2FCPVAST	#	Hrcelec		#	STEP	#	FORCED COARSE POSITION V AXIS
+2FCPVAST	#	Hrcelec		#	STEP	#	FORCED COARSE POSITION V AXIS
+2IMBPAST	#	Hrcelec		#	na	#	IMAGING DET BOTTOM PLATE HV STEP
+2IMBPAST	#	Hrcelec		#	na	#	IMAGING DET BOTTOM PLATE HV STEP
+2IMBPAST	#	Hrcelec		#	na	#	IMAGING DET BOTTOM PLATE HV STEP
+2IMBPAST	#	Hrcelec		#	na	#	IMAGING DET BOTTOM PLATE HV STEP
+2IMBPAST	#	Hrcelec		#	na	#	IMAGING DET BOTTOM PLATE HV STEP
+2IMBPAST	#	Hrcelec		#	na	#	IMAGING DET BOTTOM PLATE HV STEP
+2IMHBLV		#	Hrcelec		#	na	#	Imaging bot and top MCP HV monitor
+2IMHBLV		#	Hrcelec		#	na	#	Imaging bot and top MCP HV monitor
+2IMHVLV		#	Hrcelec		#	na	#	Imaging bot MCP HV monitor
+2IMHVLV		#	Hrcelec		#	na	#	Imaging bot MCP HV monitor
+2IMTPAST	#	Hrcelec		#	STEP	#	IMAGING DET TOP PLATE HV STEP
+2IMTPAST	#	Hrcelec		#	STEP	#	IMAGING DET TOP PLATE HV STEP
+2IMTPAST	#	Hrcelec		#	STEP	#	IMAGING DET TOP PLATE HV STEP
+2IMTPAST	#	Hrcelec		#	STEP	#	IMAGING DET TOP PLATE HV STEP
+2IMTPAST	#	Hrcelec		#	STEP	#	IMAGING DET TOP PLATE HV STEP
+2IMTPAST	#	Hrcelec		#	STEP	#	IMAGING DET TOP PLATE HV STEP
+2LLDIALV	#	Hrcelec		#	na	#	Lower level disc setting
+2LLDIALV	#	Hrcelec		#	na	#	Lower level disc setting
+2RSRFALV	#	Hrcelec		#	na	#	Range switch setting
+2RSRFALV	#	Hrcelec		#	na	#	Range switch setting
+2S1HVLV		#	Hrcelec		#	na	#	Shield PMT 1 HV monitor
+2S1HVLV		#	Hrcelec		#	na	#	Shield PMT 1 HV monitor
+2S1HVST		#	Hrcelec		#	na	#	SHIELD A HVPS SETTING
+2S1HVST		#	Hrcelec		#	na	#	SHIELD A HVPS SETTING
+2S1HVST		#	Hrcelec		#	na	#	SHIELD A HVPS SETTING
+2S1HVST		#	Hrcelec		#	na	#	SHIELD A HVPS SETTING
+2S1HVST		#	Hrcelec		#	na	#	SHIELD A HVPS SETTING
+2S1HVST		#	Hrcelec		#	na	#	SHIELD A HVPS SETTING
+2S2HVLV		#	Hrcelec		#	na	#	Shield PMT 2 HV monitor
+2S2HVLV		#	Hrcelec		#	na	#	Shield PMT 2 HV monitor
+2S2HVST		#	Hrcelec		#	na	#	SHIELD B HVPS SETTING
+2S2HVST		#	Hrcelec		#	na	#	SHIELD B HVPS SETTING
+2SCTHAST	#	Hrcelec		#	na	#	NA
+2SPBPAST	#	Hrcelec		#	STEP	#	SPECTROSCOPY DET BOTTOM PLATE HV STEP
+2SPBPAST	#	Hrcelec		#	STEP	#	SPECTROSCOPY DET BOTTOM PLATE HV STEP
+2SPHBLV		#	Hrcelec		#	na	#	Spect bot and top MCP HV monitor
+2SPHBLV		#	Hrcelec		#	na	#	Spect bot and top MCP HV monitor
+2SPHVLV		#	Hrcelec		#	na	#	Spec bot MCP HV monitor
+2SPHVLV		#	Hrcelec		#	na	#	Spec bot MCP HV monitor
+2SPTPAST	#	Hrcelec		#	STEP	#	SPECTROSCOPY DET TOP PLATE HV STEP
+2SPTPAST	#	Hrcelec		#	STEP	#	SPECTROSCOPY DET TOP PLATE HV STEP
+2WDTHAST	#	Hrcelec		#	STEP	#	WIDTH THRESHOLD SETTING
+2WDTHAST	#	Hrcelec		#	STEP	#	WIDTH THRESHOLD SETTING
+2C05PALV	#	Hrchk		#	V	#	+5V bus monitor
+2C05PALV	#	Hrchk		#	V	#	+5V bus monitor
+2C05PALV	#	Hrchk		#	V	#	+5V bus monitor
+2C05PALV	#	Hrchk		#	V	#	+5V bus monitor
+2C05PALV	#	Hrchk		#	V	#	+5V bus monitor
+2C05PALV	#	Hrchk		#	V	#	+5V bus monitor
+2C15NALV	#	Hrchk		#	V	#	-15V bus monitor
+2C15NALV	#	Hrchk		#	V	#	-15V bus monitor
+2C15NALV	#	Hrchk		#	V	#	-15V bus monitor
+2C15NALV	#	Hrchk		#	V	#	-15V bus monitor
+2C15NALV	#	Hrchk		#	V	#	-15V bus monitor
+2C15NALV	#	Hrchk		#	V	#	-15V bus monitor
+2C15PALV	#	Hrchk		#	V	#	+15V bus monitor
+2C15PALV	#	Hrchk		#	V	#	+15V bus monitor
+2C15PALV	#	Hrchk		#	V	#	+15V bus monitor
+2C15PALV	#	Hrchk		#	V	#	+15V bus monitor
+2C15PALV	#	Hrchk		#	V	#	+15V bus monitor
+2C15PALV	#	Hrchk		#	V	#	+15V bus monitor
+2C24PALV	#	Hrchk		#	V	#	+24V bus monitor
+2C24PALV	#	Hrchk		#	V	#	+24V bus monitor
+2C24PALV	#	Hrchk		#	V	#	+24V bus monitor
+2C24PALV	#	Hrchk		#	V	#	+24V bus monitor
+2C24PALV	#	Hrchk		#	V	#	+24V bus monitor
+2C24PALV	#	Hrchk		#	V	#	+24V bus monitor
+2FE00ATM	#	Hrchk		#	C	#	Front end temperature
+2FEPRATM	#	Hrchk		#	C	#	FE temp card temperature
+2FEPRATM	#	Hrchk		#	C	#	FE temp card temperature
+2FEPRATM	#	Hrchk		#	C	#	FE temp card temperature
+2FEPRATM	#	Hrchk		#	C	#	FE temp card temperature
+2FEPRATM	#	Hrchk		#	C	#	FE temp card temperature
+2FEPRATM	#	Hrchk		#	C	#	FE temp card temperature
+2IMHVATM	#	Hrchk		#	C	#	Imaging det HVPS temperature
+2IMHVATM	#	Hrchk		#	C	#	Imaging det HVPS temperature
+2IMHVATM	#	Hrchk		#	C	#	Imaging det HVPS temperature
+2IMHVATM	#	Hrchk		#	C	#	Imaging det HVPS temperature
+2IMHVATM	#	Hrchk		#	C	#	Imaging det HVPS temperature
+2IMHVATM	#	Hrchk		#	C	#	Imaging det HVPS temperature
+2IMINATM	#	Hrchk		#	C	#	Imaging det temperature
+2IMINATM	#	Hrchk		#	C	#	Imaging det temperature
+2IMINATM	#	Hrchk		#	C	#	Imaging det temperature
+2IMINATM	#	Hrchk		#	C	#	Imaging det temperature
+2IMINATM	#	Hrchk		#	C	#	Imaging det temperature
+2IMINATM	#	Hrchk		#	C	#	Imaging det temperature
+2LVPLATM	#	Hrchk		#	C	#	LVPS plate temperature
+2LVPLATM	#	Hrchk		#	C	#	LVPS plate temperature
+2LVPLATM	#	Hrchk		#	C	#	LVPS plate temperature
+2LVPLATM	#	Hrchk		#	C	#	LVPS plate temperature
+2LVPLATM	#	Hrchk		#	C	#	LVPS plate temperature
+2LVPLATM	#	Hrchk		#	C	#	LVPS plate temperature
+2PRBSCR		#	Hrchk		#	AMP	#	Primary bus current
+2PRBSCR		#	Hrchk		#	AMP	#	Primary bus current
+2PRBSCR		#	Hrchk		#	AMP	#	Primary bus current
+2PRBSCR		#	Hrchk		#	AMP	#	Primary bus current
+2PRBSCR		#	Hrchk		#	AMP	#	Primary bus current
+2PRBSCR		#	Hrchk		#	AMP	#	Primary bus current
+2PRBSVL		#	Hrchk		#	V	#	Primary bus voltage
+2SMTRATM	#	Hrchk		#	C	#	Selected motor temperature
+2SMTRATM	#	Hrchk		#	C	#	Selected motor temperature
+2SMTRATM	#	Hrchk		#	C	#	Selected motor temperature
+2SMTRATM	#	Hrchk		#	C	#	Selected motor temperature
+2SMTRATM	#	Hrchk		#	C	#	Selected motor temperature
+2SMTRATM	#	Hrchk		#	C	#	Selected motor temperature
+2SPHVATM	#	Hrchk		#	C	#	Spect det HVPS temperature
+2SPHVATM	#	Hrchk		#	C	#	Spect det HVPS temperature
+2SPHVATM	#	Hrchk		#	C	#	Spect det HVPS temperature
+2SPHVATM	#	Hrchk		#	C	#	Spect det HVPS temperature
+2SPHVATM	#	Hrchk		#	C	#	Spect det HVPS temperature
+2SPHVATM	#	Hrchk		#	C	#	Spect det HVPS temperature
+2SPINATM	#	Hrchk		#	C	#	Spect det temperature
+2SPINATM	#	Hrchk		#	C	#	Spect det temperature
+2SPINATM	#	Hrchk		#	C	#	Spect det temperature
+2SPINATM	#	Hrchk		#	C	#	Spect det temperature
+2SPINATM	#	Hrchk		#	C	#	Spect det temperature
+2SPINATM	#	Hrchk		#	C	#	Spect det temperature
+2CEAHVPT	#	Hrctemp		#	K	#	CEA RADIATOR TEMPERATURE AT CENTER
+2CEAHVPT	#	Hrctemp		#	K	#	CEA RADIATOR TEMPERATURE AT CENTER
+2CEAHVPT	#	Hrctemp		#	K	#	CEA RADIATOR TEMPERATURE AT CENTER
+2CHTRPZT	#	Hrctemp		#	K	#	CENTRAL ELECTRONICS BOX TEMP
+2CHTRPZT	#	Hrctemp		#	K	#	CENTRAL ELECTRONICS BOX TEMP
+2CONDMXT	#	Hrctemp		#	K	#	CONDUIT -X FACE TEMPERATURE
+2CONDMXT	#	Hrctemp		#	K	#	CONDUIT -X FACE TEMPERATURE
+2DCENTRT	#	Hrctemp		#	K	#	DETECTOR HOUSING TEMP 2
+2DCENTRT	#	Hrctemp		#	K	#	DETECTOR HOUSING TEMP 2
+2DTSTATT	#	Hrctemp		#	K	#	DETECTOR HOUSING TEMP 1
+2DTSTATT	#	Hrctemp		#	K	#	DETECTOR HOUSING TEMP 1
+2FHTRMZT	#	Hrctemp		#	K	#	FRONT END ELECTRONICS BOX TEMPERATURE
+2FHTRMZT	#	Hrctemp		#	K	#	FRONT END ELECTRONICS BOX TEMPERATURE
+2FRADPYT	#	Hrctemp		#	K	#	FRONT END ASSEMBLY +Y AT RADIATOR CENTER TEMP
+2FRADPYT	#	Hrctemp		#	K	#	FRONT END ASSEMBLY +Y AT RADIATOR CENTER TEMP
+2PMT1T		#	Hrctemp		#	K	#	PMT 1 TEMPERATURE
+2PMT1T		#	Hrctemp		#	K	#	PMT 1 TEMPERATURE
+2PMT2T		#	Hrctemp		#	K	#	PMT 2 TEMPERATURE
+2PMT2T		#	Hrctemp		#	K	#	PMT 2 TEMPERATURE
+2PMT2T		#	Hrctemp		#	K	#	PMT 2 TEMPERATURE
+2UVLSPXT	#	Hrctemp		#	K	#	UV LIGHT SHIELD  NEXT TO SNOUT TEMP
+2UVLSPXT	#	Hrctemp		#	K	#	UV LIGHT SHIELD  NEXT TO SNOUT TEMP
+OHRMGRD1	#	Hrmagrad	#	CNT	#	IP INTERNAL CALIBRATION HRMA GM CH. 0
+OHRMGRD2	#	Hrmagrad	#	CNT	#	IP INTERNAL CALIBRATION HRMA GM CH. 1
+OHRMGRD3	#	Hrmagrad	#	K	#	RT 500 TO RT 502: CAP GRADIENT MONITOR
+OHRMGRD3	#	Hrmagrad	#	K	#	RT 500 TO RT 502: CAP GRADIENT MONITOR
+OHRMGRD4	#	Hrmagrad	#	CNT	#	IP INTERNAL CALIBRATION HRMA GM CH. 3
+OHRMGRD5	#	Hrmagrad	#	CNT	#	IP INTERNAL CALIBRATION HRMA GM CH. 4
+OHRMGRD6	#	Hrmagrad	#	K	#	RT 503 TO RT 501: CAP GRADIENT MONITOR
+OHRMGRD6	#	Hrmagrad	#	K	#	RT 503 TO RT 501: CAP GRADIENT MONITOR
+OHRMGRD7	#	Hrmagrad	#	CNT	#	IP INTERNAL CALIBRATION HRMA GM CH. 6
+OHRMGRD8	#	Hrmagrad	#	CNT	#	IP INTERNAL CALIBRATION HRMA GM CH. 7
+OHRTHR01	#	Hrmaheaters	#	CNT	#	IP INTERNAL CALIBRATION HRMA CH. 0
+OHRTHR02	#	Hrmaheaters	#	K	#	RT 2: HRMA FORWARD APERTURE PLATE
+OHRTHR03	#	Hrmaheaters	#	K	#	RT 5: HRMA FORWARD APERTURE PLATE
+OHRTHR04	#	Hrmaheaters	#	K	#	RT 9: HRMA PRECOLLIMATOR PLATE 10
+OHRTHR05	#	Hrmaheaters	#	K	#	RT 13: HRMA AFT HEATER PLATE
+OHRTHR05	#	Hrmaheaters	#	K	#	RT 13: HRMA AFT HEATER PLATE
+OHRTHR05	#	Hrmaheaters	#	K	#	RT 13: HRMA AFT HEATER PLATE
+OHRTHR05	#	Hrmaheaters	#	K	#	RT 13: HRMA AFT HEATER PLATE
+OHRTHR06	#	Hrmaheaters	#	K	#	RT 14: HRMA MOUNT
+OHRTHR06	#	Hrmaheaters	#	K	#	RT 14: HRMA MOUNT
+OHRTHR06	#	Hrmaheaters	#	K	#	RT 14: HRMA MOUNT
+OHRTHR07	#	Hrmaheaters	#	K	#	RT 18: HSA OUTER CYLINDER
+OHRTHR07	#	Hrmaheaters	#	K	#	RT 18: HSA OUTER CYLINDER
+OHRTHR07	#	Hrmaheaters	#	K	#	RT 18: HSA OUTER CYLINDER
+OHRTHR08	#	Hrmaheaters	#	K	#	RT 103: HRMA CAP
+OHRTHR08	#	Hrmaheaters	#	K	#	RT 103: HRMA CAP
+OHRTHR08	#	Hrmaheaters	#	K	#	RT 103: HRMA CAP
+OHRTHR09	#	Hrmaheaters	#	K	#	RT 105: HRMA CAP
+OHRTHR09	#	Hrmaheaters	#	K	#	RT 105: HRMA CAP
+OHRTHR09	#	Hrmaheaters	#	K	#	RT 105: HRMA CAP
+OHRTHR10	#	Hrmaheaters	#	K	#	RT 107: HRMA P1 FLEXURE
+OHRTHR10	#	Hrmaheaters	#	K	#	RT 107: HRMA P1 FLEXURE
+OHRTHR10	#	Hrmaheaters	#	K	#	RT 107: HRMA P1 FLEXURE
+OHRTHR11	#	Hrmaheaters	#	K	#	RT 108: HRMA P4 FLEXURE
+OHRTHR11	#	Hrmaheaters	#	K	#	RT 108: HRMA P4 FLEXURE
+OHRTHR11	#	Hrmaheaters	#	K	#	RT 108: HRMA P4 FLEXURE
+OHRTHR12	#	Hrmaheaters	#	K	#	RT 115: HRMA H1 FLEXURE
+OHRTHR12	#	Hrmaheaters	#	K	#	RT 115: HRMA H1 FLEXURE
+OHRTHR12	#	Hrmaheaters	#	K	#	RT 115: HRMA H1 FLEXURE
+OHRTHR13	#	Hrmaheaters	#	K	#	RT 116: HRMA H6 FLEXURE
+OHRTHR13	#	Hrmaheaters	#	K	#	RT 116: HRMA H6 FLEXURE
+OHRTHR13	#	Hrmaheaters	#	K	#	RT 116: HRMA H6 FLEXURE
+OHRTHR14	#	Hrmaheaters	#	K	#	RT 121: HSA AFT INNER CYLINDER
+OHRTHR14	#	Hrmaheaters	#	K	#	RT 121: HSA AFT INNER CYLINDER
+OHRTHR14	#	Hrmaheaters	#	K	#	RT 121: HSA AFT INNER CYLINDER
+OHRTHR14	#	Hrmaheaters	#	K	#	RT 121: HSA AFT INNER CYLINDER
+OHRTHR15	#	Hrmaheaters	#	K	#	RT 122: HRMA MOUNT
+OHRTHR15	#	Hrmaheaters	#	K	#	RT 122: HRMA MOUNT
+OHRTHR15	#	Hrmaheaters	#	K	#	RT 122: HRMA MOUNT
+OHRTHR16	#	Hrmaheaters	#	CNT	#	IP INTERNAL CALIBRATION HRMA CH. 15
+OHRTHR17	#	Hrmaheaters	#	K	#	RT 125: HSA OUTER CYNLINDER
+OHRTHR17	#	Hrmaheaters	#	K	#	RT 125: HSA OUTER CYNLINDER
+OHRTHR17	#	Hrmaheaters	#	K	#	RT 125: HSA OUTER CYNLINDER
+OHRTHR18	#	Hrmaheaters	#	K	#	RT 130: FHS INNER CYLINDER
+OHRTHR18	#	Hrmaheaters	#	K	#	RT 130: FHS INNER CYLINDER
+OHRTHR19	#	Hrmaheaters	#	K	#	RT 132: HRMA AFT HEATER PLATE
+OHRTHR19	#	Hrmaheaters	#	K	#	RT 132: HRMA AFT HEATER PLATE
+OHRTHR19	#	Hrmaheaters	#	K	#	RT 132: HRMA AFT HEATER PLATE
+OHRTHR19	#	Hrmaheaters	#	K	#	RT 132: HRMA AFT HEATER PLATE
+OHRTHR20	#	Hrmaheaters	#	K	#	RT 135: RRCA MOUNT
+OHRTHR20	#	Hrmaheaters	#	K	#	RT 135: RRCA MOUNT
+OHRTHR20	#	Hrmaheaters	#	K	#	RT 135: RRCA MOUNT
+OHRTHR21	#	Hrmaheaters	#	K	#	RT 3: HRMA FOWARD APERTURE PLATE
+OHRTHR22	#	Hrmaheaters	#	K	#	RT 6: HRMA FOWARD APERTURE PLATE
+OHRTHR23	#	Hrmaheaters	#	K	#	RT 8: HRMA PRECOLLIMATOR PLATE 10
+OHRTHR24	#	Hrmaheaters	#	K	#	RT 12: HRMA AFT HEATER PLATE
+OHRTHR24	#	Hrmaheaters	#	K	#	RT 12: HRMA AFT HEATER PLATE
+OHRTHR24	#	Hrmaheaters	#	K	#	RT 12: HRMA AFT HEATER PLATE
+OHRTHR24	#	Hrmaheaters	#	K	#	RT 12: HRMA AFT HEATER PLATE
+OHRTHR25	#	Hrmaheaters	#	K	#	RT 15: HRMA MOUNT
+OHRTHR25	#	Hrmaheaters	#	K	#	RT 15: HRMA MOUNT
+OHRTHR25	#	Hrmaheaters	#	K	#	RT 15: HRMA MOUNT
+OHRTHR26	#	Hrmaheaters	#	K	#	RT 19: HSA OUTER CYLINDER
+OHRTHR26	#	Hrmaheaters	#	K	#	RT 19: HSA OUTER CYLINDER
+OHRTHR26	#	Hrmaheaters	#	K	#	RT 19: HSA OUTER CYLINDER
+OHRTHR28	#	Hrmaheaters	#	na	#	INVALID: TELESCOPE THERMISTOR DATA: HRMA CH 27
+OHRTHR29	#	Hrmaheaters	#	K	#	RT 23: HSA AFT INNER CYLINDER
+OHRTHR29	#	Hrmaheaters	#	K	#	RT 23: HSA AFT INNER CYLINDER
+OHRTHR29	#	Hrmaheaters	#	K	#	RT 23: HSA AFT INNER CYLINDER
+OHRTHR30	#	Hrmaheaters	#	K	#	RT 24 : HSA AFT INNER CYLINDER
+OHRTHR30	#	Hrmaheaters	#	K	#	RT 24 : HSA AFT INNER CYLINDER
+OHRTHR30	#	Hrmaheaters	#	K	#	RT 24 : HSA AFT INNER CYLINDER
+OHRTHR31	#	Hrmaheaters	#	K	#	RT 101: HRMA CAP
+OHRTHR31	#	Hrmaheaters	#	K	#	RT 101: HRMA CAP
+OHRTHR31	#	Hrmaheaters	#	K	#	RT 101: HRMA CAP
+OHRTHR32	#	Hrmaheaters	#	CNT	#	IP INTERNAL CALIBRATION HRMA CH. 31
+OHRTHR33	#	Hrmaheaters	#	K	#	RT 102: HRMA CAP
+OHRTHR33	#	Hrmaheaters	#	K	#	RT 102: HRMA CAP
+OHRTHR33	#	Hrmaheaters	#	K	#	RT 102: HRMA CAP
+OHRTHR34	#	Hrmaheaters	#	K	#	RT 109: HRMA P1 FLEXURE
+OHRTHR34	#	Hrmaheaters	#	K	#	RT 109: HRMA P1 FLEXURE
+OHRTHR34	#	Hrmaheaters	#	K	#	RT 109: HRMA P1 FLEXURE
+OHRTHR35	#	Hrmaheaters	#	K	#	RT 110: HRMA P4 FLEXURE
+OHRTHR35	#	Hrmaheaters	#	K	#	RT 110: HRMA P4 FLEXURE
+OHRTHR35	#	Hrmaheaters	#	K	#	RT 110: HRMA P4 FLEXURE
+OHRTHR36	#	Hrmaheaters	#	K	#	RT 113: HRMA H1 FLEXURE
+OHRTHR36	#	Hrmaheaters	#	K	#	RT 113: HRMA H1 FLEXURE
+OHRTHR36	#	Hrmaheaters	#	K	#	RT 113: HRMA H1 FLEXURE
+OHRTHR37	#	Hrmaheaters	#	K	#	RT 114: HRMA H4 FLEXURE
+OHRTHR37	#	Hrmaheaters	#	K	#	RT 114: HRMA H4 FLEXURE
+OHRTHR37	#	Hrmaheaters	#	K	#	RT 114: HRMA H4 FLEXURE
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR38	#	Hrmaheaters	#	K	#	RT 120: HRMA AFT COLLIMATOR OUTER CYLINDER
+OHRTHR39	#	Hrmaheaters	#	K	#	RT 123: HSA OUTER CYLINDER
+OHRTHR39	#	Hrmaheaters	#	K	#	RT 123: HSA OUTER CYLINDER
+OHRTHR39	#	Hrmaheaters	#	K	#	RT 123: HSA OUTER CYLINDER
+OHRTHR40	#	Hrmaheaters	#	K	#	RT 124: HRMA MOUNT
+OHRTHR40	#	Hrmaheaters	#	K	#	RT 124: HRMA MOUNT
+OHRTHR40	#	Hrmaheaters	#	K	#	RT 124: HRMA MOUNT
+OHRTHR41	#	Hrmaheaters	#	K	#	RT 129: AHS OUTER CYLINDER
+OHRTHR41	#	Hrmaheaters	#	K	#	RT 129: AHS OUTER CYLINDER
+OHRTHR41	#	Hrmaheaters	#	K	#	RT 129: AHS OUTER CYLINDER
+OHRTHR41	#	Hrmaheaters	#	K	#	RT 129: AHS OUTER CYLINDER
+OHRTHR44	#	Hrmaheaters	#	K	#	RT 1: HRMA FORWARD APERTURE PLATE
+OHRTHR45	#	Hrmaheaters	#	K	#	RT 4: HRMA FORWARD APERTURE PLATE
+OHRTHR46	#	Hrmaheaters	#	K	#	RT 7: HRMA FORWARD APERTURE PLATE
+OHRTHR47	#	Hrmaheaters	#	K	#	RT 10: HRMA PRECOLLIMATOR PLATE 10
+OHRTHR48	#	Hrmaheaters	#	CNT	#	IP INTERNAL CALIBRATION HRMA CH. 47
+OHRTHR49	#	Hrmaheaters	#	K	#	RT 11: HRMA AFT HEATER PLATE
+OHRTHR49	#	Hrmaheaters	#	K	#	RT 11: HRMA AFT HEATER PLATE
+OHRTHR49	#	Hrmaheaters	#	K	#	RT 11: HRMA AFT HEATER PLATE
+OHRTHR49	#	Hrmaheaters	#	K	#	RT 11: HRMA AFT HEATER PLATE
+OHRTHR50	#	Hrmaheaters	#	K	#	RT 16: HRMA MOUNT
+OHRTHR50	#	Hrmaheaters	#	K	#	RT 16: HRMA MOUNT
+OHRTHR50	#	Hrmaheaters	#	K	#	RT 16: HRMA MOUNT
+OHRTHR51	#	Hrmaheaters	#	K	#	RT 17: HSA OUTER CYLINDER
+OHRTHR51	#	Hrmaheaters	#	K	#	RT 17: HSA OUTER CYLINDER
+OHRTHR51	#	Hrmaheaters	#	K	#	RT 17: HSA OUTER CYLINDER
+OHRTHR52	#	Hrmaheaters	#	K	#	RT 100: HRMA CAP
+OHRTHR52	#	Hrmaheaters	#	K	#	RT 100: HRMA CAP
+OHRTHR52	#	Hrmaheaters	#	K	#	RT 100: HRMA CAP
+OHRTHR53	#	Hrmaheaters	#	K	#	RT 104: HRMA CAP
+OHRTHR53	#	Hrmaheaters	#	K	#	RT 104: HRMA CAP
+OHRTHR53	#	Hrmaheaters	#	K	#	RT 104: HRMA CAP
+OHRTHR54	#	Hrmaheaters	#	K	#	RT 106: HRMA CAP
+OHRTHR54	#	Hrmaheaters	#	K	#	RT 106: HRMA CAP
+OHRTHR54	#	Hrmaheaters	#	K	#	RT 106: HRMA CAP
+OHRTHR55	#	Hrmaheaters	#	K	#	RT 111: HRMA P1 FLEXURE
+OHRTHR55	#	Hrmaheaters	#	K	#	RT 111: HRMA P1 FLEXURE
+OHRTHR55	#	Hrmaheaters	#	K	#	RT 111: HRMA P1 FLEXURE
+OHRTHR56	#	Hrmaheaters	#	K	#	RT 112: HRMA P4 FLEXURE
+OHRTHR56	#	Hrmaheaters	#	K	#	RT 112: HRMA P4 FLEXURE
+OHRTHR56	#	Hrmaheaters	#	K	#	RT 112: HRMA P4 FLEXURE
+OHRTHR57	#	Hrmaheaters	#	K	#	RT 117: HRMA H1 FLEXURE
+OHRTHR57	#	Hrmaheaters	#	K	#	RT 117: HRMA H1 FLEXURE
+OHRTHR57	#	Hrmaheaters	#	K	#	RT 117: HRMA H1 FLEXURE
+OHRTHR58	#	Hrmaheaters	#	K	#	RT 118: HRMA H4 FLEXURE
+OHRTHR58	#	Hrmaheaters	#	K	#	RT 118: HRMA H4 FLEXURE
+OHRTHR58	#	Hrmaheaters	#	K	#	RT 118: HRMA H4 FLEXURE
+OHRTHR59	#	Hrmaheaters	#	K	#	RT 119: HRMA PRECOLLIMATOR PLATE 10
+OHRTHR60	#	Hrmaheaters	#	K	#	RT 126: HRMA MOUNT
+OHRTHR60	#	Hrmaheaters	#	K	#	RT 126: HRMA MOUNT
+OHRTHR60	#	Hrmaheaters	#	K	#	RT 126: HRMA MOUNT
+OHRTHR61	#	Hrmaheaters	#	K	#	RT 127: HSA OUTER CYLINDER
+OHRTHR61	#	Hrmaheaters	#	K	#	RT 127: HSA OUTER CYLINDER
+OHRTHR61	#	Hrmaheaters	#	K	#	RT 127: HSA OUTER CYLINDER
+OHRTHR62	#	Hrmaheaters	#	K	#	RT 128: FHS OUTER CYLINDER
+OHRTHR62	#	Hrmaheaters	#	K	#	RT 128: FHS OUTER CYLINDER
+OHRTHR62	#	Hrmaheaters	#	K	#	RT 128: FHS OUTER CYLINDER
+OHRTHR63	#	Hrmaheaters	#	K	#	RT 131: HRMA FORWARD APERTURE PLATE
+OHRTHR64	#	Hrmaheaters	#	CNT	#	IP INTERNAL CALIBRATION HRMA CH. 63
+4RT582T		#	Hrmastruts	#	K	#	RT 582 - STRUT TEMP
+4RT582T		#	Hrmastruts	#	K	#	RT 582 - STRUT TEMP
+4RT582T		#	Hrmastruts	#	K	#	RT 582 - STRUT TEMP
+4RT583T		#	Hrmastruts	#	K	#	RT 583 - STRUT TEMP
+4RT583T		#	Hrmastruts	#	K	#	RT 583 - STRUT TEMP
+4RT583T		#	Hrmastruts	#	K	#	RT 583 - STRUT TEMP
+4RT583T		#	Hrmastruts	#	K	#	RT 583 - STRUT TEMP
+4RT584T		#	Hrmastruts	#	K	#	RT 584 - STRUT TEMP
+4RT584T		#	Hrmastruts	#	K	#	RT 584 - STRUT TEMP
+4RT584T		#	Hrmastruts	#	K	#	RT 584 - STRUT TEMP
+4RT584T		#	Hrmastruts	#	K	#	RT 584 - STRUT TEMP
+4RT584T		#	Hrmastruts	#	K	#	RT 584 - STRUT TEMP
+4RT584T		#	Hrmastruts	#	K	#	RT 584 - STRUT TEMP
+4RT585T		#	Hrmastruts	#	K	#	RT 585 - STRUT TEMP
+4RT585T		#	Hrmastruts	#	K	#	RT 585 - STRUT TEMP
+4RT585T		#	Hrmastruts	#	K	#	RT 585 - STRUT TEMP
+4RT585T		#	Hrmastruts	#	K	#	RT 585 - STRUT TEMP
+4RT585T		#	Hrmastruts	#	K	#	RT 585 - STRUT TEMP
+4RT585T		#	Hrmastruts	#	K	#	RT 585 - STRUT TEMP
+4RT586T		#	Hrmastruts	#	K	#	RT 586 - STRUT TEMP
+4RT586T		#	Hrmastruts	#	K	#	RT 586 - STRUT TEMP
+4RT586T		#	Hrmastruts	#	K	#	RT 586 - STRUT TEMP
+4RT586T		#	Hrmastruts	#	K	#	RT 586 - STRUT TEMP
+4RT587T		#	Hrmastruts	#	K	#	RT 587 - STRUT TEMP
+4RT587T		#	Hrmastruts	#	K	#	RT 587 - STRUT TEMP
+4RT587T		#	Hrmastruts	#	K	#	RT 587 - STRUT TEMP
+4RT588T		#	Hrmastruts	#	K	#	RT 588 - STRUT TEMP
+4RT588T		#	Hrmastruts	#	K	#	RT 588 - STRUT TEMP
+4RT588T		#	Hrmastruts	#	K	#	RT 588 - STRUT TEMP
+4RT588T		#	Hrmastruts	#	K	#	RT 588 - STRUT TEMP
+4RT589T		#	Hrmastruts	#	K	#	RT 589 - STRUT TEMP
+4RT589T		#	Hrmastruts	#	K	#	RT 589 - STRUT TEMP
+4RT589T		#	Hrmastruts	#	K	#	RT 589 - STRUT TEMP
+4RT589T		#	Hrmastruts	#	K	#	RT 589 - STRUT TEMP
+4RT589T		#	Hrmastruts	#	K	#	RT 589 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT590T		#	Hrmastruts	#	K	#	RT 590 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT591T		#	Hrmastruts	#	K	#	RT 591 - STRUT TEMP
+4RT592T		#	Hrmastruts	#	K	#	RT 592 - STRUT TEMP
+4RT592T		#	Hrmastruts	#	K	#	RT 592 - STRUT TEMP
+4RT592T		#	Hrmastruts	#	K	#	RT 592 - STRUT TEMP
+4RT592T		#	Hrmastruts	#	K	#	RT 592 - STRUT TEMP
+4RT592T		#	Hrmastruts	#	K	#	RT 592 - STRUT TEMP
+4RT592T		#	Hrmastruts	#	K	#	RT 592 - STRUT TEMP
+4RT593T		#	Hrmastruts	#	K	#	RT 593 - STRUT TEMP
+4RT593T		#	Hrmastruts	#	K	#	RT 593 - STRUT TEMP
+4RT593T		#	Hrmastruts	#	K	#	RT 593 - STRUT TEMP
+4RT593T		#	Hrmastruts	#	K	#	RT 593 - STRUT TEMP
+4RT594T		#	Hrmastruts	#	K	#	RT 594 - TFTE TEMP
+4RT594T		#	Hrmastruts	#	K	#	RT 594 - TFTE TEMP
+4RT594T		#	Hrmastruts	#	K	#	RT 594 - TFTE TEMP
+4RT594T		#	Hrmastruts	#	K	#	RT 594 - TFTE TEMP
+4RT594T		#	Hrmastruts	#	K	#	RT 594 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT595T		#	Hrmastruts	#	K	#	RT 595 - TFTE TEMP
+4RT596T		#	Hrmastruts	#	K	#	RT 596 - TFTE TEMP
+4RT596T		#	Hrmastruts	#	K	#	RT 596 - TFTE TEMP
+4RT596T		#	Hrmastruts	#	K	#	RT 596 - TFTE TEMP
+4RT596T		#	Hrmastruts	#	K	#	RT 596 - TFTE TEMP
+4RT596T		#	Hrmastruts	#	K	#	RT 596 - TFTE TEMP
+4RT596T		#	Hrmastruts	#	K	#	RT 596 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT597T		#	Hrmastruts	#	K	#	RT 597 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT598T		#	Hrmastruts	#	K	#	RT 598 - TFTE TEMP
+4RT555T		#	Hrmatherm	#	K	#	RT 555 - HRMA TEMP
+4RT555T		#	Hrmatherm	#	K	#	RT 555 - HRMA TEMP
+4RT555T		#	Hrmatherm	#	K	#	RT 555 - HRMA TEMP
+4RT556T		#	Hrmatherm	#	K	#	RT 556 - HRMA TEMP
+4RT556T		#	Hrmatherm	#	K	#	RT 556 - HRMA TEMP
+4RT556T		#	Hrmatherm	#	K	#	RT 556 - HRMA TEMP
+4RT557T		#	Hrmatherm	#	K	#	RT 557 - HRMA TEMP
+4RT557T		#	Hrmatherm	#	K	#	RT 557 - HRMA TEMP
+4RT557T		#	Hrmatherm	#	K	#	RT 557 - HRMA TEMP
+4RT558T		#	Hrmatherm	#	K	#	RT 558 - HRMA TEMP
+4RT558T		#	Hrmatherm	#	K	#	RT 558 - HRMA TEMP
+4RT558T		#	Hrmatherm	#	K	#	RT 558 - HRMA TEMP
+4RT559T		#	Hrmatherm	#	K	#	RT 559 - HRMA TEMP
+4RT559T		#	Hrmatherm	#	K	#	RT 559 - HRMA TEMP
+4RT559T		#	Hrmatherm	#	K	#	RT 559 - HRMA TEMP
+4RT560T		#	Hrmatherm	#	K	#	RT 560 - HRMA TEMP
+4RT560T		#	Hrmatherm	#	K	#	RT 560 - HRMA TEMP
+4RT560T		#	Hrmatherm	#	K	#	RT 560 - HRMA TEMP
+4RT561T		#	Hrmatherm	#	K	#	RT 561 - HRMA TEMP
+4RT561T		#	Hrmatherm	#	K	#	RT 561 - HRMA TEMP
+4RT561T		#	Hrmatherm	#	K	#	RT 561 - HRMA TEMP
+4RT561T		#	Hrmatherm	#	K	#	RT 561 - HRMA TEMP
+4RT562T		#	Hrmatherm	#	K	#	RT 562 - HRMA TEMP
+4RT563T		#	Hrmatherm	#	K	#	RT 563 - HRMA TEMP
+4RT564T		#	Hrmatherm	#	K	#	RT 564 - HRMA TEMP
+4RT564T		#	Hrmatherm	#	K	#	RT 564 - HRMA TEMP
+4RT565T		#	Hrmatherm	#	K	#	RT 565 - HRMA TEMP
+4RT565T		#	Hrmatherm	#	K	#	RT 565 - HRMA TEMP
+4RT567T		#	Hrmatherm	#	K	#	RT 567 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT568T		#	Hrmatherm	#	K	#	RT 568 - HRMA TEMP
+4RT569T		#	Hrmatherm	#	K	#	RT 569 - HRMA TEMP
+4RT569T		#	Hrmatherm	#	K	#	RT 569 - HRMA TEMP
+4RT569T		#	Hrmatherm	#	K	#	RT 569 - HRMA TEMP
+4RT569T		#	Hrmatherm	#	K	#	RT 569 - HRMA TEMP
+4RT570T		#	Hrmatherm	#	K	#	RT 570 - HRMA TEMP
+4RT570T		#	Hrmatherm	#	K	#	RT 570 - HRMA TEMP
+4RT570T		#	Hrmatherm	#	K	#	RT 570 - HRMA TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT575T		#	Hrmatherm	#	K	#	RT 575 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT576T		#	Hrmatherm	#	K	#	RT 576 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT577T		#	Hrmatherm	#	K	#	RT 577 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT578T		#	Hrmatherm	#	K	#	RT 578 - OB CONE TEMP
+4RT579T		#	Hrmatherm	#	K	#	RT 579 - OB CONE TEMP
+4RT579T		#	Hrmatherm	#	K	#	RT 579 - OB CONE TEMP
+4RT579T		#	Hrmatherm	#	K	#	RT 579 - OB CONE TEMP
+4RT579T		#	Hrmatherm	#	K	#	RT 579 - OB CONE TEMP
+4RT579T		#	Hrmatherm	#	K	#	RT 579 - OB CONE TEMP
+4RT579T		#	Hrmatherm	#	K	#	RT 579 - OB CONE TEMP
+4RT580T		#	Hrmatherm	#	K	#	RT 580 - OB CONE TEMP
+4RT580T		#	Hrmatherm	#	K	#	RT 580 - OB CONE TEMP
+4RT580T		#	Hrmatherm	#	K	#	RT 580 - OB CONE TEMP
+4RT580T		#	Hrmatherm	#	K	#	RT 580 - OB CONE TEMP
+4RT580T		#	Hrmatherm	#	K	#	RT 580 - OB CONE TEMP
+4RT580T		#	Hrmatherm	#	K	#	RT 580 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+4RT581T		#	Hrmatherm	#	K	#	RT 581 - OB CONE TEMP
+AOTHRST1	#	Mups		#	CNTS	#	ACCUMULATED THRUSTER ON-TIME COUNTS (RCS1 OR MUPS1)
+AOTHRST2	#	Mups		#	CNTS	#	ACCUMULATED THRUSTER ON-TIME COUNTS (RCS2 OR MUPS2)
+AOTHRST2	#	Mups		#	CNTS	#	ACCUMULATED THRUSTER ON-TIME COUNTS (RCS2 OR MUPS2)
+AOTHRST3	#	Mups		#	CNTS	#	ACCUMULATED THRUSTER ON-TIME COUNTS (RCS3 OR MUPS3)
+AOTHRST4	#	Mups		#	CNTS	#	ACCUMULATED THRUSTER ON-TIME COUNTS (RCS4 OR MUPS4)
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV1T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 01 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM1THV2T	#	Mups		#	K	#	MUPS 1 THRUSTER VALVE 02 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV1T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 01 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM2THV2T	#	Mups		#	K	#	MUPS 2 THRUSTER VALVE 02 TEMP
+PM3THV1T	#	Mups		#	K	#	MUPS 3 THRUSTER VALVE 01 TEMP
+PM3THV2T	#	Mups		#	K	#	MUPS 3 THRUSTER VALVE 02 TEMP
+PM3THV2T	#	Mups		#	K	#	MUPS 3 THRUSTER VALVE 02 TEMP
+PM4THV1T	#	Mups		#	K	#	MUPS 4 THRUSTER VALVE 01 TEMP
+PM4THV2T	#	Mups		#	K	#	MUPS 4 THRUSTER VALVE 02 TEMP
+PM4THV2T	#	Mups		#	K	#	MUPS 4 THRUSTER VALVE 02 TEMP
+PMFP01T		#	Mups		#	K	#	MFP TEMP 1
+PMFP01T		#	Mups		#	K	#	MFP TEMP 1
+PMFP01T		#	Mups		#	K	#	MFP TEMP 1
+PMFP01T		#	Mups		#	K	#	MFP TEMP 1
+PMTANK1T	#	Mups		#	K	#	MUPS TANK TEMP 1
+PMTANK1T	#	Mups		#	K	#	MUPS TANK TEMP 1
+PMTANK1T	#	Mups		#	K	#	MUPS TANK TEMP 1
+PMTANK1T	#	Mups		#	K	#	MUPS TANK TEMP 1
+PMTANK1T	#	Mups		#	K	#	MUPS TANK TEMP 1
+PMTANK2T	#	Mups		#	K	#	MUPS TANK TEMP 2
+PMTANK2T	#	Mups		#	K	#	MUPS TANK TEMP 2
+PMTANK2T	#	Mups		#	K	#	MUPS TANK TEMP 2
+PMTANK2T	#	Mups		#	K	#	MUPS TANK TEMP 2
+PMTANK2T	#	Mups		#	K	#	MUPS TANK TEMP 2
+PMTANK3T	#	Mups		#	K	#	MUPS TANK TEMP 3
+PMTANK3T	#	Mups		#	K	#	MUPS TANK TEMP 3
+PMTANK3T	#	Mups		#	K	#	MUPS TANK TEMP 3
+PMTANK3T	#	Mups		#	K	#	MUPS TANK TEMP 3
+PMTANK3T	#	Mups		#	K	#	MUPS TANK TEMP 3
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PMTANKP		#	Mups		#	PSIA	#	MUPS TANK PRESSURE
+PCM01T		#	Mups		#	K	#	PCM TEMP 01
+PCM01T		#	Mups		#	K	#	PCM TEMP 01
+PCM01T		#	Mups		#	K	#	PCM TEMP 01
+PCM01T		#	Mups		#	K	#	PCM TEMP 01
+PCM02T		#	Mups		#	K	#	PCM TEMP 02
+PCM02T		#	Mups		#	K	#	PCM TEMP 02
+PCM02T		#	Mups		#	K	#	PCM TEMP 02
+PCM02T		#	Mups		#	K	#	PCM TEMP 02
+PCM03T		#	Mups		#	K	#	PCM TEMP 03
+PCM03T		#	Mups		#	K	#	PCM TEMP 03
+PCM03T		#	Mups		#	K	#	PCM TEMP 03
+PCM03T		#	Mups		#	K	#	PCM TEMP 03
+PCM03T		#	Mups		#	K	#	PCM TEMP 03
+PCM04T		#	Mups		#	K	#	PCM TEMP 04
+PCM04T		#	Mups		#	K	#	PCM TEMP 04
+PCM04T		#	Mups		#	K	#	PCM TEMP 04
+PCM04T		#	Mups		#	K	#	PCM TEMP 04
+PCM04T		#	Mups		#	K	#	PCM TEMP 04
+PFDM101T	#	Mups		#	K	#	FDM1 TEMP 01
+PFDM102T	#	Mups		#	K	#	FDM1 TEMP 02
+PFDM201T	#	Mups		#	K	#	FDM2 TEMP 01
+PFDM201T	#	Mups		#	K	#	FDM2 TEMP 01
+PFDM202T	#	Mups		#	K	#	FDM2 TEMP 02
+PFDM202T	#	Mups		#	K	#	FDM2 TEMP 02
+PFFP01T		#	Mups		#	K	#	FFP TEMP 1
+PFFP01T		#	Mups		#	K	#	FFP TEMP 1
+PFFP01T		#	Mups		#	K	#	FFP TEMP 1
+PFFP01T		#	Mups		#	K	#	FFP TEMP 1
+PFTANK1T	#	Mups		#	K	#	FUEL TANK TEMP 01
+PFTANK1T	#	Mups		#	K	#	FUEL TANK TEMP 01
+PFTANK1T	#	Mups		#	K	#	FUEL TANK TEMP 01
+PFTANK2T	#	Mups		#	K	#	FUEL TANK TEMP 02
+PFTANK2T	#	Mups		#	K	#	FUEL TANK TEMP 02
+PFTANK2T	#	Mups		#	K	#	FUEL TANK TEMP 02
+PFTANK2T	#	Mups		#	K	#	FUEL TANK TEMP 02
+PHETANKT	#	Mups		#	K	#	HE TANK OUTLET TEMP
+PHETANKT	#	Mups		#	K	#	HE TANK OUTLET TEMP
+PHETANKT	#	Mups		#	K	#	HE TANK OUTLET TEMP
+PHOFP1T		#	Mups		#	K	#	HE/OX FILL PANEL TEMP 1
+PHOFP1T		#	Mups		#	K	#	HE/OX FILL PANEL TEMP 1
+PXDM01T		#	Mups		#	K	#	ODM TEMP 01
+PXDM02T		#	Mups		#	K	#	ODM TEMP 02
+PXTANK1T	#	Mups		#	K	#	OX TANK TEMP 01
+PXTANK1T	#	Mups		#	K	#	OX TANK TEMP 01
+PXTANK2T	#	Mups		#	K	#	OX TANK TEMP 02
+PXTANK2T	#	Mups		#	K	#	OX TANK TEMP 02
+PFTANKIP	#	Mups		#	PSIA	#	FUEL TANK INLET PRESSURE
+PFTANKIP	#	Mups		#	PSIA	#	FUEL TANK INLET PRESSURE
+PFTANKIP	#	Mups		#	PSIA	#	FUEL TANK INLET PRESSURE
+PFTANKOP	#	Mups		#	PSIA	#	FUEL TANK OUTLET PRESSURE
+PFTANKOP	#	Mups		#	PSIA	#	FUEL TANK OUTLET PRESSURE
+PFTANKOP	#	Mups		#	PSIA	#	FUEL TANK OUTLET PRESSURE
+PFTANKOP	#	Mups		#	PSIA	#	FUEL TANK OUTLET PRESSURE
+PHETANKP	#	Mups		#	PSIA	#	HE TANK PRESSURE
+PHETANKP	#	Mups		#	PSIA	#	HE TANK PRESSURE
+PXTANKIP	#	Mups		#	PSIA	#	OX TANK INLET PRESSURE
+PXTANKIP	#	Mups		#	PSIA	#	OX TANK INLET PRESSURE
+PXTANKOP	#	Mups		#	PSIA	#	OX TANK OUTLET PRESSURE
+PXTANKOP	#	Mups		#	PSIA	#	OX TANK OUTLET PRESSURE
+PLINE01T	#	Mups		#	K	#	PROP LINE TEMP 01
+PLINE01T	#	Mups		#	K	#	PROP LINE TEMP 01
+PLINE01T	#	Mups		#	K	#	PROP LINE TEMP 01
+PLINE01T	#	Mups		#	K	#	PROP LINE TEMP 01
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE02T	#	Mups		#	K	#	PROP LINE TEMP 02
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE03T	#	Mups		#	K	#	PROP LINE TEMP 03
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE04T	#	Mups		#	K	#	PROP LINE TEMP 04
+PLINE05T	#	Mups		#	K	#	PROP LINE TEMP 05
+PLINE05T	#	Mups		#	K	#	PROP LINE TEMP 05
+PLINE05T	#	Mups		#	K	#	PROP LINE TEMP 05
+PLINE05T	#	Mups		#	K	#	PROP LINE TEMP 05
+PLINE05T	#	Mups		#	K	#	PROP LINE TEMP 05
+PLINE06T	#	Mups		#	K	#	PROP LINE TEMP 06
+PLINE06T	#	Mups		#	K	#	PROP LINE TEMP 06
+PLINE06T	#	Mups		#	K	#	PROP LINE TEMP 06
+PLINE06T	#	Mups		#	K	#	PROP LINE TEMP 06
+PLINE06T	#	Mups		#	K	#	PROP LINE TEMP 06
+PLINE07T	#	Mups		#	K	#	PROP LINE TEMP 07
+PLINE07T	#	Mups		#	K	#	PROP LINE TEMP 07
+PLINE07T	#	Mups		#	K	#	PROP LINE TEMP 07
+PLINE07T	#	Mups		#	K	#	PROP LINE TEMP 07
+PLINE07T	#	Mups		#	K	#	PROP LINE TEMP 07
+PLINE07T	#	Mups		#	K	#	PROP LINE TEMP 07
+PLINE08T	#	Mups		#	K	#	PROP LINE TEMP 08
+PLINE08T	#	Mups		#	K	#	PROP LINE TEMP 08
+PLINE09T	#	Mups		#	K	#	PROP LINE TEMP 09
+PLINE09T	#	Mups		#	K	#	PROP LINE TEMP 09
+PLINE09T	#	Mups		#	K	#	PROP LINE TEMP 09
+PLINE09T	#	Mups		#	K	#	PROP LINE TEMP 09
+PLINE10T	#	Mups		#	K	#	PROP LINE TEMP 10
+PLINE10T	#	Mups		#	K	#	PROP LINE TEMP 10
+PLINE10T	#	Mups		#	K	#	PROP LINE TEMP 10
+PLINE11T	#	Mups		#	K	#	PROP LINE TEMP 11
+PLINE11T	#	Mups		#	K	#	PROP LINE TEMP 11
+PLINE11T	#	Mups		#	K	#	PROP LINE TEMP 11
+PLINE12T	#	Mups		#	K	#	PROP LINE TEMP 12
+PLINE12T	#	Mups		#	K	#	PROP LINE TEMP 12
+PLINE12T	#	Mups		#	K	#	PROP LINE TEMP 12
+PLINE12T	#	Mups		#	K	#	PROP LINE TEMP 12
+PLINE13T	#	Mups		#	K	#	PROP LINE TEMP 13
+PLINE13T	#	Mups		#	K	#	PROP LINE TEMP 13
+PLINE14T	#	Mups		#	K	#	PROP LINE TEMP 14
+PLINE14T	#	Mups		#	K	#	PROP LINE TEMP 14
+PLINE14T	#	Mups		#	K	#	PROP LINE TEMP 14
+PLINE15T	#	Mups		#	K	#	PROP LINE TEMP 15
+PLINE15T	#	Mups		#	K	#	PROP LINE TEMP 15
+PLINE15T	#	Mups		#	K	#	PROP LINE TEMP 15
+PLINE16T	#	Mups		#	K	#	PROP LINE TEMP 16
+PLINE16T	#	Mups		#	K	#	PROP LINE TEMP 16
+PLINE16T	#	Mups		#	K	#	PROP LINE TEMP 16
+PLINE16T	#	Mups		#	K	#	PROP LINE TEMP 16
+PLINE16T	#	Mups		#	K	#	PROP LINE TEMP 16
+OOBAGRD1	#	Obagrad		#	CNT	#	IP INTERNAL CALIBRATION OBA GM CH. 0
+OOBAGRD2	#	Obagrad		#	CNT	#	IP INTERNAL CALIBRATION OBA GM CH. 1
+OOBAGRD4	#	Obagrad		#	CNT	#	IP INTERNAL CALIBRATION OBA GM CH. 3
+OOBAGRD5	#	Obagrad		#	CNT	#	IP INTERNAL CALIBRATION OBA GM CH. 4
+OOBAGRD7	#	Obagrad		#	CNT	#	IP INTERNAL CALIBRATION OBA GM CH. 6
+OOBAGRD8	#	Obagrad		#	CNT	#	IP INTERNAL CALIBRATION OBA GM CH. 7
+OOBTHR01	#	Obaheaters	#	CNT	#	IP INTERNAL CALIBRATION OBA CH. 0
+OOBTHR02	#	Obaheaters	#	K	#	RT 25: HRMA STRUT
+OOBTHR02	#	Obaheaters	#	K	#	RT 25: HRMA STRUT
+OOBTHR02	#	Obaheaters	#	K	#	RT 25: HRMA STRUT
+OOBTHR03	#	Obaheaters	#	K	#	RT 26: HRMA STRUT
+OOBTHR03	#	Obaheaters	#	K	#	RT 26: HRMA STRUT
+OOBTHR03	#	Obaheaters	#	K	#	RT 26: HRMA STRUT
+OOBTHR03	#	Obaheaters	#	K	#	RT 26: HRMA STRUT
+OOBTHR03	#	Obaheaters	#	K	#	RT 26: HRMA STRUT
+OOBTHR04	#	Obaheaters	#	K	#	RT 27: HRMA STRUT
+OOBTHR04	#	Obaheaters	#	K	#	RT 27: HRMA STRUT
+OOBTHR04	#	Obaheaters	#	K	#	RT 27: HRMA STRUT
+OOBTHR04	#	Obaheaters	#	K	#	RT 27: HRMA STRUT
+OOBTHR04	#	Obaheaters	#	K	#	RT 27: HRMA STRUT
+OOBTHR04	#	Obaheaters	#	K	#	RT 27: HRMA STRUT
+OOBTHR05	#	Obaheaters	#	K	#	RT 28: HRMA STRUT
+OOBTHR05	#	Obaheaters	#	K	#	RT 28: HRMA STRUT
+OOBTHR05	#	Obaheaters	#	K	#	RT 28: HRMA STRUT
+OOBTHR05	#	Obaheaters	#	K	#	RT 28: HRMA STRUT
+OOBTHR05	#	Obaheaters	#	K	#	RT 28: HRMA STRUT
+OOBTHR05	#	Obaheaters	#	K	#	RT 28: HRMA STRUT
+OOBTHR06	#	Obaheaters	#	K	#	RT 29: HRMA STRUT
+OOBTHR06	#	Obaheaters	#	K	#	RT 29: HRMA STRUT
+OOBTHR06	#	Obaheaters	#	K	#	RT 29: HRMA STRUT
+OOBTHR06	#	Obaheaters	#	K	#	RT 29: HRMA STRUT
+OOBTHR06	#	Obaheaters	#	K	#	RT 29: HRMA STRUT
+OOBTHR07	#	Obaheaters	#	K	#	RT 30: HRMA STRUT
+OOBTHR07	#	Obaheaters	#	K	#	RT 30: HRMA STRUT
+OOBTHR07	#	Obaheaters	#	K	#	RT 30: HRMA STRUT
+OOBTHR08	#	Obaheaters	#	K	#	RT 31: OBA CONE
+OOBTHR08	#	Obaheaters	#	K	#	RT 31: OBA CONE
+OOBTHR08	#	Obaheaters	#	K	#	RT 31: OBA CONE
+OOBTHR08	#	Obaheaters	#	K	#	RT 31: OBA CONE
+OOBTHR09	#	Obaheaters	#	K	#	RT 32: OBA CONE
+OOBTHR09	#	Obaheaters	#	K	#	RT 32: OBA CONE
+OOBTHR09	#	Obaheaters	#	K	#	RT 32: OBA CONE
+OOBTHR09	#	Obaheaters	#	K	#	RT 32: OBA CONE
+OOBTHR10	#	Obaheaters	#	K	#	RT 33: OBA CONE
+OOBTHR10	#	Obaheaters	#	K	#	RT 33: OBA CONE
+OOBTHR10	#	Obaheaters	#	K	#	RT 33: OBA CONE
+OOBTHR10	#	Obaheaters	#	K	#	RT 33: OBA CONE
+OOBTHR11	#	Obaheaters	#	K	#	RT 34: OBA CONE
+OOBTHR11	#	Obaheaters	#	K	#	RT 34: OBA CONE
+OOBTHR11	#	Obaheaters	#	K	#	RT 34: OBA CONE
+OOBTHR11	#	Obaheaters	#	K	#	RT 34: OBA CONE
+OOBTHR12	#	Obaheaters	#	K	#	RT 35: OBA CONE
+OOBTHR12	#	Obaheaters	#	K	#	RT 35: OBA CONE
+OOBTHR12	#	Obaheaters	#	K	#	RT 35: OBA CONE
+OOBTHR12	#	Obaheaters	#	K	#	RT 35: OBA CONE
+OOBTHR13	#	Obaheaters	#	K	#	RT 36: OBA CONE
+OOBTHR13	#	Obaheaters	#	K	#	RT 36: OBA CONE
+OOBTHR13	#	Obaheaters	#	K	#	RT 36: OBA CONE
+OOBTHR13	#	Obaheaters	#	K	#	RT 36: OBA CONE
+OOBTHR14	#	Obaheaters	#	K	#	RT 37: OBA CONE
+OOBTHR14	#	Obaheaters	#	K	#	RT 37: OBA CONE
+OOBTHR14	#	Obaheaters	#	K	#	RT 37: OBA CONE
+OOBTHR14	#	Obaheaters	#	K	#	RT 37: OBA CONE
+OOBTHR15	#	Obaheaters	#	K	#	RT 38: OBA CONE
+OOBTHR15	#	Obaheaters	#	K	#	RT 38: OBA CONE
+OOBTHR15	#	Obaheaters	#	K	#	RT 38: OBA CONE
+OOBTHR15	#	Obaheaters	#	K	#	RT 38: OBA CONE
+OOBTHR16	#	Obaheaters	#	CNT	#	IP INTERNAL CALIBRATION OBA CH. 15
+OOBTHR17	#	Obaheaters	#	K	#	RT 39: OBA CONE
+OOBTHR17	#	Obaheaters	#	K	#	RT 39: OBA CONE
+OOBTHR17	#	Obaheaters	#	K	#	RT 39: OBA CONE
+OOBTHR17	#	Obaheaters	#	K	#	RT 39: OBA CONE
+OOBTHR18	#	Obaheaters	#	K	#	RT 40: OBA CONE
+OOBTHR18	#	Obaheaters	#	K	#	RT 40: OBA CONE
+OOBTHR18	#	Obaheaters	#	K	#	RT 40: OBA CONE
+OOBTHR18	#	Obaheaters	#	K	#	RT 40: OBA CONE
+OOBTHR19	#	Obaheaters	#	K	#	RT 41: OBA CONE
+OOBTHR19	#	Obaheaters	#	K	#	RT 41: OBA CONE
+OOBTHR19	#	Obaheaters	#	K	#	RT 41: OBA CONE
+OOBTHR19	#	Obaheaters	#	K	#	RT 41: OBA CONE
+OOBTHR19	#	Obaheaters	#	K	#	RT 41: OBA CONE
+OOBTHR20	#	Obaheaters	#	K	#	RT 42: OBA CONE
+OOBTHR20	#	Obaheaters	#	K	#	RT 42: OBA CONE
+OOBTHR20	#	Obaheaters	#	K	#	RT 42: OBA CONE
+OOBTHR20	#	Obaheaters	#	K	#	RT 42: OBA CONE
+OOBTHR20	#	Obaheaters	#	K	#	RT 42: OBA CONE
+OOBTHR21	#	Obaheaters	#	K	#	RT 43: OBA CONE
+OOBTHR21	#	Obaheaters	#	K	#	RT 43: OBA CONE
+OOBTHR21	#	Obaheaters	#	K	#	RT 43: OBA CONE
+OOBTHR21	#	Obaheaters	#	K	#	RT 43: OBA CONE
+OOBTHR21	#	Obaheaters	#	K	#	RT 43: OBA CONE
+OOBTHR22	#	Obaheaters	#	K	#	RT 44: OBA CONE
+OOBTHR22	#	Obaheaters	#	K	#	RT 44: OBA CONE
+OOBTHR22	#	Obaheaters	#	K	#	RT 44: OBA CONE
+OOBTHR22	#	Obaheaters	#	K	#	RT 44: OBA CONE
+OOBTHR22	#	Obaheaters	#	K	#	RT 44: OBA CONE
+OOBTHR23	#	Obaheaters	#	K	#	RT 45: OBA CONE
+OOBTHR23	#	Obaheaters	#	K	#	RT 45: OBA CONE
+OOBTHR23	#	Obaheaters	#	K	#	RT 45: OBA CONE
+OOBTHR23	#	Obaheaters	#	K	#	RT 45: OBA CONE
+OOBTHR23	#	Obaheaters	#	K	#	RT 45: OBA CONE
+OOBTHR24	#	Obaheaters	#	K	#	RT 46: OBA CONE
+OOBTHR24	#	Obaheaters	#	K	#	RT 46: OBA CONE
+OOBTHR24	#	Obaheaters	#	K	#	RT 46: OBA CONE
+OOBTHR24	#	Obaheaters	#	K	#	RT 46: OBA CONE
+OOBTHR24	#	Obaheaters	#	K	#	RT 46: OBA CONE
+OOBTHR25	#	Obaheaters	#	K	#	RT 47: OBA CONE
+OOBTHR25	#	Obaheaters	#	K	#	RT 47: OBA CONE
+OOBTHR25	#	Obaheaters	#	K	#	RT 47: OBA CONE
+OOBTHR25	#	Obaheaters	#	K	#	RT 47: OBA CONE
+OOBTHR25	#	Obaheaters	#	K	#	RT 47: OBA CONE
+OOBTHR26	#	Obaheaters	#	K	#	RT 48: OBA CONE
+OOBTHR26	#	Obaheaters	#	K	#	RT 48: OBA CONE
+OOBTHR26	#	Obaheaters	#	K	#	RT 48: OBA CONE
+OOBTHR26	#	Obaheaters	#	K	#	RT 48: OBA CONE
+OOBTHR26	#	Obaheaters	#	K	#	RT 48: OBA CONE
+OOBTHR27	#	Obaheaters	#	K	#	RT 49: OBA CONE
+OOBTHR27	#	Obaheaters	#	K	#	RT 49: OBA CONE
+OOBTHR27	#	Obaheaters	#	K	#	RT 49: OBA CONE
+OOBTHR27	#	Obaheaters	#	K	#	RT 49: OBA CONE
+OOBTHR27	#	Obaheaters	#	K	#	RT 49: OBA CONE
+OOBTHR28	#	Obaheaters	#	K	#	RT 50: OBA CONE
+OOBTHR28	#	Obaheaters	#	K	#	RT 50: OBA CONE
+OOBTHR28	#	Obaheaters	#	K	#	RT 50: OBA CONE
+OOBTHR28	#	Obaheaters	#	K	#	RT 50: OBA CONE
+OOBTHR28	#	Obaheaters	#	K	#	RT 50: OBA CONE
+OOBTHR29	#	Obaheaters	#	K	#	RT 51: OBA CONE
+OOBTHR29	#	Obaheaters	#	K	#	RT 51: OBA CONE
+OOBTHR29	#	Obaheaters	#	K	#	RT 51: OBA CONE
+OOBTHR29	#	Obaheaters	#	K	#	RT 51: OBA CONE
+OOBTHR29	#	Obaheaters	#	K	#	RT 51: OBA CONE
+OOBTHR30	#	Obaheaters	#	K	#	RT 52: OBA CONE
+OOBTHR30	#	Obaheaters	#	K	#	RT 52: OBA CONE
+OOBTHR30	#	Obaheaters	#	K	#	RT 52: OBA CONE
+OOBTHR30	#	Obaheaters	#	K	#	RT 52: OBA CONE
+OOBTHR30	#	Obaheaters	#	K	#	RT 52: OBA CONE
+OOBTHR31	#	Obaheaters	#	K	#	RT 53: OBA AFT BUL
+OOBTHR31	#	Obaheaters	#	K	#	RT 53: OBA AFT BUL
+OOBTHR31	#	Obaheaters	#	K	#	RT 53: OBA AFT BUL
+OOBTHR31	#	Obaheaters	#	K	#	RT 53: OBA AFT BUL
+OOBTHR31	#	Obaheaters	#	K	#	RT 53: OBA AFT BUL
+OOBTHR31	#	Obaheaters	#	K	#	RT 53: OBA AFT BUL
+OOBTHR32	#	Obaheaters	#	CNT	#	IP INTERNAL CALIBRATION OBA CH. 31
+OOBTHR33	#	Obaheaters	#	K	#	RT 54: OBA AFT BULKHEAD
+OOBTHR33	#	Obaheaters	#	K	#	RT 54: OBA AFT BULKHEAD
+OOBTHR33	#	Obaheaters	#	K	#	RT 54: OBA AFT BULKHEAD
+OOBTHR33	#	Obaheaters	#	K	#	RT 54: OBA AFT BULKHEAD
+OOBTHR34	#	Obaheaters	#	K	#	RT 55: OBA AFT BUL
+OOBTHR34	#	Obaheaters	#	K	#	RT 55: OBA AFT BUL
+OOBTHR34	#	Obaheaters	#	K	#	RT 55: OBA AFT BUL
+OOBTHR34	#	Obaheaters	#	K	#	RT 55: OBA AFT BUL
+OOBTHR35	#	Obaheaters	#	K	#	RT 57: OBA AFT BUL
+OOBTHR35	#	Obaheaters	#	K	#	RT 57: OBA AFT BUL
+OOBTHR35	#	Obaheaters	#	K	#	RT 57: OBA AFT BUL
+OOBTHR35	#	Obaheaters	#	K	#	RT 57: OBA AFT BUL
+OOBTHR36	#	Obaheaters	#	K	#	RT 58: TFTE CONE
+OOBTHR36	#	Obaheaters	#	K	#	RT 58: TFTE CONE
+OOBTHR37	#	Obaheaters	#	K	#	RT 59: TFTE CONE
+OOBTHR37	#	Obaheaters	#	K	#	RT 59: TFTE CONE
+OOBTHR38	#	Obaheaters	#	K	#	RT 60: TFTE CONE
+OOBTHR38	#	Obaheaters	#	K	#	RT 60: TFTE CONE
+OOBTHR39	#	Obaheaters	#	K	#	RT 61: TFTE CONE
+OOBTHR39	#	Obaheaters	#	K	#	RT 61: TFTE CONE
+OOBTHR39	#	Obaheaters	#	K	#	RT 61: TFTE CONE
+OOBTHR39	#	Obaheaters	#	K	#	RT 61: TFTE CONE
+OOBTHR39	#	Obaheaters	#	K	#	RT 61: TFTE CONE
+OOBTHR39	#	Obaheaters	#	K	#	RT 61: TFTE CONE
+OOBTHR40	#	Obaheaters	#	K	#	RT 62: TFTE CONE
+OOBTHR40	#	Obaheaters	#	K	#	RT 62: TFTE CONE
+OOBTHR40	#	Obaheaters	#	K	#	RT 62: TFTE CONE
+OOBTHR40	#	Obaheaters	#	K	#	RT 62: TFTE CONE
+OOBTHR40	#	Obaheaters	#	K	#	RT 62: TFTE CONE
+OOBTHR41	#	Obaheaters	#	K	#	RT 63: TFTE CONE
+OOBTHR41	#	Obaheaters	#	K	#	RT 63: TFTE CONE
+OOBTHR41	#	Obaheaters	#	K	#	RT 63: TFTE CONE
+OOBTHR41	#	Obaheaters	#	K	#	RT 63: TFTE CONE
+OOBTHR42	#	Obaheaters	#	K	#	RT 64: TFTE COVER
+OOBTHR42	#	Obaheaters	#	K	#	RT 64: TFTE COVER
+OOBTHR42	#	Obaheaters	#	K	#	RT 64: TFTE COVER
+OOBTHR42	#	Obaheaters	#	K	#	RT 64: TFTE COVER
+OOBTHR43	#	Obaheaters	#	K	#	RT 65: TFTE COVER
+OOBTHR43	#	Obaheaters	#	K	#	RT 65: TFTE COVER
+OOBTHR43	#	Obaheaters	#	K	#	RT 65: TFTE COVER
+OOBTHR43	#	Obaheaters	#	K	#	RT 65: TFTE COVER
+OOBTHR43	#	Obaheaters	#	K	#	RT 65: TFTE COVER
+OOBTHR43	#	Obaheaters	#	K	#	RT 65: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR44	#	Obaheaters	#	K	#	RT 66: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR45	#	Obaheaters	#	K	#	RT 67: TFTE COVER
+OOBTHR46	#	Obaheaters	#	K	#	RT 68: TFTE COVER
+OOBTHR46	#	Obaheaters	#	K	#	RT 68: TFTE COVER
+OOBTHR46	#	Obaheaters	#	K	#	RT 68: TFTE COVER
+OOBTHR46	#	Obaheaters	#	K	#	RT 68: TFTE COVER
+OOBTHR46	#	Obaheaters	#	K	#	RT 68: TFTE COVER
+OOBTHR46	#	Obaheaters	#	K	#	RT 68: TFTE COVER
+OOBTHR47	#	Obaheaters	#	K	#	RT 69: TFTE COVER
+OOBTHR47	#	Obaheaters	#	K	#	RT 69: TFTE COVER
+OOBTHR47	#	Obaheaters	#	K	#	RT 69: TFTE COVER
+OOBTHR47	#	Obaheaters	#	K	#	RT 69: TFTE COVER
+OOBTHR47	#	Obaheaters	#	K	#	RT 69: TFTE COVER
+OOBTHR47	#	Obaheaters	#	K	#	RT 69: TFTE COVER
+OOBTHR48	#	Obaheaters	#	CNT	#	IP INTERNAL CALIBRATION OBA CH. 47
+OOBTHR49	#	Obaheaters	#	K	#	RT 75: S/C STRUT
+OOBTHR49	#	Obaheaters	#	K	#	RT 75: S/C STRUT
+OOBTHR49	#	Obaheaters	#	K	#	RT 75: S/C STRUT
+OOBTHR50	#	Obaheaters	#	K	#	RT 76: S/C STRUT
+OOBTHR50	#	Obaheaters	#	K	#	RT 76: S/C STRUT
+OOBTHR50	#	Obaheaters	#	K	#	RT 76: S/C STRUT
+OOBTHR50	#	Obaheaters	#	K	#	RT 76: S/C STRUT
+OOBTHR51	#	Obaheaters	#	K	#	RT 77: S/C STRUT
+OOBTHR51	#	Obaheaters	#	K	#	RT 77: S/C STRUT
+OOBTHR51	#	Obaheaters	#	K	#	RT 77: S/C STRUT
+OOBTHR51	#	Obaheaters	#	K	#	RT 77: S/C STRUT
+OOBTHR51	#	Obaheaters	#	K	#	RT 77: S/C STRUT
+OOBTHR51	#	Obaheaters	#	K	#	RT 77: S/C STRUT
+OOBTHR52	#	Obaheaters	#	K	#	RT 78: S/C STRUT
+OOBTHR52	#	Obaheaters	#	K	#	RT 78: S/C STRUT
+OOBTHR52	#	Obaheaters	#	K	#	RT 78: S/C STRUT
+OOBTHR52	#	Obaheaters	#	K	#	RT 78: S/C STRUT
+OOBTHR52	#	Obaheaters	#	K	#	RT 78: S/C STRUT
+OOBTHR52	#	Obaheaters	#	K	#	RT 78: S/C STRUT
+OOBTHR53	#	Obaheaters	#	K	#	RT 79: S/C STRUT
+OOBTHR53	#	Obaheaters	#	K	#	RT 79: S/C STRUT
+OOBTHR53	#	Obaheaters	#	K	#	RT 79: S/C STRUT
+OOBTHR53	#	Obaheaters	#	K	#	RT 79: S/C STRUT
+OOBTHR54	#	Obaheaters	#	K	#	RT 80: S/C STRUT
+OOBTHR54	#	Obaheaters	#	K	#	RT 80: S/C STRUT
+OOBTHR54	#	Obaheaters	#	K	#	RT 80: S/C STRUT
+OOBTHR55	#	Obaheaters	#	K	#	RT 157: OBA CONE
+OOBTHR55	#	Obaheaters	#	K	#	RT 157: OBA CONE
+OOBTHR55	#	Obaheaters	#	K	#	RT 157: OBA CONE
+OOBTHR55	#	Obaheaters	#	K	#	RT 157: OBA CONE
+OOBTHR55	#	Obaheaters	#	K	#	RT 157: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR56	#	Obaheaters	#	K	#	RT 158: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR57	#	Obaheaters	#	K	#	RT 150: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR58	#	Obaheaters	#	K	#	RT 151: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR59	#	Obaheaters	#	K	#	RT 152: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR60	#	Obaheaters	#	K	#	RT 153: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR61	#	Obaheaters	#	K	#	RT 154: OBA CONE
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR62	#	Obaheaters	#	K	#	RT 155: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR63	#	Obaheaters	#	K	#	RT 156: OBA FWD BUL
+OOBTHR64	#	Obaheaters	#	CNT	#	IP INTERNAL CALIBRATION OBA CH. 63
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT700T		#	Obfwdbulkhead	#	K	#	RT 700 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT701T		#	Obfwdbulkhead	#	K	#	RT 701 - OB BUL
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT702T		#	Obfwdbulkhead	#	K	#	RT 702 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT703T		#	Obfwdbulkhead	#	K	#	T 703 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT704T		#	Obfwdbulkhead	#	K	#	RT 704 - OB BULKHEAD TEMP
+4RT705T		#	Obfwdbulkhead	#	K	#	RT 705 - OB BUL
+4RT705T		#	Obfwdbulkhead	#	K	#	RT 705 - OB BUL
+4RT705T		#	Obfwdbulkhead	#	K	#	RT 705 - OB BUL
+4RT705T		#	Obfwdbulkhead	#	K	#	RT 705 - OB BUL
+4RT705T		#	Obfwdbulkhead	#	K	#	RT 705 - OB BUL
+4RT706T		#	Obfwdbulkhead	#	K	#	RT 706 - OB BUL
+4RT706T		#	Obfwdbulkhead	#	K	#	RT 706 - OB BUL
+4RT706T		#	Obfwdbulkhead	#	K	#	RT 706 - OB BUL
+4RT706T		#	Obfwdbulkhead	#	K	#	RT 706 - OB BUL
+4RT706T		#	Obfwdbulkhead	#	K	#	RT 706 - OB BUL
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT707T		#	Obfwdbulkhead	#	K	#	RT 707 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT708T		#	Obfwdbulkhead	#	K	#	RT 708 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT709T		#	Obfwdbulkhead	#	K	#	RT 709 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT710T		#	Obfwdbulkhead	#	K	#	RT 710 - OB BULKHEAD TEMP
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+4RT711T		#	Obfwdbulkhead	#	K	#	RT 711 - OB BUL
+OHRTHR27	#	Pcadftsgrad	#	K	#	RT 20 : PERISCOPE
+OHRTHR42	#	Pcadftsgrad	#	K	#	RT 133: PERISCOPE
+OHRTHR42	#	Pcadftsgrad	#	K	#	RT 133: PERISCOPE
+OHRTHR42	#	Pcadftsgrad	#	K	#	RT 133: PERISCOPE
+OHRTHR42	#	Pcadftsgrad	#	K	#	RT 133: PERISCOPE
+OHRTHR43	#	Pcadftsgrad	#	K	#	RT 134: PERISCOPE
+OHRTHR43	#	Pcadftsgrad	#	K	#	RT 134: PERISCOPE
+OHRTHR43	#	Pcadftsgrad	#	K	#	RT 134: PERISCOPE
+OHRTHR43	#	Pcadftsgrad	#	K	#	RT 134: PERISCOPE
+OHRTHR43	#	Pcadftsgrad	#	K	#	RT 134: PERISCOPE
+OHRTHR43	#	Pcadftsgrad	#	K	#	RT 134: PERISCOPE
+OOBAGRD3	#	Pcadftsgrad	#	K	#	RT 505 TO RT 504: PERISCOPE GRADIENT MONITOR
+OOBAGRD6	#	Pcadftsgrad	#	K	#	RT 507 TO RT 506: PERISCOPE GRADIENT MONITOR
+AOGBIAS1	#	Pcadgdrift	#	RAD/S	#	AOG BIAS
+AOGBIAS1	#	Pcadgdrift	#	RAD/S	#	AOG BIAS
+AOGBIAS2	#	Pcadgdrift	#	RAD/S	#	AOG BIAS
+AOGBIAS2	#	Pcadgdrift	#	RAD/S	#	AOG BIAS
+AOGBIAS3	#	Pcadgdrift	#	RAD/S	#	AOG BIAS
+AOGBIAS3	#	Pcadgdrift	#	RAD/S	#	AOG BIAS
+AOGYRCT1	#	Pcadgdrift	#	CNTS	#	ACCUMULATED GYRO PULSE COUNTS FROM OBC SELECTED GYRO 1
+AOGYRCT2	#	Pcadgdrift	#	CNTS	#	ACCUMULATED GYRO PULSE COUNTS FROM OBC SELECTED GYRO 2
+AOGYRCT3	#	Pcadgdrift	#	CNTS	#	ACCUMULATED GYRO PULSE COUNTS FROM OBC SELECTED GYRO 3
+AOGYRCT4	#	Pcadgdrift	#	CNTS	#	ACCUMULATED GYRO PULSE COUNTS FROM OBC SELECTED GYRO 4
+AI1AX1X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1X ANALOG RATE
+AI1AX1X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1X ANALOG RATE
+AI1AX1X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1X ANALOG RATE
+AI1AX1X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1X ANALOG RATE
+AI1AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1Y ANALOG RATE
+AI1AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1Y ANALOG RATE
+AI1AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1Y ANALOG RATE
+AI1AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 1Y ANALOG RATE
+AI1AX2X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2X ANALOG RATE
+AI1AX2X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2X ANALOG RATE
+AI1AX2X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2X ANALOG RATE
+AI1AX2X		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2X ANALOG RATE
+AI1AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2Y ANALOG RATE
+AI1AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2Y ANALOG RATE
+AI1AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2Y ANALOG RATE
+AI1AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-1 AXIS 2Y ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1X ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX1Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 1Y ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2X		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2X ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AI2AX2Y		#	Pcadgrate	#	DEG/S	#	IRU-2 AXIS 2Y ANALOG RATE
+AOALPANG	#	Pcadgrate	#	DEG	#	FSS ALPHA ANGLE MEAS
+AOATTQT1	#	Pcadgrate	#	na	#	ESTIMATED SPACECRAFT ATTITUDE QUATERION 1 (ECI)
+AOATTQT2	#	Pcadgrate	#	na	#	ESTIMATED SPACECRAFT ATTITUDE QUATERION 2 (ECI)
+AOATTQT3	#	Pcadgrate	#	na	#	ESTIMATED SPACECRAFT ATTITUDE QUATERION 3 (ECI)
+AOATTQT4	#	Pcadgrate	#	na	#	ESTIMATED SPACECRAFT ATTITUDE QUATERION 4 (ECI)
+AOBETANG	#	Pcadgrate	#	DEG	#	FSS BETA ANGLE MEAS
+AOCMDQT1	#	Pcadgrate	#	na	#	COMMANDED SPACECRAFT ATTITUDE QUATERNION 1
+AOCMDQT2	#	Pcadgrate	#	na	#	COMMANDED SPACECRAFT ATTITUDE QUATERNION 2
+AOCMDQT3	#	Pcadgrate	#	na	#	COMMANDED SPACECRAFT ATTITUDE QUATERNION 3
+AOSCPOS1	#	Pcadgrate	#	KM	#	SPACECRAFT POSITION VECTOR X (ECI FRAME)
+AOSCPOS2	#	Pcadgrate	#	KM	#	SPACECRAFT POSITION VECTOR Y (ECI FRAME)
+AOSCPOS3	#	Pcadgrate	#	KM	#	SPACECRAFT POSITION VECTOR Z (ECI FRAME)
+AOSCVEL1	#	Pcadgrate	#	KMPS	#	SPACECRAFT VELOCITY VECTOR X ECI FRAME)
+AOSCVEL2	#	Pcadgrate	#	KMPS	#	SPACECRAFT VELOCITY VECTOR Y (ECI FRAME)
+AOSCVEL3	#	Pcadgrate	#	KMPS	#	SPACECRAFT VELOCITY VECTOR Z (ECI FRAME)
+AOSUNEC1	#	Pcadgrate	#	na	#	UNIT VECTOR FROM THE SPACECRAFT TO THE SUN X (ECI FRAME)
+AOSUNEC2	#	Pcadgrate	#	na	#	UNIT VECTOR FROM THE SPACECRAFT TO THE SUN Y (ECI FRAME)
+AOSUNEC3	#	Pcadgrate	#	na	#	UNIT VECTOR FROM THE SPACECRAFT TO THE SUN Z (ECI FRAME)
+AOSUNSA1	#	Pcadgrate	#	na	#	CSSA DERIVED UNIT VECTOR TO THE SUN IN SA FRAME X
+AOSUNSA2	#	Pcadgrate	#	na	#	CSSA DERIVED UNIT VECTOR TO THE SUN IN SA FRAME Y
+AOSUNSA3	#	Pcadgrate	#	na	#	CSSA DERIVED UNIT VECTOR TO THE SUN IN SA FRAME Z
+AOTARQT1	#	Pcadgrate	#	na	#	TARGET ATTITUDE QUATERNION ELEMENT 1
+AOTARQT2	#	Pcadgrate	#	na	#	TARGET ATTITUDE QUATERNION ELEMENT 2
+AOTARQT3	#	Pcadgrate	#	na	#	TARGET ATTITUDE QUATERNION ELEMENT 3
+AFSSPC1V	#	Pcaditv		#	V	#	FSS POWER CONV 1 VOLTAGE
+AFSSPC1V	#	Pcaditv		#	V	#	FSS POWER CONV 1 VOLTAGE
+AFSSPC1V	#	Pcaditv		#	V	#	FSS POWER CONV 1 VOLTAGE
+AFSSPC1V	#	Pcaditv		#	V	#	FSS POWER CONV 1 VOLTAGE
+AFSSPC1V	#	Pcaditv		#	V	#	FSS POWER CONV 1 VOLTAGE
+AFSSPC2V	#	Pcaditv		#	V	#	FSS POWER CONV 2 VOLTAGE
+AFSSPC2V	#	Pcaditv		#	V	#	FSS POWER CONV 2 VOLTAGE
+AFSSPC2V	#	Pcaditv		#	V	#	FSS POWER CONV 2 VOLTAGE
+AFSSPC2V	#	Pcaditv		#	V	#	FSS POWER CONV 2 VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS1V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 1 INPUT VOLTAGE
+AGWS2V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 2 INPUT VOLTAGE
+AGWS2V		#	Pcaditv		#	V	#	GYRO WHEEL SUPPLY 2 INPUT VOLTAGE
+AIRU1BT		#	Pcaditv		#	K	#	IRU-1 BASE TEMP
+AIRU1BT		#	Pcaditv		#	K	#	IRU-1 BASE TEMP
+AIRU1BT		#	Pcaditv		#	K	#	IRU-1 BASE TEMP
+AIRU1G1I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G1I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G1I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G1I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G1I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G1I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G1T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G2I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G2I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G2I	#	Pcaditv		#	mA	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1G2T	#	Pcaditv		#	K	#	IRU-1 GYRO
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU1VFT	#	Pcaditv		#	K	#	IRU-1 VFC TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2BT		#	Pcaditv		#	K	#	IRU-2 BASE TEMP
+AIRU2G1I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G1I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G1I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G1I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G1T	#	Pcaditv		#	K	#	IRU-2 GYRO
+AIRU2G1T	#	Pcaditv		#	K	#	IRU-2 GYRO
+AIRU2G2I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G2I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G2I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G2I	#	Pcaditv		#	mA	#	IRU-2 GYRO
+AIRU2G2T	#	Pcaditv		#	K	#	IRU-2 GYRO
+AIRU2G2T	#	Pcaditv		#	K	#	IRU-2 GYRO
+AIRU2G2T	#	Pcaditv		#	K	#	IRU-2 GYRO
+AIRU2G2T	#	Pcaditv		#	K	#	IRU-2 GYRO
+AIRU2VFT	#	Pcaditv		#	K	#	IRU-2 VFC TEMP
+AIRU2VFT	#	Pcaditv		#	K	#	IRU-2 VFC TEMP
+AIRU2VFT	#	Pcaditv		#	K	#	IRU-2 VFC TEMP
+AIRU2VFT	#	Pcaditv		#	K	#	IRU-2 VFC TEMP
+AOCSSI1		#	Pcaditv		#	MAMP	#	CSSA1 A/D DATA
+AOCSSI2		#	Pcaditv		#	MAMP	#	CSSA2 A/D DATA
+AOCSSI3		#	Pcaditv		#	MAMP	#	CSSA3 A/D DATA
+AOCSSI4		#	Pcaditv		#	MAMP	#	CSSA4 A/D DATA
+AORWCMD2	#	Pcadrwrate	#	na	#	REACTION WHEEL TORQUE COMMANDS 2	J
+AORWCMD3	#	Pcadrwrate	#	na	#	REACTION WHEEL TORQUE COMMANDS 3	J
+AORWCMD4	#	Pcadrwrate	#	na	#	REACTION WHEEL TORQUE COMMANDS 4	J
+AORWCMD5	#	Pcadrwrate	#	na	#	REACTION WHEEL TORQUE COMMANDS 5	J
+AORWCMD6	#	Pcadrwrate	#	na	#	REACTION WHEEL TORQUE COMMANDS 6	J
+AORWCNT1	#	Pcadrwrate	#	na	#	TACH PULSE COUNT 1 (2S COMPLEMENT)
+AORWCNT2	#	Pcadrwrate	#	na	#	TACH PULSE COUNT 2 (2S COMPLEMENT)
+AORWCNT3	#	Pcadrwrate	#	na	#	TACH PULSE COUNT 3 (2S COMPLEMENT)
+AORWCNT4	#	Pcadrwrate	#	na	#	TACH PULSE COUNT 4 (2S COMPLEMENT)
+AORWCNT5	#	Pcadrwrate	#	na	#	TACH PULSE COUNT 5 (2S COMPLEMENT)
+AORWCNT6	#	Pcadrwrate	#	na	#	TACH PULSE COUNT 6 (2S COMPLEMENT)
+AORWMC1		#	Pcadrwrate	#	na	#	COMMANDED REACTION WHEEL ANGULAR MOMENTUM (1)
+AORWMC4		#	Pcadrwrate	#	na	#	COMMANDED REACTION WHEEL ANGULAR MOMENTUM (4)
+AORWMC5		#	Pcadrwrate	#	na	#	COMMANDED REACTION WHEEL ANGULAR MOMENTUM (5)
+AORWSPD1	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD1	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD2	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD2	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD3	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD3	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD4	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD4	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD5	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD5	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD6	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AORWSPD6	#	Pcadrwrate	#	RPS	#	REACTION WHEEL RATES
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPPT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (PRIME)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACBPRT		#	Pcadtemp	#	K	#	AC BASEPLATE TEMP (RDNT)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDPT	#	Pcadtemp	#	K	#	AC CCD TEMP (PRI)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACCCDRT	#	Pcadtemp	#	K	#	AC CCD TEMP (RDNT)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH1T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH1)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AACH2T		#	Pcadtemp	#	K	#	AC HOUSING TEMP (ACH2)
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTALT		#	Pcadtemp	#	K	#	AC OPT TEL ASSY LENS TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTAPMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY PRIMARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTASMT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+AAOTH2MT	#	Pcadtemp	#	K	#	AC OPT TEL ASSY SECONDARY MIRROR TEMP (HRMA)
+4PRT1AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 1 TEMPERATURE
+4PRT1AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 1 TEMPERATURE
+4PRT1AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 1 TEMPERATURE
+4PRT1AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 1 TEMPERATURE
+4PRT1BT		#	Precoll		#	K	#	IP B: PRE-COLLIMATOR PRT 1 TEMPERATURE
+4PRT2AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 2 TEMPERATURE
+4PRT2AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 2 TEMPERATURE
+4PRT2AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 2 TEMPERATURE
+4PRT2AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 2 TEMPERATURE
+4PRT2BT		#	Precoll		#	K	#	IP B: PRE-COLLIMATOR PRT 2 TEMPERATURE
+4PRT3AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 3 TEMPERATURE
+4PRT3AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 3 TEMPERATURE
+4PRT3AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 3 TEMPERATURE
+4PRT3BT		#	Precoll		#	K	#	IP B: PRE-COLLIMATOR PRT 3 TEMPERATURE
+4PRT4AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 4 TEMPERATURE
+4PRT4AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 4 TEMPERATURE
+4PRT4AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 4 TEMPERATURE
+4PRT4AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 4 TEMPERATURE
+4PRT4BT		#	Precoll		#	K	#	IP B: PRE-COLLIMATOR PRT 4 TEMPERATURE
+4PRT5AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 5 TEMPERATURE
+4PRT5AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 5 TEMPERATURE
+4PRT5AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 5 TEMPERATURE
+4PRT5AT		#	Precoll		#	K	#	IP A: PRE-COLLIMATOR PRT 5 TEMPERATURE
+4PRT5BT		#	Precoll		#	K	#	IP B: PRE-COLLIMATOR PRT 5 TEMPERATURE
+TATECDPT	#	Sc_anc_temp	#	K	#	TEC DRIVER PRI TEMP
+TATECDPT	#	Sc_anc_temp	#	K	#	TEC DRIVER PRI TEMP
+TATECDPT	#	Sc_anc_temp	#	K	#	TEC DRIVER PRI TEMP
+TATECDPT	#	Sc_anc_temp	#	K	#	TEC DRIVER PRI TEMP
+TATECDRT	#	Sc_anc_temp	#	K	#	TEC DRIVER RDNT TEMP
+TATECDRT	#	Sc_anc_temp	#	K	#	TEC DRIVER RDNT TEMP
+TATECDRT	#	Sc_anc_temp	#	K	#	TEC DRIVER RDNT TEMP
+TATECDRT	#	Sc_anc_temp	#	K	#	TEC DRIVER RDNT TEMP
+TATECDRT	#	Sc_anc_temp	#	K	#	TEC DRIVER RDNT TEMP
+TATECDRT	#	Sc_anc_temp	#	K	#	TEC DRIVER RDNT TEMP
+TBOLTCUT	#	Sc_anc_temp	#	K	#	DOOR BOLT-CUTTER TEMP
+TCNR_BRM	#	Sc_anc_temp	#	K	#	-Y/+Z PANEL CORNER PANEL TEMP (BRM)
+TESH1		#	Sc_anc_temp	#	K	#	EARTH SENSOR-1 HOUSING TEMP (+Y)
+TESH2		#	Sc_anc_temp	#	K	#	EARTH SENSOR-2 HOUSING TEMP (-Y)
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT1	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFSSBKT2	#	Sc_anc_temp	#	K	#	FSS BRAC
+TFUTSUPN	#	Sc_anc_temp	#	K	#	FUEL TANK SUPPORT PNL TEMP: +Y/-Z CRNR
+TFUTSUPN	#	Sc_anc_temp	#	K	#	FUEL TANK SUPPORT PNL TEMP: +Y/-Z CRNR
+TFUTSUPN	#	Sc_anc_temp	#	K	#	FUEL TANK SUPPORT PNL TEMP: +Y/-Z CRNR
+TFUTSUPN	#	Sc_anc_temp	#	K	#	FUEL TANK SUPPORT PNL TEMP: +Y/-Z CRNR
+TMYHNG		#	Sc_anc_temp	#	K	#	SUNSHADE DOOR HINGE BEAM TEMP (-Y SIDE)
+TOXTSUPN	#	Sc_anc_temp	#	K	#	OX-TANK SUPPORT PNL TEMP:-Y/+Z CRNR
+TRSPMTPC	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:TTWN MUPS AND PCAD
+TRSPMTPC	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:TTWN MUPS AND PCAD
+TRSPMTPC	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:TTWN MUPS AND PCAD
+TRSPMTPC	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:TTWN MUPS AND PCAD
+TRSPOTEP	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:BTWN PCU AND OX-TANK
+TRSPOTEX	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:BTWN OX-TANK
+TRSPOTPC	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:BTWN OX-TANK
+TRSPRWBB	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:BTWN RWA CRNR AND BATB
+TRSPRWBC	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEMP:RWA CRNR AND BATC
+TRSPRWCM	#	Sc_anc_temp	#	K	#	RAD SHR PNL TEP:BTWN CCDM AND RWA CRNR
+TSCIUSF1	#	Sc_anc_temp	#	K	#	SC-IUS FITTING-1 TEMP
+TSCIUSF2	#	Sc_anc_temp	#	K	#	SC-IUS FITTING-2 TEMP
+TSCIUSF5	#	Sc_anc_temp	#	K	#	SC-IUS FITTING-5 TEMP
+TSCIUSF8	#	Sc_anc_temp	#	K	#	SC-IUS FITTING-8 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF1		#	Sc_anc_temp	#	K	#	SC-TS FITTING -1 TEMP
+TSCTSF2		#	Sc_anc_temp	#	K	#	SC-TS FITTING -2 TEMP
+TSCTSF2		#	Sc_anc_temp	#	K	#	SC-TS FITTING -2 TEMP
+TSCTSF2		#	Sc_anc_temp	#	K	#	SC-TS FITTING -2 TEMP
+TSCTSF2		#	Sc_anc_temp	#	K	#	SC-TS FITTING -2 TEMP
+TSCTSF3		#	Sc_anc_temp	#	K	#	SC-TS FITTING -3 TEMP
+TSCTSF3		#	Sc_anc_temp	#	K	#	SC-TS FITTING -3 TEMP
+TSCTSF3		#	Sc_anc_temp	#	K	#	SC-TS FITTING -3 TEMP
+TSCTSF3		#	Sc_anc_temp	#	K	#	SC-TS FITTING -3 TEMP
+TSCTSF4		#	Sc_anc_temp	#	K	#	SC-TS FITTING -4 TEMP
+TSCTSF4		#	Sc_anc_temp	#	K	#	SC-TS FITTING -4 TEMP
+TSCTSF4		#	Sc_anc_temp	#	K	#	SC-TS FITTING -4 TEMP
+TSCTSF4		#	Sc_anc_temp	#	K	#	SC-TS FITTING -4 TEMP
+TSCTSF5		#	Sc_anc_temp	#	K	#	SC-TS FITTING -5 TEMP
+TSCTSF5		#	Sc_anc_temp	#	K	#	SC-TS FITTING -5 TEMP
+TSCTSF5		#	Sc_anc_temp	#	K	#	SC-TS FITTING -5 TEMP
+TSCTSF5		#	Sc_anc_temp	#	K	#	SC-TS FITTING -5 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TSCTSF6		#	Sc_anc_temp	#	K	#	SC-TS FITTING -6 TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE1PST	#	Sc_main_temp	#	K	#	PEA-1 POWER SUPPLY TEMP
+TAPE2PST	#	Sc_main_temp	#	K	#	PEA-2 POWER SUPPLY TEMP
+TAPE2PST	#	Sc_main_temp	#	K	#	PEA-2 POWER SUPPLY TEMP
+TAPE2PST	#	Sc_main_temp	#	K	#	PEA-2 POWER SUPPLY TEMP
+TAPE2PST	#	Sc_main_temp	#	K	#	PEA-2 POWER SUPPLY TEMP
+TAPE2PST	#	Sc_main_temp	#	K	#	PEA-2 POWER SUPPLY TEMP
+TAPE2PST	#	Sc_main_temp	#	K	#	PEA-2 POWER SUPPLY TEMP
+TAPEA1T		#	Sc_main_temp	#	K	#	PEA-1 CASE TEMP
+TAPEA2T		#	Sc_main_temp	#	K	#	PEA-2 CASE TEMP
+TASPPCM		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:-Z PCAD COMP
+TASPPCM		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:-Z PCAD COMP
+TASPPCM		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:-Z PCAD COMP
+TASPPCP		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:+Z PCAD COMP
+TASPPCP		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:+Z PCAD COMP
+TASPPCU		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:PCU COMP
+TASPRWC		#	Sc_main_temp	#	K	#	AFT SHEAR PANEL TEMP:RWA CRNR COMP
+TCM_CTU		#	Sc_main_temp	#	K	#	CTU TEMP
+TCM_CTU		#	Sc_main_temp	#	K	#	CTU TEMP
+TCM_CTU		#	Sc_main_temp	#	K	#	CTU TEMP
+TCM_CTU		#	Sc_main_temp	#	K	#	CTU TEMP
+TCM_IFU		#	Sc_main_temp	#	K	#	IU TEMP
+TCM_IFU		#	Sc_main_temp	#	K	#	IU TEMP
+TCM_OBC		#	Sc_main_temp	#	K	#	OBC TEMP
+TCM_OBC		#	Sc_main_temp	#	K	#	OBC TEMP
+TCM_PA1		#	Sc_main_temp	#	K	#	RF POWER AMP-1 EXT BPL TEMP
+TCM_PA2		#	Sc_main_temp	#	K	#	RF POWER AMP-2 EXT BPL TEMP
+TCM_PAN		#	Sc_main_temp	#	K	#	CCDM PNL TEMP (+Z EDGE OF PNL)
+TCM_RFAS	#	Sc_main_temp	#	K	#	RF ASSEMBLY TEMP
+TCM_SSR1	#	Sc_main_temp	#	K	#	SS RECORDER-1 TEMP
+TCM_SSR1	#	Sc_main_temp	#	K	#	SS RECORDER-1 TEMP
+TCM_SSR1	#	Sc_main_temp	#	K	#	SS RECORDER-1 TEMP
+TCM_SSR1	#	Sc_main_temp	#	K	#	SS RECORDER-1 TEMP
+TCM_SSR2	#	Sc_main_temp	#	K	#	SS RECORDER-2 TEMP
+TCM_SSR2	#	Sc_main_temp	#	K	#	SS RECORDER-2 TEMP
+TCM_SSR2	#	Sc_main_temp	#	K	#	SS RECORDER-2 TEMP
+TCM_SSR2	#	Sc_main_temp	#	K	#	SS RECORDER-2 TEMP
+TCM_TX1		#	Sc_main_temp	#	K	#	TRANSPONDER-1 EXT BPL TEMP
+TCM_TX2		#	Sc_main_temp	#	K	#	TRANSPONDER-2 EXT BPL TEMP
+TCM_USO		#	Sc_main_temp	#	K	#	USO TEMP
+TCM_USO		#	Sc_main_temp	#	K	#	USO TEMP
+TCM_USO		#	Sc_main_temp	#	K	#	USO TEMP
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT1	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-1
+TCYLAFT2	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-2
+TCYLAFT3	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-3
+TCYLAFT4	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-4
+TCYLAFT5	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-5
+TCYLAFT5	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-5
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLAFT6	#	Sc_main_temp	#	K	#	CNT CYL TEMP:16-IN FWD OF SC-TS FIT-6
+TCYLCMM		#	Sc_main_temp	#	K	#	CNT CYL TEMP: -Z CCDM COMP
+TCYLCMM		#	Sc_main_temp	#	K	#	CNT CYL TEMP: -Z CCDM COMP
+TCYLFMZM	#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z SIDE UNDER LAE-1
+TCYLFMZM	#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z SIDE UNDER LAE-1
+TCYLFMZM	#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z SIDE UNDER LAE-1
+TCYLFMZP	#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z SIDE UNDER LAE-2
+TCYLFMZP	#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z SIDE UNDER LAE-2
+TCYLFMZP	#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z SIDE UNDER LAE-2
+TCYLPCM		#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z PCAD COMP
+TCYLPCM		#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z PCAD COMP
+TCYLPCM		#	Sc_main_temp	#	K	#	CNT CYL TEMP:-Z PCAD COMP
+TCYLPCP		#	Sc_main_temp	#	K	#	CNT CYL TEMP:+Z PCAD COMP
+TCYLPCP		#	Sc_main_temp	#	K	#	CNT CYL TEMP:+Z PCAD COMP
+TCYLRWC		#	Sc_main_temp	#	K	#	CNT CYL TEMP:RWA CRNR COMP
+TCYZ_RW1	#	Sc_main_temp	#	K	#	RWA -1 TEMP (RWA CRNR COMP)
+TCYZ_RW1	#	Sc_main_temp	#	K	#	RWA -1 TEMP (RWA CRNR COMP)
+TCYZ_RW6	#	Sc_main_temp	#	K	#	RWA -6 TEMP (RWA CRNR COMP)
+TCYZ_RW6	#	Sc_main_temp	#	K	#	RWA -6 TEMP (RWA CRNR COMP)
+TEP_BPAN	#	Sc_main_temp	#	K	#	BATT PNL TEMP OPPOSITE TEP_PPAN
+TEP_EIA		#	Sc_main_temp	#	K	#	EIA TEMP
+TEP_PCU		#	Sc_main_temp	#	K	#	PCU TEMP
+TEP_PPAN	#	Sc_main_temp	#	K	#	PCU PNL TEMP OPPOSITE TEP_BPAN
+TEP_PSU1	#	Sc_main_temp	#	K	#	PSU-1 TEMP
+TEP_PSU2	#	Sc_main_temp	#	K	#	PSU-2 TEMP
+TEP_RCTU	#	Sc_main_temp	#	K	#	RCTU-EP TEMP
+TFSPCMM		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: - Z CCDM COMP
+TFSPCMM		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: - Z CCDM COMP
+TFSPCMM		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: - Z CCDM COMP
+TFSPCMP		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: +Z CCDM COMP
+TFSPPCM		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: -Z PCAD COMP
+TFSPPCM		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: -Z PCAD COMP
+TFSPPCM		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: -Z PCAD COMP
+TFSPPCP		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: +Z PCAD COMP
+TFSPPCP		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL TEMP: +Z PCAD COMP
+TFSPPCU		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL: PCU COMP
+TFSPRWC		#	Sc_main_temp	#	K	#	FWD SHEAR PANEL: RWA CRNR COMP
+TMYSADA		#	Sc_main_temp	#	K	#	-Y SADA TEMP
+TMYSADA		#	Sc_main_temp	#	K	#	-Y SADA TEMP
+TMYSADA		#	Sc_main_temp	#	K	#	-Y SADA TEMP
+TMZLGABM	#	Sc_main_temp	#	K	#	-Z LOW-GAIN ANTENNA BOOM TEMP
+TMZLGABM	#	Sc_main_temp	#	K	#	-Z LOW-GAIN ANTENNA BOOM TEMP
+TMZLGABM	#	Sc_main_temp	#	K	#	-Z LOW-GAIN ANTENNA BOOM TEMP
+TMZP_CNT	#	Sc_main_temp	#	K	#	-Z PNL TEMP:CENTER
+TMZP_CNT	#	Sc_main_temp	#	K	#	-Z PNL TEMP:CENTER
+TMZP_CNT	#	Sc_main_temp	#	K	#	-Z PNL TEMP:CENTER
+TMZP_CNT	#	Sc_main_temp	#	K	#	-Z PNL TEMP:CENTER
+TMZP_CNT	#	Sc_main_temp	#	K	#	-Z PNL TEMP:CENTER
+TMZP_CNT	#	Sc_main_temp	#	K	#	-Z PNL TEMP:CENTER
+TMZP_MY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:-Y SIDE
+TMZP_MY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:-Y SIDE
+TMZP_MY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:-Y SIDE
+TMZP_MY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:-Y SIDE
+TMZP_PY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:+Y SIDE
+TMZP_PY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:+Y SIDE
+TMZP_PY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:+Y SIDE
+TMZP_PY		#	Sc_main_temp	#	K	#	-Z PNL TEMP:+Y SIDE
+TPC_CEA		#	Sc_main_temp	#	K	#	CEA TEMP
+TPC_CEA		#	Sc_main_temp	#	K	#	CEA TEMP
+TPC_CEA		#	Sc_main_temp	#	K	#	CEA TEMP
+TPC_CEA		#	Sc_main_temp	#	K	#	CEA TEMP
+TPC_DEA		#	Sc_main_temp	#	K	#	DEA TEMP
+TPC_DEA		#	Sc_main_temp	#	K	#	DEA TEMP
+TPC_ESE		#	Sc_main_temp	#	K	#	ESE TEMP
+TPC_ESE		#	Sc_main_temp	#	K	#	ESE TEMP
+TPC_ESE		#	Sc_main_temp	#	K	#	ESE TEMP
+TPC_ESE		#	Sc_main_temp	#	K	#	ESE TEMP
+TPC_ESE		#	Sc_main_temp	#	K	#	ESE TEMP
+TPC_FSSE	#	Sc_main_temp	#	K	#	FSSE TEMP (BTWN UNITS)
+TPC_FSSE	#	Sc_main_temp	#	K	#	FSSE TEMP (BTWN UNITS)
+TPC_FSSE	#	Sc_main_temp	#	K	#	FSSE TEMP (BTWN UNITS)
+TPC_FSSE	#	Sc_main_temp	#	K	#	FSSE TEMP (BTWN UNITS)
+TPC_FSSE	#	Sc_main_temp	#	K	#	FSSE TEMP (BTWN UNITS)
+TPC_PAN		#	Sc_main_temp	#	K	#	PCAD PNL TEMP (NEAR +X/+Z SA TIE-DOWN)
+TPC_PAN		#	Sc_main_temp	#	K	#	PCAD PNL TEMP (NEAR +X/+Z SA TIE-DOWN)
+TPC_RCTU	#	Sc_main_temp	#	K	#	RCTU-PC TEMP
+TPC_RCTU	#	Sc_main_temp	#	K	#	RCTU-PC TEMP
+TPC_RCTU	#	Sc_main_temp	#	K	#	RCTU-PC TEMP
+TPC_WDA		#	Sc_main_temp	#	K	#	WDA TEMP
+TPC_WDA		#	Sc_main_temp	#	K	#	WDA TEMP
+TPCM_RW4	#	Sc_main_temp	#	K	#	RWA -4 TEMP (-Z PCAD COMP)
+TPCM_RW4	#	Sc_main_temp	#	K	#	RWA -4 TEMP (-Z PCAD COMP)
+TPCM_RW4	#	Sc_main_temp	#	K	#	RWA -4 TEMP (-Z PCAD COMP)
+TPCM_RW4	#	Sc_main_temp	#	K	#	RWA -4 TEMP (-Z PCAD COMP)
+TPCM_RW5	#	Sc_main_temp	#	K	#	RWA -5 TEMP (-Z PCAD COMP)
+TPCM_RW5	#	Sc_main_temp	#	K	#	RWA -5 TEMP (-Z PCAD COMP)
+TPCM_RW5	#	Sc_main_temp	#	K	#	RWA -5 TEMP (-Z PCAD COMP)
+TPCM_RW5	#	Sc_main_temp	#	K	#	RWA -5 TEMP (-Z PCAD COMP)
+TPCP_RW2	#	Sc_main_temp	#	K	#	RWA -2 TEMP (+Z PCAD COMP)
+TPCP_RW2	#	Sc_main_temp	#	K	#	RWA -2 TEMP (+Z PCAD COMP)
+TPCP_RW3	#	Sc_main_temp	#	K	#	RWA -3 TEMP (+Z PCAD COMP)
+TPCP_RW3	#	Sc_main_temp	#	K	#	RWA -3 TEMP (+Z PCAD COMP)
+TPYSADA		#	Sc_main_temp	#	K	#	+Y SADA TEMP
+TPYSADA		#	Sc_main_temp	#	K	#	+Y SADA TEMP
+TPYSADA		#	Sc_main_temp	#	K	#	+Y SADA TEMP
+TPZLGABM	#	Sc_main_temp	#	K	#	+Z LOW-GAIN ANTENNA BOOM TEMP
+TSAMYT		#	Sc_main_temp	#	K	#	-Y WING SOLAR ARRAY TEMP
+TSAMYT		#	Sc_main_temp	#	K	#	-Y WING SOLAR ARRAY TEMP
+TSAMYT		#	Sc_main_temp	#	K	#	-Y WING SOLAR ARRAY TEMP
+TSAMYT		#	Sc_main_temp	#	K	#	-Y WING SOLAR ARRAY TEMP
+TSAPYT		#	Sc_main_temp	#	K	#	+Y WING SOLAR ARRAY TEMP
+TSAPYT		#	Sc_main_temp	#	K	#	+Y WING SOLAR ARRAY TEMP
+TSAPYT		#	Sc_main_temp	#	K	#	+Y WING SOLAR ARRAY TEMP
+TSAPYT		#	Sc_main_temp	#	K	#	+Y WING SOLAR ARRAY TEMP
+FAEDGE		#	Simactu		#	na	#	faedge
+3FAPOS		#	Simactu		#	mm	#	FA position
+FATABWID	#	Simactu		#	na	#	Most recently detected FA tab width
+LDRTNUM		#	Simactu		#	na	#	ldrtnum
+LDRTRELPOS	#	Simactu		#	na	#	NA
+3MRMMXMV	#	Simactu		#	pwm	#	SEA MAX PWM LEVEL MOST RECENT MOVE
+3MRMMXMV	#	Simactu		#	pwm	#	SEA MAX PWM LEVEL MOST RECENT MOVE
+MRMDEST		#	Simactu		#	V	#	Analog ground A/D convert reading
+PWMLEVEL	#	Simactu		#	na	#	NA
+TSCEDGE		#	Simactu		#	na	#	tscedge
+3TSCPOS		#	Simactu		#	mm	#	TSC position
+TSCTABWID	#	Simactu		#	na	#	Most recently detected TSC tab width
+AGRNDADC	#	Simelec		#	V	#	Analog fround A/D convert reading
+FATABADC	#	Simelec		#	na	#	FA Tab Position Sensor A/D Converter
+N15VADC		#	Simelec		#	na	#	-15V power supply A/D conv. reading
+P15VADC		#	Simelec		#	na	#	+15V power supply A/D conv. reading
+P5VADC		#	Simelec		#	V	#	+5V power supply A/D conv. reading
+P5VADC		#	Simelec		#	V	#	+5V power supply A/D conv. reading
+TSCTABADC	#	Simelec		#	na	#	TSC Tab Position Sensor A/Dconverter
+3BTU_BPT	#	Simtemp		#	K	#	BTU BASEPLATE (+X)), ABORT HTR TSC2
+3BTU_BPT	#	Simtemp		#	K	#	BTU BASEPLATE (+X)), ABORT HTR TSC2
+3FABRAAT	#	Simtemp		#	K	#	FA STRUCTURE AT BEARING A ABORT HTR. FA6 TEMP
+3FABRCAT	#	Simtemp		#	K	#	FA STRUCTURE AT BEARING C ABORT HTR. FA6 TEMP
+3FAMYZAT	#	Simtemp		#	K	#	FA STRUCTURE +X FACE AT -Y-Z END ABORT HTR. FA6 TEMP
+3FAMYZAT	#	Simtemp		#	K	#	FA STRUCTURE +X FACE AT -Y-Z END ABORT HTR. FA6 TEMP
+3FAMYZAT	#	Simtemp		#	K	#	FA STRUCTURE +X FACE AT -Y-Z END ABORT HTR. FA6 TEMP
+3FAPYZAT	#	Simtemp		#	K	#	FA STRUCTURE +X FACE AT +Y+Z END ABORT HTR. FA6 TEMP
+3FARALAT	#	Simtemp		#	K	#	FA STRUCTURE AT RAIL -Z, ABORT HEATER FA6 TEMP
+3FARALAT	#	Simtemp		#	K	#	FA STRUCTURE AT RAIL -Z, ABORT HEATER FA6 TEMP
+3FARALAT	#	Simtemp		#	K	#	FA STRUCTURE AT RAIL -Z, ABORT HEATER FA6 TEMP
+3FARALAT	#	Simtemp		#	K	#	FA STRUCTURE AT RAIL -Z, ABORT HEATER FA6 TEMP
+3FLCABPT	#	Simtemp		#	K	#	FLCA BASEPLATE (+X)
+3FLCABPT	#	Simtemp		#	K	#	FLCA BASEPLATE (+X)
+3FLCABPT	#	Simtemp		#	K	#	FLCA BASEPLATE (+X)
+3RCTUBPT	#	Simtemp		#	K	#	RCTU BASEPLATE (+X)
+3RCTUBPT	#	Simtemp		#	K	#	RCTU BASEPLATE (+X)
+3RCTUBPT	#	Simtemp		#	K	#	RCTU BASEPLATE (+X)
+3RCTUBPT	#	Simtemp		#	K	#	RCTU BASEPLATE (+X)
+3TSMXCET	#	Simtemp		#	K	#	-X TURTLE SHELL NR HRC CEA
+3TSMXCET	#	Simtemp		#	K	#	-X TURTLE SHELL NR HRC CEA
+3TSMXCET	#	Simtemp		#	K	#	-X TURTLE SHELL NR HRC CEA
+3TSMXCET	#	Simtemp		#	K	#	-X TURTLE SHELL NR HRC CEA
+3TSMXSPT	#	Simtemp		#	K	#	-X TURTLE SHELL NR ACIS SS
+3TSMXSPT	#	Simtemp		#	K	#	-X TURTLE SHELL NR ACIS SS
+3TSMXSPT	#	Simtemp		#	K	#	-X TURTLE SHELL NR ACIS SS
+3TSMXSPT	#	Simtemp		#	K	#	-X TURTLE SHELL NR ACIS SS
+3TSMXSPT	#	Simtemp		#	K	#	-X TURTLE SHELL NR ACIS SS
+3TSMXSPT	#	Simtemp		#	K	#	-X TURTLE SHELL NR ACIS SS
+3TSMYDPT	#	Simtemp		#	K	#	-Y TURTLE SHELL NR ACIS DPA
+3TSMYDPT	#	Simtemp		#	K	#	-Y TURTLE SHELL NR ACIS DPA
+3TSMYDPT	#	Simtemp		#	K	#	-Y TURTLE SHELL NR ACIS DPA
+3TSPYFET	#	Simtemp		#	K	#	+Y TURTLE SHELL NR HRC FEA
+3TSPYFET	#	Simtemp		#	K	#	+Y TURTLE SHELL NR HRC FEA
+3TSPYFET	#	Simtemp		#	K	#	+Y TURTLE SHELL NR HRC FEA
+3TSPZDET	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS DEA
+3TSPZDET	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS DEA
+3TSPZDET	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS DEA
+3TSPZSPT	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS SS
+3TSPZSPT	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS SS
+3TSPZSPT	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS SS
+3TSPZSPT	#	Simtemp		#	K	#	+Z TURTLE SHELL NR ACIS SS
+3TTACS1T	#	Simtemp		#	K	#	TT AT ACIS ATTACH
+3TTACS2T	#	Simtemp		#	K	#	TT AT ACIS ATTACH
+3TTACS3T	#	Simtemp		#	K	#	TT AT ACIS ATTACH
+3TTBRGBT	#	Simtemp		#	K	#	TT AT BEARING B, ABORT HTR TSC4
+3TTBRGBT	#	Simtemp		#	K	#	TT AT BEARING B, ABORT HTR TSC4
+3TTHRC1T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC1T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC1T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC1T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC2T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC2T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC2T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC2T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTHRC3T	#	Simtemp		#	K	#	TT AT HRC BIPOD ATTACH
+3TTRALAT	#	Simtemp		#	K	#	TT AT RAIL A, ABORT HTR TSC3
+3TTRALCT	#	Simtemp		#	K	#	TT AT RAIL C, ABORT HTR TSC5
+3TTRALCT	#	Simtemp		#	K	#	TT AT RAIL C, ABORT HTR TSC5
+3TTVALVT	#	Simtemp		#	K	#	TT AT VENT VALVE, ABORT HTR TSC7
+3TTVALVT	#	Simtemp		#	K	#	TT AT VENT VALVE, ABORT HTR TSC7
+3TTVALVT	#	Simtemp		#	K	#	TT AT VENT VALVE, ABORT HTR TSC7
+3TTVALVT	#	Simtemp		#	K	#	TT AT VENT VALVE, ABORT HTR TSC7
+3FASEAAT	#	Simtemp		#	K	#	SEA box temperature
+3FAFLAAT	#	Simtemp		#	K	#	Flexure A temperature
+3SFLXAST	#	Simtemp		#	K	#	Flexure A temperature setpoint
+3FAFLBAT	#	Simtemp		#	K	#	Flexure B temperature
+3SFLXBST	#	Simtemp		#	K	#	Flexure B temperature setpoint
+3FAFLCAT	#	Simtemp		#	K	#	Flexure C temperature
+3SFLXCST	#	Simtemp		#	K	#	Flexure C temperature setpoint
+3FAPSAT		#	Simtemp		#	K	#	SEA power supply temperature (3FAPSAT)
+ADE1P5CV	#	Spcelec		#	V	#	ADE- 1 +5V CONVERTER VOLTAGE
+ADE2P5CV	#	Spcelec		#	V	#	ADE- 2 +5V CONVERTER VOLTAGE
+AHKNATPR	#	Spcelec		#	V	#	HOT KNIFE TLM PRI
+AHKNATPR	#	Spcelec		#	V	#	HOT KNIFE TLM PRI
+AHKNATRD	#	Spcelec		#	V	#	HOT KNIFE TLM RDNT
+AHKNATRD	#	Spcelec		#	V	#	HOT KNIFE TLM RDNT
+AVACMONV	#	Spcelec		#	V	#	VAC MON ION GAUGE VOLT TLM
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD1CV5V	#	Spcelec		#	V	#	VDE-1 +5V CONVERTER VOLTAGE
+AVD2CV5V	#	Spcelec		#	V	#	VDE-2 +5V CONVERTER VOLTAGE
+AVD2CV5V	#	Spcelec		#	V	#	VDE-2 +5V CONVERTER VOLTAGE
+AVD2CV5V	#	Spcelec		#	V	#	VDE-2 +5V CONVERTER VOLTAGE
+AVD2CV5V	#	Spcelec		#	V	#	VDE-2 +5V CONVERTER VOLTAGE
+AVD2CV5V	#	Spcelec		#	V	#	VDE-2 +5V CONVERTER VOLTAGE
+AVD2CV5V	#	Spcelec		#	V	#	VDE-2 +5V CONVERTER VOLTAGE
+AWD1CV5V	#	Spcelec		#	V	#	WDE-1 +5
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD1TQI		#	Spcelec		#	AMP	#	WHEEL 1 TORQUE CURRENT
+AWD2CV5V	#	Spcelec		#	V	#	WDE-2 +5V CONVERTER VOLTAGE
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD2TQI		#	Spcelec		#	AMP	#	WHEEL 2 TORQUE CURRENT
+AWD3CV5V	#	Spcelec		#	V	#	WDE-3 +5
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD3TQI		#	Spcelec		#	AMP	#	WHEEL 3 TORQUE CURRENT
+AWD4CV5V	#	Spcelec		#	V	#	WDE-4 +5V CONVERTER VOLTAGE
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD4TQI		#	Spcelec		#	AMP	#	WHEEL 4 TORQUE CURRENT
+AWD5CV5V	#	Spcelec		#	V	#	WDE-5 +5V CONVERTER VOLTAGE
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD5TQI		#	Spcelec		#	AMP	#	WHEEL 5 TORQUE CURRENT
+AWD6CV5V	#	Spcelec		#	V	#	WDE-6 +5V CONVERTER VOLTAGE
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+AWD6TQI		#	Spcelec		#	AMP	#	WHEEL 6 TORQUE CURRENT
+CVEEP		#	Spcelec		#	V	#	+5VEE (EEPROM POWER GATED +5V) PRI
+CVEER		#	Spcelec		#	V	#	+5VEE (EEPROM POWER GATED +5V) RDNT
+EDISSNPR	#	Spcelec		#	PRI	#	BATT DISCN SENSOR
+ELBI		#	Spcelec		#	AMP	#	LOAD BUS CURRENT
+ELBI		#	Spcelec		#	AMP	#	LOAD BUS CURRENT
+ELBV		#	Spcelec		#	V	#	LOAD BUS VOLTAGE
+ELBV		#	Spcelec		#	V	#	LOAD BUS VOLTAGE
+ELBV		#	Spcelec		#	V	#	LOAD BUS VOLTAGE
+ELBV		#	Spcelec		#	V	#	LOAD BUS VOLTAGE
+ELBV		#	Spcelec		#	V	#	LOAD BUS VOLTAGE
+ELBV		#	Spcelec		#	V	#	LOAD BUS VOLTAGE
+EPOVSPR		#	Spcelec		#	na	#	O/V SENSOR PRI
+ES1P5CV		#	Spcelec		#	V	#	ES-1 +5V CONVERTER VOLTAGE
+ES2P5CV		#	Spcelec		#	V	#	ES-2 +5V CONVERTER VOLTAGE
+ESAMYI		#	Spcelec		#	AMP	#	S/A -Y CURRENT
+ESAMYI		#	Spcelec		#	AMP	#	S/A -Y CURRENT
+ESAMYI		#	Spcelec		#	AMP	#	S/A -Y CURRENT
+ESAMYI		#	Spcelec		#	AMP	#	S/A -Y CURRENT
+ESAMYI		#	Spcelec		#	AMP	#	S/A -Y CURRENT
+ESAPYI		#	Spcelec		#	AMP	#	S/A +Y CURRENT
+ESAPYI		#	Spcelec		#	AMP	#	S/A +Y CURRENT
+ESAPYI		#	Spcelec		#	AMP	#	S/A +Y CURRENT
+ESAPYI		#	Spcelec		#	AMP	#	S/A +Y CURRENT
+EUVSENPR	#	Spcelec		#	na	#	U/V SENSOR PRI
+ACPA5CV		#	Spceleca	#	V	#	CPE A +5V CONVERTER VOLTAGE
+AFLC10AI	#	Spceleca	#	MAMP	#	FLCA DIODE 10 CURRENT-A
+AFLC11AI	#	Spceleca	#	MAMP	#	FLCA DIODE 11 CURRENT-A
+AFLC12AI	#	Spceleca	#	MAMP	#	FLCA DIODE 12 CURRENT-A
+AFLC13AI	#	Spceleca	#	MAMP	#	FLCA DIODE 13 CURRENT-A
+AFLC14AI	#	Spceleca	#	MAMP	#	FLCA DIODE 14 CURRENT-A
+AFLCA1AI	#	Spceleca	#	MAMP	#	FLCA DIODE 1 CURRENT-A
+AFLCA2AI	#	Spceleca	#	MAMP	#	FLCA DIODE 2 CURRENT-A
+AFLCA3AI	#	Spceleca	#	MAMP	#	FLCA DIODE 3 CURRENT-A
+AFLCA4AI	#	Spceleca	#	MAMP	#	FLCA DIODE 4 CURRENT-A
+AFLCA5AI	#	Spceleca	#	MAMP	#	FLCA DIODE 5 CURRENT-A
+AFLCA6AI	#	Spceleca	#	MAMP	#	FLCA DIODE 6 CURRENT-A
+AFLCA7AI	#	Spceleca	#	MAMP	#	FLCA DIODE 7 CURRENT-A
+AFLCA8AI	#	Spceleca	#	MAMP	#	FLCA DIODE 8 CURRENT-A
+AFLCA9AI	#	Spceleca	#	MAMP	#	FLCA DIODE 9 CURRENT-A
+AFLCAAH		#	Spceleca	#	V	#	FLCA SOH_A
+AFLCAAH		#	Spceleca	#	V	#	FLCA SOH_A
+AFLCAAH		#	Spceleca	#	V	#	FLCA SOH_A
+AFLCAAH		#	Spceleca	#	V	#	FLCA SOH_A
+AFLCAAH		#	Spceleca	#	V	#	FLCA SOH_A
+AFLCAAH		#	Spceleca	#	V	#	FLCA SOH_A
+AIOAP5CV	#	Spceleca	#	V	#	IOE A +5V CONVERTER VOLTAGE
+AOVAPWR		#	Spceleca	#	na	#	PRIME VDE PWR ENABLE STAT (MOM)
+ASPEA5CV	#	Spceleca	#	V	#	SPE-A +5V CONVERTER VOLTAGE
+C28VMONA	#	Spceleca	#	V	#	28V MONITOR - A
+CIUA15V		#	Spceleca	#	V	#	+15V IU A
+CIUA15V		#	Spceleca	#	V	#	+15V IU A
+CIUA5V		#	Spceleca	#	V	#	+5V IU A
+CIUA5V		#	Spceleca	#	V	#	+5V IU A
+CPA1PWR		#	Spceleca	#	DBM	#	POWER AMP-1 OUTPUT POWER
+CPA1PWR		#	Spceleca	#	DBM	#	POWER AMP-1 OUTPUT POWER
+CPA1PWR		#	Spceleca	#	DBM	#	POWER AMP-1 OUTPUT POWER
+CPA1PWR		#	Spceleca	#	DBM	#	POWER AMP-1 OUTPUT POWER
+CPA1V		#	Spceleca	#	V	#	POWER AMP-1 SECONDARY
+CPA1V		#	Spceleca	#	V	#	POWER AMP-1 SECONDARY
+CPA2PWR		#	Spceleca	#	DBM	#	POWER AMP-2 OUTPUT POWER
+CPA2PWR		#	Spceleca	#	DBM	#	POWER AMP-2 OUTPUT POWER
+CPA2V		#	Spceleca	#	V	#	POWER AMP-2 SECONDARY VOLTAGE
+CPA2V		#	Spceleca	#	V	#	POWER AMP-2 SECONDARY VOLTAGE
+CPCA15V		#	Spceleca	#	V	#	+15V RCTU_PC A
+CPCA5V		#	Spceleca	#	V	#	+5V RCTU_PC A
+CRXAV		#	Spceleca	#	V	#	RECEIVED SIGNAL STRENGTH RX-A
+CSITA15V	#	Spceleca	#	V	#	+15V RCTU-SI TP-A
+CSITA5V		#	Spceleca	#	V	#	+5V RCTU-SI TP-A
+CSSR1CAV	#	Spceleca	#	V	#	SSR-1 CONVERTER A VOLTAGE
+CTSA15V		#	Spceleca	#	V	#	+15V RCTU_TS A
+CTSA5V		#	Spceleca	#	V	#	+5V RCTU_TS A
+CTUA15V		#	Spceleca	#	V	#	+15V CTU A
+CTUA5V		#	Spceleca	#	V	#	+5V CTU A
+CTXAPWR		#	Spceleca	#	DBM	#	TRANSMITTER A OUTPUT POWER
+CTXAPWR		#	Spceleca	#	DBM	#	TRANSMITTER A OUTPUT POWER
+CTXAV		#	Spceleca	#	V	#	TRANSMITTER A SECONDARY VOLTAGE
+CTXAV		#	Spceleca	#	V	#	TRANSMITTER A SECONDARY VOLTAGE
+CUSOA28V	#	Spceleca	#	V	#	+28V USO A
+CUSOA28V	#	Spceleca	#	V	#	+28V USO A
+CXO5VOBA	#	Spceleca	#	V	#	XO 5V OBC-A
+EIACVAV		#	Spceleca	#	V	#	EIA CONV A ANALOG TLM
+EPA15V		#	Spceleca	#	V	#	+15V RCTU_EP A
+ACPB5CV		#	Spcelecb	#	V	#	CPE B +5V CONVERTER VOLTAGE
+ACPB5CV		#	Spcelecb	#	V	#	CPE B +5V CONVERTER VOLTAGE
+AFLC10BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 10 CURRENT-B
+AFLC11BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 11 CURRENT-B
+AFLC12BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 12 CURRENT-B
+AFLC13BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 13 CURRENT-B
+AFLC14BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 14 CURRENT-B
+AFLCA1BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 1 CURRENT-B
+AFLCA2BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 2 CURRENT-B
+AFLCA3BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 3 CURRENT-B
+AFLCA4BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 4 CURRENT-B
+AFLCA5BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 5 CURRENT-B
+AFLCA6BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 6 CURRENT-B
+AFLCA7BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 7 CURRENT-B
+AFLCA8BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 8 CURRENT-B
+AFLCA9BI	#	Spcelecb	#	MAMP	#	FLCA DIODE 9 CURRENT-B
+AFLCABH		#	Spcelecb	#	V	#	FLCA SOH_B
+AFLCABH		#	Spcelecb	#	V	#	FLCA SOH_B
+AIOBP5CV	#	Spcelecb	#	V	#	IOE B +5V CONVERTER VOLTAGE
+AIOBP5CV	#	Spcelecb	#	V	#	IOE B +5V CONVERTER VOLTAGE
+AOVBPWR		#	Spcelecb	#	na	#	REDUNDANT VDE PWR ENABLE STAT (MOM)
+ASPEB5CV	#	Spcelecb	#	V	#	SPE-B +5V CONVERTER VOLTAGE
+ASPEB5CV	#	Spcelecb	#	V	#	SPE-B +5V CONVERTER VOLTAGE
+C28VMONB	#	Spcelecb	#	V	#	28V MONITOR - B
+C28VMONB	#	Spcelecb	#	V	#	28V MONITOR - B
+CIUB15V		#	Spcelecb	#	V	#	+15V IU B
+CIUB15V		#	Spcelecb	#	V	#	+15V IU B
+CIUB5V		#	Spcelecb	#	V	#	+5V IU B
+CIUB5V		#	Spcelecb	#	V	#	+5V IU B
+CPCB15V		#	Spcelecb	#	V	#	+15V RCTU_PC B
+CPCB5V		#	Spcelecb	#	V	#	+5V RCTU_PC B
+CRXBV		#	Spcelecb	#	V	#	RECEIVED SIGNAL STRENGTH RX-B
+CSITB15V	#	Spcelecb	#	V	#	+15V RCTU-SI TP-B
+CSITB5V		#	Spcelecb	#	V	#	+5V RCTU-SI TP-B
+CSSR2CBV	#	Spcelecb	#	V	#	SSR-2 CONVERTER B VOLTAGE
+CSSR2CBV	#	Spcelecb	#	V	#	SSR-2 CONVERTER B VOLTAGE
+CTSB15V		#	Spcelecb	#	V	#	+15V RCTU_TS B
+CTSB5V		#	Spcelecb	#	V	#	+5V RCTU_TS B
+CTUB15V		#	Spcelecb	#	V	#	+15V CTU B
+CTUB5V		#	Spcelecb	#	V	#	+5V CTU B
+CTXBPWR		#	Spcelecb	#	DBM	#	TRANSMITTER B OUTPUT POWER
+CTXBPWR		#	Spcelecb	#	DBM	#	TRANSMITTER B OUTPUT POWER
+CTXBPWR		#	Spcelecb	#	DBM	#	TRANSMITTER B OUTPUT POWER
+CTXBPWR		#	Spcelecb	#	DBM	#	TRANSMITTER B OUTPUT POWER
+CTXBV		#	Spcelecb	#	V	#	TRANSMITTER B SECONDARY
+CTXBV		#	Spcelecb	#	V	#	TRANSMITTER B SECONDARY
+CUSOB28V	#	Spcelecb	#	V	#	+28V USO B
+CUSOB28V	#	Spcelecb	#	V	#	+28V USO B
+CXO5VOBB	#	Spcelecb	#	V	#	XO 5V OBC-B
+EIACVBV		#	Spcelecb	#	V	#	EIA CONV B ANALOG TLM
+EPB15V		#	Spcelecb	#	V	#	+15V RCTU_EP B

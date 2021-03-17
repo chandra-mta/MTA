@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>XMM Data Updates</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>XMM Data Updates</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Update XMM data, plots, and XMM web site.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/space_weather/XMM/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/XMM.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                    <th>Last Updated</th></tr>
+<tr><td>get_data </td>                      <td>Sep 11, 2015 (retired Jan 04, 2016)</td></tr>
+<tr><td>update.pro</td>                     <td>Aug 11, 2010</td></tr>
+<tr><td>mta_plot_xmm.pro</td>               <td>Feb 29, 2016</td></tr>
+<tr><td>mta_plot_xmm_tle.pro</td>           <td>Feb 29, 2016</td></tr>
+<tr><td>mta_plot_xmm_crm.pro</td>           <td>Feb 29, 2016</td></tr>
+<tr><td>mta_plot_xmm_gsm.pro</td>           <td>Jan 05, 2016</td></tr>
+<tr><td>mta_plot_xmm_comp.pro</td>          <td>Oct 15, 2010</td></tr>
+<tr><td>mta_xmm_db.pro</td>                 <td>Jan 27, 2009</td></tr>
+<tr><td>cxtime.pro</td>                     <td>Aug 17, 2004</td></tr>
+<tr><td>date2es.pro</td>                    <td>Aug 13, 2004</td></tr>
+<tr><td>have_license.pro</td>               <td>Sep 11, 2015</td></tr>
+<tr><td>mta_check_xmm.pro</td>              <td>Aug 21, 2007</td></tr>
+<tr><td>xmm_time.pro</td>                   <td>Aug 21, 2007</td></tr>
+<tr><td>check_mta_xmm_alert_page.py</td>    <td>Jan 06, 2016</td></tr>
+<tr><td>run_xmm_wrap_script</td>            <td>Jan 04, 2016</td></tr>
+<tr><td>run_xmm_main_script</td>            <td>Jan 04, 2016</td></tr>
+<tr><td>run_xmm.perl</td>                   <td>Jan 04, 2016</td></tr>
+
+<tr><td>crmreg_xmm</td>             <td>Sep 16, 2015 (see: crmreg_xmm.f)</td></tr>
+<tr><td>crmreg_cxo</td>             <td>Oct 13, 2015 (see: crmreg_cxo.f)</td></tr>
+<tr><td>copy_cxo_data.perl</td>     <td>Oct 16, 2015</td></tr>
+<tr><td>/home/mta/IDL/CXFORM/cxform.so <td>Oct 15, 2015</td></tr>
+
+</table>
+<p>
+For more details, please see: /data/mta4/space_weather/XMM/README.
+</p>
+
+<p>
+<b>Note</b>:
+cxform-manual.c contains hard-wired data for IGRF coefficients 
+(see function: epsilon line around 320) and
+these data (g 01, g 11, h11) must be updated regularly.
+The current data is valid till the end of 2015 based on
+12th generation of the data table found in:
+<a href='http://www.ngdc.noaa.gov/IAGA/vmod/igrf.html'>http://www.ngdc.noaa.gov/IAGA/vmod/igrf.html</a>.
+</p>
+<p>
+<b>Note 2</b>:
+To complie fortran codes, you need access to geopack package which is located several places, but
+/data/mta4/proj/rac/ops/CRM3/RUNCRM/geopack/ is used for the current version.
+</p>
+<p style='padding-left:20px'>
+f77 crmreg_cxo.f
+<br />
+<span style='padding-left:20px'>
+/data/mta4/proj/rac/ops/CRM3/RUNCRM/geopack/geopack.f
+</span>
+<br />
+<span style='padding-left:20px'>
+/data/mta4/proj/rac/ops/CRM3/RUNCRM/geopack/supple.f  -o crmreg_cxo
+</span>
+</p>
+
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+</p>
+<table border = 0>
+<tr><th>Sep 24, 2015</th><td>Initially logged</td></tr>
+<tr><th>Sep 30, 2015</th><td>Description updated.</td></tr>
+<tr><th>Oct 13, 2015</th><td>crmreg_cxo compiled</td></tr>
+<tr><th>Oct 15, 2015</th><td>cxform-manual.c updated to 12th generation</td></tr>
+<tr><th>Oct 19, 2015</th><td>README file updated/directory cleaned up</td></tr>
+<tr><th>Oct 20, 2015</th><td>a new xmm L1/altitude warning system added</td></tr>
+<tr><th>Nov 02, 2015</th><td>a bug related to leap year correction fixed</td></tr>
+<tr><th>Nov 09, 2015</th><td>alert record fomat bug fixed</td></tr>
+<tr><th>Jan 04, 2016</th><td>control script changed from get_data to *wrap_script</td></tr>
+<tr><th>Jan 05, 2016</th><td>CXO, XMM GSM coordinate plot modified</td></tr>
+<tr><th>Jan 06, 2016</th><td>a bug of xmm alert page fixed</td></tr>
+<tr><th>Feb 29, 2016</th><td>a leap year bug fixed on three plotting scripts</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/space_weather/XMM/
+    <ul>
+        <li>xmm_7day.archive2</li>
+    </ul>
+</li>
+<li>
+/data/mta4/proj/rac/ops/ephem/TLE/
+    <ul>
+        <li>xmm.spctrk</li>
+        <li>cxo.spctrk</li>
+    </ul>
+</li>
+<li>
+/proj/rac/ops/ephem/TLE/
+    <ul>
+        <li>xmm.gsme_in_Re</li>
+        <li>cxo.gsme_in_Re</li>
+    </ul>
+</li>
+<li>
+/stage/xmmops_ftp/
+    <ul>
+        <li> radmon_02h.dat </li>
+    </ul>
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+    <li> setenv IDL_PATH "/home/mta/IDL:+/data/ruth/idl_libs" </li>
+    <li>setenv IDL_DLM_PATH "/home/mta/IDL/CXFORM:&lt;IDL_DEFAULT&gt; </li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/space_weather/XMM/
+    <ul>
+    <li>mta_xmm_db.dat </li>
+    <li>xmm.archive</li>
+    <li>xcxo.gsm.dat</li>
+    <li>crmreg_xmm.dat </li>
+    <li>crmreg_cxo.dat</li>
+    </ul>
+</li>
+<li>
+/data/mta4/www/RADIATION/XMM/
+    <ul>
+    <li> xmm_2day.dat </li>
+    <li> mta_xmm_plot.gif</li>
+    <li> mta_xmm_plot_gsm.gif</li>
+    <li> time_x.gif </li>
+    <li> time_y.gif </li>
+    <li> time_z.gif </li>
+    <li> mta_plot_xmm_comp.gif </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta4/space_weather/XMM
+</li>
+<li>
+run:  /data/mta4/space_weather/XMM/run_xmm_wrap_script 
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available for this set of scripts
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<ul>
+<li>1 * * * *  cd /data/mta4/space_weather/XMM ; perl /data/mta4/space_weather/XMM/copy_cxo_data.perl >> $HOME/Logs/xmm_copy_cxo_data.cron</li>
+<li>0,10,20,30,40,50 * * * * cd /data/mta4/space_weather/XMM ; ./run_xmm_wrap_script > $HOME/Logs/xmm_get.cron </li>
+<li>5,15,25,35,45,55 * * * * cd /data/mta4/space_weather/XMM ; ./check_mta_xmm_alert_page.py> $HOME/Logs/xmm_alert_page_check.cron</li>
+</ul>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='http://cxc.cfa.harvard.edu/mta/RADIATION/XMM/index.html'>
+http://cxc.cfa.harvard.edu/mta/RADIATION/XMM/index.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

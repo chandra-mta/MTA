@@ -1,0 +1,47 @@
+/* MTA CSS Style Sheet for script list page */
+
+hr {color:sienna}
+p {margin-left:20px}
+body{   background-color:#FAEBD7;
+        font-family: serif, sans-serif, Verdana, Helvetica, Arial;
+        font-size:   12pt;
+//      text-align:  justify;
+//      color:   #FFF8DC;
+        margin:  20px;
+        padding: 10px;
+}
+
+table{
+//      color:  #FFFACD;
+        font-size:  95%;
+}
+
+p{
+//      color:  #FFFACD;
+        margin-left:10px;
+}
+
+p.center{
+        text-align: center;
+}
+
+a:link    {color:   #0000FF}  /* unvisited link */
+a:visited {color:   #008000}  /* visited link */
+a:hover   {color:   #00FF00}  /* mouse over link */
+a:active  {color:   #00FFFF}  /* selected link */
+
+h1{
+        text-align: center;
+}
+
+h1, h2, h3, h4{
+//      color:  #FFFACD;
+        font-style: oblique;
+}
+
+h2.center{
+        text-align: center;
+}
+
+
+

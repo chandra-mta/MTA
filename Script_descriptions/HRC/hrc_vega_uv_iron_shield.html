@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC Vega: UV/Ion Shield Health</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC Vega: UV/Ion Shield Health Monitoring</h2>
+
+
+<h3>Description</h3>
+<p>
+This task was originally done by M. Juda and his results up to the end of 2016 are in:
+<br />
+    http://cxc.harvard.edu/contrib/juda/memos/uvis_monitor/index.html
+
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc6/wilton/isobe/Project8/Vega/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                <th>Last Updated</th></tr>
+<tr><td>vega_warp_script</td>           <td>Mar 01, 2017</td></tr>
+<tr><td>vega_main_script</td>           <td>Mar 01, 2017</td></tr>
+<tr><td>compute_vega_count.py</td>      <td>Mar 01, 2017</td></tr>
+<tr><td>create_html_page.py</td>        <td>Jul 05, 2017</td></tr>
+<tr><td>extract_vega_data.py</td>       <td>Feb 28, 2017</td></tr>
+<tr><td>find_coordinate.py</td>         <td>Feb 23, 2017</td></tr>
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project9/Vega/Scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Jun 02, 2017</th><td>Initially logged</td></tr>
+<tr><th>Jul 05, 2017</th><td>Date sorting function added</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/obs_ss/sot_ocat.out
+</li>
+<li>
+evt1 fits file from archive 
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/aschrc6/wilton/isobe/Project8/Vega/Data/
+    <ul>
+    <li>hrc_i_results</li>
+    <li>hrc_s_0_results</li>
+    <li>hrc_s_10_results</li>
+    <li>hrc_s_25_results</li>
+    <li>hrc_s_m10_results</li>
+    <li>hrc_s_m25_results</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/Vega/
+    <ul>
+    <li>hrc_i_rate.png</li>
+    <li>hrc_s_0_rate.png</li>
+    <li>hrc_s_10_rate.png</li>
+    <li>hrc_s_25_rate.png</li>
+    <li>hrc_s_m10_rate.png</li>
+    <li>hrc_s_m25_rate.png</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+cd /data/aschrc6/wilton/isobe/Project8/Vega/Exc/
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/Vega/Scripts/compute_vega_count.py
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+14 2 * * * cd //data/aschrc6/wilton/isobe/Project8/Vega/Exc/; /data/aschrc6/wilton/isobe/Project8/Vega/Scripts/vega_wrap_script > /home/isobe/Logs/vega_logs.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+http://cxc.cfa.harvard.edu/contrib/cxchrc/HRC_trendings/Vega/vega_vis_montior.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

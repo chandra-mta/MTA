@@ -1,0 +1,52 @@
+
+
+##########################################################
+HOW TO SELECT SIB BACKGROUND AREA, AND COMPUTE THE AVERAGE.
+##########################################################
+
+
+
+0. Get a list of acis observations (see README).
+
+1. Using https://icxc.harvard.edu/mta/CUS/Usint/ocatdata2html.cgi, find out which ccds are used. 
+   If ROSAT image is available, check whether extended sources exit, if so where.
+
+2. Extract data (arc4gl on colossus)
+
+3. Using dmcopy, extract each ccd 
+   e.g. dmcopy "acisf11713_000N001_evt1.fits.gz[ccd_id=0]" outfile=acisf11713_000N001_evt1_ccd0.fits
+
+4. Create an image file:
+   e.g. dmcopy "acisf11713_000N001_evt1_ccd3.fits[bin x=::4,y=::4][opt type=i4]" opt=image outfile=test_img.fits clobber=yes
+
+5. Open the image with ds9, and see whether the bright area.
+   	i. Use "Scale Parameters" under Scale, and where the bright area is located (e.g. setting max to 300).
+	ii. Decide whether you want to "exclude" or "include". Probably finding a "dark" area is easier.
+
+6. Select region and get the value using "List Region" under Region option.
+
+	# Region file format: DS9 version 4.1
+	# Filename: test_img.fits
+	global color=green dashlist=8 3 width=1 font="helvetica 10 normal" 
+	select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+	physical
+	circle(3484.5,3692.5,368.48685)
+
+7. Exclude/Select the region:
+   e.g., dmcopy "acisf11713_000N001_evt1_ccd3.fits[exclude sky=circle(3484.5,3692.5,368.48685)]" outfile=acisf11713_000N001_evt1_ccd3_excluded.fits
+(you can also "indclude" an area, if the ccd is far too bright in general)
+
+   or dmcopy "acisf11713_000N001_evt1_ccd3.fits[sky=circle(3484.5,3692.5,368.48685)]" outfile=acisf11713_000N001_evt1_ccd3_selected.fits
+	if you want to include more than one regions use "+" to add e.g.: 
+		sky=circle( 2808.5,4436.5,136.72085 )+circle( 2928.5,4164.5,133.46328 
+	NOTE: probably it is a good idea to choose three speratate areas so that you can avoid introducint some bias.
+
+8. Run:  perl /data/mta/MTA/bin/sib_corr_comp_sib.perl
+	the data must be in "./Input" directory 
+
+9. Go to ./Outdir/lres, and check the data. For example:
+		dmlist mtaf11534_000N001_acis3lres_sibkg.fits opt=data > zout
+	it is great if all of them (ssoft, soft, med, hard, extra hard) is less than 200 (or 150), but soft seems always much higher than 
+	the others. if med and hard are reasonable take it. Othewise run again from step 5.	
+
+	Save the result file somewhere else before computing the next one so that you won't confuse which files you are handling.

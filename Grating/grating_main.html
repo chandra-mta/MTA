@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MTA Gratings Page</title>
+    <style>
+        .blue {
+            background-color:   #d9e6fc;
+        }
+        td {
+            padding: 5px;
+        }
+    </style>
+    <script language="JavaScript">
+        function WindowOpener(imgname) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1050,height=700,resize=no");
+            msgWindow.close();
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1050,height=700,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</TITLE>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./"+imgname+"' border =0 style='width:95%'><p></p></body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+
+    
+        function WindowOpener2(imgname) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1000,height=1000,resize=no");
+            msgWindow.close();
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1000,height=1000,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</TITLE>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./"+imgname+"' border =0 style='width:95%'><p></p></body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+
+        function WindowOpener3(htmlpage) {
+            msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=1200,height=1000,resize=yes");
+            msgWindow.close();
+            msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=1200,height=1000,resize=yes");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Trend Plot:   "+htmlpage+"</title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<iframe src='./EdE_trend/"+htmlpage+"' border=0 width=1200 height=1000></body></html>");
+            msgWindow.focus();
+        }
+
+        document.body.addEventListener('click', function(event) {
+            if (event.target.nodeName === 'A' && event.target.href) { 
+                history.replaceState(null, null, event.target.href); 
+            }
+        }, false);
+
+    </script>
+
+
+</head>
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<header>
+<h2 style='background-color:blue; color:#FAEBD7;'>
+MTA Gratings Trends
+</h2>
+
+<div style='width:20%;float:right; padding-left:5px;'>
+<a href="javascript:WindowOpener2('Grating_Data/Jul18/21123/obsid_21123_Sky_zerofind.gif')">
+<img src='./Grating_Data/Jul18/21123/obsid_21123_Sky_zerofind.gif' style='width:90%;'>
+</a>
+<p style='font-size:70%;text-align:center;'>Example Zero Order Image (Obsid: 21123)</p>
+</div>
+
+<p style='padding-top:20px;padding-left:30px; padding-right:30px;'>
+<b>
+This page presents various gratings trends created from the analysis results done by <em>HETG Analysis Kit</em> ("HAK"). 
+The links to summary results of observations are shown at <a href='#grating_data'>the bottom of this page</a>. 
+</b>
+</p>
+<p style='padding-left:30px; padding-right:30px;'>
+The red lines are the top and bottom envelopes and the mid-moving average.
+Click any plots below to enlarge.
+</p>
+
+<h3>Gratings Dispersion Angles</h3>
+
+<p>
+The following plots show the variations of dispersion angles as a function of time.
+</p>
+
+<table border=1 style='width:95%;margin-left:auto;margin-right:auto;'>
+    <tr>
+        <th>HETG All Angle</th>
+        <th>METG All Angle</th>
+        <th>LETG All Angle</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="javascript:WindowOpener('Angles/hetg_all_angle.png')">
+                <img src = 'Angles/hetg_all_angle.png' style='width:95%'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener('Angles/metg_all_angle.png')">
+                <img src = 'Angles/metg_all_angle.png' style='width:95%'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener('Angles/letg_all_angle.png')">
+                <img src = 'Angles/letg_all_angle.png' style='width:95%'>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+<div style='padding-top:10px; padding_bottom:10px;'>
+    <hr />
+</div>
+
+<div style='padding-bottom: 20px;'>
+</div>
+
+<h3>Gratings Focus</h3>
+<p>
+Gratings observations are used to monitor the <em>HRMA</em> focus.  The plots below
+show plots of zero order image and streak event <em>PSF</em> fits as determined by
+<em>HAK</em> for various detector/grating combinations.  Only observations of point
+sources are used.
+</p>
+
+<table border=1 style='width:95%;margin-left:auto;margin-right:auto;'>
+
+    <tr align=center>
+        <th colspan=2>ACIS_LETG</th>
+        <th colspan=2>ACIS_HETG</th>
+        <th colspan=2>HRC_LETG</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="javascript:WindowOpener2('Focus/Plots/acis_letg_ax_lrf_focus.png')">
+                <img src='Focus/Plots/acis_letg_ax_lrf_focus.png' style='width:95%;'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener2('Focus/Plots/acis_letg_streak_lrf_focus.png')">
+                <img src='Focus/Plots/acis_letg_streak_lrf_focus.png' style='width:95%;'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener2('Focus/Plots/acis_hetg_ax_lrf_focus.png')">
+                <img src='Focus/Plots/acis_hetg_ax_lrf_focus.png' style='width:95%;'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener2('Focus/Plots/acis_hetg_streak_lrf_focus.png')">
+                <img src='Focus/Plots/acis_hetg_streak_lrf_focus.png' style='width:95%;'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener2('Focus/Plots/hrc_letg_ax_lrf_focus.png')">
+                <img src='Focus/Plots/hrc_letg_ax_lrf_focus.png' style='width:95%;'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener2('Focus/Plots/hrc_letg_streak_lrf_focus.png')">
+                <img src='Focus/Plots/hrc_letg_streak_lrf_focus.png' style='width:95%;'>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<!-- end data table -->
+</center>
+<br />
+
+
+
+<div style='padding-top:10px; padding_bottom:10px;'>
+    <hr />
+</div>
+
+<div style='padding-bottom: 20px;'>
+</div>
+
+<h3>Gratings E/de vs. E</h3>
+<p>
+The followings are plots of <em>E/dE vs. E </em> of detected lines with <em>fwhm_error/fwhm</em> less than 0.15 
+for the plus and minus arms of HEG, MEG, and LEG. 
+</p>
+<table border=1 style='width:95%;margin-left:auto;margin-right:auto;'>
+    <tr>
+        <th>HETG Eneergy - E/dE Minus Side</th>
+        <th>HETG Eneergy - E/dE Plus Side</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="javascript:WindowOpener('EdE/Plots/hetg_m_2014_2019.png')">
+                <img src = 'EdE/Plots/hetg_m_2014_2019.png' style='width:95%'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener('EdE/Plots/hetg_p_2014_2019.png')">
+                <img src = 'EdE/Plots/hetg_p_2014_2019.png' style='width:95%'>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th colspan=2>
+            <a href='./EdE/hetg_ede_plot.html'>Open All HETG Eneergy - E/dE Trend page</a> </li>
+        </th>
+    <tr>
+
+    <tr>
+        <th>METG Eneergy - E/dE Minus Side</th>
+        <th>METG Eneergy - E/dE Plus Side</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="javascript:WindowOpener('EdE/Plots/metg_m_2014_2019.png')">
+                <img src = 'EdE/Plots/metg_m_2014_2019.png' style='width:95%'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener('EdE/Plots/hetg_p_2014_2019.png')">
+                <img src = 'EdE/Plots/metg_p_2014_2019.png' style='width:95%'>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th colspan=2>
+            <a href='./EdE/metg_ede_plot.html'>Open All METG Eneergy - E/dE Trend page</a> </li>
+        </th>
+    </tr>
+
+    <tr>
+        <th>LETG Eneergy - E/dE Minus Side</th>
+        <th>LETG Eneergy - E/dE Plus Side</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="javascript:WindowOpener('EdE/Plots/letg_m_2014_2019.png')">
+                <img src = 'EdE/Plots/letg_m_2014_2019.png' style='width:95%'>
+            </a>
+        </td>
+        <td>
+            <a href="javascript:WindowOpener('EdE/Plots/letg_p_2014_2019.png')">
+                <img src = 'EdE/Plots/letg_p_2014_2019.png' style='width:95%'>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th colspan=2>
+            <a href='./EdE/letg_ede_plot.html'>Open All LETG Eneergy - E/dE Trend page</a> </li>
+        </th>
+    </tr>
+</table>
+
+
+
+<div style='padding-top:10px; padding_bottom:10px;'>
+    <hr />
+</div>
+
+
+<div style='padding-bottom: 20px;'>
+</div>
+
+
+<h3>Gratings Zero Order Positions</h3>
+
+<p>
+The following plots are the time trends of gratings zeroth order positions in sky coordinates and
+chip coordinates. 
+</p>
+
+
+
+<table border=1 style='width:95%;margin-left:auto;margin-right:auto;'>
+<tr>
+    <th>&#160;</th>
+    <th>ACIS-S/HETG</th>
+    <th>ACIS-S/LETG</th>
+    <th>HRC-S/LETG</th>
+</tr>
+
+<tr>
+    <th style='writing-mode:bt_lr;'>
+    Sky X
+    </th>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_hetg_sky_x_zero_order.png')">
+            <img src='./Zero/Plots/acis_hetg_sky_x_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_letg_sky_x_zero_order.png')">
+            <img src='./Zero/Plots/acis_letg_sky_x_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/hrc_letg_sky_x_zero_order.png')">
+            <img src='./Zero/Plots/hrc_letg_sky_x_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+</tr>
+
+<tr>
+    <th style='writing-mode:bt_lr;'>
+    Sky Y
+    </th>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_hetg_sky_y_zero_order.png')">
+            <img src='./Zero/Plots/acis_hetg_sky_y_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_letg_sky_y_zero_order.png')">
+            <img src='./Zero/Plots/acis_letg_sky_y_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/hrc_letg_sky_y_zero_order.png')">
+            <img src='./Zero/Plots/hrc_letg_sky_y_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+</tr>
+
+<tr>
+    <th style='writing-mode:bt_lr;'>
+    Chip X
+    </th>
+
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_hetg_chip_x_zero_order.png')">
+            <img src='./Zero/Plots/acis_hetg_chip_x_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_letg_chip_x_zero_order.png')">
+            <img src='./Zero/Plots/acis_letg_chip_x_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/hrc_letg_chip_x_zero_order.png')">
+            <img src='./Zero/Plots/hrc_letg_chip_x_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+</tr>
+
+
+<tr>
+    <th style='writing-mode:bt_lr;'>
+    Chip Y
+    </th>
+
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_hetg_chip_y_zero_order.png')">
+            <img src='./Zero/Plots/acis_hetg_chip_y_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/acis_letg_chip_y_zero_order.png')">
+            <img src='./Zero/Plots/acis_letg_chip_y_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+    <td>
+        <a href="javascript:WindowOpener('Zero/Plots/hrc_letg_chip_y_zero_order.png')">
+            <img src='./Zero/Plots/hrc_letg_chip_y_zero_order.png' style='width:95%'>
+        </a>
+    </td>
+</tr>
+</table>
+
+<div style='padding-top:20px;padding-bottom:10px;'>
+<a href='Grating_Data/gratdata.db'>Open Raw Zero Order Position Data</a>
+</div>
+
+<div style='padding-top:10px; padding_bottom:10px;'>
+    <hr />
+</div>
+
+<div style='padding-bottom: 20px;'>
+</div>
+
+
+
+
+<h3>The Time Trend of The Energy Resolutions of The Grating Observations</h3>
+
+<p>
+The lines used are
+<a href='./EdE_trend/EdE_Data/acis_hetg_0824_data'>0.824 keV</a>,
+<a href='./EdE_trend/EdE_Data/acis_hetg_1022_data'>1.022 keV</a>,
+and
+<a href='./EdE_trend/EdE_Data/acis_hetg_1472_data'>1.472 keV</a>
+
+for ACIS-S HETG,
+
+<a href='./EdE_trend/EdE_Data/acis_metg_0654_data'>0.654 keV</a>,
+<a href='./EdE_trend/EdE_Data/acis_metg_0824_data'>0.824 keV</a>,
+<a href='./EdE_trend/EdE_Data/acis_metg_1022_data'>1.022 keV</a>,
+and
+<a href='./EdE_trend/EdE_Data/acis_metg_1472_data'>1.472 keV</a>
+
+for ACIS-S METG, and
+
+<a href='./EdE_trend/EdE_Data/hrc_letg_0654_data'>0.654 keV</a>,
+<a href='./EdE_trend/EdE_Data/hrc_letg_0824_data'>0.824 keV</a>,
+and
+<a href='./EdE_trend/EdE_Data/hrc_letg_1022_data'>1.022 keV</a>
+
+for HRC-S LETG.
+
+These lines were selected because many observations have these lines.
+</p>
+
+<p style='padding-bottom:30px'>
+We ignore ACIS-S LETG observations, since there are only a few data available for any given lines.
+</p>
+
+
+
+<h3>(Click the plot to see at a full resolution)</h3>
+
+<table border= 0>
+<tr>
+<th style='text-align:left'>Line</th><th>ACIS S METG</th><th>ACIS S HETG</th><th>HRS S LETG</th>
+</tr>
+<tr>
+<td class='vert'>
+654 keV
+</td>
+<td>
+<a href="javascript:WindowOpener('./EdE_trend/EdE_Plots/acis_metg_0654_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_metg_0654_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+&#160;
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/hrc_letg_0654_plot.png')">
+<img src='./EdE_trend/EdE_Plots/hrc_letg_0654_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+</tr>
+
+<tr>
+<td class='vert'>
+824 keV
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/acis_metg_0824_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_metg_0824_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/acis_hetg_0824_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_hetg_0824_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/hrc_letg_0824_plot.png')">
+<img src='./EdE_trend/EdE_Plots/hrc_letg_0824_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+</tr>
+
+<tr>
+<tr>
+<td class='vert'>
+1022 keV
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/acis_metg_1022_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_metg_1022_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/acis_hetg_1022_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_hetg_1022_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/hrc_letg_1022_plot.png')">
+<img src='./EdE_trend/EdE_Plots/hrc_letg_1022_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+</tr>
+
+<tr>
+<td class='vert'>
+1472 keV
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/acis_metg_1472_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_metg_1472_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+<a href="javascript:WindowOpener('EdE_trend/EdE_Plots/acis_hetg_1472_plot.png')">
+<img src='./EdE_trend/EdE_Plots/acis_hetg_1472_low_res_plot.png' style='width:95%'>
+</a>
+</td>
+<td>
+&#160;
+</td>
+</tr>
+</table>
+
+
+<div style='padding-top:20px'></div>
+<hr >
+
+
+
+<h3 style='padding-top:40px'>OBA/HRMA Temperature - E/dE relation: 1.022 keV Line</h3>
+
+
+
+
+<p>
+The following tables list the links to the plots showing E/dE agaisnt OBA and HRMA temperature.
+The line used i is 1.022 keV line, since all HETG, METG, and LETG observations have the line.
+</p>
+
+<div style='margin-left:100px'>
+<table border=1, cellpadding=2 cellspacing=2>
+<tr><th colspan=3>OBA Temperature</th></tr>
+<tr>
+<th>AICS HETG</th>
+<th>AICS METG</th>
+<th>HRC LETG</th>
+
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_1.html')">OOBTHR01 - OOBTH06</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_1.html')">OOBTHR01 - OOBTH06</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_1.html') ">OOBTHR01 - OOBTH06</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_2.html')">OOBTHR07 - OOBTH12</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_2.html')">OOBTHR07 - OOBTH12</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_2.html') ">OOBTHR07 - OOBTH12</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_3.html')">OOBTHR13 - OOBTH19</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_3.html')">OOBTHR13 - OOBTH19</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_3.html') ">OOBTHR13 - OOBTH19</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_4.html')">OOBTHR20 - OOBTH25</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_4.html')">OOBTHR20 - OOBTH25</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_4.html') ">OOBTHR20 - OOBTH25</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_5.html')">OOBTHR26 - OOBTH31</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_5.html')">OOBTHR26 - OOBTH31</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_5.html') ">OOBTHR26 - OOBTH31</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_6.html')">OOBTHR32 - OOBTH37</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_6.html')">OOBTHR32 - OOBTH37</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_6.html') ">OOBTHR32 - OOBTH37</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_7.html')">OOBTHR38 - OOBTH43</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_7.html')">OOBTHR38 - OOBTH43</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_7.html') ">OOBTHR38 - OOBTH43</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_8.html')">OOBTHR44 - OOBTH49</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_8.html')">OOBTHR44 - OOBTH49</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_8.html') ">OOBTHR44 - OOBTH49</a>
+</td></tr>
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_9.html')">OOBTHR50 - OOBTH55</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_9.html')">OOBTHR50 - OOBTH55</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_9.html') ">OOBTHR50 - OOBTH55</a>
+</td></tr>
+
+
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('OBA/acis_hetg_10.html')">OOBTHR56 - OOBTH61</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/acis_metg_10.html')">OOBTHR56 - OOBTH61</a>
+</td> <td>
+<a href="javascript:WindowOpener3('OBA/hrc_letg_10.html') ">OOBTHR56 - OOBTH61</a>
+</td></tr>
+
+
+
+<tr><th colspan=3>HRMA Temperature</th></tr>
+
+<tr>
+<th>AICS HETG</th>
+<th>AICS METG</th>
+<th>HRC LETG</th>
+</tr> <tr> <td>
+<a href="javascript:WindowOpener3('HRMA/acis_hetg_1.html')">4RT556T - 4RT570T</a>
+</td><td>
+<a href="javascript:WindowOpener3('HRMA/acis_metg_1.html')">4RT556T - 4RT570T</a>
+</td><td>
+<a href="javascript:WindowOpener3('HRMA/hrc_letg_1.html' )">4RT556T - 4RT570T</a>
+</td></tr>
+
+<tr><td>
+<a href="javascript:WindowOpener3('HRMA/acis_hetg_2.html')">4RT575T - 4RT580T</a>
+</td><td>
+<a href="javascript:WindowOpener3('HRMA/acis_metg_2.html')">4RT575T - 4RT580T</a>
+</td><td>
+<a href="javascript:WindowOpener3('HRMA/hrc_letg_2.html' )">4RT575T - 4RT580T</a>
+</td></tr>
+</table>
+
+</div>
+
+<div style='padding-top:40px'></div>
+<hr />
+<hr />
+<div style='padding-top:20px'></div>
+
+
+
+
+
+
+
+
+<a name='grating_data'>
+</a>
+
+<iframe src='./Grating_Data/grating_list_past_six_month.html' style='width:95%; height:1000px; text-align:center;border:0;border-color:#FAEBD7'></iframe>
+
+
+
+<div style='padding-bottom: 20px;'>
+</div>
+
+<hr />
+
+<p>
+If you have any questions about this page, please contact
+<a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+</p>
+<p>
+<i>
+Last Update: Jul 19, 2018
+</i>
+</p>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

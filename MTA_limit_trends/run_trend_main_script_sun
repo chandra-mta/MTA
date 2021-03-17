@@ -1,0 +1,16 @@
+
+rm -rf  /data/mta4/www/MSID_Trends/Interactive/*_inter_page.html
+
+cd /data/mta/Script/MTA_limit_trends/Exc
+
+setenv SKA /proj/sot/ska
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages"
+
+/data/mta/Script/MTA_limit_trends/Scripts/run_glimmon_trend_data_update.py msid_list_data week
+/data/mta/Script/MTA_limit_trends/Scripts/run_glimmon_trend_data_update.py msid_list_data short
+/data/mta/Script/Python3.8/MTA/close_running_process.py run_glimmon_trend_data_update.py
+/data/mta/Script/MTA_limit_trends/Scripts/run_glimmon_trend_data_update.py msid_list_data long
+
+/data/mta/Script/MTA_limit_trends/Scripts/create_msid_plots.py msid_list_all week
+

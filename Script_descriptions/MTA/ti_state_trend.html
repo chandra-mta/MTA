@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>State Trending</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>State Trending</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts and plots SIM and other state conditions.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>:<br /> 
+/data/mta/Script/OBT/State_trends/
+<br />
+/data/mta/MTA/data/State_trends/ (these scripts/files were not written by T.I. They were copied from elsewhere.)
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/State_trends
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Apr 19, 2017</u></b>
+<tr><td colspan=2><u><em>First Directory</em></u></td></tr>
+<tr><td>state_mj_wrap_script</td>       <td>Jun 05, 2013</td></tr>
+<tr><td>state_mj_script</td>            <td>Jul 02, 2013</td></tr>
+<tr><td>state_mj_wrap_script_test</td>  <td>Jun 06, 2013</td></tr>
+<tr><td>state_mj_script_test</td>       <td>Jun 06, 2013</td></tr>
+<tr><td>state_sim_wrap_script</td>      <td>Jun 05, 2013</td></tr>
+<tr><td>state_sim_script</td>           <td>Jul 02, 2013</td></tr>
+<tr><td>state_sim_wrap_script_test</td> <td>Jun 06, 2013</td></tr>
+<tr><td>state_sim_script_test</td>      <td>Jun 06, 2013</td></tr>
+<tr><td>state_mj_run.perl</td>          <td>Apr 10, 2017</td></tr>
+<tr><td>state_sim_run.perl</td>         <td>Apr 10, 2017</td></tr>
+<tr><td>mj_plots.perl</td>              <td>Apr 11, 2017</td></tr>
+<tr><td>state_plot.perl</td>            <td>Apr 11, 2017</td></tr>
+<tr><td colspan=2><u><em>Second Directory</em></u></td></tr>
+<tr><td>mj_header</td>                  <td>Jul 03, 2006</td></tr>
+<tr><td>mj_nawkscript </td>             <td>Jun 06, 2013</td></tr>
+<tr><td>mj_sedscript1 </td>             <td>Jul 06, 2006</td></tr>
+<tr><td>simpos_acis.scr </td>           <td>Jul 03, 2006</td></tr>
+<tr><td>sim_header </td>                <td>Jun 07, 2013</td></tr>
+<tr><td>sim_nawkscript </td>            <td>Jul 03, 2006</td></tr>
+<tr><td>sim_sedscript1 </td>            <td>Jul 03, 2006</td></tr>
+<tr><td>simpos_acis2.scr </td>          <td>Jul 03, 2006</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/OBT/State_trends/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+<tr><th>Apr 11, 2017</th><td>plots are now in the gif foram</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+ /dsops/GOT/input/*Dump_EM*gz
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS (source /home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/www/mta_states/MJ/&lt;year&gt;/
+    <ul>
+    <li>
+    comprehensive_data_summary&lt;year&gt;
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/www/mta_states/ACIS/&lt;year&gt;/
+    <ul>
+    <li>
+    sim_data_summary&lt;year&gt;
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to:  cd /data/mta/Script/OBT/MJ
+</li>
+<li>
+run:    /data/mta/Script/OBT/State_trends/state_mj_wrap_script   
+</li>
+<li>
+go to: cd /data/mta/Script/OBT/ACIS
+</li>
+<li>
+run:    /data/mta/Script/OBT/State_trends/state_sim_wrap_script
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to:  cd /data/mta/Script/OBT/MJ
+</li>
+<li>
+run:    /data/mta/Script/OBT/State_trends/state_mj_wrap_script_test
+</li>
+<li>
+go to: cd /data/mta/Script/OBT/ACIS
+</li>
+<li>
+run:    /data/mta/Script/OBT/State_trends/state_sim_wrap_script_test
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be save in /data/mta/Script/OBT/Test_out/. Compare the results wit thoese in 
+/data/mta/Script/OBT/Test_comp_resluts/.
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 1 * * *  cd /data/mta/Script/OBT/MJ; /data/mta/Script/OBT/State_trends/state_mj_wrap_script                   >> $HOME/Logs/mj.cron 2>&1  <br />
+0 3 * * *  cd /data/mta/Script/OBT/ACIS; /data/mta/Script/OBT/State_trends/state_sim_wrap_script                >> $HOME/Logs/sim.cron 2>&1 <br />
+#   <br />
+0 5 * * *  cp /data/mta/Script/OBT/ACIS/house_keeping/sim_data_summary /pool14/chandra/acis_diag_support/mta_sim_data_summary   <br />
+0 5 * * *  cp /data/mta/Script/OBT/MJ/house_keeping/comprehensive_data_summary /pool14/chandra/acis_diag_support/mta_comprehensive_data_summary <br />
+0 5 * * *  cd /data/mta/Script/OBT/; perl /data/mta/MTA/bin/create_report_page_outputs.perl <br />
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_states/comprehensive.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_states/comprehensive.html
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_states/sim.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_states/sim.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Rewite scripts in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Radiation Correlations</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Radiation Correlations</h2>
+
+<b><u>Jul 22, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/www/DAILY/mta_rad/Rad_scripts
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>:  https://github.com/tisobe/ACIS_radation_correlations
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                <th>Last Updated</th></tr>
+<tr><td>run_rad_wrap_script</td>        <td>Feb 27, 2015</td></tr>
+<tr><td>run_rad_main_script</td>        <td>Mar 05, 2015</td></tr>
+<tr><td>create_and_run_run_rad.py</td>  <td>Mar 05, 2015</td></tr>
+<tr><td>mta_rad.pro</td>                <td>Mar 12, 2015</td></tr>
+<tr><td>mrdfits.pro</td>                <td>Feb 26, 2015</td></tr>
+<tr><td>update_html_wrap_script</td>    <td>Mar 02, 2015</td></tr>
+<tr><td>update_html_main_script</td>    <td>Mar 02, 2015</td></tr>
+<tr><td>update_html_page.py</td>        <td>Mar 02, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta4/www/DAILY/mta_rad/Rad_scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Mar 06, 2015</th><td>Initially logged</td></tr>
+<tr><th>Mar 09, 2015</th><td>plotting bugs fixed. config_file update automated.</td></tr>
+<tr><th>Mar 12, 2015</th><td>string to floating value bug fixed. </td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to github</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta_www/mta_temp/mta_states/MJ/<yyyy>/comprehensive_data_summary<yyyy>
+</li>
+<li>
+/data/mta4/www/DAILY/mta_rad/Data/mk_eph_avg_2010.out
+</li>
+<li>
+/data/mta4/www/DAILY/mta_rad/Data/ephsca.fits
+</li>
+<li>
+/data/mta4/www/DAILY/mta_rad/cti_data.txt
+</li>
+<li>
+/data/mta4/www/DAILY/mta_rad/goes_data.txt
+</li>
+<li>
+/data/mta4/www/DAILY/mta_rad/ace_data.txt
+</li>
+<li>
+/data/mta/DataSeeker/data/repository/dephem.rdb
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+<li>
+setascds     
+</li>
+<li>
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/www/DAILY/mta_rad/
+    <ul>
+    <li>
+        rad_use_curr.gif,
+        eph_diff_{mmyy}.gif,
+        rad_cnts_{mmyy}.gif,
+        rad_use_{mmyy}.gif,
+        rad_cnts_{yy}.gif,
+        rad_use_{yy}.gif,
+    </li>
+    <li>
+        eph_diff_{yy}.gif,
+        mon_diff_{yy}.gif,
+        per_diff_{yy}.gif,
+        mon_per_diff_{yy}.gif,
+    </li>
+    <li>
+        rad_cnts_last_one_year.gif,
+        rad_use_last_one_year.gif,
+        eph_diff_last_one_year.gif,
+        mon_diff_last_one_year.gif,
+        per_diff_last_one_year.gif,
+        mon_per_diff_last_one_year.gif,
+    </li>
+    <li>
+        rad_cnts_all.gif,
+        rad_use_all.gif,
+        eph_diff_all.gif,
+        mon_diff_all.gif,
+        per_diff_all.gif,
+        xper_diff.gif
+    </li>
+    <li>
+
+        all{yy}.html,
+        {mmyy}.html,
+        rad_time_{mmyy}.html,
+        index.html
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+set: setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+<li>
+run: /data/mta4/www/DAILY/mta_rad/Rad_scripts/create_and_run_run_rad.py
+</li>
+<li>
+set: setascds
+</li>
+<li>
+set: setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+<li>
+run: idl /data/mta4/www/DAILY/mta_rad/Rad_scripts/run_rad.pro
+</li>
+<li>
+run: /data/mta4/www/DAILY/mta_rad/Rad_scripts/update_html_page.py
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available for this set of scripts yet.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+45 1 * * * cd /data/mta4/www/DAILY/mta_rad/Rad_scripts; /data/mta4/www/DAILY/mta_rad/Rad_scripts/run_rad_wrap_script >> $HOME/Logs/run_rad_linux.cron 2>&1
+<br />
+43 1 1 * * cd /data/mta4/www/DAILY/mta_rad/Rad_scripts; /data/mta4/www/DAILY/mta_rad/Rad_scripts/update_html_wrap_script >> $HOME/Logs/rad_html_page_linux.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/DAILY/mta_rad/index.html'>
+https://cxc.cfa.harvard.edu/mta/DAILY/mta_rad/index.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+mta_rad.pro still generates "Floating divide by 0" from idl funciton "deriv" (line 1121).
+
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Add test functionality.
+<br /><br />
+Upload to git hub
+<br /><br />
+Find a way to stop "Floating divide by 0" bug.
+<br /><br />
+Fill the data gaps.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

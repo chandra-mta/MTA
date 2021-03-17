@@ -1,0 +1,17 @@
+#strip off header
+s/TIME//g
+s/3TSCPOS//g
+s/3FAPOS//g
+s/7TSCPOS//g
+s/7FAPOS//g
+s/CORADMEN//g
+s/CORADMIN//g
+s/CCSDSTMF//g
+s/COBSRQID//g
+s/1CRAT//g
+s/1CRBT//g
+s/4HPOSARO//g
+s/4HPOSBRO//g
+s/4LPOSARO//g
+s/4LPOSBRO//g
+

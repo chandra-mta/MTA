@@ -1,0 +1,137 @@
+
+<div style="padding-top:30px;">
+</div>
+
+
+<hr />
+
+<h3 style='text-decoration:underline'><a id="temperature">Temperature Time Series Plots</a></h3>
+<p style="text-align:left;"> 
+HRC related temperature MSIDs were trended for the entire mission. 
+All data are extracted from <a href="https://cxc.cfa.harvard.edu/cgi-bin/DataSeeker/dataseeker.cgi">dataseeker</a>
+(click the plot to enlarge it).
+</p>
+
+<script language="JavaScript">
+    function MyWindowOpener2(imgname) {
+        msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=1200,height=400,resize=yes");
+        msgWindow.document.close();
+        msgWindow.document.write("<html><head><title>Gain plot:"+imgname+"</title></head>");
+        msgWindow.document.write("<body bgcolor='white'>");
+        msgWindow.document.write("<img src='./"+imgname+"' border=0 width=1100 ></body></html>");
+        msgWindow.focus();
+    }
+</script>
+
+
+<table border=0>
+<tr>
+<td><a href="javascript:MyWindowOpener2('./Plots/ceahvpt_temp_plot.png')">
+    <img src='./Plots/ceahvpt_temp_plot.png' style='width:95%'></a>
+
+<td><a href="javascript:MyWindowOpener2('./Plots/chtrpzt_temp_plot.png')">
+    <img src='./Plots/chtrpzt_temp_plot.png' style='width:95%'></a>
+</td>
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener2('./Plots/condmxt_temp_plot.png')">
+    <img src='./Plots/condmxt_temp_plot.png' style='width:95%'></a>
+
+<td><a href="javascript:MyWindowOpener2('./Plots/dcentrt_temp_plot.png')">
+    <img src='./Plots/dcentrt_temp_plot.png' style='width:95%'></a>
+</td>
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener2('./Plots/dtstatt_temp_plot.png')">
+    <img src='./Plots/dtstatt_temp_plot.png' style='width:95%'></a>
+
+<td><a href="javascript:MyWindowOpener2('./Plots/fhtrmzt_temp_plot.png')">
+    <img src='./Plots/fhtrmzt_temp_plot.png' style='width:95%'></a>
+</td>
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener2('./Plots/fradpyt_temp_plot.png')">
+    <img src='./Plots/fradpyt_temp_plot.png' style='width:95%'></a>
+
+<td><a href="javascript:MyWindowOpener2('./Plots/pmt1t_temp_plot.png')">
+    <img src='./Plots/pmt1t_temp_plot.png' style='width:95%'></a>
+</td>
+</tr>
+<tr>
+<td><a href="javascript:MyWindowOpener2('./Plots/pmt2t_temp_plot.png')">
+    <img src='./Plots/pmt2t_temp_plot.png' style='width:95%'></a>
+
+<td><a href="javascript:MyWindowOpener2('./Plots/uvlspxt_temp_plot.png')">
+    <img src='./Plots/uvlspxt_temp_plot.png' style='width:95%'></a>
+</td>
+</tr>
+</table>
+
+
+<p style='text-align:left;'>
+For more detail trending, please check:
+<a href='https://cxc.cfa.harvard.edu/mta/MSID_Trends/Hrctemp/hrctemp_mid_static_long_main.html'>HRC Temperature Trend Page</a>.
+</p>
+
+<!--
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrctemp.html'>Full Range Trending </a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrctemp_min.html'>Min Temp. Trending</a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrctemp_max.html'>Max Temp. Trending</a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrctemp_qtr.html'>Quarter Year Temp. Trending</a>
+-->
+
+<hr />
+
+<h3 style='text-decoration:underline;text-align:left;'><a id="bkg">Time History of the HRC Background</a></h3>
+<p style='text-align:left;'>
+The HRC background is dominated by the effects of charged particles
+ (see <a href="http://cxc.harvard.edu/contrib/juda/memos/hrc_bkg/time_history.html">memo by Juda</a>).
+We extracted shield rates from <a href="https://cxc.cfa.harvard.edu/cgi-bin/DataSeeker/dataseeker.cgi">dataseeker</a>
+database, and plot agaist time. To avoid an effect of the Earth's radiaton belts, data with a geocentric
+distance larger than 80,000km is used. Although dataseeker data are logged in 5 min average, we convert it into
+one day average. The shield rate is count/sec, and time unit is day starting at a launch date (DOM).
+</p>
+<div style='text-align:center'>
+<img src='./Plots/shiled_rate.png' style='width:90%'>
+</div>
+
+<p style='text-align:left;'>
+For more detail anaylsis of HRC Background, please go to
+<a href='http://cxc.harvard.edu/contrib/cxchrc/Stowed_study/hrc_stowed_position_study.html'>High Resolution Camera Stowed Background Study</a> page.
+</p>
+
+<!--
+<p style='text-align:left;'>
+For more detail trending, please check:
+</p>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrcveto.html'>Full Range Trending </a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrcveto_min.html'>Min Trending</a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrcveto_max.html'>Max  Trending</a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_deriv/hrcveto_qtr.html'>Quarter Year Trending</a>
+-->
+
+
+
+<div style='padding-top:5px; padding-bottom:10px;'>
+<hr />
+<p style='text-align:left;'>
+<i> Last Modified: Jun 20, 2018</i>
+</p>
+
+<p style='text-align:left;'>
+If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>.
+</p>
+</div>
+
+</div>
+
+
+</body>
+</html>

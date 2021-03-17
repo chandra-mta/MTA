@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Corner Pixel Table Creator</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Corner Pixel Table Creator</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+this is a supplemental script for ACIS Corner Pixel which is managed by B. Spitzbart.
+most scripts are written in idl, and kept in /data/mta_www/mta_acis_sci_run/Corner_pix.
+please see idl scripts in that directory for detail computation of ACIS Corner Pixels.
+
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Bsupple/Corner_pix/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+NA
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>recent_obs.perl</td>        <td>Sep 16, 2013</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Expanded the data period to the past 45 days from the past 7 days.</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> /data/mta_www/mta_acis_sci_run/Corner_pix/Week/acisf*_I2hist.gif </li>
+<li> /data/mta_www/mta_acis_sci_run/Corner_pix/Week/acisf*_I3hist.gif </li>
+<li> /data/mta_www/mta_acis_sci_run/Corner_pix/Week/acisf*_S2hist.gif </li>
+<li> /data/mta_www/mta_acis_sci_run/Corner_pix/Week/acisf*_S3hist.gif </li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None  
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_acis_sci_run/Corner_pix/Week/
+    <ul>
+    <li>
+    recent_data.html
+    </li>
+    </ul>
+</li>
+<li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to:  cd /data/mta/Script/Bsupple/Corner_pix
+</li>
+<li>
+run:     perl recent_obs.perl
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test for this script.
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+0 3 * * *  cd /data/mta/Script/Bsupple/Corner_pix; perl recent_obs.perl >> $HOME/Logs/recent_obs.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Corner_pix/Week/recent_data.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Corner_pix/Week/recent_data.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+Currently the data is not updated correctly.  (as of Sep 16, 2014)
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+
+################################################
+SIM Translation Move - SIM Temperature Relation
+################################################
+
+This set of scripts collect sim translation/temperature data and creates
+trend plots.
+
+++++++++
+Scripts
+++++++++
+
+sim_temp_wrap_script    
+--------------------- 
+a wrap script to run all scripts
+
+
+sim_temp_main_script    
+-------------------- 
+a main script to control all scripts
+
+
+extract_tl_data.py
+------------------
+extract PRIMARYSIM_<#>.tl files
+
+Input:
+    <year> <starting ydate> <stopping ydate>
+    if they are not given, it will set the date from the last entry time to today
+Output:
+    <exc_dir>/TL/PRIMARYSIM_<#>.tl
+            0   time
+            1   3seaid
+            2   3searset
+            3   3searomf
+            4   3searamf
+            5   3seaincm
+            6   3tscmove
+            7   3tscpos
+            8   3famove
+            9   3fapos
+            10  3mrmmxmv
+            11  3smotoc
+            12  3smotstl
+            13  3stab2en
+            14  3ldrtmek
+            15  3ldrtno
+            16  3ldrtpos
+            17  3faflaat
+            18  3faflbat
+            19  3faflcat
+            20  3trmtrat
+            21  3famtrat
+            22  3fapsat
+            23  3ttralat
+            24  3faseaat
+            25  3smotpen
+            26  3smotsel
+            27  3prmramf
+            28  3spdmpa
+            29  3shtren
+            30  elbv
+
+Note: this script uses acorn process and needs to access <house_keeping>/msids_sim.list
+
+analyze_sim_data.py
+-------------------
+read data from TL files and analyze sim movements 
+
+Input:
+    <exc_dir>/TL/PRIMARYSIM_<#>.tl
+
+Output:
+    in <data_dir>:
+    tsc_temps.txt   ---- this is the manin database
+
+    the followings are for record keeping purpose or the data base used in
+    past, but not currently used.
+
+    tsc_temps2.txt
+    sim_ttabs.out
+    sim_summary.out
+     tsc_pos.out
+    fa_pos.out
+    errors.lis
+    plotfile.out
+    tsc_histogram.out
+    limits.txt
+
+plot_sim_temp_data.py
+---------------------
+plot sim temperature related plots
+
+Input:
+    <data dir>/tsc_temps.txt (see below for more details)
+    /data/mta/DataSeeker/data/repository/orb_angle.rdb  --- pinting direction data
+    year    --- the year you want to create the trend plots (optional)
+                if it is not given, it creates a plot for 1999-current year
+                and current year.
+
+Output:
+    <plot dir>/sim_temp_<year>.png
+    <plot dir>/sim_translation_<year>.png
+        <year> can be year (e.g.2015) or fluurange (for the plot of 1999-current data)
+
+update_html.py
+--------------
+update html pages
+
+Input:
+    <hosue_keepking/html_template
+    update  --- if it is larger than 0, it will re-create all html pages from beginning
+                if it is 0, check the last created html page and if it is not for
+                the current year, it will create a new html page. otherwise, do nothing.
+
+Ouput:
+    <web_dir>/sim_<year>.html (and possibly fullrange.html if 1 is given).
+
+++++++++++++
+Directories
+++++++++++++
+/data/mta/Script/SIM/Scripts                --- script directory
+/data/mta/Script/SIM/Scripts/hosue_keeping  --- house keeping (e.g. save msid_sim.list)
+/data/mta/Script/SIM/Data                   --- data directory
+/data/mta/Script/SIM/Exc                    --- execution directory
+/data/mta/Script/SIM/Exc/EM_Data            --- keep EM data while the proccess is running
+/data/mta/Script/SIM/Exc/TL                 --- keep tracelogs while the proccess is running
+/data/mta_www/mta_sim/MTR                   --- web directory
+/data/mta_www/mta_sim/MTR/Plots             --- all trending plots are kept
+
+
+++++++
+Output
+++++++
+
+<data_dir>/tsc_temps.txt    --- database for SIM temperature. It has the following columns
+    Date    --- date in <yyyy><ddd>.<hh><mm><ss>
+    METYR   --- time in year from the mission starting date     
+    TS      --- starting temperatue
+    TE      --- ending temperature
+    MAXPWM  --- max power
+    STEPS   --- numbers of steps   
+    OC      --- not used
+    STL     --- not used
+    BUSV    --- bus voltage not used
+
+<web_dir>fullrange.html                 --- a html page for the plot from 1999 to current
+<web_dir>sim_<yyyy>.html                --- html pages for the plot of year <yyyy>
+<plot_dir>sim_temp_<yyyy>.png           --- plot of sim temperature trend
+<plot_dir>sim_translation_<yyyy>.png    --- plots between  temperature difference and translation steps
+
+++++++++++++++++++++
+Environment Setting
+++++++++++++++++++++
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+
+It also requires (but set under ska system in run_sim_temp.py)
+    * source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param
+    * IPCL_DIR = /home/ascds/DS.release/config/tp_template/P011/
+    * ACORN_GUI = /home/ascds/DS.release/config/mta/acorn/scripts/
+    * LD_LIBRARY_PATH = /home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib
+
+++++++++
+web dir
+++++++++
+https://icxc.harvard.edu/mta_days/mta_sim/MTR/index.html
+
+++++++++
+cron job
+++++++++
+
+as mta on boba-v
+
+35 4 * * *  cd /data/mta/Script/SIM/Exc; /data/mta/Script/SIM/Scripts/sim_temp_wrap_script > $HOME/Logs/sim_temp_trend.cron 
+
+
+
+
+++++++++++
+Extra Note 
+++++++++++
+
+email 10/23/14 from Brad
+-------------------------
+I use
+/data/mta/Script/Dumps/filters_otg
+
+Just put a list of (unzipped) dumps in a file xtmpnew.
+Please run in your own directory though (you will also need to copy otg-msids.list)
+
+To get dumps from the archive, use this script with arc4gl:
+operation = retrieve
+dataset = flight
+detector = telem
+level = raw
+tstart = 12/01/02
+tstop = 01/01/03
+go
+
+
+
+
+from 03/16/15 from brad
+------------------------
+
+setenv ASCDS_CONFIG_MTA_DATA "/home/ascds/DS.release/config/mta/data"
+setenv IPCL_DIR "/home/ascds/DS.release/config/tp_template/P011/"
+setenv ACORN_GUI "/home/ascds/DS.release/config/mta/acorn/scripts/"
+setenv LD_LIBRARY_PATH "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
+
+echo $LD_LIBRARY_PATH
+/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib
+
+/home/ascds/DS.release/bin/acorn -nOC msids_sim.list -f 2015_071_0408_071_1150_Dump_EM_75505.sto
+
+This creates: PRIMARYSIM_*.tl
+

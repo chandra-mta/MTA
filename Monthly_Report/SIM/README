@@ -1,0 +1,8 @@
+
+******* DON'T SET ASCDS ENVIRONMENT!!! ********
+
+Run:
+
+create_monthly_sim_plots
+
+This will create 4 plots for monthly report SIM section

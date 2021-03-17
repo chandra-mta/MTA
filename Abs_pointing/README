@@ -1,0 +1,56 @@
+#############################################
+ACIS-S and HRC Celestial Location Monitoring 
+#############################################
+
+Compute the differences between coordinates obtained from Chandra observations 
+and those obtained from existing catalogs vs time in day of mission.
+
+
+Scripts:
+--------
+aiming_wrap_script
+aiming_main_script          --- environment setting 
+
+find_pointing_data.py       ---- find the data, get nominal position from SIIMBAD and compare
+                                 the position estimated from the data
+                                 ascids celldetect function is used to estimated the position
+
+                                 input: /data/mta4/obs_ss/sot_ocat.out
+
+plot_aiming_point_data.py   ---- plot the data
+
+<house_keeping>/clean_coord_list.py --- clean up coord_list in <house_keeping>
+
+
+Data:
+-----
+/data/mta/Script/ALIGNMENT/Abs_pointing/Data
+acis_i_data, acis_s_data, hrc_i_data, hrc_s_data
+
+Columns:
+Time Obsid Target RA (nominal) Dec (norminal) RA (Data) Dec (Data) dy dz  Grating
+
+
+Directory:
+----------
+'/data/mta/Script/ALIGNMENT/Abs_pointing/Scripts/'                  : bin_dir
+'/data/mta/Script/ALIGNMENT/Abs_pointing/Scripts/house_keeping/'    : house_keeping
+'/data/mta/Script/ALIGNMENT/Abs_pointing/Data/'                     : data_dir
+'/data/mta/Script/Python3.8/MTA/'                                   : mta_dir
+'/data/mta/www/mta_aiming/'                                         : web_dir
+
+Environment Setting:
+--------------------
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+The script also use ascds in find_pointing_data.py
+
+HTML:
+-----
+https://cxc.cfa.harvard.edu/mta_days/mta_aiming/aiming_page.html
+
+Cron Job:
+---------
+c3po-v as mta
+0 5 1,16  * *   cd /data/mta/Script/ALIGNMENT/Abs_pointing/Exc; /data/mta/Script/ALIGNMENT/Abs_pointing/Abs_pointing/aiming_wrap_script >> $HOME/Logs/position_aiming.cron 2>&1
+

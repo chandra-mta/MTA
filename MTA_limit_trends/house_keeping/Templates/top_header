@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>#TITLE#</title>
+    <style>
+        .blue {
+            background-color:   #d9e6fc;
+        }
+        td {
+            padding: 5px;
+        }
+    </style>
+        #JAVASCRIPT#
+
+</head>
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<header>
+<h2>#TITLE#</h2>
+<div style='width:100%; margin:0 auto;'>
+    <div style='width:60%; float:left;margin-left:20px;'>
+        <!-- EXTRA -->
+    </div>
+
+    <div style='float:right;'>
+        <p>
+        #EXPLANATIONS#
+        <div style='text-align:right;'>
+
+            <a href="javascript:popitup('https://cxc.cfa.harvard.edu/mta/MSID_Trends/#PAGE_EXP#')" 
+                  style="text-align:right">How the plots are created</a><br />
+            <br />
+            <a href="#OTHER_H#">#OTHER#</a> <br />
+            <a href="#OTHER_H2#">#OTHER2#</a>   <br />
+            <a href="#OTHER_H3#">#OTHER3#</a>
+        </div>
+        </p>
+    </div>
+</div>
+
+<div style='clear: left;'>
+</div>
+
+</header>
+
+<div style='padding-bottom:50px;'></div>
+
+<table border=1 cellpadding=2 cellspacing=2 style='margin-left:auto; margin-right:auto;'>
+    <tbody>
+
+    #TABLE#
+
+    </tbody>
+
+</table>
+
+<div style="padding-top:30px">
+</div>
+

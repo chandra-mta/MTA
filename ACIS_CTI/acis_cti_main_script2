@@ -1,0 +1,8 @@
+cd /data/mta/Script/ACIS/CTI/Exc/
+
+rm -rf /data/mta/Script/ACIS/CTI/Exc/param
+cp -rf  /data/mta/Script/ACIS/CTI/house_keeping/param /data/mta/Script/ACIS/CTI/Exc/.
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/ACIS/CTI/Scripts/acis_cti_plot_two_section.py

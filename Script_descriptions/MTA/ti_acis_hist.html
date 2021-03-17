@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS Histgram Trending</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS Histgram Trending</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts ACIS histgram mode data from archive and creates
+trends plots.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/ACIS/Acis_hist/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Acis_hist
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>acis_hist_wrap_script</td>                  <td>May 06, 2016</td></tr>
+<tr><td>acis_hist_main_script</td>                  <td>May 06, 2016</td></tr>
+<tr><td>acis_hist_extract_data.py</td>              <td>May 06, 2016</td></tr>
+<tr><td>acis_hist_plot_trend_interactive.py</td>    <td>May 09, 2016</td></tr>
+<tr><td> --- Retired ----</td><td>&#160;</td></tr>
+<tr><td>acis_hist_plot_trend.py</td>     <td>Apr 14, 2014</td></tr>
+<tr><td>acis_hist_test_wrap_script</td>  <td>Sep 15, 2014</td></tr>
+<tr><td>acis_hist_test_main_script</td>  <td>Apr 27, 2016</td></tr>
+<tr><td>acis_hist_run_test.py</td>       <td>Sep 15, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ACIS/Acis_hist/Scripts/README
+</p>
+<table border = 0>
+<tr><th>Sep 15, 2014</th><td>Test method update: acis_hist_run_test.ps added.</td></tr>
+<tr><th>Apr 27, 2016</th><td>arc4gl is replaced by arc5gl</td></tr>
+<tr><th>May 09, 2016</th><td>Script udpated to carete nteractive html pages</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta_www/mta_temp/mta_states/MJ/<year>/comprehensive_data_summary<year>
+</li>
+<li>
+/data/mta/Script/ACIS/Acis_hist/Data/ccd<ccd>_node<node>_<pos>
+</li>
+<li>
+We also need output from arc5gl.
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ACIS/Acis_hist/Data/
+    <ul>
+    <li>
+    ccd#ccd#_node#node#_#pos#, e.g., ccd3_node0_low
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/ACIS/Acis_hist/Data/Dist_data/CCD#ccd#/node#node#/#pos#/
+    <ul>
+    <li>
+    hist_#year#_#mm# e.g.,  hist_2013_09
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_acis_hist/Html_pages/
+    <ul>
+    acis_hist_ccd&lt;ccd#&gt;_&lt;loc&gt;_&lt;type&gt;.html e g. acis_hist_ccd1_low_cnt.html
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_acis_hist/Fittings/
+    <ul>
+    ccd&lt;ccd#&gt;_&lt;type&gt;_&lt;loc&gt;_fitting_results e g. ccd1_cnt_low_fitting_results
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li> 
+go to:  /data/mta/Script/ACIS/Acis_hist/Exc
+<li>
+run:   /data/mta/Script/ACIS/Acis_hist/Scripts/acis_hist_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No Test
+<!--
+/data/mta/Script/ACIS/Acis_hist/Scripts/acis_hist_test_wrap_script
+-->
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+<!--
+test results -- test results -- test results
+If it passes the test, you will see:
+</p>
+<pre>
+@r2d2-v-174: acis_hist_run_test.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 34.572s
+
+OK
+</pre>
+
+-->
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+
+<p>
+0 2 3  * *  cd /data/mta/Script/ACIS/Acis_hist/Exc; /data/mta/Script/ACIS/Acis_hist/Scripts/acis_hist_wrap_script >> $HOME/Logs/acis_hist.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_acis_hist/acis_hist_main.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_hist/acis_hist_main.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

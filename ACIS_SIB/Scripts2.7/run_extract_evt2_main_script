@@ -1,0 +1,7 @@
+rm -rf param
+mkdir param
+
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+
+/data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_evt_script.py Lev2
+

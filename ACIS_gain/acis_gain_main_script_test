@@ -1,0 +1,10 @@
+cd /data/mta/Script/ACIS/Gain/Exc/
+
+rm -rf /data/mta/Script/ACIS/Gain/Exc/param
+mkdir  /data/mta/Script/ACIS/Gain/Exc/param
+
+source /proj/sot/ska/bin/ska_envs.csh
+
+/data/mta/Script/ACIS/Gain/Script/acis_gain_extract_data.py 
+
+rm -rf Working_dir/*

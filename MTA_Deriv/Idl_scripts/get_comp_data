@@ -1,0 +1,5 @@
+cp /data/mta/Script/Trending/Trend/avg_compaciscent.fits      /data/mta4/Deriv/compaciscent.fits
+cp /data/mta/Script/Trending/Trend/avg_compacispwr.fits       /data/mta4/Deriv/compacispwr.fits
+cp /data/mta/Script/Trending/Trend/avg_compephinkeyrates.fits /data/mta4/Deriv/compephkey.fits
+cp /data/mta/Script/Trending/Trend/avg_compgradkodak.fits     /data/mta4/Deriv/compgradkodak.fits
+cp /data/mta/Script/Trending/Trend/avg_compsimoffsetb.fits    /data/mta4/Deriv/compsimoffsetb.fits

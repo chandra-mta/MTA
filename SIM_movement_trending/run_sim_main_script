@@ -1,0 +1,13 @@
+
+cd /data/mta_www/mta_sim/Scripts/SIM_move
+
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+
+/data/mta_www/mta_sim/Scripts/SIM_move/mkmonth_list.py
+
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+
+idl /data/mta_www/mta_sim/Scripts/SIM_move/runtscpos.pro
+
+mv -f  *.out log log1 /data/mta_www/mta_sim/Scripts/SIM_move/Outputs
+

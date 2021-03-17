@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/Grating/Grating_EdE/Scripts/great_ede_main_script

@@ -1,0 +1,77 @@
+
+This set of scripts extracts and plots SIM and other state conditions.
+
+Dir: /data/mta/Script/OBT
+See also: https://cxc.cfa.harvard.edu/mta_days/mta_script_list/MTA/ti_state_trend.html
+
+###
+MJ
+###
+
+Directories
+------------
+$bin_dir       = '/data/mta/MTA/bin/';
+$data_dir      = '/data/mta/MTA/data/State_trends/';
+$web_dir       = '/data/mta/www/mta_states/MJ/';
+$house_keeping = '/data/mta/Script/OBT/MJ/house_keeping/';
+
+
+state_mj_wrap_script
+state_mj_script
+
+state_mj_run.perl
+-----------------
+this script gets information from /dsops/GOT/input/.. dump data
+and monitoring trend of key data.
+
+input: 		
+	/dsops/GOT/input/*Dump_EM*gz
+
+output:		
+	$web_dir/<year>/comprehensive_data_summary<year>
+
+file needed:
+	$data_dir/mj_header
+	$data_dir/mj_nawkscript
+	$data_dir/mj_sedscript1
+	$data_dir/simpos_acis.scr
+
+none-perl script needed:
+	$bin_dir/acorn
+
+
+
+###
+SIM
+####
+
+Directories
+-----------
+$bin_dir       = '/data/mta/MTA/bin/';
+$data_dir      = '/data/mta/MTA/data/State_trends/';
+$web_dir       = '/data/mta/www/mta_states/ACIS/';
+$house_keeping = '/data/mta/Script/OBT/ACIS/house_keeping/';
+
+
+state_sim_wrap_script
+state_sim_script
+
+
+state_sim_run.perl
+-----------------
+this script extract information from /dsops/GTO/input/.. and trends key data.
+
+input: 
+	/dsops/GOT/input/*Dump_EM*gz 
+
+output:
+	$web_dir/<year>/sim_data_summary<year>
+
+file needed:
+	$data_dir/sim_header
+	$data_dir/sim_nawkscript
+	$data_dir/sim_sedscript1
+	$data_dir/simpos_acis2.scr
+
+none-perl script needed:
+	$bin_dir/acorn

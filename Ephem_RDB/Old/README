@@ -1,0 +1,83 @@
+
+++++++++++++++++++++++++++++++++
+Geomagnetic Related Data Update
+++++++++++++++++++++++++++++++++
+
+This directory holds scripts which update of geomagnetic related data
+
+Dir: /data/mta/Script/Ephem/Scripts
+See also: https://cxc.cfa.harvard.edu/mta_days/mta_script_list/MTA/ti_geomagnet.html
+
+Scripts
++++++++
+geomagnet_wrap_script       --- environment setting wrapping script
+geomagnet_main_script       --- the main script to run all the script
+
+update_solor_wind_data.py   --- download noaa solar wind data and update the
+                                local solar wind data "solar_wind_data.txt"
+
+ephem_wrap_script           --- environment setting wrapping script
+ephem_main_script           --- the main script to run all the script
+ephem_run_script.py         --- update /data/mta/DataSeeker/data/repository/dephem.rdb file
+
+lephem.pro                  --- convert a Chandra ephemeris file to ascii
+kplookup.pro                --- add kp column to dephem.dat file
+
+geopack/cocochan(.f)        --- convert Chandra ECI linear coords to GSE, GSE coords
+geopack/geopack.f           --- collection of subrouintes related geo magnetic computation
+geopac/supple.f             --- collection of subrouines takes from  CRMFLX_V33.f used in geopack.f and cocochan
+
+
+Cron job:
+
+11 1 * * * cd /data/mta/Script/Ephem/Scripts/Exc/;  /data/mta/Script/Ephem/Scripts/geomagnet_wrap_script >> $HOME/Logs/geomagnet.cron 2>>&1
+
+11 2 * * * cd /data/mta/Script/Ephem/Scripts/Exc/;  /data/mta/Script/Ephem/Scripts/ephem_wrap_script >> $HOME/Logs/ephem.cron 2>>&1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Original README file written by B.S (Oct. 11, 2002)
+
+ftp://ftp.dmi.min.dk/pub/Data/WDCC1/indices/kp-ap/tab/
+/data/mta/www/mta_rad/ace_pkp_15m.txt
+    30	16:01	cd /data/mta/Script/Ephem
+    35	16:02	ls -lrt /dsops/GOT/aux/DEPH.dir
+    37	16:07	cp /dsops/GOT/aux/DEPH.dir/DE02276.EPH .
+    41	16:08	cd KP
+    43	16:08	vi kp0208.tab
+    46	16:11	vi kp0209.tab
+    51	16:12	cat kp0208.tab >> kp_arc.tab
+    52	16:12	cat kp0209.tab >> kp_arc.tab
+    54	16:13	vi /data/mta/www/mta_rad/ace_pkp_15m.txt
+    56	16:13	cd ..
+    57	16:13	vi kplookup.pro
+    59	16:18	idl (lephem,'DE02276.EPH')
+    59	16:18	idl (kplookup,'DE02276.EPH.dat0')
+    64	16:19	mv DE02276.EPH.dat00 dephem.dat
+    66	16:21	geopack/cocochan
+    74	16:22	vi /data/mta/DataSeeker/data/repository/dephem.rdb
+    76	16:24	cat dephem.gsme >> /data/mta/DataSeeker/data/repository/dephem.rdb

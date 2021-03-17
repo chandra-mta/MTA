@@ -1,0 +1,85 @@
+This directory contains the script to recover the data for:
+
+
+https://cxc.cfa.harvard.edu/mta/DAILY/mta_deriv/compgradkodak.html
+
+
++++++++++
+Scripts:
++++++++++
+
+add_new_data_to_compgradkodak.py
+---------------------------------
+The script to update the existing compgradkodak.fits. Extract data and append new data
+from the day after the last day in the current fits file. No input needed.
+
+
+create_five_min_avg.py
+-----------------------
+Creates a table fits file with 5 min averaged values for msids
+input:  msid_list   --- a list of msids
+        start_year  --- a start year int value
+        start_yday  --- a start yday int value
+        stop_year   --- a stop year int value; default:"" if that is the case, it will use yesterday
+        stop_yday   --- a stop yday int value; default:"" if that is the case, it will use yesterday
+output: "temp_5min_data.fits"   --- a table fits file
+
+
+create_compgradkodak.py
+------------------------
+create  compgradkodak.fits fileinput:  
+input:  input_file  --- input fits file which contains 5 min average data of all needed data
+        outputfile  --- output fits file name
+output: outputfile
+
+
+get_msid_list_from_fits.py
+--------------------------
+extract msids from a given fits file. this is not a part of the recovery but useful.
+input:  fits    --- fits file name
+
+
++++++++
+Others
++++++++
+Data/compgradkodak_input_msid_list  --- a list of msids used to compute compgradkodak.fits
+Data/compgradkodak_5m_data.fits     --- a 5 min averaged data of msids listed in compgradkodak_input_msid_list
+                                        this is an intermidiate fits file, since sot ska database provides
+                                        data in different time intervals depending on msids, we need to make
+                                        equal interval data set for computation.
+Data/compgradkodak.fits             --- the final product.
+                                        this should be copied to:
+                                            /data/mta4/Deriv/compgradkodak.fits
+                                            /data/mta/Script/Trending/Trend/avg_compgradkodak.fits
+
+++++++++++++++++++++
+Environment Setting
+++++++++++++++++++++
+source /proj/sot/ska/bin/ska_envs.csh
+
+
+
+++++++
+Extra!
+++++++
+
+Finding engeering dataset:
+
+http://cxc.cfa.harvard.edu/mta/ASPECT/tool_doc/eng_archive/fetch_tutorial.html
+
+source /proj/sot/ska/bin/ska_envs.csh
+/proj/sot/ska/bin/python
+>>import Ska.engarchive.fetch as fetch
+>>tephin = fetch.MSID('tephin', '2009:001', '2009:007') # (MSID, start, stop)
+
+import Chandra.Time
+datetime = Chandra.Time.DateTime(126446464.184)
+datetime.date
+Out[]: '2002:003:12:00:00.000'
+
+datetime.greta
+Out[]: '2002003.120000000'
+
+Chandra.Time.DateTime('2009:235:12:13:14').secs
+Out[]: 367416860.18399996
+

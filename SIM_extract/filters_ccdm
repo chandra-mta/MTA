@@ -1,0 +1,27 @@
+#! /bin/sh
+
+# set up environment for acorn
+#        from  /19/home/swolk/acorn/set_env
+
+# for running on rhodes below
+ASCDS_CONFIG_MTA_DATA=/home/ascds/DS.release/config/mta/data
+IPCL_DIR=/home/ascds/DS.release/config/tp_template/P011/
+ACORN_GUI=/home/ascds/DS.release/config/mta/acorn/scripts/
+LD_LIBRARY_PATH=/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib
+
+export ASCDS_CONFIG_MTA_DATA
+export IPCL_DIR
+export ACORN_GUI
+export LD_LIBRARY_PATH
+
+workdir=/data/mta/Script/Temp/Test
+
+needsort=0
+
+if (test -s xtmpnew); then
+
+   for file in `cat xtmpnew`; do
+       # write ccdm data
+     /home/ascds/DS.release/bin/acorn -nOC $workdir/msids_ccdm.list -f $file
+   done
+fi

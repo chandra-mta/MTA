@@ -1,0 +1,35 @@
+#ACIS
+ACISTEMP::ACIS Thermal Control                        
+DEAHK_TEMP::DEA/DPA HK Temperatures                         
+
+#EPHIN
+EPHTV::EPHIN Temperatures and Voltages           
+
+#HRC
+HRCTEMP::HRC Temperatures                        
+
+#PCAD
+MUPS::MUPS
+
+#SIM
+SIMTEMP::SIM Thermal                         
+SIMELEC::SIM Electronics
+SIMACTU::SIM Actuator Use
+
+#SPC
+SC_MAIN_TEMP::Spacecraft Temperatures sc_main_temp                        
+SC_ANC_TEMP::Spacecraft Temperatures sc_anc_temp                         
+BATT_TEMP::Spacecraft Temperatures batt_temp                       
+
+#OBA Thermal
+OBAHEATERS::obaheaters                      
+OBAGRAD::obagrad                         
+HRMAHEATERS::hrmaheaters                         
+HRMAGRAD::hrmagrad
+
+#HRMA Thermal
+HRMATHERM::hrmatherm                       
+HRMASTRUTS::hrmastruts                      
+OBFWDBULKHEAD::obfwdbulkhead                       
+PRECOLL::precoll
+

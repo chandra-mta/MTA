@@ -1,0 +1,89 @@
+
+#####################################
+IRU Gyro Bias Monitoring and Trending
+#####################################
+
+Extract IRU gyro bias data from archive and create trend plots
+
+Location:       /data/mta/Script/IRU/Scripts/Scripts/
+HTML Location:  /data/mta4/www/DAILY/mta_pcad/IRU/
+
+-------
+Scripts
+-------
+iru_gyro_wrap_script
+iru_gyro_main_script        ---- environment setting scripts
+
+run_iru_gyro_bias.py        ---- extract data with sot fetch function
+    
+    data needed: 
+        'aogbias1', 'aogbias2', 'aogbias3' from sot database
+
+    output:
+        <data_dir>/iru_gyro_bias_year<year>.fits
+
+create_iru_bias_plots.py    ---- create iru bias trend and histogram plots
+
+    data needed:
+        <data_dir>/iru_gyro_bias_year<year>.fits
+
+    output:
+        <web_dir>/Plots_new/<year>/<year>_<bias/hist>.png               #--- year plot
+        <web_dir>/Plots_new/<year>/<mon><yy>_<bias/hist>.png            #--- month plot
+        <web_dir>/Plots_new/<year>/<year>_<start>_<stop>_<bias/hist>.png#--- week plot
+
+        <web_dir>?Plots_new/total_<bias/hist>.png                       #--- entire period
+
+    Note, weekly plots are for the Weekly report and do not show up on the IRU page.
+
+update_html_page.py         ---- update html pages
+
+    data needed:
+        <house_keeping>/iru_template
+
+    output:
+        <web_dir>/iru_bias_trend_year<year>.html
+
+        The main page <web_dir>/iru_bias_trend.html is symbolic linked
+        to the page of the current year.
+
+---------
+Directory
+---------
+'/data/mta/Script/IRU/Scripts/Scripts/'         : bin_dir
+'/data/mta/Script/IRU/Scripts/house_keeping/'   : house_keeping
+'/data/mta/Script/IRU/Data/'                    : data_dir
+'/data/mta/Script/IRU/Exc/'                     : exc_dir
+'/data/mta/Script/Python3.8/MTA/'               : mta_dir
+'/data/mta4/www/DAILY/mta_pcad/IRU/'            : web_dir
+
+
+----
+Data
+----
+The data fits files have the following columns:
+
+    <data_dir>/iru_gyro_bias_year<year>.fits
+
+    col1    time
+    col2    roll_bias_avg
+    col3    roll_bias_std
+    col4    pitch_bias_avg
+    col5    pitch_bias_std
+    col6    yaw_bias_avg
+    col7    yaw_bias_std
+
+    the data are one hour average. 
+
+-----------
+Web Address
+-----------
+
+https://cxc.cfa.harvard.edu/mta_days/mta_pcad/IRU/iru_bias_trend.html
+
+--------
+Cron Job
+--------
+boba-v as mta
+
+05 05 * *  5 cd /data/mta/Script/IRU/Exc; /data/mta/Script/IRU/Scripts/iru_gyro_wrap_script > $HOME/Logs/iru_gyro_bias.cron 

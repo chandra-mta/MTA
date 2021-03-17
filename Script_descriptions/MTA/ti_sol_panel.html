@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Solar Panel Trending</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Solar Panel Trending</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts  and creates trend plots for  solar panel/spacecraft electric power and fine sensor temperature evolution along the time.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Sol_panel/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Sol_panel
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>solar_angle_wrap_script</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>solar_angle_main_script</td>            <td>Jul 02, 2013</td></tr>
+<tr><td>solar_angle_wrap_script_test</td>       <td>Jun 05, 2013</td></tr>
+<tr><td>solar_angle_main_script_test</td>       <td>Jul 02, 2013</td></tr>
+<tr><td>extract_data_from_dataseek.perl</td>    <td>Jun 05, 2013</td></tr>
+<tr><td>find_env_scelec.perl</td>               <td>Jun 05, 2013</td></tr>
+<tr><td>find_env_sensor.perl</td>               <td>Jun 05, 2013</td></tr>
+<tr><td>find_env_solar_pan.perl</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>find_moving_avg.perl</td>               <td>Aug 24, 2010</td></tr>
+<tr><td>fit_sin_for_scelec.perl</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>fit_sin_for_sol_pan.perl</td>           <td>Jun 05, 2013</td></tr>
+<tr><td>plot_elbi_sada.perl</td>                <td>Jun 05, 2013</td></tr>
+<tr><td>plot_scelec_env.perl</td>               <td>Jun 05, 2013</td></tr>
+<tr><td>plot_sensor_env.perl</td>               <td>Jun 05, 2013</td></tr>
+<tr><td>plot_solar_array_env.perl</td>          <td>Jun 05, 2013</td></tr>
+<tr><td>scelec_angle_comb.perl</td>             <td>Jun 05, 2013</td></tr>
+<tr><td>sensor_angle_comb.perl</td>             <td>Jun 05, 2013</td></tr>
+<tr><td>sep_col_scelec.perl</td>                <td>Jun 05, 2013</td></tr>
+<tr><td>sep_col_sensor.perl</td>                <td>Jun 05, 2013</td></tr>
+<tr><td>sep_col_solar_pan.perl</td>             <td>Jun 05, 2013</td></tr>
+<tr><td>sin_wave_scelec.perl</td>               <td>Jun 05, 2013</td></tr>
+<tr><td>sin_wave_sol_panel.perl</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>solar_angle_master.perl</td>            <td>Jun 05, 2013</td></tr>
+<tr><td>solar_panel_angle_comb.perl</td>        <td>Jun 05, 2013</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Sol_panel/Scripts/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+pt_suncent_ang  from dataseeker
+</li>
+<li>
+_tmysada_avg, _tpysada_avg, _tsamyt_avg, _tsapyt_avg from dataseeker
+</li>
+<li>
+_elbi_avg,_elbv_avg,_obattpwr_avg,_ohrmapwr_avg,_oobapwr_avg from dataseeker
+</li>
+<li>
+_tfssbkt1_avg,_tfssbkt2_avg,_tpc_fsse_avg from dataseeker
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS (source /home/mta/.ascrc -r)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Sol_panel/Data/Data_scelec/
+    <ul>
+    <li> scelec_angle&lt;angle&gt; </li>
+    <li> scelec_angle&lt;angle&gt;_elbi.dat  </li>
+    <li> scelec_angle&lt;angle&gt;_elbi_env.dat </li>
+    <li> scelec_angle&lt;angle&gt;_elbv.dat </li
+    <li> scelec_angle&lt;angle&gt;_elbv_sine.dat </li>
+    <li> scelec_angle&lt;angle&gt;_hrma.dat  </li>
+    <li> scelec_angle&lt;angle&gt;_hrma_env.dat </li>
+    <li> scelec_angle&lt;angle&gt;_oba.dat </li>
+    <li> scelec_angle&lt;angle&gt;_oba_env.dat </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Sol_panel/Data/Data_sensor/
+    <ul>
+    <li> ensor_angle&lt;angle&gt; </li>
+    <li> ensor_angle&lt;angle&gt;_tfssbkt1.dat </li>
+    <li> ensor_angle&lt;angle&gt;_tfssbkt1_env.dat </li>
+    <li> ensor_angle&lt;angle&gt;_tfssbkt2.dat </li>
+    <li> ensor_angle&lt;angle&gt;_tfssbkt2_env.dat </li>
+    <li> ensor_angle&lt;angle&gt;_tpc_fsse.dat  </li>
+    <li> ensor_angle&lt;angle&gt;_tpc_fsse_env.dat </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Sol_panel/Data/Data_solar_panel/
+    <ul>
+    <li> solar_panel_angle&lt;angle&gt; </li>
+    <li> solar_panel_angle&lt;angle&gt;_tmysada.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tmysada_env.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tpysada.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tpysada_env.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tsamyt.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tsamyt_sine.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tsapyt.dat </li>
+    <li> solar_panel_angle&lt;angle&gt;_tsapyt_sine.dat </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Sol_panel/Data/Ind_data_files/
+    <ul>
+    <li> angle&lt;year&gt;.dat </li>
+    <li> angle&lt;year&gt;.fits.gz </li>
+    <li> scelec_&lt;year&gt;.dat </li>
+    <li> scelec_&lt;year&gt;.fits.gz </li>
+    <li> sensor&lt;year&gt;.dat </li>
+    <li> sensor&lt;year&gt;.fits.gz </li>
+    <li> solar_panel&lt;year&gt;.dat </li>
+    <li> solar_panel&lt;year&gt;.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Sol_panel/Data/Plot_data/
+    <ul>
+    <li> scelec_angle&lt;angle&gt;_elbv_sine_param </li>
+    <li> solar_panel_angle&lt;angle&gt;_tsamyt_sine_param </li>
+    <li> solar_panel_angle&lt;angle&gt;_tsapyt_sine_param </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sol_panel/Plots/
+    <ul>
+    <li> sada_elbi_angle&lt;angle&gt;.gif </li>
+    <li> scelec_angle&lt;angle&gt;.gif </li>
+    <li> sensor_angle&lt;angle&gt;.gif </li>
+    <li>  solar_panel_angle&lt;angle&gt;.gif </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Sol_panel/Exc
+</li>
+<li>
+run: /data/mta/Script/Sol_panel/Scripts/solar_angle_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Sol_panel/Exc
+</li>
+<li>
+run: /data/mta/Script/Sol_panel/Scripts/solar_angle_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be save in /data/mta/Script/Sol_panel/Test_out/. Compare the results with thoese in
+/data/mta/Script/Sol_panel/Test_comp_results/.
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 3 2 * * cd /data/mta/Script/Sol_panel/Exc; /data/mta/Script/Sol_panel/Scripts/solar_angle_wrap_script >> $HOME/Logs/solar_angle.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sol_panel/solarpanel.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_sol_panel/solarpanel.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Rewirte scripts in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC ArLac PI/SAMP Trend</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC ArLac PI/SAMP Trend</h2>
+
+
+<h3>Description</h3>
+<p>
+Trending PI and scaled Sum Amps of ArLac.
+</p>
+
+<h3>Location of Scripts3 and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc6/wilton/isobe/Project8/HR43/Scripts3/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                        <th>Last Updated</th></tr>
+<tr><td>arlac_warp_script</td>                  <td>May 02, 2017</td></tr>
+<tr><td>arlac_main_script</td>                  <td>May 15, 2017</td></tr>
+<tr><td>create_arlac_trend_plots.py</td>        <td>Jun 01, 2017</td></tr>
+<tr><td>create_count_rate_plots.py</td>         <td>Jun 01, 2017</td></tr>
+<tr><td>create_html_page.py</td>                <td>Jun 01, 2017</td></tr>
+<tr><td>create_profile_plot.py</td>             <td>May 31, 2017</td></tr>
+<tr><td>extract_arlac_stat.py</td>              <td>Jun 01, 2017</td></tr>
+<tr><td>filter_evt_file.py</td>                 <td>May 18, 2017</td></tr>
+<tr><td>find_new_arlac_observations.py</td>     <td>May 25, 2017</td></tr>
+<tr><td>fit_gamma_profile.py</td>               <td>May 24, 2017</td></tr>
+<tr><td>hrc_common_functions.py</td>            <td>May 24, 2017</td></tr>
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project9/ArLac/Scripts3/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Jun 02, 2017</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data3 Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/obs_ss/sot_ocat.out
+</li>
+<li>
+evt1 fits file from archive 
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Data3/
+    <ul>
+    <li>pi_list_i</li>
+    <li>pi__list_s</li>
+    <li>samp__list_i</li>
+    <li>samp__list_s</li>
+    <li>pi_i_p_fitting_results</li>
+    <li>pi_s_n_fitting_results</li>
+    <li>samp_i_p_fitting_results</li>
+    <li>samp_s_n_fitting_results</li>
+    </ul>
+</li>
+<li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Data3/Fittings/&lt;obsid&gt;/
+    <ul>
+        <li>center_info</li>
+        <li>pi_list</li>
+        <li>pi_listfit_results</li>
+        <li>samp_list</li>
+        <li>samp_listfit_results</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/ArLac/Plots3/
+    <ul>
+        <li>pi_&lt;i/s&gt;_&lt;arm pos&gt;.html</li>
+        <li>samp_&lt;i/s&gt;_&lt;arm pos&gt;.html</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/ArLac/Plots3/Count_rates/
+    <ul>
+        <li>pi_&lt;i/s&gt;_&lt;arm pos&gt;.png</li>
+        <li>samp_&lt;i/s&gt;_&lt;arm pos&gt;.png</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/ArLac/Plots3/Indivisual_Plots/&lt;obsid&gt;/
+    <ul>
+        <li>&lt;obsid&gt;_pi_list_vfits.png</li>
+        <li>&lt;obsid&gt;_samp_list_vfits.png</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/ArLac/Plots3/Profile_page/
+    <ul>
+        <li>pi_&lt;i/s&gt;_&lt;arm pos&gt;.png</li>
+        <li>samp_&lt;i/s&gt;_&lt;arm pos&gt;.png</li>
+    </ul>
+</li>
+<li>
+/proj/web-cxc-dmz/htdocs/contrib/cxchrc/HRC_trendings/ArLac/Plots3/Thumb_plots/
+    <ul>
+        <li>pi_&lt;i/s&gt;_&lt;arm pos&gt;_thumb_plot.png</li>
+        <li>samp_&lt;i/s&gt;_&lt;arm pos&gt;_thumb_plot.png</li>
+    </ul>
+
+
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+cd /data/aschrc6/wilton/isobe/Project8/ArLac/Exc/
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/find_new_arlac_observations.py
+</li>
+</li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/extract_arlac_stat.py
+</li>
+</li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/create_arlac_trend_plots.py
+</li>
+</li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/create_count_rate_plots.py
+</li>
+</li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/create_profile_plot.py
+</li>
+</li>
+/data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/create_html_page.py
+</li>
+
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+23 3 6 * * cd /data/aschrc6/wilton/isobe/Project8/ArLac/Exc; /data/aschrc6/wilton/isobe/Project8/ArLac/Scripts3/arlac_wrap_script >  /home/isobe/Logs/arlac_trends_logs.cron 
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+http://cxc.cfa.harvard.edu/contrib/cxchrc/HRC_trendings/ArLac/arlac_trends.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

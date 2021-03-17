@@ -1,0 +1,15 @@
+cp /data/mta/Script/Trending/Trend/avg_gradablk.fits    /data/mta4/Deriv/gradablk.fits
+cp /data/mta/Script/Trending/Trend/avg_gradahet.fits    /data/mta4/Deriv/gradahet.fits
+cp /data/mta/Script/Trending/Trend/avg_gradaincyl.fits  /data/mta4/Deriv/gradaincyl.fits
+cp /data/mta/Script/Trending/Trend/avg_gradcap.fits     /data/mta4/Deriv/gradcap.fits
+cp /data/mta/Script/Trending/Trend/avg_gradfap.fits     /data/mta4/Deriv/gradfap.fits
+cp /data/mta/Script/Trending/Trend/avg_gradfblk.fits    /data/mta4/Deriv/gradfblk.fits
+cp /data/mta/Script/Trending/Trend/avg_gradhcone.fits   /data/mta4/Deriv/gradhcone.fits
+cp /data/mta/Script/Trending/Trend/avg_gradhhflex.fits  /data/mta4/Deriv/gradhhflex.fits
+cp /data/mta/Script/Trending/Trend/avg_gradhpflex.fits  /data/mta4/Deriv/gradhpflex.fits
+cp /data/mta/Script/Trending/Trend/avg_gradhstrut.fits  /data/mta4/Deriv/gradhstrut.fits
+cp /data/mta/Script/Trending/Trend/avg_gradocyl.fits    /data/mta4/Deriv/gradocyl.fits
+cp /data/mta/Script/Trending/Trend/avg_gradpcolb.fits   /data/mta4/Deriv/gradpcolb.fits
+cp /data/mta/Script/Trending/Trend/avg_gradperi.fits    /data/mta4/Deriv/gradperi.fits
+cp /data/mta/Script/Trending/Trend/avg_gradsstrut.fits  /data/mta4/Deriv/gradsstrut.fits
+cp /data/mta/Script/Trending/Trend/avg_gradtfte.fits    /data/mta4/Deriv/gradtfte.fits

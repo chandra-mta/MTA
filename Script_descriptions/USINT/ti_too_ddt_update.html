@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Update TOO / DDT information</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Update TOO / DDT information</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extract too/ddt observations from email or sot database and, if  needed, update the information.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/CUS/www/Usint/TOO_Obs/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Usint_script
+</p>
+
+
+<table border=0>
+<tr><td>too_ddt_wrap_script</td>       <td>Aug 29, 2012</td></tr>
+<tr><td>too_ddt_main_script</td>       <td>Jan 07, 2015</td></tr>
+<tr><td>DBI.py</td>                    <td>Aug 29, 2012</td></tr>
+<tr><td>find_too_ddt_email.py</td>     <td>Terminated  </td></tr>
+<tr><td>readSQL.py</td>                <td>Jul 13, 2015</td></tr>
+<tr><td>tooddtFunctions.py</td>        <td>Jul 10, 2015</td></tr>
+<tr><td>update_new_obs_list.py</td>    <td>Jun 26, 2017</td></tr>
+<tr><td>update_ddt_too_list.py</td>    <td>Mar 07, 2016</td></tr>
+<tr><td>update_tooddt_prop_list.py</td><td>Mar 02, 2016</td></tr>
+<tr><td>update_pornum_poc_list.py </td><td>Mar 02, 2016</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read more about these scripts in: 
+/data/mta4/obs_ss/Usint_test/Usint_script/TOO_Obs/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+<tr><th>Jan 07, 2015</th><td>too/ddt observations are now sololy read from approved email</td></tr>
+<tr><th>May 13, 2015</th><td>Due to termination of /arc/cus/mail_archive update, 
+find_too_ddt_email.py is replaced by update_ddt_too_list.py</td></tr>
+<tr><th>Jul 10, 2015</th><td>object is added to target sql inquiry</td></tr>
+<tr><th>Jul 10, 2015</th><td>sjw is now responsible to all "object"</td></tr>
+<tr><th>Jul 13, 2015</th><td>The bug due to above update fixed (function call problem)</td></tr>
+<tr><th>Mar 02, 2016</th><td>poc reference bugs fixed. update_pornum_poc_list.py added</td></tr>
+<tr><th>Mar 07, 2016</th><td>farther improvement on poc setting: update_new_obs_list.py</td></tr>
+<tr><th>Jun 26, 2017</th><td>pre-assigned case to ddt/too case updated in update_new_obs_list.py</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>/data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/special_obsid_poc_list</li>
+<li> /data/mta4/obs_ss/sot_ocat.dat</li>
+<li>/arc/cus/mail_archive</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+#!/usr/bin/env /proj/sot/ska/bin/python
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/CUS/www/Usint/ocat/Info_save/
+    <ul>
+    <li>too_list</li>
+    <li>ddt_list</li>
+    <li>new_obs_list</li>
+    <li>obs_in_30days</li>
+    <li>new_obs_list.txt</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd  /data/mta4/CUS/www/Usint/TOO_Obs
+</li>
+<li>
+run:   /data/mta4/CUS/www/Usint/TOO_Obs/too_ddt_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available, but you can just run this script to see whether it works or not. 
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>cus</td></tr>
+</table
+<p>
+50 *  * * * cd  /data/mta4/CUS/www/Usint/TOO_Obs; /data/mta4/CUS/www/Usint/TOO_Obs/too_ddt_wrap_script >> $HOME/Logs/too_ddt_update.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+None
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

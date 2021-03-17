@@ -1,0 +1,8 @@
+'/data/mta/Script/OBT/'                             : main_dir
+'/data/mta/Script/OBT/Scripts/'                     : bin_dir
+'/data/mta/Script/OBT/MJ/'                          : data_dir
+'/data/mta_www/mta_temp/mta_states/Data/MJ/'        : mj_data_dir
+'/data/mta_www/mta_temp/mta_states/Data/SIM/'       : sim_data_dir
+'/data/mta/Script/OBT/Scripts/house_keeping/'       : house_keeping
+'/data/mta_www/mta_temp/mta_states/'                : html_dir
+'/data/mta/Script/Python3.8/MTA/'                   : mta_dir

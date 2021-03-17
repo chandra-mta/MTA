@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/ALIGNMENT/Abs_pointing/Scripts/aiming_main_script

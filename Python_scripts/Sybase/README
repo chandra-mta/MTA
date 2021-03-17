@@ -1,0 +1,44 @@
+
+########################
+Python3.6 Sybase Access
+########################
+
+This directory contain functions to access Sybase database with python3.6.
+
+The module access to Sybase is "sybpydb" and following environmental setting is needed:
+
+#----------------------------------------------------------
+source /soft/SYBASE16.0/SYBASE.csh
+setenv PYTHONPATH /soft/SYBASE16.0/OCS-16_0/python/python34_64r/lib
+#----------------------------------------------------------
+
+Currently, this module is avaiable on vodata, r2d2-v, and luke-v only.
+
+If you are using mta managed python3.6, you may also need to run mta related python3.6 scripts:
+
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages/:$PYTHONPATH"
+
+Then you can run:
+
+    get_value_from_sybase.py 'select targname from target where obsid=21494'
+
+    output: [['MRC1217-209']]
+
+Or you can write another python script calling set_sybase_env_and_run.py
+
+    import set_sybase_env_and_run as  sser
+    cmd   = 'select targname from target where obsid=21494'
+    fetch = 'fetchall'  
+    out   = sser.set_sybase_env_and_run(cmd, fetch=fetch)
+
+This output is [['MRC1217-209']]
+Note, fetchall is default. Another choice is fetchone which will return  a string: ['MRC1217-209']
+
+If you need to use a different database:
+
+    cmd  = 'select last,email from person_short where pers_id=41615'
+    db   = 'axafusers'
+    out  = sser.set_sybase_env_and_run(cmd, db=db, fetch='fetchone')
+
+Output is: ['Garmire', 'g2p3g4@gmail.com']
+

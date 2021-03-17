@@ -1,0 +1,93 @@
+
++++++++++++++++++++++++++++++++++
+Gratings Opbservation Page Update
++++++++++++++++++++++++++++++++++
+
+This set of script process grating data
+
+
+Scripts
+-------
+
+Dir: /data/mta4/Gratings/Script
+-------------------------------
+
+run_grating_wrap_script --- environment setting
+
+run_grating_main_script --- running scripts
+
+run_grating.py  ---- the main script to run the process
+
+                input:      none but extract fits data using arc4gl
+                            we also need to two template files in house_keeping directory:
+                            arc_template
+                            pl_template
+
+                Note:       this script extract data from a "previous" month
+                            so if you run this script on Apr 2015, the data
+                            extracted are Mar 2015.
+
+                output:
+                            /data/mta/www/mta_grat/<Mon><yy>/<stamp>/
+                            e.g. see /data/mta/www/mta_grat/Apr15/15706/*
+
+update_top_gratings_html_page.py --- this update the "main" gratings index page
+                                  located in /data/mta/www/mta_grat
+
+create_g_list.py                --- create an input file (obs2html.lst) for idl code
+                                    output: /data/mta_www/mta_grat/obs2html.lst
+                                            /data/mta_www/mta_grat/obslist
+
+
+Dir: /data/mta/www/mta_grat/
+----------------------------
+
+getdata                         --- this creates gratdata.db
+
+update.pro                      --- this script runs obs2html.pro
+                                    you must be in /data/mta/www/mta_grat directory to run this script
+obs2html.pro                    --- this creates obs_index.html page
+
+Angles/filters_full             --- create data files
+                                    hetg_angles.txt, letg_angles.txt
+Angles/plot_grating_angles.py   --- create plot files
+                                    hetg_all_angle.png, metg_all_angle.py, letg_all_angle.py
+
+Focus/filters                   --- create data files
+                                    foc_acis_hetg.txt, foc_acis_metg.txt, foc_acis_letg.txt
+Focus/run.pro                   --- run foc_mod.pro
+Focus/foc_mod.pro               --- create plots
+                                    foc_acis_hetg.gif  foc_acis_letg.gif  foc_hrc_letg.gif
+
+EdE/getdata                     --- get data files
+                                    hegm1_all.txt  hegp1_all.txt  legm1_all.txt  
+                                    legp1_all.txt  megm1_all.txt  megp1_all.txt
+EdE/create_ede_plots.py         --- create plots
+                                    EdE/EdE_out/*png --- each plot shows 5 yrs of data
+                                    EdE/EdE_out/*html   --- html page to show hetg, metg, letg plots
+
+Zero/filters_full               --- create data files
+Zero/run.pro                    --- run zo_loc.pro
+Zero/zo_loc.pro                 --- update plots
+
+
+
+Environment Setting
+-------------------
+
+The script needs an access to /proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/*
+In run_grating_main_script, it sources:
+        source /proj/sot/ska/bin/ska_envs.csh
+
+Most idl scripts need to access:
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+
+Web Address
+-----------
+https://cxc.cfa.harvard.edu/mta_days/mta_grat/index.html
+
+Cron Job
+--------
+r2d2-v as mta
+
+32 2 3,13,23 * * cd /data/mta4/Gratings/;   /data/mta4/Gratings/Script/run_grating_wrap_script >> $HOME/Logs/run_grating.cron 

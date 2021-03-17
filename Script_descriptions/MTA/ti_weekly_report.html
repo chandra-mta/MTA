@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>MTA Weekly Report Generator</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>MTA Weekly Report Generator</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This script creates the weekly report. It creates 95% of the part, most of the time 100%,
+but occsionally you may want to edit trending and also radiation environment entries.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Weekly
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Weekly_report
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                  <th>Last Updated</th></tr>
+<tr><td>weekly_wrap_script</td>           <td>Sep 16, 2015</td></tr>
+<tr><td>weekly_main_script</td>           <td>Sep 16, 2015</td></tr>
+<tr><td>create_weekly_report.py</td>      <td>May 27, 2016</td></tr>
+<tr><td>Focal/run_temp</td>               <td>Sep 11, 2015</td></tr>
+<tr><td>Focal/get_ftemp_data.perl</td>    <td>Sep 16, 2015</td></tr>
+<tr><td>Focal/plot_erad_time.pro</td>     <td>Updated Weekly<td></tr>
+<tr><td>Focal/find_focal_temp_peaks.py</td>    <td>May 27, 2016</td></tr>
+<tr><td>Telem/run_all</td>                <td>Sep 10, 2015</td></tr>
+<tr><td>Telem/complete_telem.perl</td>    <td>Sep 10, 2015</td></tr>
+<tr><td>Telem/weekly_telem.pro</td>       <td>Sep 10, 2015</td></tr>
+<tr><td>Telem/telem.pl</td>               <td>Sep 10, 2015</td></tr>
+<tr><td>Telem/zx_find_error.perl</td>     <td>Sep 10, 2015</td></tr>
+<tr><td>Telem/zx_remove.perl</td>         <td>Sep 10, 2015</td></tr>
+<tr><td>Telem/reduce_entry.perl</td>      <td>Sep 14, 2015</td></tr>
+<tr><td>/data/mta4/MTA/bin/weekly_obs2html.pl</td>      <td>Mar 09, 2007</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Weekly/README.
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jan 08, 2016</th><td>Year change bug fixed.</td></tr>
+<tr><th>Feb 01, 2016</th><td>find_focal_temp_peaks.py added: new script to determine focal temp peak profile</td></tr>
+<tr><th>Feb 05, 2016</th><td>find_focal_temp_peaks.py period adjusted</td></tr>
+<tr><th>Feb 26, 2016</th><td>find_focal_temp_peaks.py modified to adept an iregular input</td></tr>
+<tr><th>Mar 11, 2016</th><td>find_focal_temp_peaks.py a mior bug fixed</td></tr>
+<tr><th>Apr 08, 2016</th><td>find_focal_temp_peaks.py a mior bug fixed</td></tr>
+<tr><th>May 27, 2016</th><td>find_focal_temp_peaks.py date shifted to start Wed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+Dataseeker data (dataseek_avg.fits, dataseek_deahk_temp.0.fits)
+</li>
+<li>
+/data/mta4/www/DAILY/mta_derive/*.html (see /data/mta/Script/Weekly/Templates/trending_order/)
+</li>
+<li>
+/data/mta/www/mp_reports/events/*/*/event.html
+</li>
+<li>
+/data/mta/Script/ACIS/Bad_pixels/Data/Disp_dir/ccd*_information
+</li>
+<li>
+/data/mta_www/mta_cti/Plot_adjust/fitting_result
+</li>
+<li>
+/data/mta_www/mta_sim/wksum.html
+</li>
+<li>
+/data/mta/Script/Weekly/Templates/trending_order
+</li>
+<li>
+/data/mta/Script/Weekly/Templates/Headers/*
+</li>
+<li>
+/data/mta/Script/Weekly/Templates/Headers/Dsave/*
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+setascds
+</li>
+<li>
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+<li>
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/www/REPORTS/&lt;yyyy&gt;/&lt;mmdd&gt;.html
+</li>
+<li>
+/data/mta4/www/REPORTS/&lt;yyyy&gt;/&lt;mmdd&gt;_fptemp.gif
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta/Script/Weekly/Templates/Headers/Dsave
+</li>
+<li>
+find which one will be on this week's report (from /data/mta/Script/Weekly/Templates/trending_order)
+<li>
+<li>
+add or remove msids from the list
+</li>
+<li>
+go to /data/mta/Script/Weekly/
+</li>
+<li>
+setascds
+</li>
+<li>
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+</li>
+<li>
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+</li>
+<li>
+run: create_weekly_report.py &lt;mmdd&gt; &lt;yyyy&gt;
+<br > where  &lt;mmdd&gt; is e.g., 0910 and &lt;yyyy&gt; is e.g., 2015
+</li>
+<li>
+edit /data/mta4/www/REPORTS/index.html and addd the link
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+in create_weekly_report.py, change debug=1. This will create output directory Test.
+</li>
+<li>
+run: create_weekly_report.py 0910 2015
+</li>
+<li>
+compare the results with that of ./Templates/Test_results/
+(the result will not be exactly the same as it will pick up the current data). 
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+See ./Templates/Test_results/
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+15 23 * * 4 cd /data/mta/Script/Weekly; /data/mta/Script/Weekly/weekly_wrap_script >> $HOME/Logs/weekly_report.cron 2>&1
+</p>
+
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/REPORTS/weekly.html'>https://cxc.cfa.harvard.edu/mta/REPORTS/weekly.html</a>
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+#-------------------------
+MONTHLY1.html
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv//acistemp_qtr.html">ACIS Temperature</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_ACISTEMP#
+['1CBAT', '1CRAT', '1CRBT', '1DACTBT', '1DEAMZT', '1DPAMYT', '1DPAMZT', '1OAHAT', '1OAHBT', '1PDEAAT', '1PDEABT', '1PIN1AT', '1WRAT', '1WRBT']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/aciselecb_qtr.html">ACIS Electronics Side B</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_ACISELEC#
+['1DAHBCU', '1DAHBVO', '1DAHHBVO', '1DE28BVO', '1DEICBCU', '1DEN0BVO', '1DEN1BVO', '1DEP0BVO', '1DEP1BVO', '1DEP2BVO', '1DEP3BVO', '1DP28BVO', '1DPICBCU', '1DPP0BVO']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/ephtv_qtr.html">EPHIN Temperature and Voltage</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_EPHTV#
+['5EIOT', '5EPHINT', 'HKEBOXTEMP', 'HKN6I', 'HKN6V', 'HKP27I', 'HKP27V', 'HKP5I', 'HKP5V', 'HKP6I', 'HKP6V', 'TEIO', 'TEPHIN']
+
+#-------------------------
+MONTHLY2.html
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/hrctemp_qtr.html">HRC Temperature</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_HRCTEMP#
+['2CEAHVPT', '2CHTRPZT', '2CONDMXT', '2DCENTRT', '2DTSTATT', '2FHTRMZT', '2FRADPYT', '2PMT1T', '2PMT2T', '2UVLSPXT']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/hrchk_qtr.html">HRC HK</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_HRCHK#
+['FE00ATM', 'FEPRATM', 'IMHVATM', 'IMINATM', 'LVPLATM', 'PRBSCR', 'PRBSVL', 'SMTRATM', 'SPHVATM', 'SPINATM']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/pcadtemp_qtr.html">PCAD Temperature</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_PCADTEMP#
+['AACCCDPT', 'AACCCDRT', 'AACH1T', 'AACH2T']
+
+#-------------------------
+MONTHLY3.html
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/pcadftsgrad_qtr.html">PCAD FTS Temperature and Gradient</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_PCAD#
+['OHRTHR27', 'OHRTHR42', 'OHRTHR43', 'OOBAGRD3', 'OOBAGRD6']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/simtemp_qtr.html">SIM Temperature</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+<tr><td><a href="javascript:WindowOpener('_3btu_bpt_avgAqtr.gif')">3BTU_BPT</a></td>
+
+#TREND_SIMTEMP#
+['3BTU_BPT', '3TSMXCET', '3TSMXSPT', 'BOXTEMP', 'FAMTRTEMP', 'FLEXATEMP', 'PSUTEMP', 'TSCMTRTEMP']
+
+#------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/simelec_qtr.html">SIIM Electronics</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_SIMELEC#
+['AGRNDADC', 'FATABADC','N15VADC', 'P15VADC','P5VADC','TSCTABADC']
+
+#------------------------
+MONTHLY4.html
+#------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/epsbatt_qtr.html">EPS Batteries</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_EPSBATT#
+['EB2CI', 'EB2DI', 'EB2V', 'ECNV1V', 'ECNV2V', 'ECNV3V']
+
+#------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/spcelec_qtr.html">Spacecraft Electronics</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_SPCELEC#
+['ELBI', 'ELBV', 'OHRMAPWR', 'OOBAPWR']
+
+#------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/obaheaters_qtr.html">OBA Heater</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_OBAHEAT#
+['OOBTHR04', 'OOBTHR12', 'OOBTHR26', 'OOBTHR38', 'OOBTHR44', 'OOBTHR50']
+
+#-------------------------
+MONTHLY5.html
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/hrmaheaters_qtr.html">HRMA Heater</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_HRMAHEAT#
+['OHRTHR03', 'OHRTHR09', 'OHRTHR17', 'OHRTHR24', 'OHRTHR38', 'OHRTHR52']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/hrmatherm_qtr.html">HRMA Thermal</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_HRMATHERM#
+['4RT568T', '4RT569T','4RT570T', '4RT575T', '4RT576T', '4RT578T']
+
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/mups_qtr.html">MUPS</a></li></font>
+
+#TREND_MUPS#
+['PM1THV1T', 'PLINE02T', 'PLINE03T', 'PLINE04T']
+
+#-------------------------
+MONTHLY6.html
+#-------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv//hrmastruts_qtr.html">HRMA Struts</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_HRMAST#
+['4RT584T', '4RT585T', '4RT586T', '4RT587T', '4RT597T', '4RT598T']
+
+#------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/obfwdbulkhead_qtr.html">OB Forward Bulkhead</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_OBFWRD#
+['4RT705T', '4RT706T', '4RT707T', '4RT708T', '4RT709T', '4RT710T']
+
+#------------------------
+
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/hrmatherm_qtr.html">HRMA Thermal</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+
+#TREND_HRMATHERM#
+['4RT568T', '4RT569T', '4RT570T', '4RT575T', '4RT576T', '4RT578T']

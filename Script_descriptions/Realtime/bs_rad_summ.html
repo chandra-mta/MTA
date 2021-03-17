@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Radiation Environment Summary</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Radiation Environment Summary</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Update MTA Radiation Environment Summary page:
+https://cxc.cfa.harvard.edu/mta/alerts/rad_summ.html.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/www/alerts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Rad_summ.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                    <th>Last Updated</th></tr>
+<tr><td>run_rad_summ.pro</td>               <td>Mar 25, 2011</td></tr>
+<tr><td>rad_summ.pro</td>                   <td>Nov 12, 2015</td></tr>
+<tr><td>/home/mta/IDL/date_conv.pro</td>    <td>Aug 10, 2010</td></tr>
+<tr><td>/home/mta/IDL/juldate.pro  </td>    <td>Aug 10, 2010</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+</p>
+<table border = 0>
+<tr><th>Sep 30, 2015</th><td>Initially logged</td></tr>
+<tr><th>Nov 12, 2015</th><td>a link to plot crmplatt.gif updated.</td></tr>
+<tr><th>Nov 12, 2015</th><td>data links are updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> /proj/sot/ska/data/arc/iFOT_events/grating/*.rdb' </li>
+<li> /proj/sot/ska/data/arc/iFOT_events/sim/*.rdb </li>
+<li> /proj/sot/ska/data/arc/iFOT_events/radmon/*.rdb </li>
+<li> /proj/sot/ska/data/arc/iFOT_events/comm/*.rdb </li>
+<li> /proj/rac/ops/CRM3/CRMsummary.dat </li>
+<li> /pool14/chandra/chandra_psi.snapshot </li>
+<!--<li> /proj/rac/ops/ACE/fluace.dat (<span style='color:red'>NOT UPDATED SINCE Sep 2014</span>) </li> -->
+<li> /proj/rac/ops/ACE/fluace.data.good</li>
+<li> ./current.dat (copy from /proj/web-cxc-dmz/htdocs/acis/Fluence/current.dat by
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Spacecraft/bs_copy_rac.html'>copy_rac</a>)
+</li>
+<li> /data/mta4/www/RADIATION/CRM3/crmplatt.gif</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+NONE  
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/www/alerts/
+    <ul>
+        <li> rad_summ.html </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta4/www/alerts
+</li>
+<li>
+run:    /usr/local/bin/idl run_rad_summ
+</li>
+<li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts.
+</li>
+
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>han-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+ 2,12,22,32,42,52 * * * * cd /data/mta4/www/alerts ; /usr/local/bin/idl run_rad_summ > $HOME/Logs/rad_summ.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/alerts/rad_summ.html'>
+https://cxc.cfa.harvard.edu/mta/alerts/rad_summ.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

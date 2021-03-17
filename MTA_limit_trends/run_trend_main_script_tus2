@@ -1,0 +1,12 @@
+
+cd /data/mta/Script/MTA_limit_trends/Exc3
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages"
+
+/data/mta/Script/MTA_limit_trends/Scripts/create_msid_plots.py msid_list_tus long 
+
+/data/mta/Script/MTA_limit_trends/Scripts/create_html_page.py  msid_list_all
+/data/mta/Script/MTA_limit_trends/Scripts/update_limit_table.py
+/data/mta/Script/MTA_limit_trends/Scripts/update_sub_html_pages.py
+/data/mta/Script/MTA_limit_trends/Scripts/create_top_html.py
+

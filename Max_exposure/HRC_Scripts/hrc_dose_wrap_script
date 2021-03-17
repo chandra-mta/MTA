@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh < /data/mta/Script/Exposure/Scripts/HRC_Scripts/hrc_dose_main_script

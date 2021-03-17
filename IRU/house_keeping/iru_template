@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IRU Bias Trending</title>
+
+    <script type="text/javascript">
+
+        function WindowOpener(file, file2) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1200,height=500,resize=no");
+            msgWindow.close();
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1200,height=500,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>IRU Bias Trend</title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./Plots_new/" + file  +"' width=49%>")
+            msgWindow.document.write("<img src='./Plots_new/" + file2 +"' width=49%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function WindowOpener_single(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=550,resize=no");
+            msgWindow.close();
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=550,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>IRU Bias Trend</title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./Plots_new/" + file +"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=400, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+    </script>
+</head>
+
+<body style="background-color:#FAEBD7; font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>IRU Gyro Bias Monitoring and Trending</h2>
+
+<p style='margin-left:30px; margin-right:30px;'>
+The left plots below are time trends of IRU gyro biases. The first panel shows the roll bias,
+the second panel shows the pitch bias, and the bottom panel shows the yaw bias. Each data point is
+an average value over one hour. The unit is arcsec /sec.
+</p>
+
+<p style='margin-left:30px; margin-right:30px;'>
+The right plots are the histogram of gyro bias shift over one hour. The shift is computed by taking
+the difference between two adjacent data points (one hour apart).
+Note that the frequency axis is in log scale.
+</p>
+
+<h3>Entire Period</h3>
+<a href="javascript:WindowOpener_single('total_bias.png')">
+    <img src='./Plots_new/total_bias.png' style='width:49%'>
+</a>
+<a href="javascript:WindowOpener_single('total_hist.png')">
+    <img src='./Plots_new/total_hist.png' style='width:49%'>
+</a>
+
+
+<div style='padding-bottom:20px;'></div>
+
+
+<h3>Year: #YEAR# (<span style="font-size:80%;">#DIRECT#</span>) </h3>
+<p>
+The y axis range is different from one year to another. The y axis of the histogram is in log scale.
+</p>
+
+<a href="javascript:WindowOpener_single('#YEAR#/#YEAR#_bias.png')">
+    <img src='./Plots_new/#YEAR#/#YEAR#_bias.png' style='width:49%'>
+</a>
+<a href="javascript:WindowOpener_single('#YEAR#/#YEAR#_hist.png')">
+    <img src='./Plots_new/#YEAR#/#YEAR#_hist.png' style='width:49%'>
+</a>
+
+
+<p><b>Click the link below to open a month long plot of year #YEAR#.</b></p>
+
+<table border=1 style='margin-left:auto;margin-right:auto;width:85%'>
+<tr>
+#PLOTS#
+</tr>
+</table>
+
+
+
+
+<div style='padding-bottom:20px;'></div>
+<hr />
+
+<p><b>Click the link below to open another year.</b></p>
+
+<table border=1 style='width:85%;margin-left:auto;margin-right:auto;'>
+
+#YTABLE#
+
+</table>
+
+<div style='padding-bottom:20px;'></div>
+<hr />
+<p>
+If you have any questions about this page, please contact
+<a html='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+</p>
+
+<p><em>Last Update: Jul 26, 2018</em></p>
+
+</body>
+</html>

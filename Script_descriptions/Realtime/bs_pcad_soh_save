@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Chandra PCAD Real-time State of Health *</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Chandra PCAD Real-time State of Health *</h2>
+
+<b><u>Sep 23, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Update Chandra state of health web page for PCAD :
+
+https://cxc.cfa.harvard.edu/mta/SOH/soh-pcad.html
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/www/SOH/PCAD/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/mta/SOH????
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                                <th>Last Updated</th></tr>
+<tr><td>tlogr-pcad.pl</td>                              <td>Sep 23, 2014</td></tr>
+<tr><td>run-acorn.pl</td>                               <td>Aug 28, 2014</td></tr>
+<tr><td>/data/mta4/www/SOH/LIB/soh.pm</td>              <td>Jul 13, 2011</td></tr>
+<tr><td>/data/mta4/www/SOH/LIB/format_pcad_pop.pm</td>  <td>Jul 11, 2003</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+
+<table border = 0>
+<tr><th>Sep 23, 2015</th><td>Initially logged</td></tr>
+</table>
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<p>
+/data/mta4/www/SOH/PCAD/
+</p>
+<ul>
+<li>thermalSEA1_&lt;time&gt;.tl</li>
+<li>pcadSPE_&lt;time&gt;.tl</li>
+<li>thermalPCAD_COMP_&lt;time&gt;.tl</li>
+<li>thermalEPS_COMP_&lt;time&gt;.tl</li>
+<li>thermalEPHIN_&lt;time&gt;.tl</li>
+<li>ccdmTS_RCTU_&lt;time&gt;.tl</li>
+<li>thermalISIM_&lt;time&gt;.tl</li>
+<li>ccdmCTU_&lt;time&gt;.tl</li>
+<li>pcadFLCA_&lt;time&gt;.tl</li>
+<li>thermalSEA2_&lt;time&gt;.tl</li>
+<li>thermalHRC_&lt;time&gt;.tl</li>
+<li>pcadATT_&lt;time&gt;.tl</li>
+<li>thermalIP_SIDE_A_&lt;time&gt;.tl</li>
+<li>thermalCCDM_COMP_&lt;time&gt;.tl</li>
+<li>thermalIP_SIDE_B_&lt;time&gt;.tl</li>
+<li>pcadIOE_&lt;time&gt;.tl</li>
+<li>pcadFSSA_&lt;time&gt;.tl</li>
+<li>pcadIRU_&lt;time&gt;.tl</li>
+<li>pcadRWA_&lt;time&gt;.tl</li>
+<li>ccdmEIA_&lt;time&gt;.tl</li>
+<li>pcadVDE_&lt;time&gt;.tl</li>
+<li>ccdmSI_RCTU_&lt;time&gt;.tl</li>
+<li>pcadCPE_&lt;time&gt;.tl</li>
+<li>thermalACIS_&lt;time&gt;.tl</li>
+<li>ccdmEP_RCTU_&lt;time&gt;.tl</li>
+<li>ccdmPSU_&lt;time&gt;.tl</li>
+<li>ccdmIU_&lt;time&gt;.tl</li>
+<li>ccdmRF_&lt;time&gt;.tl</li>
+<li>ccdmOBC_&lt;time&gt;.tl</li>
+<li>ccdmPC_RCTU_&lt;time&gt;.tl</li>
+<li>ccdmSSR_&lt;time&gt;.tl</li>
+<li>pcadACA_&lt;time&gt;.tl</li>
+<li>pcadSW_&lt;time&gt;.tl</li>
+<li>pcadSOLAR_&lt;time&gt;.tl</li>
+<li>pcadADE_&lt;time&gt;.tl</li>
+<li>pcadMOM_&lt;time&gt;.tl</li>
+
+<li><span style='color:red'>WHICH SCRIPTS ARE MAKING THESE .TI FILES??</span></li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+Perl environment set in script
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>soh-pacd.html</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: /data/mta4/www/SOH/PCAD/
+</li>
+<li>
+check whether acorn is running (last time acron started is logged in racorn.pid)
+</li>
+<li>
+run:   tlogr-pcad.pl
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available for this set of script
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+2,32 * * * * /data/mta4/www/SOH/PCAD/run-acorn.pl > $HOME/Logs/RT/run-acorn-pcad.cron
+</p>
+
+<table border= 0>
+<tr><th>CPU: </th><td>????</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+??? * * * * /data/mta4/www/SOH/PCAD/tlogr-pcad.pl <span style='color:red'>where is this running</span>
+</p>
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/SOH/PCAD/soh-pcad.html'>
+https://cxc.cfa.harvard.edu/mta/SOH/PCAD/soh-pcad.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+<span style='color:red'>The documnt is not complate yet (need cron job)</span>
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

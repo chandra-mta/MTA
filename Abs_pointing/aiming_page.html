@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+        <title>Celestial Location Monitoring</title> 
+ 
+        <script language="JavaScript"> 
+                function WindowOpener(imgname) { 
+                        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1200,height=600,resize=no"); 
+                        msgWindow.document.clear(); 
+                        msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</title>"); 
+                        msgWindow.document.write("<body bgcolor='white'>"); 
+                        msgWindow.document.write("<img src='./Plots/"+imgname+"' border=0 width=1100 height=550 ><p></p></body></html>") 
+                        msgWindow.document.close(); 
+                        msgWindow.focus(); 
+                } 
+        </script> 
+ 
+</head> 
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+
+<h2  style="text-align:center;padding-bottom:10px">ACIS and HRC Celestial Location Monitoring </h2>
+
+
+
+<p>
+The following plots are the differences between coordinates obtained from Chandra observations and 
+those obtained from existing catalogs vs time in day of mission.
+</p>
+<p>
+The following steps are taken to generate these plots
+</p>
+<ul>
+<li style='padding-bottom:10px;'>
+Check all Chndra observations and select those which are point sources (usually the next step tells
+whether the source is a point source or not by the accuracy of the coordinates of the source).
+</li>
+
+<li style='padding-bottom:10px;'>
+nind coordinates for each observation from <a href='http://simbad.u-strasbg.fr/simbad/'>SIMBAD</a>. 
+If the coordinates information is given at three decimal accuracy, we use the observation. 
+Otherwise it is dropped from the further process.  The source of the coordinates in 
+<a href='http://simbad.u-strasbg.fr/simbad/'>SIMBAD</a> varies but many are from Hipparcos 
+(an example output of 
+<a href='http://simbad.u-strasbg.fr/simbad/sim-basic?Ident=capella&submit=SIMBAD+search'>Capella</a>).
+</li>
+
+<li style='padding-bottom:10px;'>
+Using a <a href='http://cxc.harvard.edu/ciao/ahelp/wavdetect.html'>ciao wavdetect</a> function, 
+find source positions.  We assume that the brightest object detected is the target source.
+</li>
+
+<li style='padding-bottom:10px;'>
+Compare those to the coordinates from the <a href='http://simbad.u-strasbg.fr/simbad/'>SIMBAD</a>.  
+Take the differences between the coordinates obtained from cell detect and those from the 
+<a href='http://simbad.u-strasbg.fr/simbad/'>SIMBAD</a>, then convert del(dec) and del(ra) into detector 
+coordinates using the roll angle.
+</li>
+
+</ul>
+
+<div style='padding-bottom:10px;'>
+</div>
+
+<p>
+Following plots are the time trends of the variations of differences between the expected source 
+positions and the observed source positions in the detector coordinates.
+<p>
+<p style='padding-bottom:20px;'>
+Click a plot to enlarge the plot. If you like to see the ascii data table, click the detector 
+name on the left. 
+</p>
+
+<table border=0 width=95%> 
+<tr>
+    <th>&#160;</th>
+    <th>Y Axis</th>
+    <th>Z Axis</th>
+</tr>
+<tr>
+    <td><a href=./Data/acis_i_data target="_blank" >ACIS-I</a></td>
+    <td><a href="javascript:WindowOpener('acis_i_y.png')"><img src='./Plots/acis_i_y.png' width=95%></a>
+    <td><a href="javascript:WindowOpener('acis_i_z.png')"><img src='./Plots/acis_i_z.png' width=95%></a>
+</tr>
+
+<tr>
+    <td><a href=./Data/acis_i_data target="_blank" >ACIS-S</a></td>
+    <td><a href="javascript:WindowOpener('acis_s_y.png')"><img src='./Plots/acis_s_y.png' width=95%></a>
+    <td><a href="javascript:WindowOpener('acis_s_z.png')"><img src='./Plots/acis_s_z.png' width=95%></a>
+</tr>
+
+<tr>
+    <td><a href=./Data/hrc_i_data target="_blank" >HRC-I</a></td>
+    <td><a href="javascript:WindowOpener('hrc_i_y.png')"><img src='./Plots/hrc_i_y.png' width=95%></a>
+    <td><a href="javascript:WindowOpener('hrc_i_z.png')"><img src='./Plots/hrc_i_z.png' width=95%></a>
+</tr>
+
+<tr>
+    <td><a href=./Data/hrc_i_data target="_blank" >HRC-S</a></td>
+    <td><a href="javascript:WindowOpener('hrc_s_y.png')"><img src='./Plots/hrc_s_y.png' width=95%></a>
+    <td><a href="javascript:WindowOpener('hrc_s_z.png')"><img src='./Plots/hrc_s_z.png' width=95%></a>
+</tr>
+
+</table>
+
+<hr />
+<p>
+If you have any quesitons about this page, please contact <a hrc='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>.
+</p>
+
+<p><i>
+Last Modified: Jul 23, 2018
+</i>
+</p>

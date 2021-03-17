@@ -1,0 +1,46 @@
+
+*********************
+Disk Space Monitoring
+*********************
+
+This set of scripts monitor disk spaces and if the capacity of a disk is over a threshold, 
+send out warning email.
+
+Scripts
+-------
+disk_space_main_script
+disk_space_main_script2
+disk_space_wrap_script
+disk_space_wrap_script2     --- control scripts
+
+disk_space_check_size.py    --- check /data/mta* space and send out email if it is beyond a limit
+disk_space_read_dusk.py     --- check /data/mta space and subdirectories
+disk_space_run_dusk.py      --- run dusk in each directory to get disk size information.
+disk_space_run_quota.py     --- check of home directory quota 
+update_html_page.py         --- update disk space html page
+plot_function.py            --- plotting routine
+
+Directories
+------------
+
+/data/mta/Script/Disk_check/house_keeping/dir_list_py
+
+'/data/mta/Script/Disk_check/Scripts/'          :bin_dir
+'/data/mta/Script/Disk_check/house_keeping/'    :house_keeping
+'/data/mta/Script/Disk_check/Exc/'              :run_dir
+'/data/mta/Script/Disk_check/Data/'             :data_out
+'/data/mta_www/mta_disk_space/'                 :web_dir
+'/data/mta_www/mta_disk_space/Figs/'            :fig_out
+'/data/mta/Script/Python3.6/MTA/'               :mta_dir
+
+web address:
+------------
+https://cxc.cfa.harvard.edu/mta_days/mta_disk_space/disk_space.html
+
+cron job
+---------
+mta on boba-v
+
+3 12  * * * cd /data/mta/Script/Disk_check/Exc;  /data/mta/Script/Disk_check/Scripts/disk_space_wrap_script
+4  1  * * * cd /data/mta/Script/Disk_check/Exc;  /data/mta/Script/Disk_check/Scripts/disk_space_wrap_script2
+

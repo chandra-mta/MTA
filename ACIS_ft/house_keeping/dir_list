@@ -1,0 +1,7 @@
+'/data/mta/Script/ACIS/Focal/Script/'               : bin_dir
+'/data/mta/Script/ACIS/Focal/Script/house_keeping/' : house_keeping
+'/data/mta/www/mta_fp/'                             : web_dir
+'/data/mta/www/mta_fp/Plots/'                       : plot_dir
+'/data/mta/Script/ACIS/Focal/Data/'                 : data_dir
+'/data/mta/Script/ACIS/Focal/Short_term/'           : short_term
+'/data/mta/Script/Python3.8/MTA/'                   : mta_dir

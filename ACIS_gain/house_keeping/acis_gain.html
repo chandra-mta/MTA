@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<style  type='text/css'>
+body{background-color:#FFEBCD;}
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+td{text-align:center;padding:8px}
+a:link {color:blue;}
+a:visited {color:red;}
+span.nobr {white-space:nowrap;}
+th{width:7%}
+td{width:45%}
+img{width:90%}
+
+</style>
+<script>
+function MyWindowOpener(imgname) {
+msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no ,width=900,height=850,resize=yes");
+msgWindow.document.close();
+msgWindow.document.write("<html><title>ACIS Histgram:   "+imgname+"</title>");
+msgWindow.document.write("<body BGCOLOR=white>");
+msgWindow.document.write("<img src='./Plots/"+imgname+"' border=0 width=800 height=800><P></body></html>");
+msgWindow.focus();
+}
+</script>
+<title> ACIS Gain Plots </title>
+</head>
+<body>
+<h2 style="text-align:center;margin-left:auto;margin-right:auto">ACIS Gain Plots</h2>
+<p>
+ACIS gains were computed with following steps
+(see C. Grant memo:<a href="https://space.mit.edu/~cgrant/gain/index.html">ACIS Gain @ -120 C</a> for more
+discussion ):
+</p>
+
+<ul>
+<li> All ACIS calibration event 1 files are extracted from Achieve, except squeegee files.</li>
+<li> Each data is compared with focal temperature, and only parts with focal temperature equal to or lower than -119.7 C
+     before May 2006, and -119.0 C from May 2006, 
+     are extracted out. 
+<li> From these data, only ccdy &le; 20 (first 20 raw of a CCD) and grade 0, 2, 3, 4, and 6 are extracted.</li>
+<li> The extracted <em>pha</em> data are combined for each month to increase fitting accuracies.</li>
+<li> A pulse height distribution is created from this data, and fit Lorentzian profiles to Al K-alpha (1486.7 eV),
+     Ti K-alpha (4510.84 eV), and Mn K-alpha (5898.75 eV) to find peak postions in ADU.</li>
+<li> A straight line is fit between three peak position in ADU and eV, and a slope (Gain ADU/eV), and
+     an intercept (Offset ADU) were found.</li>
+</ul>
+<p>
+     The x axis is in year, and y axis is in ADU/eV for gain plots, and in ADU for offset plots.
+     The slopes are either ADU/eV per year, or ADU per year. Click a plot to enlange it.
+</p>
+<table border=0 style="text-align:center;margin-left:auto;margin-right;auto;border-color:#FFEBCD;">
+<tr>
+        <th>&#160;</th>
+	<th>Gain Plots </th>
+	<th>Offset Plots </th>
+</tr>
+<tr><th>CCD 0</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd0.png')"><img src='./Plots/gain_plot_ccd0.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd0.png')"><img src='./Plots/offset_plot_ccd0.png'></a></td>
+</tr>
+<tr><th>CCD 1</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd1.png')"><img src='./Plots/gain_plot_ccd1.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd1.png')"><img src='./Plots/offset_plot_ccd1.png'></a></td>
+</tr>
+<tr><th>CCD 2</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd2.png')"><img src='./Plots/gain_plot_ccd2.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd2.png')"><img src='./Plots/offset_plot_ccd2.png'></a></td>
+</tr>
+<tr><th>CCD 3</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd3.png')"><img src='./Plots/gain_plot_ccd3.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd3.png')"><img src='./Plots/offset_plot_ccd3.png'></a></td>
+</tr>
+<tr><th>CCD 4</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd4.png')"><img src='./Plots/gain_plot_ccd4.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd4.png')"><img src='./Plots/offset_plot_ccd4.png'></a></td>
+</tr>
+<tr><th>CCD 5</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd5.png')"><img src='./Plots/gain_plot_ccd5.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd5.png')"><img src='./Plots/offset_plot_ccd5.png'></a></td>
+</tr>
+<tr><th>CCD 6</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd6.png')"><img src='./Plots/gain_plot_ccd6.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd6.png')"><img src='./Plots/offset_plot_ccd6.png'></a></td>
+</tr>
+<tr><th>CCD 7</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd7.png')"><img src='./Plots/gain_plot_ccd7.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd7.png')"><img src='./Plots/offset_plot_ccd7.png'></a></td>
+</tr>
+<tr><th>CCD 8</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd8.png')"><img src='./Plots/gain_plot_ccd8.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd8.png')"><img src='./Plots/offset_plot_ccd8.png'></a></td>
+</tr>
+<tr><th>CCD 9</th>
+<td><a href="javascript:MyWindowOpener('gain_plot_ccd9.png')"><img src='./Plots/gain_plot_ccd9.png'></a></td>
+<td><a href="javascript:MyWindowOpener('offset_plot_ccd9.png')"><img src='./Plots/offset_plot_ccd9.png'></a></td>
+</tr>
+</table>
+
+
+<p style='padding-top:30px;padding-bottom:30px'>
+     Data entries are: Date, Obsid, starting time in seconds from 1998 Jan 1, end time in seconds from 1998 Jan 1,
+     Al K-alpha position in ADU, Ma K-alpha in ADU, Ti K-alpha in ADU, slopes (ADU/eV), errors for the slopes,
+     intercepts (ADU), and errors for the intercepts.
+</p>
+
+<table border=1 cellspacing=0 cellpadding=0 style='font-size:90%;width=80%;'>
+<tr>
+    <th>&#160;</th>
+    <th>Node 0</th>
+    <th>Node 1</th>
+    <th>Node 2</th>
+    <th>Node 3</th>
+</tr>
+<tr>
+<th>CCD 0</th>
+<td style='width:10%'><a href="./Data/ccd0_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd0_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd0_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd0_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 1</th>
+<td style='width:10%'><a href="./Data/ccd1_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd1_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd1_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd1_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 2</th>
+<td style='width:10%'><a href="./Data/ccd2_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd2_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd2_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd2_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 3</th>
+<td style='width:10%'><a href="./Data/ccd3_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd3_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd3_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd3_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 4</th>
+<td style='width:10%'><a href="./Data/ccd4_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd4_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd4_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd4_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 5</th>
+<td style='width:10%'><a href="./Data/ccd5_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd5_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd5_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd5_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 6</th>
+<td style='width:10%'><a href="./Data/ccd6_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd6_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd6_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd6_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 7</th>
+<td style='width:10%'><a href="./Data/ccd7_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd7_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd7_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd7_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 8</th>
+<td style='width:10%'><a href="./Data/ccd8_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd8_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd8_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd8_3">Node 3 Data</a></td>
+</tr>
+<tr>
+<th>CCD 9</th>
+<td style='width:10%'><a href="./Data/ccd9_0">Node 0 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd9_1">Node 1 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd9_2">Node 2 Data</a></td>
+<td style='width:10%'><a href="./Data/ccd9_3">Node 3 Data</a></td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr />
+<strong style='padding-top:10px;padding-bottom:10px' > Last Data Update: #DATE#</strong>
+</body>
+</html>

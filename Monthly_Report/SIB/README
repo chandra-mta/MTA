@@ -1,0 +1,28 @@
+++++++++++++++++++++++++++++++++++++
+Create SIB plots for monthly report
+++++++++++++++++++++++++++++++++++++
+
+How to run:
+
+set: 
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+then run:
+sib_monthly_report_plot.py
+
+This will automatically creates two SIB plots for the "last" month. So if it is Sept. 2014, then the script will create:
+
+SIB_Data_2014_08_total.png
+SIB_Data_2014_08_bands.png
+
+If you like to plot a specific year/month, then add argument "check"
+
+sib_monthly_report_plot.py  check
+
+Then the script will ask you the year and month you want to plot the data. 
+
+
+Data Location
+--------------
+
+/data/mta/Script/ACIS/SIB/Data/

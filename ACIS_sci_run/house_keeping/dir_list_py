@@ -1,0 +1,5 @@
+'/data/mta/www/mta_acis_sci_run/'                     :web_dir                   
+'/data/mta/Script/ACIS/Acis_sci_run/Script/'          :bin_dir  
+'/data/mta/Script/ACIS/Acis_sci_run/house_keeping/'   :house_keeping
+'/data/mta/MTA/data/Acis_sci_run/'                    :bin_data_dir                 
+'/data/mta/Script/Python3.6/MTA/'                     :mta_dir

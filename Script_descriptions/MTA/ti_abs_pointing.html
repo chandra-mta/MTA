@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Celestial Location Monitor</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Celestial Location Monitor</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts locations of point sources, compare the observed position to the expected postion
+and monitor the differences. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/ALIGNMENT/Abs_pointing/Abs_pointing/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Abs_pointing
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>abs_pointing_wrap_script</td>                <td>Jun 06, 2013</td></tr>
+<tr><td>abs_pointing_main_script</td>                <td>Jul 02, 2013</td></tr>
+<tr><td>abs_pointing_wrap_script_test</td>           <td>Sep 23, 2014</td></tr>
+<tr><td>abs_pointing_main_script_test</td>           <td>Sep 23, 2014</td></tr>
+<tr><td>abs_pointing_acis_plot.perl</td>             <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_comp_entry.perl</td>            <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_comp_second_time.perl</td>      <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_compute_pos_diff.perl</td>      <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_extract_obsid.perl</td>         <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_find_candidate.perl</td>        <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_get_coord_from_simbad.perl</td> <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_hrci_plot.perl</td>             <td>Mar 16, 2013</td></tr>
+<tr><td>abs_pointing_hrcs_plot.perl</td>             <td>Apr 26, 2013</td></tr>
+<tr><td>abs_pointing_main.perl</td>                  <td>Aug 01, 2012</td></tr>
+<tr><td>abs_pointing_print_html.perl</td>            <td>Apr 16, 2013</td></tr>
+<tr><td>abs_pointing_simbad_query.perl</td>          <td>Apr 15, 2012</td></tr>
+<tr><td>abs_pointing_test_prep.perl</td>             <td>Jun 06, 2013</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ALIGNMENT/Abs_pointing/Abs_pointing/README
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> /data/mta_www/mp_reports/events/mta_events.html </li>
+<li> sybase data </li>
+<li> http://simbad.u-strasbg.fr/simbad/sim-id </li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS  (source /home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ALIGNMENT/Abs_pointing/Data
+    <ul>
+    <li>acis_i_data</li>
+    <li>acis_s_data</li>
+    <li>hrc_i_data</li>
+    <li>hrc_s_data</li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_aiming/Fig_save/
+    <ul>
+    <li> acis_point_err.gif</li>
+    <li> hrc_i_point_err.gif</li>
+    <li> hrc_s_point_err.gif</li>
+
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ALIGNMENT/Abs_pointing/Exc
+</li>
+<li>
+run:   /data/mta/Script/ALIGNMENT/Abs_pointing/Abs_pointing/abs_pointing_wrap_script
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/ALIGNMENT/Abs_pointing/Exc
+</li>
+<li>
+run:   /data/mta/Script/ALIGNMENT/Abs_pointing/Abs_pointing/abs_pointing_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results will be save in /data/mta/Script/ALIGNMENT/Abs_pointing/Test_out/. Compare the results to those
+in /data/mta/Script/ALIGNMENT/Abs_pointing/Test_comp_results/.
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+0 5 1,16  * *   cd /data/mta/Script/ALIGNMENT/Abs_pointing/Exc; /data/mta/Script/ALIGNMENT/Abs_pointing/Abs_pointing/abs_pointing_wrap_script >> $HOME/Logs/position_aiming.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_aiming/aiming_page.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_aiming/aiming_page.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+The test output will be save in /data/mta/Script/ALIGNMENT/Abs_pointing/Test_out/*. Compare the output
+with that of /data/mta/Script/ALIGNMENT/Abs_pointing/Test_comp_results/*.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+#! /bin/tcsh
+date
+source /home/mta/.ascrc
+#  sometimes have to specify a different install
+#   to pick up fixes before they are in release, or to test
+#source /home/mta/.ascrc -r /proj/cm/Integ/install.DS7.0.0
+/home/mta/bin/reset_param
+punlearn dataseeker
+pset dataseeker repository="/data/mta/DataSeeker/data/repository"
+setenv IDL_PATH "+/home/mta/IDL:${IDL_PATH}"
+setenv IDL_PATH "+/usr/local/rsi/user_contrib/astron_Oct09/pro:+/home/mta/IDL:+/home/nadams/pros:+/data/swolk/idl_libs:/home/mta/IDL/tara:widget_tools:utilities:event_browser"
+setenv IDL_PATH "+/data/mta4/Deriv/Script/Idl_scripts"
+setenv PFILES "/data/mta/Script/Deriv/cxcds_param:./param;/home/ascds/DS.release/param:/proj/cm/DS.ots/ftools.v5.0.1.SunOS5.8/SunOS_5.8_sparc/syspfiles"
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_acis
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_eph
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_hrc
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_hrma
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_oba
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_pcad
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_sim
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_spc
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_comp_grad
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_comp_hrma
+/bin/nice -n15  idl /data/mta4/Deriv/Script/Idl_scripts/ed_comp

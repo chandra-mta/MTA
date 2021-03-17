@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/ACIS/Count_rate/Scripts/count_rate_main_script

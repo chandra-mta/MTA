@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>HRC Enginnering Data</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>HRC Engineering Data</h2>
+
+
+<h3>Description</h3>
+<p>
+Extract HRC engineering raw data
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/aschrc1/GENHRC/TOOLS/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>HRC ENG</td></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><td>extract_hrc_eng_wrap_script</td>          <td>Oct 02, 2017</td></tr>
+<tr><td>extract_hrc_eng_main_script</td>          <td>Oct 02, 2017</td></tr>
+<tr><td>extract_hrc_eng_files.py</td>             <td>Oct 02, 2017</td></tr>
+<tr><td>save_proccessed_data.py</td>              <td>Oct 02, 2017</td></tr>
+
+<tr><td>HRC_HK0</td></th><td>&#160;</td><td>&#160;</td></tr>
+<tr><td>extract_hrc_hk0_wrap_script</td>          <td>Oct 02, 2017</td></tr>
+<tr><td>extract_hrc_hk0_main_script</td>          <td>Oct 02, 2017</td></tr>
+<tr><td>extract_hrc_hk0_files.py</td>             <td>Oct 02, 2017</td></tr>
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/aschrc6/wilton/isobe/Project9/Scripts/HRC_I/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Oct 02, 2017</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+extracted from archvie
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/aschrc1/GENHRC/RAW/HRC_ENG
+    <ul>
+        <li>mcptot_a_stats.rdb</li>
+        <li>shield_a_stats.rdb</li>
+        <li>eng0_4_<yyyy>_<mm>.fits.gz</li>
+        <li>eng0_5_<yyyy>_<mm>.fits.gz</li>
+        <li>hrc_4_eng0_<yyyy><ddd>.fits.gz</li>
+        <li>hrc_5_eng0_<yyyy><ddd>.fits.gz</li>
+        <li><YYYY> --- directory</li>
+    </ul>
+</li>
+<li>
+/data/aschrc1/GENHRC/RAW/HRC_HK0
+    <ul>
+        <li>bad_2smtratm/rdb</li>
+        <li>hk0_<yyyy>_<mm>.fits.gz</li<
+        <li>hrc_hk0_<yyyy><ddd>.fits.gz</li>
+        <li><YYYY> --- directory</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+cd /data/aschrc1/GENHRC/TOOLS/HRC_ENG
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+<li>
+/data/aschrc1/GENHRC/TOOLS/HRC_ENG/extract_hrc_eng_files.py
+</li>
+<li>
+cd /data/aschrc1/GENHRC/TOOLS/HRC_HK0
+</li>
+<li>
+/data/aschrc1/GENHRC/TOOLS/HRC_HK0/extract_hrc_hk0_file.py
+</li>
+<li>
+at the beginning of the month:<br />
+/data/aschrc1/GENHRC/TOOLS/HRC_ENG/save_proccessed_data.py
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NO test available for this task
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>ascda3</td></tr>
+<tr><th>User: </th><td>isobe</td></tr>
+</table>
+<p>
+19 3 * * * cd /data/aschrc1/GENHRC/TOOLS/HRC_ENG; /data/aschrc1/GENHRC/TOOLS/HRC_ENG/extract_hrc_eng_wrap_script
+<br />
+23 3 * * * cd /data/aschrc1/GENHRC/TOOLS/HRC_HK0; /data/aschrc1/GENHRC/TOOLS/HRC_HK0/extract_hrc_hk0_wrap_script
+<br />
+23 4 6 * * cd /data/aschrc1/GENHRC/TOOLS/HRC_ENG; /data/aschrc1/GENHRC/TOOLS/HRC_ENG/save_proccessed_data.py
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web page
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

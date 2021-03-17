@@ -1,0 +1,8 @@
+"/data/mta/www/mta_acis_gain/"                  : web_dir
+"/data/mta/Script/ACIS/Gain/Data/"              : data_dir
+"/data/mta/Script/ACIS/Gain/Exc/"               : exc_dir
+"/data/mta/Script/ACIS/CTI/Data/Results/"       : cti_dir
+"/data/mta/Script/ACIS/Gain/house_keeping/"     : house_keeping
+"/data/mta/Script/Python3.8/"                   : mta_dir
+"/data/mta/Script/ACIS/Gain/Script/"            : bin_dir
+"/data/mta/MTA/data/"                           : bin_data

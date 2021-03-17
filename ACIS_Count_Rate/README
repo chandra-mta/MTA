@@ -1,0 +1,109 @@
+/data/mta/Script/ACIS/Count_rate/Scripts
+
+This directory contains a set of python scripts which extracts ACIS
+countrates for each CCD and creates trend plots.
+
+#########
+Directory
+#########
+
+'/data/mta/Script/ACIS/Count_rate/Scripts/'        :bin_dir
+'/data/mta/Script/ACIS/Count_rate/Data/'           :data_dir
+'/data/mta/www/mta_dose_count/'                    :web_dir
+'/data/mta/Script/ACIS/Count_rate/house_keeping/'  :house_keeping
+'/data/mta/Script/Python_script3.8/'               :mta_dir
+
+#######
+Scripts
+#######
+
+count_rate_day_wrap_script
+count_rate_day_main_script
+count_rate_wrap_script
+count_rate_main_script  --- controlling tsh scripts
+
+All scripts need the following environment setting:
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+----------------------
+get_data_for_day.py
+----------------------
+
+get a day amount of data and update data files
+
+Input:  year    --- the year of the data 
+        month   --- the month of the data
+        day     --- the day of the data
+        if day is not given, the entire month of the data are extracted
+        if none are give, the data for the day before will be extracted
+        the data are obtained using arc5gl
+
+Output: <data_dir>/<MMM><YYYY>/ccd<ccd#>
+        <data_dir>/<MMM><YYYY>/ephin_data
+        Note: there is no ephin data after Nov 2019
+
+-----------------------------
+create_aggragate_data_sets.py
+-----------------------------
+
+create aggregate data sets
+
+Input:  chk     --- whether start from beginning (=1) or just the last month (=0)
+        <data_dir>/<MMM><YYYY>/ccd<ccd#>
+Output: <data_dir>/full_data_ccd<ccd#>.dat --- full data (sampling evey 25 mins or so)
+        <data_dir>/mont_avg_data_ccd<ccd#>.dat  --- month averaged data
+        
+------------------
+plot_count_rate.py
+------------------
+
+This script creates several trending plots related to ACIS count rates
+
+Input: year
+       <data_dir>/<MMM><YYYY>/ccd<ccd#>         --- all past count rates 
+       <data_dir>/<MMM><YYYY>/ephin_rate        --- all past ephin data
+       <data_dir>/full_data_ccd<ccd#>.dat       --- full data
+       <data_dir>/mont_avg_data_ccd<ccd#>.dat   --- month averaged data
+
+Output:<web_dir>/Plots/<year>/acis_dose_ccd<ccd>.png --- trend of count rate for that month
+       <web_dir>/Plots/<year>/ephin_rate.png         --- trend of ephin rate for that month
+
+       <web_dir>/long_term_plot.png      --- a full range trend plot for ccds 5, 6, and 7
+       <web_dir>/month_avg_bi.png        --- monthly average trend plots for back side CCDs
+       <web_dir>/month_avg_img.png       --- monthly average trend plots for imaging CCDs
+       <web_dir>/month_avg_spc.png       --- monthly average trend plots for spec CCDs
+
+Needed script files:
+------------------
+
+In /data/mta/Script/Python3.8/MTA:
+mta_common_functions.py --- a set of mscrenious mta related funtions
+
+------------------
+print_html_page.py
+------------------
+
+This script creates/updates html pages
+
+Input: year --- the year you like to create the page
+
+Output: <web_dir>main_acis_dose_plot.html       --- main page
+
+        <web_dir>/Plots/plot_page_<yyyy>.html   --- the page to dispaly <year> trend data
+
+####
+HTML
+####
+
+https://cxc.cfa.harvard.edu/mta_days/mta_dose_count/main_acis_dose_plot.html
+
+########
+CRON Job
+########
+
+on c3pov-v as mta
+20 3 * * * cd /data/mta/Script/ACIS/Count_rate/Exc; /data/mta/Script/ACIS/Count_rate/Scripts/count_rate_day_wrap_script >> $HOME/Logs/acis_dose_day_py.cron
+
+35 3 3 * * cd /data/mta/Script/ACIS/Count_rate/Exc; /data/mta/Script/ACIS/Count_rate/Scripts/count_rate_wrap_script >> $HOME/Logs/acis_dose_py.cron
+

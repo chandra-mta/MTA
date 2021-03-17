@@ -1,0 +1,20 @@
+
+This script will create averaged cti trend data and plots for monthly report. 
+Set the following environment first:
+
+setenv PYTHONPATH "/data/mta/Script/Python3.6/envs/ska3/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages/"
+
+then simply run:
+
+    monthly_report_cti_avg_plots_two_section.py
+
+Input: /data/mta/Script/ACIS/CTI/Data/*/*
+Output: 
+    ./Plots/cti_avg_acis_bi.png
+    ./Plots/cti_avg_acis_i.png
+    ./Plots/cti_avg_acis_s.png
+
+    ./Data/cti_data/ccd<ccd>_data
+
+
+Note, the plots are also used by the main CTI page.

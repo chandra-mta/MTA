@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grating Observation List</title>
+    <script language="JavaScript">
+        function WindowOpener(html_page) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=700,height=1050,resize=no");
+            msgWindow.document.close();
+            msgWindow = open("","displayname","directories=no,scrollbars=no,status=no,,width=700,height=1050,resize=no, toolbar=yes,menubar=no,location=no,directories=no,status=yes");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><title>Trend plot:   "+html_page +"</TITLE>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<iframe src='./"+html_page+"' border=0 style='width:100%; height:1050px; text-align:center;frameborder:0;'><p></p></body></html>")
+
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+        document.body.addEventListener('click', function(event) {
+            if (event.target.nodeName === 'A' && event.target.href) { 
+                history.replaceState(null, null, event.target.href); 
+            }
+        }, false);
+
+    </script>
+</head>
+
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>Gratings Observation List: #YEAR#</h2>
+
+<div style='text-align:right;padding-bottom:20px;'>
+</div>
+
+<table border=1 style='width:75%;margin-left:auto;margin-right:auto;'>
+<tr>
+    <th>ACIS-S/LETG</th>
+    <th colspan=2>ACIS-S/HETG</th>
+    <th>HRC-S/LETG</th>
+    </tr>
+#TABLE#
+
+</table>
+
+<div style='padding-bottom:30px;'>
+</div>
+
+<div style='padding-bottom:30px;'>
+</div>
+
+
+<h3>Gratings Observations of Different Years (Click to Open)</h3>
+
+<table border=1 style='width:75%;margin-left:auto;margin-right:auto;'>
+#TABLE2#
+</table>
+
+
+<div style='text-align:right;'>
+</div>
+
+<div style='padding-bottom:50px;'>
+</div>
+
+

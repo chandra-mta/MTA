@@ -1,0 +1,76 @@
+#ACIS
+ACISTEMP::ACIS Thermal Control                        
+ACISELECA::ACIS Electronics Side A         
+ACISELECB::ACIS Electronics Side B                         
+ACISMEC::ACIS Mechanics
+DEAHK_TEMP::DEA/DPA HK Temperatures 
+DEAHK_ELEC::DEA/DPA HK Electronics 
+
+#EPHIN
+EPHTV::EPHIN Temperatures and Voltages           
+
+#AXIAL, RADIAL, DIAMETRAL GRADIENTS
+GRADCAP::HRMA CAP
+GRADFAP::HRMA FAP
+GRADAHET::HRMA AFT Heater Plt
+GRADHHFLEX::HRMA H-Flexure 
+GRADHPFLEX::HRMA P-Flexure 
+GRADPCOLB::HRMA PreCol. Baffle Plt 
+GRADHSTRUT::HRMA Struts 
+GRADHSTRUT::HSA Outer Cylinder 
+GRADAINCYL::OBA AFT Inner Cyl
+GRADABLK::OBA AFT Bulkhead 
+GRADHCONE::OBA Cone 
+GRADFBLK::OBA FWD Bulkhead
+GRADPERI::Periscope
+GRADSSTRUT::Spacecraft Struts 
+GRADTFTE::TFTE
+
+#GRATINGS
+GRATGEN::Grating Voltages & Rotation Angles
+
+#HRC
+HRCTEMP::HRC Temperatures                        
+HRCELEC::HRC Electronics
+HRCHK::HRC HoUsekeeping
+
+#PCAD
+PCADTEMP::ACA Thermal                         
+PCADITV::IRU Temperatures and Electronics                        
+PCADGRATE::PCAD Gyro Rates                         
+PCADFTSGRAD::FTS Temp & Gradient                         
+PCADRWRATE::PCAD Reaction Wheel Rates                       
+PCADGDRIFT::Drift Rate Updates to Gyros                         
+MUPS::MUPS
+
+#SIM
+SIMTEMP::SIM Thermal                         
+SIMELEC::SIM Electronics
+SIMACTU::SIM Actuator Use
+
+#SPC
+EPSBATT::Battery Usage                       
+SC_MAIN_TEMP::Spacecraft Temperatures Sc_main_temp                        
+SC_ANC_TEMP::Spacecraft Temperatures Sc_anc_temp                         
+BATT_TEMP::Spacecraft Temperatures Batt_temp                       
+SPCELEC::Spacecraft Electronics                      
+SPCELECA::Spacecraft Electronics Side A                       
+SPCELECB::Spacecraft Electronics Side B
+
+#OBA Thermal
+OBAHEATERS::OBA Heaters                      
+OBAGRAD::OBA Grad                         
+HRMAHEATERS::HRMA Heaters                         
+HRMAGRAD::HRMA Grad
+
+#HRMA Thermal
+HRMATHERM::HRMA Thermal                       
+HRMASTRUTS::HRMA Truts                      
+OBFWDBULKHEAD::OB Fwd Bulkhead                       
+PRECOLL::Precoll
+
+#COMP
+COMPACISPWR::ACIS Electronics 
+COMPSIMOFFSET::SIM Thermal Side A/B 
+COMPGRADKODAK::HRMA Computed Averages
+

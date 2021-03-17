@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ACIS Focal Plane Temperature #YEAR#</title>
+    <style>
+        .width1 = { width:95%} 
+    </style>
+    <script type="text/javascript">
+        function WindowOpener(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=550,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Envelope Trending </title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./Plots/" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+        
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=400, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+    </script>
+
+
+<body style="background-color:#FAEBD7; font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>ACIS Focal Temperature Trend</h2>
+<p>
+This page displays ACIS focal temperature trend plots and the difference between the focal temperature and
+the cold plate temperatures (<i>1crat</i> and <i>1crbt</i>). The left plot below is the trend plot of the maximum 
+temperature of each day and the right one is the trend plot of the most recent one week. 
+</p>
+
+<p>
+The bottom plot is one year long trend. You can also display a week-long detail trend plot by clicking
+a week number at the bottom of the plot. 
+</p>
+
+<p style='padding-bottom:20px;'>
+<b>Note</b>: Since <i>1crat</i> and <i>1crbt</i> data oscillate with a 2<i>C </i>range, we took a moving 
+average over 10 data points (about 5 mins) to remove double trending lines.
+</p>
+
+<table border=0>
+<tr class='width1'>
+    <th>Daily Max Temperature Since Year 2000</th>
+    <th>Most Recent One Week Trend</th>
+</tr>
+<tr class='width1'>
+<td> 
+    <a href='javascript:WindowOpener("focal_full_range.png")'>
+        <img src='./Plots/focal_full_range.png' style='width:95%;'>
+    </a>
+</td>
+<td>
+
+    <a href='javascript:WindowOpener("focal_week_long.png")'>
+        <img src='./Plots/focal_week_long.png' style='width:95%;'>
+    </a>
+</td>
+</tr>
+</table>
+<p style='text-align:center;'>(Click to enlarge, then change the size of the popup window)</p>
+
+<p><b>Select Year to Open the Plot of the Year</b></p>
+
+#YTABLE#
+
+<h3>Year #YEAR#</h3>
+<p><em>
+Move the slider at the bottom of the plot to see the entire year.
+Or select week # to open a detail plot of the week.
+
+</em></p>
+
+<iframe src='./ft_slide_year#YEAR#.html'style='width:95%;height:540px;'></iframe>
+
+#NOTE#
+
+<div style="padding-bottom:20px">
+</div>
+<hr />
+<p style='padding-top;5px;padding-bottom:5px;'>
+If you have any questions about this page, please contact
+<a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+</p>
+<p style='padding-bottom:5px;'>
+<em>Last Modified: May 25, 2018</em>
+</p>
+
+<div style="padding-bottom:10px;font-size:90%;">
+<!--
+<h3>
+    Change the Interactive Plot Parameters (
+    <a href="javascript:popitup('/data/mta/Script/ACIS/Script/Temp/interactive_note.html')" style="text-align:right">Usage Note</a>)
+</h3>
+<form method="post" action= '/data/mta/Script/ACIS/Script/Temp/Interactive/fp_data_interactive.php'>
+    <b>Starting Time:</b> <input type="text" name="tstart"  size=20>
+    <b>Stopping Time:</b> <input type="text" name="tstop"  size=20>
+    <b>Bin Size:</b>      <input type="text" name="binsize"  value=300.0 size=10>
+    </br><span style="text-align:right;"><input type=submit name="submit" value="Submit"></span>
+</form>
+<br />
+-->
+</div>
+
+<script>
+    function refreshAt(hours, minutes, seconds) {
+        var now = new Date();
+        var then = new Date();
+     
+        if(now.getHours() > hours ||
+            (now.getHours() == hours && now.getMinutes() > minutes) ||
+            now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+            then.setDate(now.getDate() + 1);
+        }
+        then.setHours(hours);
+        then.setMinutes(minutes);
+        then.setSeconds(seconds);
+         
+        var timeout = (then.getTime() - now.getTime());
+        setTimeout(function() { window.location.reload(true); }, timeout);
+    }
+
+    refreshAt(6,45,0)       //---- refreshing the page at 6:45am
+
+</script>
+
+
+
+</body>
+</html>

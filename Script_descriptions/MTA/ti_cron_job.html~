@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Cron Job Monitor</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Cron Job Monitor</h2>
+
+<b><u>Last Updated: Jul 16, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts reads cron job entries and check whether the cron jobs are running as it is supposed to be
+and, if it does, check whether there are any error messages. If it finds these problems, it creates
+a log and sends out email.
+
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Script/Cron_check/Scripts/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Cron_check
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>find_cron_records.py</td>     <td>Sep 10, 2014</td></tr>
+<tr><td>send_error_list_email.py</td> <td>Jul 16, 2015</td></tr>
+<tr><td>monthly_cleanup.py</td>       <td>Sep 10, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Cron_check/Scripts/README.
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Initially logged</td></tr>
+<tr><th>Jul 16, 2015</th><td>colossus-v added</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/home/mta/Logs/*cron
+</li>
+<li>
+/home/cus/Logs/*cron
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+NA    
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Cron_check/house_keeping/Records/
+    <ul>
+    <li> c3po-v_mta </li>
+    <li> r2e2-v_mta </li>
+    <li> c3po-v_cus </li>
+    <li> r2e2-v_cus </li>
+    <li> rhodes_cus </li>
+    <li> r2d2-v_mta_error_list </li>
+    <li> c3po-v_mta_error_list </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+Log into: ssh mta@c3po-v / ssh mta@r2d2-v etc
+</li>
+<li>
+run: /data/mta/Script/Cron_check/Scripts/check_cron_records.py
+</li>
+<li>
+run once a day: /data/mta/Script/Cron_check/Scripts/send_error_list_email.py
+</li>
+<li>
+run once a month: /data/mta/Script/Cron_check/Scripts/monthly_cleanup.py  
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+There is no test for this set of scripts.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<ul>
+<li> mta on c3po-v
+    <ul>
+    <li>0,30 * * * * /data/mta/Script/Cron_check/Scripts/check_cron_records.py &gt;&gt; $HOME/Logs/new_cron_check_c3po_v_mta  2&gt;&1</li>
+    </ul>
+</li>
+<li> mta on r2d2-v
+    <ul>
+    <li>5,35 * * * * /data/mta/Script/Cron_check/Scripts/check_cron_records.py &gt;&gt; $HOME/Logs/new_cron_check_r2d2_v_mta.cron 2&gt;&1</li>
+    <li>10 7 * * * /data/mta/Script/Cron_check/Scripts/send_error_list_email.py &gt;&gt; $HOME/Logs/new_cron_email_script.cron 2&gt;&1</li>
+    <li>1 0  1 * *  /data/mta/Script/Cron_check/Scripts/monthly_cleanup.py     &gt;&gt; $HOME/Logs/new_cron_email_clean_up_mta.cron 2&gt;&1</li>
+    </ul>
+</li>
+<li>cus on c3po-v
+    <ul>
+    <li>0,30 * * * * /data/mta/Script/Cron_check/Scripts/check_cron_records.py &gt;&gt; $HOME/Logs/new_cron_check_c3po_v_cus  2&gt;&1</li>
+    </ul>
+</li>
+<li>cus on r2d2-v
+    <ul>
+    <li>0,30 * * * * /data/mta/Script/Cron_check/Scripts/check_cron_records.py &gt;&gt; $HOME/Logs/new_cron_check_r2r2_v_cus  2&gt;&1</li>
+    </ul>
+</li>
+<li>mta on rhodes
+    <ul>
+    <li>0,30 * * * * /data/mta/Script/Cron_check/Scripts/check_cron_records.py &gt;&gt; $HOME/Logs/new_cron_check_rohodes_mta 2&gt;&1</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>Web Addreess</h3>
+<p>
+NA
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

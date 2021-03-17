@@ -1,0 +1,14 @@
+source /home/mta/.ascrc
+
+rm -rf param
+mkdir param
+source /home/mta/bin/reset_param
+
+/usr/local/bin/perl  /data/mta/Script/OBT/State_trends/state_sim_run.perl
+
+
+chgrp mtagroup /data/mta_www/mta_temp/mta_states/ACIS/*
+chgrp mtagroup /data/mta_www/mta_temp/mta_states/ACIS/*/*
+
+chgrp mtagroup /data/mta/Script/OBT/ACIS/*
+chgrp mtagroup /data/mta/Script/OBT/ACIS/house_keeping/*

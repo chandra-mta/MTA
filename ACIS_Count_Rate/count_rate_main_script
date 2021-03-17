@@ -1,0 +1,8 @@
+cd /data/mta/Script/ACIS/Count_rate/Exc
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/ACIS/Count_rate/Scripts/create_aggragate_data_sets.py
+/data/mta/Script/ACIS/Count_rate/Scripts/plot_count_rate.py
+/data/mta/Script/ACIS/Count_rate/Scripts/print_html_page.py
+

@@ -1,0 +1,12 @@
+setenv HEADAS /soft/lheasoft/headas/x86_64-pc-linux;
+source $HEADAS/headas-init.csh
+
+source /home/mta/.ascrc
+
+rm -rf param
+mkdir param
+source /home/mta/bin/reset_param
+set path = (/home/ascds/DS.release/bin/  $path)
+
+
+/usr/local/bin/perl  /data/mta/Script/OBT/State_trends_linux/state_sim_run.perl test

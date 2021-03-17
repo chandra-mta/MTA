@@ -1,0 +1,63 @@
+
+
+SIM Data Collection
+-------------------
+
+This set of scripts update /data/mta_www/mta_sim/Scripts/sim_data.out
+
+Dir: /data/mta/www/mta_sim/Scripts/SIM_extract/ 
+See also: https://cxc.cfa.harvard.edu/mta_days/mta_script_list/MTA/ti_sim_extract.html
+
++++++++ 
+Scripts
+++++++++
+
+extract_sim_data.py
+-------------------
+
+This script can be run by cron job to collect data from /data/mta/Script/Dumps/PRIMARYCCDM_*.*.tl
+and update sim_data.out.
+
+Input: no input, but the data are read from sim_data.out and PRIMARYCCDM_*.*.tl and
+       automatically it will figure out which data to append to sim_data.out. 
+
+When called from cron job, it actually calls "sim_data_wrap_script" and "sim_data_main_script" to
+set the environment before running this script. 
+
+
+run_script.py
+-------------
+
+This script extracts data from archeive and re-compute the given data period. To specify the 
+data period, you need to edit the data cycle part of the script. 
+
+This script will use:
+    filters_ccdm
+    msids_ccdm.list
+    msids.list
+    extract_sim_data.py
+
+You may need to set the environment to:
+
+    setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+
+but this may not be needed.
+
+
+++++++++++++
+Directories
+++++++++++++
+
+/data/mta_www/mta_sim/Scripts/SIM_extract       ---- this directory where all scripts are kept
+
+/data/mta_www/mta_sim/Scripts/                  ---- the directory where sim_data.out is kept
+
+/data/mta/Script/Dump/                          ---- the directory where current PRIMARYCCDM_*.*.tl are kept
+
+
+++++++++
+Cron job
+++++++++
+
+15 5 * * *  cd /data/mta_www/mta_sim/Scripts/SIM_extract/; /data/mta_www/mta_sim/Scripts/SIM_extract/sim_data_wrap_script >> $HOME/Logs/sim_data_ti.cron 2>&1
+

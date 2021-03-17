@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Schedule Page Generator</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Schedule Page Generator</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This perl script creates a html page from a given schedule. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/CUS/www/Usint/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Usint_script
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>create_schedule_table.perl</td>      <td>Aug 21, 2013</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+There is a short description of this script in: /data/mta4/obs_ss/Usint_test/Usint_script/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/personal_list</li>
+<li> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/schedule</li>
+<li> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/this_week_person_in_charge</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+#!/usr/bin/env /soft/ascds/DS.release/ots/bin/perl
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/CUS/www/Usint/
+    <ul>
+    <li>too_contact_schedule.html</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta4/CUS/www/Usint/
+</li>
+<li>
+run:   /usr/local/bin/perl /data/mta4/CUS/www/Usint/create_schedule_table.perl
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available, but you can just run this script to see whether it works or not. 
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>cus</td></tr>
+</table>
+<p>
+1 0  * * * cd /data/mta4/CUS/www/Usint/; /usr/local/bin/perl /data/mta4/CUS/www/Usint/create_schedule_table.perl >> $HOME/Logs/too_contact.cron 2>&1
+
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/CUS/Usint/too_contact_schedule.html'>
+https://cxc.cfa.harvard.edu/mta/CUS/Usint/too_contact_schedule.html
+</a>
+<br />
+<a href='https://icxc.cfa.harvard.edu/mta/CUS/Usint/too_contact_schedule.html'>
+https://icxc.cfa.harvard.edu/mta/CUS/Usint/too_contact_schedule.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+The script will be rewritten in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

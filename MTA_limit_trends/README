@@ -1,0 +1,382 @@
+
+++++++++++++++
+MSID trending 
+++++++++++++++
+
+This directory contains scripts related to create msid trending plots.
+
+Scripts
+=======
+run_trend_wrap_script_<wday>
+run_trend_main_script_<wday>   
+run_trend_wrap_script_<wday>2
+run_trend_main_script_<wday>2  
+mta_limit_dea_wrap_script
+mta_limit_dea_main_script
+mta_limit_deposit_wrap_script
+mta_limit_deposit_main_script
+mta_limit_simdiag_wrap_script
+mta_limit_simdiag_main_script
+mta_sun_angle_wrap_script
+mta_sun_angle_main_script
+-----------------------------
+environment setting scripts -- see cron job section
+
+run_glimmon_trend_data_update.py
+--------------------------------
+extract data from ska database
+    input: a list of msid in <house_keepling>. usually msid_list_glimmon
+           dtype: type of data set:  week, short, or long
+
+    output: <data_dir>/<Group>/<msid>_<dtype>_data.fits
+            columns in data:
+            time        --- time ins seconds from 1998.1.1
+            <msid>      --- mean value of msid in a given period (5min, 1 hour, or 1 day)
+            med         --- median
+            std         --- standard deviation
+            min         --- min value
+            max         --- max value
+            ylower      --- percentage of time that the data are in yellow lower limit range
+            yupper      --- percentage of time that the data are in yellow upper limit range
+            rlower      --- percentage of time that the data are in red lower limit range
+            rupper      --- percentage of time that the data are in red upper limit range
+            dcount      --- total numbers of data points in the period
+            ylimlower   --- yellow lower limit value
+            ylimupper   --- yellow upper limit value
+            rlimlower   --- red lower limit value
+            rlimupper   --- red upper limit value
+            state       --- a state of data is in (e.g., none, on, off)
+
+
+create_msid_plots.py
+--------------------
+read data and plot msid trending
+    input: a list of msid in <house_keeping>, such as msid_list_sun
+           dtype: type of data set:  week, short, or long
+
+    output: <web_dir>/<Group>/<Msid>/Plots/<msid>_<dtype>_<mtype>_<state>.png
+                where mtype is mid, min, and max
+                      state is which state the data is in. Most of the time is none
+                      and they are <blank>.
+            <house_keeping>/v_table.sqlite3 --- see violation_estimate_data.py
+
+create_html_page.py
+-------------------
+create a html page related to a specific msid.
+    input: a list of msid in <house_keepling>. usually msid_list_glimmon
+           you can also specify which dtype or mtype, but usually you don't need them
+           <house_keeping>/v_table.sqlite3
+
+    output: <web_dir>/<Group>/<Msid>/<msid>_<mtype>_static_<rtype>.html
+                    where rtype is week, short, year, five and long
+                          week plot uses week dataset
+                          short and year plots use short dataset
+                          five and long plots use long dataset
+           
+update_sub_html_pages.py
+------------------------
+update a html page list all msids of a specifict group
+    input: none --- it reads from <house_keeping>/sub_html_list_glimmon
+           <house_keeping>/v_table.sqlite3
+
+    output: <web_dir>/<Group>/<group>_<mtype>_static_<rtype>_main.html
+                    where rtype is week, short, year, five and long
+            <web_dir>/<Group>/violation ---- this is created only when some of msids
+                                            violated a limit or will violate a limit
+
+create_top_html.py
+------------------
+Update a top level html pages including yellow and red warning pages.
+    input: none --- it reads from <house_keeping>/sub_html_list_glimmon
+
+
+violation_estimate_data.py
+--------------------------
+this script holds functions to update/read violation database <house_keeping>/v_table.sqlite3.
+
+    this is sqlite3 database and keeps yellow and red lower and upper violation
+    date. the data could be older then the current date. this tells us that the
+    data are already in the violation. if the date is later than the current date
+    the violation may happen in the future time.
+
+    Note; the time is given in a fractional year
+
+    read data table: read_v_estimate(msid, dtype, mtype, state)
+                     output: (msid, dtype, mtype, state, yl_time, yt_time, rl_time, rt_time)
+
+    add to data table: incert_data(msid, dtype, mtype, state, data)
+                     data in: (yl_time, yt_time, rl_time, rt_time)
+
+update_limit_table.py
+---------------------
+update html limit table for display 
+    input: <limit_dir>/Limit_data/op_limits_new.db
+    output: <html_dir>/<Group>/Limit_table/<msid>_limit_table.html
+
+glimmon_sql_read.py
+--------------------
+this script holds functions to extract limit information from glimmon database 
+    input: <glim_dir>//glimmondb.sqlite3
+
+
+read_limit_table.py
+--------------------
+read a limit table and create msid <--> limit dictionary
+    input: <limit_dir>/Limit_data/op_limits_new.db
+    output: lim_dict --- msid <---> limit dictionary
+            cnd_dict --- msid <---> condition msid
+
+create_html_suppl.py
+envelope_common_function.py
+---------------------------
+these scripts hold miscrenious functions used by others
+
+Comp/run_comp_grad_data_update.py
+---------------------------------
+Update mta computed msid database
+    input: <deposit_dir>/<save_dir>/<group>/<msid>_full_data<year>.fits*
+    output: <data_dir>/<group>/msid_<dtype>_data.fits
+
+DEA:
+----
+this directory holds scripts that update dea_elec and dea_temp related msid database
+
+getnrt
+------
+translate ASCDS telemetry frames to packets
+    input: /dsops/GOT/input/*Dump_EM*.gz
+    output: packet of data and passed to deak.pl
+        --- written by P. Ford @ mit
+
+dea.pl
+------
+convert the packet from getnrt to a files
+    input: packet from getnrt
+    output: deahk_temp.tmp / deahk_elec.tmp
+
+out2in.pl
+---------
+change date format in data files
+    input: deahk_temp.tmp / deahk_elec.tmp
+    output: deahk_temp_in.tmp / deahk_elec_in.tmp
+
+
+average<#>.perl
+----------------
+create time average of dea data 5 min, 1 hr, and 1 day
+    input:  deahk_temp_in.tmp / deahk_elec_in.tmp
+    output: <dea_dir>/RDB/deahk_temp_<dtype>.rdb
+            <dea_dir>/RDB/deahk_elec_<dtype>.rdb
+
+run_dea_perl_script.py
+----------------------
+run all perl scripts --- previously prep.perl and find_new_dump.py
+    input: /dsops/GOT/input/*Dump_EM*.gz
+    output: <dea_dir>/RDB/deahk_temp_<dtype>.rdb
+            <dea_dir>/RDB/deahk_elec_<dtype>.rdb
+
+
+
+convert_dea_data_to_fits.fits
+-----------------------------
+concert dea data into fits data files
+    input:  <dea_dir>/RDB/deahk_temp_<dtype>.rdb
+            <dea_dir>/RDB/deahk_elec_<dtype>.rdb
+    output: <data_dir>/deahh_temp_<periond>_data.fits
+            <data_dir>/deahh_elec_<periond>_data.fits
+
+Deposit:
+-------
+this directory holds scripts to create full resolution mta computed data in <deposit_dir>
+process_dea_data_full.py
+-----------------------
+update dea related full resolution data
+    input:  <bin_dir>/DEA/RDB/*fits
+    output: <deposit_dir>/Deahk_save/Deahk_<elec/temp>/<msid>_full_data_<year>.fits
+
+update_acis_power.py
+--------------------
+update acis electric power data
+    input: download related msid data with ska fetch
+    output: <deposit_dir>/Comp_save/Compacispwr/<msid>_full_data_<year>fits
+
+update_compgradkodak.py
+-----------------------
+compute and update compgradkodak related data
+    input: download related msid data with ska fetch
+    output: <deposit_dir>/Comp_save/Compgradkodak/<msid>_full_data_<year>fits
+
+update_sim_flex.py
+------------------
+compute and update simflex related data
+    input: download related msid data with ska fetch
+    output: <deposit_dir>/Comp_save/Compsimoffset/<msid>_full_data_<year>fits
+
+Simdiag:
+--------
+this directory holds scripts to compute sim electric and actuator related msid data
+update_simdiag_data.py
+update_simsuppl_data.py
+-----------------------
+extract data and update sim electric and actuator msid data which are not in ska database
+    input: data are extracted with arc5gl. two scripts have a slightly different condtion
+           to extract data with arc5gl.
+    output:<data_dir>/Simelec/msid_<dtype)_data.fits
+           <data_dir>/Simactu/msid_<dtype)_data.fits
+
+Interactive:
+------------
+/data/mta4/www/MSID_Trends/Interactive/
+
+create_interactive_page.py
+--------------------------
+create an interactive page
+    input: msid, group, start time, stop time (in <yyyy>:<jjj>:<hh>:<mm>:<ss>)
+    ourput: <web_dir>/Interactive/<msid>_inter_avg.html
+
+run_fetch.py
+------------
+extract data from SKA engineering database
+    input: msid     --- msid
+            start   --- starting time
+            stop    --- stopping time
+    output: ttime   --- a list of time data (seconds from 1998.1.1)
+            tdata   --- a list of msid values
+
+msid_data_interactive.php
+-------------------------
+runs a python script to create an interactive msid trend page
+    input:  msidA   --- msid
+            group   --- msid group
+            ltype   --- week/short/long (actually not used)
+            mstype  --- avg/med/min/max
+            tstart  --- starting tme
+            tstop   --- stooopng time
+            binsize --- bin size
+    output: <html_page>/Interactive/<msid>_inter_page.html
+
+
+In house_keeping
+=================
+dir_list                    --- directory list
+group_descriptions_all      --- list of descriptions of groups
+msid_cross_check_table      --- msid <---> glimmon/mta group correspoindence list
+msid_descriptions           --- descriptions of msids
+msid_list_all               --- a list of all msids used in this page
+msid_list_<XXXX>            --- a list of msids and their group; used to update data set etc
+sub_html_list_all           --- group <---> msid html correspondence list
+sub_html_list_sun_angle     --- group <---> msid html correspondence list for sun angle page
+exclude_from_interactive    --- a list of msids which do not have the interactive mode
+Templates                   --- hold elements of html pages used to crete html pages
+
+v_table.sqlite3             --- sqlite3 database to hold violation estimated time
+possible_violation          --- a list of msids which are possibly violate a limit in near future
+
+Directory
+=========
+'/data/mta/Script/MTA_limit_trends/Scripts/'                    :bin_dir
+'/data/mta/Script/MTA_limit_trends/Data/'                       :data_dir
+'/data/mta/Script/MTA_limit_trends/Exc/'                        :exc_dir
+'/data/mta/Script/MTA_limit_trends/Deposit/'                    :deposit_dir
+'/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/'      :house_keeping
+'/data/mta/Script/Python3.8/MTA/'                               :mta_dir
+'/data/mta/Script/MSID_limit/'                                  :glim_dir
+'/data/mta4/MTA/data/op_limits/'                                :mlim_dir
+'/data/mta/Script/MSID_limit/Trend_limit_data/'                 :limit_dir
+'/data/mta4/www/MSID_Trends/'                                   :web_dir
+'cxc.cfa.harvard.edu/mta/MSID_Trends/'                          :web_address
+
+Data
+====
+this directory holds data for all msids and has the following structure:
+<data_dir>/<group>/<msid>_<dtype>_data.fits
+    columns:    time        --- time in seconds from 1998.1.1
+                <msid>      --- average of the data 300sec/3600sec/86400sec for week, short, long
+                med         --- median value of the interval
+                std         --- standard deviation of the interval
+                min         --- min of the interval
+                max         --- max of the interval
+                ylower      --- yellow lower limit
+                yupper      --- yellow upper limit
+                rlower      --- red lower limit
+                rupper      --- red upper limit
+                dcount      --- # of data in the interval
+                ylimlower   --- percentage of yellow lower violation
+                ylimupper   --- percentage of yellow upper violation
+                rlimlower   --- percentage of red lower violation
+                rlimupper   --- percentage of red upper violation
+                state       --- if this is multi-state msid, which satate it is in 
+            
+<data_dir>/<group><msid>/<msid>_sun_angle_<year>.fits 
+            --- this exit only with temperature related msids
+
+<data_dir>/sun_angle.fits   ---- time <---> sun angle data
+
+
+Depost
+======
+this directory holds mta computed msid values at their max resolution. many of them have 30 sec
+resolution but some have only 300 sec. these data are used to create an interactive page. 
+
+
+web address
+===========
+
+https://cxc.cfa.harvard.edu/mta/MSID_Trends/mta_trending_main.html
+
+Cron job
+========
+on c3po-v as mta
+----------------
+16 0 * * * cd /data/mta/Script/MTA_limit_trends/Exc2; /data/mta/Script/MTA_limit_trends/Scripts/mta_limit_dea_wrap_script >  $HOME/mta/Logs/mta_trends_dea_data_retrieve.cron 2>&1
+
+on boba-v as mta
+----------------
+4 1 * * * cd /data/mta/Script/MTA_limit_trends/Scripts/Exc; /data/mta/Script/MTA_limit_trends/Scripts/mta_limit_deposit_wrap_script > $HOME/Logs/msid_trend_deposit.cron 2>&1
+#
+34 1 * * * cd /data/mta/Script/MTA_limit_trends/Exc2; /data/mta/Script/MTA_limit_trends/Scripts/mta_limit_simdiag_wrap_script > $HOME/Logs/msid_trend_simdiag.cron 2>&1
+#
+08 2 * * 0 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_sun  > $HOME/Logs/msid_trend_sun.cron 2>&1
+08 5 * * 0 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_sun3 > $HOME/Logs/msid_trend_short_sun.cron 2>&1
+#
+08 2 * * 1 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_mon  > $HOME/Logs/msid_trend_mon.cron 2>&1
+08 5 * * 1 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_mon3 > $HOME/Logs/msid_trend_short_mon.cron 2>&1
+#
+08 2 * * 2 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_tus  > $HOME/Logs/msid_trend_tus.cron 2>&1
+08 5 * * 2 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_tus3 > $HOME/Logs/msid_trend_short_tus.cron 2>&1
+#
+08 2 * * 3 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_wed  > $HOME/Logs/msid_trend_wed.cron 2>&1
+08 5 * * 3 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_wed3 > $HOME/Logs/msid_trend_short_wed.cron 2>&1
+#
+08 2 * * 4 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_thu  > $HOME/Logs/msid_trend_thu.cron 2>&1
+08 5 * * 4 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_thu3 > $HOME/Logs/msid_trend_short_thu.cron 2>&1
+#
+08 2 * * 5 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_fri  > $HOME/Logs/msid_trend_fri.cron 2>&1
+08 5 * * 5 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_fri3 > $HOME/Logs/msid_trend_short_fri.cron 2>&1
+#
+08 2 * * 6 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_sat  > $HOME/Logs/msid_trend_sat.cron 2>&1
+08 5 * * 6 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_sat3 > $HOME/Logs/msid_trend_short_sat.cron 2>&1
+
+24 9 * * 0,2,4 cd /data/mta/Script/MTA_limit_trends/Exc; /data/mta/Script/MTA_limit_trends/Scripts/mta_sun_angle_wrap_script  > $HOME/Logs/msid_trend_sun_angle.cron 2>&1
+
+on vodata as mta
+----------------
+34 2 * * 0 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_sun2 > $HOME/Logs/mta_trend_long_sun.cron 2>&1
+#
+34 2 * * 1 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_mon2 > $HOME/Logs/mta_trend_long_mon.cron 2>&1
+#
+34 2 * * 2 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_tus2 > $HOME/Logs/mta_trend_long_tus.cron 2>&1
+#
+34 2 * * 3 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_wed2 > $HOME/Logs/mta_trend_long_wed.cron 2>&1
+#
+34 2 * * 4 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_thu2 > $HOME/Logs/mta_trend_long_thu.cron 2>&1
+#
+34 2 * * 5 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_fri2 > $HOME/Logs/mta_trend_long_fri.cron 2>&1
+#
+34 2 * * 6 cd /data/mta/Script/MTA_limit_trends/Exc3; /data/mta/Script/MTA_limit_trends/Scripts/run_trend_wrap_script_sat2 > $HOME/Logs/mta_trend_long_sat.cron 2>&1
+
+#
+#--- new op limit table
+#
+14 1 1 * * cd /data/mta/Script/MSID_limit/Trend_limit_data/Scripts; /data/mta/Script/MSID_limit/Trend_limit_data/Scripts/msid_trend_wrap_script > $HOME/Logs/msid_limit_table_new.cron 2>&1
+

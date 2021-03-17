@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Chandra Radiation Models</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Chandra Radiation Models</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+The Chandra Radiation Model (CRM) from Sverdrup/MSFC is propagated in this directory, and graphical and
+tabular data products are updated every 5 minutes by cron jobs, to track current and future orbital
+proton flux and fluence.
+</p>
+<p>
+This is a part of 
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_related.html'>
+TST related collections of scripts
+</a>.
+CRM3 is the latest version.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+</p>
+<table border=0>
+<tr><th>Location:</th><td>/data/mta4/proj/rac/ops/CRM3/</td></tr>
+<!--<tr><th>&#160;</th>   <td>/data/mta4/www/RADIATION/CRM3/</td></tr> -->
+</table>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/TST_CRM
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>        <th>Last Updated</th></tr>
+<tr><td>crm.pl</td>             <td>Nov 04, 2015</td></tr>
+<tr><td>runcrm</td>             <td>Feb 10, 2015</td></tr>
+<tr><td>CRM_plots.idl</td>      <td>Nov 17, 2015</td></tr>
+<tr><td>crmpl2.pro</td>         <td>Nov 17, 2015</td></tr>
+<tr><td>cheph.pro</td>          <td>Nov 17, 2015</td></tr>
+<tr><td>rac_arreadbl.pro</td>   <td>Nov 17, 2015</td></tr>
+<tr><td>rac_arread.pro</td>     <td>Nov 17, 2015</td></tr>
+<tr><td>timeconv.pro</td>       <td>Nov 17, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+<p>
+<b>Note:</b> runcrm is run by /data/mta4/proj/rac/ops/ephem/ephem.pl.
+</p>
+<p>
+Please read /data/mta4/proj/rac/ops/README and /data/mta4/proj/rac/ops/CRM/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Jul 21, 2015</th><td>Initially logged</td></tr>
+<tr><th>Jul 22, 2015</th><td>Added to github</td></tr>
+<tr><th>Nov 04, 2015</th><td>Possible kp.dat format change: adjusted to read the input</td></tr>
+<tr><th>Nov 17, 2015</th><td>Plotting routines moved to /data/mta4/proj/rac/ops/CRM3, and updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+    <li>/proj/sot/acis/FLU-MON/FPHIST-2001.dat</li>
+    <li>/proj/sot/acis/FLU-MON/GRATHIST-2001.dat</li>
+    <li> /data/mta4/proj/rac/ops/ACE/kp.dat </li>
+    <li> /data/mta4/proj/rac/ops/ACE/fluace.dat </li>
+    <li> /data/mta4/proj/rac/ops/ephem/gephem.dat </li>
+    <li> /data/mta4/proj/rac/ops/GOEs/G13pchan_5m.txt </li>
+    <li> /data/mta4/proj/rac/ops/GOEs/G15pchan_5m.txt </li>
+    <li> /data/mta4/proj/rac/ops/ephem/PE.EPH.gsme_in_Re </li>
+
+    <li> /proj/rac/ops/ephem/dsn_summary.dat</li>
+    <li>/proj/rac/ops/ephem/PE.EPH.gsme</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/proj/rac/ops/CRM3/
+    <ul>
+        <li>CRM_p.datNN (by runcrm) </li>
+        <li>fphist.dat </li>
+        <li>grathist.dat </li>
+        <li>CRMarchive.dat </li>
+        <li>CRMsummary.dat </li>
+        <li>CRM_p.datNN </li>
+        <li>crmpl.gif</li>
+        <li>crmplatt.gif</li>
+        <li>GSM.gif</li>
+        <li>GSE.gif</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to:  data/mta4/proj/rac/ops/ephem/
+</li>
+<li>
+run: ephem.pl 
+</li>
+<li>
+go to: /data/mta4/proj/rac/ops/CRM/
+</li>
+<li>
+run: crm.pl
+</li>
+<li>
+go to: /data/mta4/www/RADIATION/CRM3
+</li>
+<li>
+run: idl CRM_plots
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+no test is available for this set of scripts
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<ul>
+<li>21 3 * * * /data/mta4/proj/rac/ops/ephem/ephem.pl >> $HOME/Logs/ephem_linux.cron (this runs runcrm)  </li>
+<li>4,9,14,19,24,29,34,39,44,49,54,59 * * * * /data/mta4/proj/rac/ops/CRM/crm.pl</li>
+<li>12,32,52 * * * * cd /data/mta4/proj/rac/ops/CRM3 ; idl CRM_plots >  $HOME/Logs/CRM3_plots.cron</li> 
+</ul>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/RADIATION/'>https://cxc.cfa.harvard.edu/mta/RADIATION/index.html</a>
+--- crm provides bottom two plots. 
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

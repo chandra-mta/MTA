@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<!-- #### CSS STYLE SHEET FILE #### -->
+
+<link rel="stylesheet" type="text/css" href='/mta/REPORTS/Template/mta_monthly.css' /> 
+<!-- <link rel="stylesheet" type="text/css" href='/data/mta4/www/REPORTS/Template/mta_monthly.css' /> -->
+
+<!-- #### JAVASCRIPT ####  -->
+
+<script type="text/javascript">
+
+
+function WindowOpener(imgname) {
+    msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=720,height=570,resize=no");
+    msgWindow.document.clear();
+    msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</title>");
+    msgWindow.document.write("<body bgcolor='black'>");
+    msgWindow.document.write("<img src='/mta/DAILY/mta_deriv/"+imgname+"' border=0 width=720 height=550><P></body></html>")
+    msgWindow.document.close();
+    msgWindow.focus();
+}
+
+function WindowOpener1(imgname, plttitle) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=yes,location=no,scrollbars=no,status=no,width=680,height=400,resize=no");
+        msgWindow.document.close();
+        msgWindow.document.open();
+        msgWindow.document.write("<html><title>Monitor plot:   "+imgname+"</title>");
+        msgWindow.document.write("<body bgcolor='white'>");
+        msgWindow.document.write("<CENTER>");
+                msgWindow.document.write("<H3>"+plttitle+"</H3>");
+        msgWindow.document.write("</CENTER>");
+        msgWindow.document.write("<img src='"+imgname+"' border=0 width=640 height=320><P></body></html>")
+        msgWindow.document.close();
+        msgWindow.focus();
+}
+function ViewPlots1(imgnames, plttitles) {
+        pltWindow = open("","mag_i_avgs","scrollbars=yes,menubar=yes,width=680,height=640");
+        pltWindow.document.close();
+        pltWindow.document.open();
+        pltWindow.document.write(" <html><HEAD><title>Monitor plots</title></HEAD> ");
+        pltWindow.document.write("<body bgcolor='black'>");
+        pltWindow.document.write("<CENTER>");
+        for(var ii=0; ii<imgnames.length;ii++) {
+                pltWindow.document.write("<H3>"+plttitles[ii]+"</H3>");
+                pltWindow.document.write("<img src='"+imgnames[ii]+"' border=0 width=640 HEIGHT=320><P>");
+        }
+        pltWindow.document.write("</CENTER>");
+        pltWindow.document.write("</body></html>");
+        pltWindow.document.close();
+        pltWindow.focus();
+}
+
+plttitles  = new Array("14");
+mag_i_avgs = new Array("14");
+for(var ii=0; ii<14; ii++) {
+        mag_i_avgs[ii] = "MAG_I_AVG_"+(ii+1)+".png";
+        plttitles[ii] = "mag_i_avg for FID "+(ii+1);
+}
+
+function WindowOpener2(imgname) {
+    msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=720,height=570,resize=no");
+    msgWindow.document.clear();
+    msgWindow.document.write("<html><title>larger plot:   "+imgname+"</title>");
+    msgWindow.document.write("<body bgcolor='white'>");
+    msgWindow.document.write("<img src='https://cxc.cfa.harvard.edu/"+imgname+"' border=0 width=720 height=550><P></body></html>")
+    msgWindow.document.close();
+    msgWindow.focus();
+}
+
+/*
+function OtherMonthly(form) {
+ Item  = form.year.selectedIndex;
+ Year  = form.year.options[Item].text;
+ Item  = form.month.selectedIndex;
+ Month = form.month.options[Item].text;
+ Result = Year+Month;
+
+
+var load  = window.open("'https://cxc.cfa.harvard.edu/mta/REPORTS/MONTHLY/'+Year+Month",'','scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+}
+*/
+
+</script>
+
+<!-- ### JAVASCRIPT END ### -->
+
+
+    <title>M&TA #Month#  #YEAR# Monthly Report</title>
+
+
+</head>
+
+
+<!-- ##### BODY STARTS HERE #### -->
+
+
+<body>
+
+<!--
+#################################
+####     title MONTH        #####
+#################################
+-->
+<p>
+<hr class='long'>
+<a name="TOP"></a>
+<h1> - M&TA MONTHLY REPORT - </h1>
+
+<h2 class='center'> #Month# #YEAR# </h2>
+
+<h4 style='position:absolute; top:120px; right:20px'> <a href="/mta/sot.html"> Back to SOT page  </a></h4>
+
+<hr class='long'>
+<br />
+<br />
+<br />
+</p>
+
+
+<!--
+#################################
+####     CONTENT TABLE      #####
+#################################
+-->
+<p>
+<div id='navigation'>
+<h3 style='color:blue'><strong> OUTLINE </strong></h3>
+
+<ul>
+<li>
+<a href="#RAD">Configuration</a></li>
+
+<li> <a href="#acis">ACIS</a></li>
+<ul class="short">
+    <li>  <a href="#dose">Dose</a> </li>
+    <li>  <a href="#CTI">CTI </a> </li>
+    <li>  <a href="#FPT">Focal Plane Temperature</a> </li>
+    <li>  <a href="#bad_pix">Bad Pixels</a> </li>
+    <li>  <a href="#cpix">Corner Pixels</a> </li>      		<!-- JAN/JUL REPORT -->
+    <li>  <a href="#bias">Bias Plots</a> </li>     	        <!-- JAN/JUL REPORT --> 
+</ul>
+
+
+<li> <a href="#HRC">HRC - Dose</a></li>
+
+<li> <a href="#Grat">Gratings - Focus</a> </li>
+
+<li>  <a href="#PCAD">PCAD</a> </li>
+<ul class='short'>
+    <li><a href="#ACA">ACA Trending</a> </li>
+    <li> <a href="#iru">Gyro bias drift</a> </li>
+</ul>
+
+
+<li>  <a href="#RADT">Radiation History</a> </li>
+<li>  <a href="#TRND">Quarterly Trending</a> </li>
+
+<li>  <a href="#TRND">Trending</a> </li>
+<ul class='short'>
+    <li>  <a href="#QTR">Quarterly Trends</a> </li>
+    <li>  <a href="#ENV">Envelope Trends</a> </li>
+</ul>
+
+<li> <a href="#SPCM">Spacecraft Motions</a></li>
+
+<li> <a href="#PLIST">Past Monthly Report</a></li>
+</li>
+</ul>
+</div>
+
+
+<!--
+############################################
+####        RADIATION OVERVIEW           ###
+#### from:  /data/mta/Script/Month/Config/##
+############################################
+-->
+
+<div style='position: absolute; top: 12em; left: 174px; padding-left: 5px;'>
+<p>
+<a name="RAD"></a>
+<h3>
+Configuration/Radiation Overview for #Month# #YEAR#
+</h3>
+
+<img src="#RADUSE#" style='height:550px' /></h3>		                <!-- ### UPDATE/REPLACE ### -->
+
+
+</p>
+
+</div>
+
+
+<div  id='main_area'>
+
+<!---
+####################################################
+##### special note for Mar 2015			####
+####################################################
+-->
+<!--
+<h3>Science Run Interruptions</h3>
+<p>
+Observing stopped by ground activation of SCS-107 at 2015:076:04:34 (UTC).
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_interrupt/time_order.html'>Radiation Count Rate Plots for Periods Which Interrupted Science Runs</a>).
+</p>
+<p style='text-align:center'>
+<img src='20150317.png' width='80%'>
+<br />
+<br />
+</p>
+
+<hr class='long'>
+-->
+
+<!--
+#################################
+####     ACIS SECTION       #####
+#################################
+-->
+
+<a name="acis"></a>
+<h3 style='padding-top:40px'>ACIS</h3>
+
+<!--
+#################################
+####       ACIS DOSE        #####
+#################################
+-->
+
+
+<a name="dose"></a>
+<h3>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/exposure.html'>ACIS DOSE Registered-Photon-Map</a>
+</h3>
+
+<p>
+The steps we took to compute the dose map are;
+
+<ul class='medium'>
+    <li> Level 1 Event files for a specified month are obtained from archive. </li>
+    <li> Image data including I2, I3, S2, S3 CCDs  are  extracted from all event files. </li>
+    <li> All the extracted image data were merged to create a month long exposure map for the month. </li>
+    <li> The exposure map is opened with ds9, and check a distribution of count rates against energy.
+         From this, estimate the upper threshold value. Any events beyond this upper threshold are
+         assumed erroneous events such as bad pixels. </li>
+    <li> Using this upper threshold, the data is filtered, and create a cleaned exposure map for the month. </li>
+    <li> The exposure map from each month from the Sep 1999 is added up to create  a cumulative exposure
+         map for each month. </li>
+    <li> Using fimgstatistic, we compute count rate statistics for each CCDs. </li>
+    <li> For observations with high data drop rates (e.g., Crab nebula, Cas A), we corrected the  </li>
+	     observations by adding events.
+</ul>
+
+</p>
+
+
+<p>
+Please check more detail plots at 
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/exposure.html'>
+Telemetered Photon Dose Trend</a> page.
+</p>
+
+
+<!-- #### MONTH LONG EXPOSURE IMAGES #### -->
+
+<li> 
+<a href="/mta_days/mta_max_exp/Month/ACIS_#LMONYR#.fits.gz">
+<strong>#Month# registered-photon-map</strong> in fits</a>
+</li>
+<br />
+
+<div style='float:left; width:15%; margin-top:50px; padding-bottom:90px; text-align:center'>
+<h4>#Month# Dose Map</h4>	
+<a href="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_#LMONYR#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_#LMONYR#.png'  width='70' height='70' />
+<br />
+TOTAL
+</a>
+<br />
+<a href="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_#LMONYR#_i3.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_#LMONYR#_i3.png'  width='70' height='70' />
+<br />
+CCD I3
+</a>
+<br />
+<a href="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_#LMONYR#_s3.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_#LMONYR#_s3.png'  width='70' height='70' />
+<br />
+CCD S3
+</a>
+</div>
+<br />
+
+<!-- #### MONTH LONG EXPOSURE STAT #### -->
+
+<div>
+<pre style='padding-left: 5px;padding-bottom:10px'>
+Statistics:
+# IMAGE     NPIX     MEAN        RMS        MIN     MAX
+#ACISMON#
+</pre>
+</div>
+
+
+<li>  
+<a href="/mta_days/mta_max_exp/Cumulative/ACIS_07_1999_#LMONYR#.fits.gz">
+<strong>Jul 1999 - #SMON# #YEAR# registered-photon-map</strong> in fits</a>
+</li>
+
+<!-- #### TOTAL EXPOSURE MAP  #### -->
+
+
+<div style='float:left; width:15%; margin-top:50px; padding-bottom:80px; text-align:center'>
+<h4>Cumulative Dose Map</h4>
+
+<a href="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#LMONYR#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#LMONYR#.png'  width='70' height='70' />
+<br />
+TOTAL
+</a>
+<br />
+<a href="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#LMONYR#_i3.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#LMONYR#_i3.png'  width='70' height='70' />
+<br />
+CCD I3
+</a>
+<br />
+<a href="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#LMONYR#_s3.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#LMONYR#_s3.png'  width='70' height='70' />
+<br />
+CCD S3
+</a>
+</div>
+
+
+<!-- #### TOTAL EXPOSURE STAT  #### -->
+
+<div>
+<pre  style='padding-left: 30px'>
+
+Statistics:
+ IMAGE     NPIX      MEAN        RMS           MIN      MAX
+#ACISCMON#
+</pre>
+</div>
+
+
+<div style='padding-top:12px'>
+</div>
+<!-- ##### UPDATE EXP MAPS ##### -->
+
+<li>Integrated Exposure Maps of Last 12 Months</li>
+
+<table boder='0' cellpadding ='5' cellspacing='10' style='padding-left:80px'>
+<tr>
+<td style='text-align: center'>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET4#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET4#.png'  width='70' height='70' />
+</a>
+</td>
+<td style='text-align: center'>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET3#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET3#.png'  width='70' height='70' />
+</a>
+</td>
+<td style='text-align: center'>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET2#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET2#.png'  width='70' height='70' />
+</a>
+</td>
+<td style='text-align: center'>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET1#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/ACIS_07_1999_#MYSET1#.png'  width='70' height='70' />
+</a>
+</td>
+</tr>
+<tr>
+<th>#MSET4# #YSET4#</th>
+<th>#MSET3# #YSET3#</th>
+<th>#MSET2# #YSET2#</th>
+<th>#MSET1# #YSET1#</th>
+</tr>
+</table>
+
+
+<hr class='short'>
+
+
+<!--
+#################################################
+####                ACIS CTI                #####
+#### /home/swolk/ACORN/src1-3/OBT/Month/CTI #####
+#################################################
+-->
+
+<a name="CTI"> </a>
+<h3>
+<a href="/mta_days/mta_cti/cti_page.html">The Mean Detrended CTI </a>
+</h3>
+
+<p>
+We report CTIs with a refined data definition. CTIs were computed for the temperature 
+dependency corrected data.
+Please see 
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_cti/cti_page.html'>CTI page </a>
+for detailed explanation. 
+CTI's are computed for Mn K alpha, and defined as slope/intercept x10^4 of row # vs ADU.
+Data file:
+<a href="./Data/month_cti_data.html">here</a>
+</p>
+
+
+<h4>Imaging CCDs</h4>
+<p class='center'>
+<img src="./cti_avg_acis_i.png"  style='width:80%' />
+</p>
+<h4 style='padding-top:10px; padding-bottom:10px'>Spectral CCDs</h4>
+<p class='center'>
+<img src="./cti_avg_acis_s.png" style='width:80%' />
+</p>
+<h4 style='padding-top:10px; padding-bottom:10px'>Backside CCDs</h4>
+<p class='center'>
+<img src="./cti_avg_acis_bi.png" style='width:80%' />
+</p>
+
+<hr class='short'>
+
+<!--
+###################################################
+####        FOCAL PLANE TEMPERATURE           #####
+#### /home/swolk/ACORN/src1-3/OBT/Month/FOCAL #####
+###################################################
+-->
+
+<a name="FPT"></a>
+<h3>
+<a href="/mta_days/mta_fp/main_fp_temp.html"> Focal Plane Temperature </a>
+</h3>
+
+<h4>#SMON# #YEAR# Focal Temperature</h4>
+
+<p>
+<div>
+
+
+<table cellspacing='2' cellpadding='2'>     
+
+<tr><th colspan=2>The Mean (max) FPT:</th></tr>
+<tr>
+<td>   #FT# </td><td>+/- #FERR# C     </td></tr>
+</tr>
+<tr><th colspan=2>Mean Width:        </th></tr>
+<tr>
+<td>      #FW# </td><td>+/- #WERR# days  </td></tr>
+
+</table>
+</div>
+
+</p>
+
+<h4 style='padding-top:20px'>Averaged Focal Plane Temperature</h4>
+
+<p>
+We are using 10 period moving averages to show 
+trends of peak temperatures and peak widths.
+Note, the gaps in the width plot are due to missing/corrupted data.
+</p>
+
+
+<p class='center'>
+<img src="./focal_temp_plot.png" height='500' width='700' />
+</p>
+
+
+<h4 style='padding-top:20px'>Focal Plane Temperature, Sun Angle and Altitude</h4>
+
+
+<p class='center'>
+<img src="./acis_focal_temp.png" style='width:90%' />
+</p>
+
+<hr class='short'>
+
+<!--
+#############################################
+#####      ACIS BAD PIXELS               ####
+##### /data/mta_www/mta_bad_pixel/Plots  ####
+#############################################
+-->
+
+<p style='padding-top:20px'>
+<a name="bad_pix"></a>
+<h3><a href="/mta_days/mta_bad_pixel/mta_bad_pixel_list.html">Bad Pixels</a> </h3>
+
+<p>
+The plots below were generated with a new warm pixel finding script. Please see 
+<a href="/mta_days/mta_bad_pixel/mta_bad_pixel_list.html"> Acis Bad Pixel Page</a>
+for details.
+</p>
+
+<p>
+<h4>Front Side CCDs</h4>
+</p>
+<p class='center'>
+<img src="hist_ccd_plot_front_side.png" height='600' width='700' />
+</p>
+
+<p style='padding-top:20px'>
+<h4>Back Side CCD (CCD5)</h4>
+</p>
+<p class='center'>
+<img src="hist_plot_ccd5.png" height='600' width='700' />
+
+</p>
+
+<hr class='short'>
+
+<!-- 
+##################################################
+####     ACIS SIB                            #####
+####  /data/mta/Script/Month/SIB             #####
+##################################################
+-->
+
+<h3 style='padding-top:20px'>
+<a href="/mta_days/mta_sib/sib_main.html">Science Instrument Background Rates</a>
+</h3>
+
+<a name="sib">
+<p>
+<div style='float:right; padding-left:20px;'>
+<table border ='1' cellspacing ='1' cellpadding ='3'  >
+<tr><th>Name   </th><th>Low (keV)</th><th>High(KeV)</th><th>Description             </th></tr>
+<tr><th>SSoft  </th><td> 0.00    </td><td>  0.50    </td><td>Super soft photons     </td></tr>
+<tr><th>Soft   </th><td> 0.50    </td><td>  1.00    </td><td>Soft photons           </td></tr>
+<tr><th>Med    </th><td> 1.00    </td><td>  3.00    </td><td>Moderate energy photons</td></tr>
+<tr><th>Hard   </th><td> 3.00    </td><td>  5.00    </td><td>Hard Photons           </td></tr>
+<tr><th>Harder </th><td> 5.00    </td><td> 10.00    </td><td>Very Hard photons      </td></tr>
+<tr><th>Hardest</th><td>10.00    </td><td> &#160    </td><td>Beyond 10 keV          </td></tr>
+</table>
+</div>
+
+This page shows scientific instrument background data based on Acis 
+observations.  A source region file is generated using get_srcregions 
+and then the input event file is filtered using the regions in that file 
+to remove the sources.<br />
+<div style='padding-top:60px'>
+</div>
+</p>
+
+<p style='padding-top:80px; text-align: center;'>
+<img src="SIB_Data_#YEARMON#_total.png" width=95% /><br />
+</p>
+<p style='padding-top:20px; text-align: center;'>
+<img src="SIB_Data_#YEARMON#_bands.png" width=95% />	
+</p>
+
+
+
+<!-- 
+############################
+####     ACIS EXTRA    #####
+############################
+-->
+
+<!--
+####################################################################
+####      ACIS SIB EXTRA: REPORTED ON MAY/NOV MONTHLY REPORT    ####
+####      PUBLISHED ON JUN/DEC				        ####
+####      filase needed:                                        ####
+####            full_plot_ccd3.png                        ####
+####            full_plot_ccd5.png                        ####
+####            full_plot_ccd7.png                        ####
+####        all from /data/mta_www/mta_sib/Plots/Plot_long_term/####
+####################################################################
+-->
+<p>
+The following three plots show trends of SIB from year 2000. CCDs shown here are CCD3, 
+CCD5, and CCD7. Fitted lines are linear fit after eliminating extreme outliers. 
+For >10 keV plots, 2 lines are fit. One is with a 13 keV filter, and another without.
+</p>
+
+<h4>CCD 3</h4>
+<p class='center'>
+<img src="full_plot_ccd3.png" width='90%'  /><br />			    
+</p>
+<h4>CCD 5</h4>
+<p class='center'>
+<img src="full_plot_ccd5.png" width='90%'  /><br />			
+</p>
+<h4>CCD 7</h4>
+<p class='center'>
+<img src="full_plot_ccd7.png" width='90%'  /><br />			
+</p>
+
+<hr class='short'>
+
+<!-- ### ACIS SIB EXTRA END ### -->
+<!--
+##########################################################################
+####    ACIS CORNER PIXEL TREND: REPORTED ON JAN/JUL MONTHLY REPORT   ####
+####    files needed:                                                 ####
+####            I3cp.gif, S3cp.gif                                    ####
+####    from: /data/mta_www/mta_acis_sci_run/Corner_pix/Trend_Plots/  ####
+##########################################################################
+-->
+<a name="cpix">
+<h3>
+<a href= "/mta_days/mta_acis_sci_run/Corner_pix/cpix.html">ACIS Corner Pixels</a>
+</h3>
+
+<p>
+We plot the average corner pixel centroid slope and mean for ACIS observations. Separate 
+plots are shown for FAINT MODE (3X3) and VFAINT MODE (5X5) observations.
+Metric is the centroid of a Gaussian fit to the histogram of corner pixel PHA values 
+of detected events.
+Plus signs are FAINT observations, diamonds are VFAINT observations,
+and boxes are VFAINT observations with centroids computed using
+only the corner pixels of a 3X3 event island (referred to as AFAINT).
+We see a very small upward trend.
+</p>
+
+
+<h4> CCD:  I3  </h4> 
+<p class='center'>
+<img src="I3cp.gif" style='width:80%' />					
+</p>
+<h4> CCD:  S3  </h4> 
+<p class='center'>
+<img src="S3cp.gif" style='width:80%' />					
+</p>
+
+<div style='padding-bottom:30px'>
+</div>
+
+<hr class='short'>
+
+<!-- ### ACIS CORNER PIX TREND END ### -->
+
+<!--
+##############################################################################
+#####     ACIS BIAS TREND: REPORTED ON JAN/JUL MONTHLY REPORT           ######
+#####     files needed:                                                 ######
+#####       ccd2_oc.png                                                 ######  
+#####       from: /data/mta_www/mta_bias_bkg/Plots/Overclock/ccd2.png   ######
+#####       ccd2_sub.png                                                ######  
+#####       from: /data/mta_www/mta_bias_bkg/Plots/Sub/ccd2.png         ######
+##############################################################################
+-->
+<a name="bias"></a>
+<h3>
+<a href= "/mta_days/mta_bias_bkg/bias_home.html">ACIS Bias Trends</a>
+</h3>
+
+<p>
+The bias plus overclock level was calculated as follows:
+
+<ul>
+<li> Get acisf*bias0.fits is obtained from a database or /dsops/ap/sdp/cache/*/acis/</li>
+<li> Data with timed mode exposure is selected.</li>
+<li> Fits files were divided into 4 quads, then an average of bias level for each quad is computed.</li>
+     No corrections for dead spots, columns etc were included.</li>
+</ul>
+
+CCDS 
+<a href="/mta_days/mta_bias_bkg/Plots/Overclock/ccd0.png">0</a>, 
+<a href="/mta_days/mta_bias_bkg/Plots/Overclock/ccd2.png">2</a> and 
+<a href="/mta_days/mta_bias_bkg/Plots/Overclock/ccd8.png">8</a> 
+are the most extreme. 
+</p>
+
+
+<p>
+An example of Overclock values as reported in FITS file header:
+</p>
+
+<p class='center'>
+<img src="ccd2_oc.png" width='100%' height='100%' /> 
+</p>
+
+<p>
+An example of mean bias minus overclock value:
+</p>
+
+<p class='center'>
+<img src="ccd2_sub.png" width='100%' height='100%' />
+</p>
+
+<hr class='short'>
+
+<!-- ### ACIS BIAS TREND END ### -->
+
+<p class='center'>
+<a href="#TOP">TOP</a>
+</p>
+
+<!-- 
+#########################################################
+####                   HRC                          #####
+#########################################################
+-->
+
+
+<a name="HRC"></a>
+<h3>HRC</h3>
+
+<!-- 
+#########################################################
+####                 HRC DOSE                       #####
+#########################################################
+-->
+
+<h3>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/exposure.html'>
+DOSE of Central 4K Pore-Pairs
+</a>
+</h3>
+
+<p>
+Please refer to <a href="/mta_days/mta_max_exp/exposure.html">Maximum Dose Trends</a> for more details.
+</p>
+
+
+<p>
+<!-- #######################   -->
+<!-- hrc I monthly dose -->
+
+#HRCIDOSE#
+
+<!-- #######################   -->
+<!-- hrc I cummulative dose -->
+
+#CHRCIDOSE#
+
+<!-- #######################   -->
+<!-- hrc S monthly dose -->
+
+#HRCSDOSE#
+
+<!-- #######################   -->
+<!-- hrc S cummulative dose -->
+
+#CHRCSDOSE#
+
+<!-- #######################   -->
+<table style='float: right; width:28%'>
+<tr><td>
+<img src="hrc_max_exp.gif"  width='350' height='350' />
+                                                                                        
+</td></tr>
+<tr><td>
+<div style='font-size:95%'>
+<strong><em>Max dose trend plots</em></strong> corrected for events that "pile-up"
+in the center of the taps due to bad position information.
+</div>
+</td></tr>
+</table>
+
+<!--
+###################################################
+####      HRC I INTEGREATED EXPOSURE MAPS      ####
+###################################################
+-->
+
+<p style='width:68%'>
+<li style='padding-top:40px'>HRC I: Integrated Exposure Maps of Last 12 Months</li>
+
+<table boder=0 cellpadding = '5' cellspacing='10'>
+<tr>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET4#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET4#.png'  width='70' height='70' />
+</a>
+</td>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET3#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET3#.png'  width='70' height='70' />
+</a>
+</td>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET2#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET2#.png'  width='70' height='70' />
+</a>
+</td>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET1#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCI_08_1999_#MYSET1#.png'  width='70' height='70' />
+</a>
+</td>
+</tr>
+<tr>
+<th>#MSET4# #YSET4#</th>
+<th>#MSET3# #YSET3#</th>
+<th>#MSET2# #YSET2#</th>
+<th>#MSET1# #YSET1#</th>
+</tr>
+</table>
+
+<!--
+###################################################
+####      HRC S INTEGREATED EXPOSURE MAPS    ######
+###################################################
+-->
+
+<li style='padding-top:60px'>HRC S: Integrated Exposure Maps of Last 12 Months</li>
+
+<table boder=0 cellpadding = '5' cellspacing='10' >
+<tr>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET4#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET4#.png'  width='70' height='70' />
+</a>
+</td>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET3#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET3#.png'  width='70' height='70' />
+</a>
+</td>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET2#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET2#.png'  width='70' height='70' />
+</a>
+</td>
+<td>
+<a href ="javascript:WindowOpener2('/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET1#.png')">
+<img src='https://cxc.cfa.harvard.edu/mta_days/mta_max_exp/Images/HRCS_08_1999_#MYSET1#.png'  width='70' height='70' />
+</a>
+</td>
+</tr>
+<tr>
+<th>#MSET4# #YSET4#</th>
+<th>#MSET3# #YSET3#</th>
+<th>#MSET2# #YSET2#</th>
+<th>#MSET1# #YSET1#</th>
+</tr>
+</table>
+
+</p>
+
+<div sytle='padding-top:40px'>
+</div>
+
+<p class='center'>
+<a href="#TOP">TOP</a>
+</p>
+<hr class='long'>
+
+<!--
+###############################
+#####      GRATING      #######
+###############################
+-->
+
+<a name="Grat"></a>
+<h3>Gratings</h3>
+
+
+<!--
+########################################
+#####      GRATING:FOCUS           #####
+##### /data/mta_www/mta_grat/Focus #####
+########################################
+-->
+
+
+<a name="foc"></a>
+<h3><a href='https://cxc.cfa.harvard.edu/mta_days/mta_grat/grating_main.html'>Grating Trends/Focus</a></h3>
+</a>
+
+<p>
+We plot the width of the zero order streak of ACIS/HETG observations and 
+the width of the zero order image for HRC/LETG observations of point sources.
+No significant defocusing trend is seen at this time.  See 
+<a href="https://cxc.cfa.harvard.edu/mta_days/mta_grat/grating_main.html">Gratings Trends</a>
+pages. 
+</p>
+
+<p class='center'>
+
+<img src="./acis_hetg_streak_lrf_focus.png" style="width:45%;">
+<img src="./acis_hetg_ax_lrf_focus.png"style="width:45%;" >
+<br />
+
+</p>
+
+<p class='center'>
+<a href="#TOP">TOP</a>
+</p>
+
+
+<hr class='long'>
+<!--
+###########################################
+####           PCAD                    ####
+###########################################
+-->
+
+<a name="PCAD"></a> 
+<h3>PCAD</h3> 
+
+<a name="ACA"></a>
+<h3>
+<a href="/mta/DAILY/mta_pcad/ACA/TOTAL/Report/acatrd.html">ACA Trending
+</h3> 
+
+<p>
+<a href="/mta/DAILY/mta_pcad/ACA/TOTAL/Report/acatrd.html"> ACA Trending - Entire Period </A>
+</p>
+<p>
+<a href="https://cxc.cfa.harvard.edu/mta_days/mta_aiming/ACA/NOV16/Report/acatrd.html"> ACA Trending - #SMON#  #YEAR# </A>
+</p>
+
+
+<!--
+##############################################################
+####    ACA TREND: REPORTED ON JAN/JUL MONTHLY REPORT    #####
+####    files needed:                                    #####
+####        MAG_I_AVG_2.png                              #####
+####        MAG_I_AVG_6.png                              #####
+####        MAG_I_AVG_7.png                              #####
+####        MAG_I_AVG_11.png                             #####
+####     from: /data/mta4/www/DAILY/mta_pcad/ACA/TOTAL/Report#
+##############################################################
+-->
+
+<h4>ACIS-1</h4>
+
+<p class='center'>
+<img src="MAG_I_AVG_2.png" /><br />					
+</p>
+
+<h4>ACIS-6</h4>
+
+<p class='center'>
+<img src="MAG_I_AVG_6.png" /><br />					
+</p>
+
+<h4>HRC-I-1</h4>
+
+<p class='center'>
+<img src="MAG_I_AVG_7.png" /><br />					
+</p>
+
+<h4>HRC-S-1</h4>
+
+<p class='center'>
+<img src="MAG_I_AVG_11.png" /><br />				
+</p>
+
+<div style='padding-bottom:20px'>
+</div>
+
+
+<hr class='short'>
+
+<!-- ### ACA TRENDING END ### -->
+
+<!--
+##################################################
+#####           IRU GYRO BIAS DRIFT          #####
+##### /data/mta4/www/DAILY/mta_pcad/IRU/Plots ####
+##################################################
+-->
+
+<a name="iru"></a>
+<h3>
+<a href="/mta/DAILY/mta_pcad/IRU/bias.html"> Gyro Bias Drift </A>
+</h3>
+
+<p class='center'>
+<img src="#SMONYR#_bias.png" style='width:70%;text-align:center;' />
+<p>
+<hr class='long'>
+
+<!--
+##############################################
+#####       RADIATION HISTORY             ####
+##### from: /data/mta4/www/DAILY/mta_rad/ ####
+##############################################
+-->
+
+<a name="RADT"></a>
+<h3>
+<a href='/mta/DAILY/mta_rad/rad_time.html'>Radiation History</a>
+</h3>
+
+<h4>Radiation Zone Timing</h4>
+<p>
+Plotted below are radiation zone timing plots based on the following definitions of radiation zone:
+<ul>
+<li>RADZONE - Ephin levels (in any of the E1300,P4GM,P41GM channels) are more than 1/3 of RADMON safing thresholds.</li>
+<li>RADMON - Radmon is disabled for radiation zone (as commanded based on OFLS model, for comparison with actual radiation levels).</li>
+<li>PERIGEE - Time of closest earth approach (for comparison)</li>
+</ul>
+</p>
+
+<p class='center'>
+<img src="mon_per_diff_last_one_year.gif" />
+</p>
+
+
+<ul>
+<li><a href="/mta/DAILY/mta_rad/rad_time_#SMONYR#.html">#SMON# #YEAR# Timing Plots</a></li>
+<li><a href="/mta/DAILY/mta_rad/rad_time.html">Entire Mission Timing Plots</a></li>
+</ul>
+
+
+<h4>Radiation Count Rates of #SMON# #YEAR#</h4>
+
+<p class='center'>
+<img src="rad_cnts_#SMONYR#.gif" />
+</p>
+
+<hr class='short'>
+
+<h4>Sun Spot History</h4>
+<p style='text-align:center;'>
+<img src="solar-cycle-sunspot-number.gif" />
+</p>											<!-- ### (http://www.swpc.noaa.gov/products/solar-cycle-progression) ### -->
+
+<hr class='short'>
+
+
+
+<p class='center'>
+<a href="#TOP">TOP</a>
+</p>
+<hr class='long'>
+
+
+<!--
+############################
+#####     TRENDING     ####
+############################
+-->
+<a name="TRND"></a>
+<h3>Trending</h3>
+
+
+<!--
+##############################
+###    QUARTERLY TREND    ####
+##############################
+-->
+
+<a name="QTR"></a>
+<h3>
+<a href="/mta/DAILY/mta_deriv">Quarterly Trends</a>
+</h3>
+<ul>
+<table border=1 cellpadding=3>
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv//acistemp_qtr.html">ACIS Temperature</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+#TREND_ACISTEMP#
+</table>
+</ul>
+<br />
+
+<ul>
+<table border=1 cellpadding=3>
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/aciselecb_qtr.html">ACIS Electronics Side B</a></li></font>
+<tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+#TREND_ACISELEC#
+</table>
+</ul>
+<br />
+
+<ul>
+<table border=1 cellpadding=3>
+<font color="#FFFFFF"><li type=disk><a href="/mta/DAILY/mta_deriv/ephtv_qtr.html">EPHIN Temperature and Voltage</a></li></font><tr align=center><td colspan=7> Previous Quarter</tr>
+<tr align=center><td>MSID<td> MEAN<td> RMS<td> DELTA/YR<td> DELTA/YR/YR<td> UNITS<td>DESCRIPTION</tr>
+#TREND_EPHTV#
+</table>
+</ul>
+<br />
+
+<!--
+##############################
+###    ENVELOPE  TREND    ####
+##############################
+-->
+<hr />
+
+<a name="ENV"></a>
+<h3>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_envelope_trending/envelope_main.html'>Envelope Trending</a>
+</h3>
+<ul>
+#ENVTREND#
+</ul>
+<p class='center'>
+<a href="#TOP">TOP</a>
+</p>
+<hr class='long'>
+
+
+
+<!--
+####################################################
+#####          SPACECRAFT MONITORS             #####
+##### /home/swolk/ACORN/src1-3/OBT/Month/SIM   #####
+####################################################
+-->
+
+<a name="SPCM"></a>
+<h3>Spacecraft Motions</h3>
+
+<p>
+<b>TSC and FA Cummulative Moter Distance</b>
+</p>
+<img src="./monthly_sim.png"  style='width:90%;padding-left:10px' />
+<p sytle='padding-top:30px'>
+<b>HETG and LETG Cummulative Insertion Counts</b>
+</p>
+<img src="./monthly_grat.png" style='width:90%;padding-left:10px' />
+
+<p sytle='padding-top:30px'>
+<b>HETG/LETG Insertion/Retraction Angle</b>
+</p>
+<img src="./monthly_grat_ang.png" style='width:90%;padding-left:10px' /> 
+</p>
+
+<p sytle='padding-top:30px'>
+<b>Reaction Wheel Rotations<b>
+</p>
+<img src="./rotation.png" style='width:90%' />
+
+<p class='center'>
+<a href="#TOP">TOP</a>
+</p>
+<hr class='long'>
+
+
+<!--
+#############################################
+#####     LINK TO THE PAST REPORTS     ######
+#############################################
+-->
+
+<a name='PLIST'> </a>
+<h3>Links to Past Monthly Reports</h3>
+<ul>
+<table border=10 cellspacing=6 cellpadding=10 bordercolor=008000  bordercolorlight=00FF00 bordercolordark=008080>
+<tr>
+<th>Year</th><th colspan=12 align=center>Month</th>
+</tr>
+
+
+#YINDEX#
+
+<!--Here is 1999 data-->
+
+<tr>
+<td>1999</td>
+<td>
+&#160
+</td> <td>
+&#160
+</td> <td>
+&#160
+</td> <td>
+&#160
+</td> <td>
+&#160
+</td> <td>
+&#160
+</td> <td>
+<a href="/mta/REPORTS/MONTHLY/1999JUL/MONTHLY.html"> Jul  </a>
+</td> <td>
+<a href="/mta/REPORTS/MONTHLY/1999AUG/MONTHLY.html"> Aug  </a>
+</td> <td>
+<a href="/mta/REPORTS/MONTHLY/1999SEP/MONTHLY.html"> Sep  </a>
+</td> <td>
+<a href="/mta/REPORTS/MONTHLY/1999OCT/MONTHLY.html"> Oct  </a>
+</td> <td>
+<a href="/mta/REPORTS/MONTHLY/1999NOV/MONTHLY.html"> Nov  </a>
+</td> <td>
+<a href="/mta/REPORTS/MONTHLY/1999DEC/MONTHLY.html"> Dec  </a>
+</td>
+</tr>
+
+</table>
+
+</ul>
+
+<hr class='long'>
+
+
+<h4 style='text-align:right'> <a href="/mta/sot.html"> Back to SOT page  </a></h4>
+<em> If you have any questions about this page, please contact 
+     <a href='mailto:swolk@head.cfa.harvard.edu'>swolk@head.cfa.harvard.edu</a>.
+</em>
+<div style='padding-bottom:30px'>
+</div>
+
+</div>  <!-- ### END OF THE MAIN AREA ### -->
+
+</body>
+</html>

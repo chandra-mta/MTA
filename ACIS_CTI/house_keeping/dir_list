@@ -1,0 +1,7 @@
+bin_dir		/data/mta/Script/ACIS/CTI_test/ACIS_CTI_test/
+bin_data	/data/mta/MTA/data/
+cti_www		/data/mta/www/mta_temp/mta_cti/
+data_dir	/data/mta/Script/ACIS/CTI_test/Data/
+house_keeping	/data/mta/Script/ACIS/CTI_test/house_keeping/
+exc_dir		/data/mta/Script/ACIS/CTI_test/Exc/
+op_dir	    /usr/local/bin/

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Space Weather *</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Space Weather *</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Copying space weather related data and plots from NOAA sites
+and update real time ACE, G13, G15 observation html pages.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<table border =0>
+<tr><th>Location:</th><td>/data/mta4/space_weather/</td></tr>
+<tr><th>&#160;   </th><td>/data/mta4/www/RADIATION/</td></tr>
+</table>
+
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Space_weather.git (this version is not updated;
+TODO: push current version to https://github.com/mta/space_weather.git)
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>                <th>Last Updated</th></tr>
+<tr><th>/data/mta4/space_weather/</th><td>&#160;</td></tr>
+<tr><td>G13_calc.csh</td>               <td>Jan 30, 2018</td><td>Cron job: generate G13 web page and send out alerts</td></tr>
+<tr><td>G13_process.nawk</td>           <td>Feb 09, 2012</td><td>called by G13_calc.csh</td></tr>
+<tr><td>goes_hrc_proxy_viol.pl</td>     <td>Jan 30, 2018</td><td>called by G13_calc.csh</td></tr>
+<tr><td>G13_yellow_viol.pl</td>         <td>Jul 26, 2016</td><td>called by G13_calc.csh</td></tr>
+<tr><td>G13_Ecalc.csh</td>              <td>May 29, 2015</td><td>Cron job: generate G13E web page</td></tr>
+<tr><td>G13_Eprocess.nawk</td>          <td>Jul 20, 2010</td><td>called by G13_Ecalc.csh</td></tr>
+<tr><td>G14_calc.csh</td>               <td>Jun 10, 2011</td><td>code retired</td></tr>
+<tr><td>G14_process.nawk</td>           <td>Feb 15, 2011</td><td>code retired</td></tr>
+<tr><td>G15_calc.csh</td>               <td>Mar 06, 2015</td><td>Cron job: generate G15 web page and send out alerts</dt></tr>
+<tr><td>G15_process.nawk</td>           <td>Feb 15, 2011</td><td>called by G15_calc.csh</td></tr>
+<tr><td>G15_yellow_viol.pl</td>         <td>Jul 26, 2016</td><td>called by G15_calc.csh</td></tr>
+<tr><td>ACE/mta_ace.pro</td>            <td>May 26, 2011</td><td>Cron job</td></tr>
+<tr><td>ACE/mta_plot_ace_p3.pro</td>    <td>May 01, 2011</td><td>called by mta_ace.pro</td></tr>
+<tr><td>ACE/mta_fast.pro</td>           <td>Jul 26, 2016</td><td>Cron job</td></tr>
+<tr><td>ACE/mta_plot_ace_fast.pro</td>  <td>Aug 03, 2016</td><td>called by mta_fast.pro</td></tr>
+<tr><td>calculate.csh</td>              <td>Jan 30, 2015</td><td>Cron job: generate ACE web page and send out alerts</td></tr>
+<tr><td>process_ace.nawk</td>           <td>Jun 22, 2015</td><td>called by calculate.csh</td></tr>
+<tr><td>aceviolation_protons.csh</td>   <td>Aug 15, 2014</td><td>called by process_ace.nawk</td></tr>
+<tr><td>ace_12h_viol.pl</td>            <td>Jan 30, 2018</td><td>called by calculate.csh</td></tr>
+<tr><td>ace_12h_archive</td>            <td>Jan 30, 2018</td><td>needed by ace_12h_viol.pl</td></tr>
+<tr><td>KPII/calculate_kp.csh</td>      <td>Mar 23, 2011</td><td>see <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_kp_alert.html'>KP Alert Page</a>, alert in stasis</td></tr>
+<tr><td>KPII/process_kp.nawk</td>       <td>Mar 23, 2011</td><td>see <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_kp_alert.html'>KP Alert Page</a>, alert in stasis</td></tr>
+<tr><td>calculate_fast.csh</td>         <td>Sep 15, 2015</td><td>Cron job: generate ACE fast web page</td></tr>
+<tr><td>process_ace_fast.nawk</td>      <td>Sep 15, 2015</td><td>called by calculate_fast.csh</td></tr>
+
+<tr><th>/data/mta4/space_weather/KPII/</th><td>&#160;</td></tr>
+<tr><td>
+See <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_kp_alert.html'>KP Alert Page</a>
+</td>                                   <td>&#160;</td><td>
+
+<tr><th>/data/mta4/proj/rac/ops/ACE/</th><td>&#160;</td></tr>
+<tr><td>
+See <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_ace.html'>ACE Proton Flux Page</a>
+</td>                                   <td>&#160;</td></tr>
+
+<tr><th>/data/mta4/space_weather/STEREO/</th><td>&#160;</td></tr>
+<tr><td>
+See <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_stereo.html'>STEREO Page</a>
+</td>                                   <td>&#160;</td></tr>
+
+
+<tr><th>/data/mta4/space_weather/MSM/</th><td>&#160;</td></tr>
+<tr><td>
+See <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_gsm_orbit.html'>GSE/GSM 3D Orbit Plot Page</a>
+</td>                                   <td>&#160;</td></tr>
+
+<tr><th>/data/mta4/www/RADIATION/CRM2/</th><td>&#160;</td></tr>
+<tr><td>CRM_plot.idl</td>               <td>May 15, 2008</td></tr>
+<tr><td>rac_arread.pro</td>             <td>May 20, 2008</td></tr>
+<tr><td>rac_arreadbl.pro</td>           <td>May 13, 2008</td></tr>
+<tr><td>timeconv.pro</td>               <td>May 13, 2008</td></tr>
+<tr><td>crmpl2.pro</td>                 <td>Aug 23, 2010</td></tr>
+<tr><td>cheph.pro</td>                  <td>Jun 10, 2008</td></tr>
+
+
+
+<!--
+these below are from /data/mta4/space_weather
+<tr><th>Script Name</th>               <th>Last Updated</th></tr>
+<tr><td>calculate_linux.csh</td>       <td>Feb 20, 2015</td></tr>
+<tr><td>G13_calc.csh</td>              <td>Jul 16, 2015</td></tr>
+<tr><td>G15_calc.csh</td>              <td>Jul 16, 2015</td></tr>
+<tr><td>calculate.csh</td>             <td>Aug 20, 2012</td></tr>
+<tr><td>process_ace.nawk</td>          <td>Aug 20, 2012</td></tr> 
+<tr><td>G13_process.nawk</td>          <td>Sep 17, 2010</td></tr>
+<tr><td>G15_process.nawk</td>          <td>Mar 06, 2015</td></tr>
+<tr><td>proc_ace_wap1.nawk</td>        <td>Jul 08, 2009</td></tr>
+<tr><td>proc_ace_wap1_p5.nawk</td>     <td>Jul 08, 2009</td></tr>
+<tr><td>proc_ace_wap2.nawk</td>        <td>Jul 08, 2009</td></tr>
+<tr><td>proc_ace_wap2_p5.nawk</td>     <td>Jul 08, 2009</td></tr>
+<tr><td>process_ace1.0.nawk</td>       <td>Jul 08, 2009</td></tr>
+<tr><td>process_ace2.0.nawk</td>       <td>Jul 08, 2009</td></tr>
+<tr><td>process_ace3.0.nawk</td>       <td>Jul 08, 2009</td></tr>
+<tr><td>process_ace_no_alerts.nawk</td><td>Jul 08, 2009</td></tr>
+<tr><td>process_kp.nawk</td>           <td>Jul 08, 2009</td></tr>
+<tr><td>process_kp_4_alert.nawk</td>   <td>Jul 08, 2009</td></tr>
+<tr><td>xprocess_ace.nawk</td>         <td>Jul 08, 2009</td></tr>
+<tr><td>G13_Eprocess.nawk</td>         <td>Sep 17, 2010</td></tr> 
+-->
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+</p>
+<table border = 0>
+<tr><th>Sep 24, 2015</th><td>Initially logged</td></tr>
+<tr><th>Sep 30, 2015</th><td>Document updated</td></tr>
+<tr><th>Oct 21, 2015</th><td>Problems in KPII/STEREO fixed. Reorganized the scripts locations</td></tr>
+<tr><th>Oct 21, 2015</th><td>orbit.html is updated.</td></tr>
+<tr><th>Jan 30, 2018</th><td>Added 'HRC proxy' and 'invalid ACE data for >12h' alerts</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+<ul>
+<li>
+G13_calc.csh related:
+    <ul>
+        <li>http://legacy-www.swpc.noaa.gov/ftpdir/lists/pchan/Gp_pchan_5m.txt</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/satenvBL.html</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/pro_3d.html</li>
+        <li>http://legacy-www.swpc.noaa.gov/#G13imagename#</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/Proton.gif</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/Xray.gif</li>
+    </ul>
+</li>
+<li>
+G13_Ecalc.csh related:
+    <ul>
+        <li>http://legacy-www.swpc.noaa.gov/ftpdir/lists/particle/Gp_part_5m.txt</li>
+        <li>http://www.swpc.noaa.gov/rt_plots/Electron.gif</li>
+    </ul>
+</li>
+<li>
+G14_calc.csh related:
+    <ul>
+        <li>http://www.swpc.noaa.gov/ftpdir/lists/xray/Gp_xr_5m.txt</li>
+    </ul>
+</li>
+<li>
+G15_calc.csh related:
+    <ul>
+        <li>http://legacy-www.swpc.noaa.gov/ftpdir/lists/pchan/Gs_pchan_5m.txt</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/satenvBL.html</li>
+        <li>http://legacy-www.swpc.noaa.gov/#G15imagename#</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/pro_3d.html</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/Proton.gif</li>
+        <li>http://legacy-www.swpc.noaa.gov/rt_plots/Xray.gif</li>
+    </ul>
+</li>
+<li>
+ACE/mta_ace.pro and ACE/mta_fast.pro related:
+    <ul>
+        <li>ACE/ace_7day.archive</li>
+        <li>/proj/rac/ops/ACE/ace.archive</li>
+        <li>fast.archive</li>
+    </ul>
+</li>
+<li>
+CRM2/CRM_plots.idl related
+    <ul>
+        <li>/data/mta4/www/RADIATION/CRM2/CRMarchive.dat???</li>
+        <li>/data/mta4/www/RADIATION/CRM2/CRMsummary.dat???</li>
+        <li>/proj/rac/ops/ephem/dsn_summary.dat</li>
+        <li>/proj/rac/ops/ephem/PE.EPH.gsme</li>
+        <li>/proj/rac/ops/CRM/CRM_p.dat30</li>
+    </ul>
+</li>
+<li>
+CRM3/CRM_plots.idl related
+    <ul>
+        <li>/data/mta4/www/RADIATION/CRM2/CRMarchive.dat???</li>
+        <li>/data/mta4/www/RADIATION/CRM2/CRMsummary.dat???</li>
+        <li>/data/mta4/proj/rac/ops/ephem/dsn_summary.dat</li>
+        <li>/data/mta4/proj/rac/ops/ephem/PE.EPH.gsme</li>
+        <li>/data/mta4/proj/rac/ops/CRM/CRM_p.dat30</li>
+    </ul>
+</li>
+</ul>
+
+
+<!--
+<ul>
+<li> ftp://ftp.sec.noaa.gov/pub/lists/ace/ace_epam_5m.txt </li>
+<li> http://www.sec.noaa.gov/ace/Epam_7d.gif </li>
+<li> http://www.sec.noaa.gov/ace/Mag_swe_7d.gif </li>
+<li> http://www.sec.noaa.gov/rpc/costello/pkp_15m_7d.html </li>
+<li> http://ftp2.sec.noaa.gov/rpc/costello/2020810125120pkp_15m_7d.gif (from /data/mta/space_weather/kpimage) </li>
+<li> ftp://ftp.sec.noaa.gov/pub/lists/particle/Gp_part_5m.txt </li>
+<li> http://services.swpc.noaa.gov/images/satellite-env.gif </li>
+<li> http://services.swpc.noaa.gov/images/goes-proton-flux.gif </li>
+<li> http://services.swpc.noaa.gov/images/goes-xray-flux.gif </li>
+<li> ftp://ftp.sec.noaa.gov/pub/lists/particle/Gs_part_5m.txt </li>
+<li> http://services.swpc.noaa.gov/images/satellite-env.gif </li>
+<li> http://services.swpc.noaa.gov/images/goes-proton-flux.gif </li>
+<li> http://services.swpc.noaa.gov/images/goes-xray-flux.gif </li>
+</ul>
+-->
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+None
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta4/space_weather/
+    <ul>
+    <li>G13data</li>
+    <li>G13Edata</li>
+    <li>G14data</li>
+    <li>G15data</li>
+    <li>ace_12h_archive</li>
+    <li>kpdata</li>
+    <li>KPII/current_Kp.txt</li>
+    <li>/data/mta4/proj/rac/ops/ACE/fluace.dat</li>
+    <li>/data/mta4/proj/rac/ops/ACE/fluace.arc (last updated Oct 6, 2015)</li>
+    <li>/data/mta4/proj/rac/ops/ACE/ace.archive</li>
+    </ul>
+<li>
+/data/mta4/www/
+    <ul>
+        <li>satenvBL.gif</li>
+        <li>goes_pro_3d.gif</li>
+        <li>goes_Xray.gif</li>
+        <li>elec_3d.gif</li>
+        <li>mta_ace_plot_P3.gif</li>
+        <li>mta_ace_plot_fast.gif</li>
+        <li> ace.html </li>
+        <li> ace_fast.html </li>
+        <li> ace_i.html </li>
+        <li> G13.html </li>
+        <li> G13E.html </li>
+        <li> G15.html </li>
+        <li> G15_xray.html </li>
+        <li> kp.html (last updated 3 Aug 2016)</li>
+        <li> orbit.html (last updated 22 Oct 2015)</li>
+    </ul>
+</li>
+<li>
+/data/mta4/www/RADIATION/STEREO2/
+    <ul>
+        <li> stereo.html</li>
+    </ul>
+</li>
+/data/mta4/www/RADIATION/CRM2/
+    <ul>
+        <li>CRMarchive.dat???</li>
+        <li>CRMsummary.dat???</li>
+        <li>crmpl.gif</li>
+        <li>crmplatt.gif</li>
+        <li>GSM.gif</li>
+        <li>GSE.gif</li>
+    </ul>
+</li>
+<li>
+/data/mta4/www/RADIATION/CRM3/
+    <ul>
+        <li>crmpl.gif</li>
+        <li>crmplatt.gif</li>
+        <li>GSM.gif</li>
+        <li>GSE.gif</li>
+    </ul>
+</li>
+<li>
+Alert email. See
+<a href='https://cxc.cfa.harvard.edu/mta/REPORTS/sot_jobs_alerts.html' target='blank'>CHANDRA SOT ALERTS</a> page
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to:   cd /data/mta4/space_weather/
+</li>
+<li>
+run:    ./G13_calc.csh
+</li>
+<li>
+run:    ./G13_Ecalc.csh
+</li>
+<li>
+run:    ./G15_calc.csh
+</li>
+<li>
+run:    ./calculate.csh
+</li>
+<li>
+run:    ./calculate_fast.csh
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+There is no test for this set of scripts.
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+<!--
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * cd /data/mta/space_weather/ ; ./calculate_linux.csh> $HOME/Logs/ace_linux.cron 
+<br />
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * cd /data/mta/space_weather/ ; ./G13_calc.csh> $HOME/Logs/goes13_linux.cron 
+<br />
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * cd /data/mta/space_weather/ ; ./G15_calc.csh> $HOME/Logs/goes15_linux.cron 
+<br />
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * cd /data/mta4/space_weather/ ; ./calculate.csh> $HOME/Logs/ace.cron 
+<br />
+0 * * * * cd /data/mta4/space_weather/ ; ./calculate_fast.csh> $HOME/Logs/ace_fast.cron 
+</p>
+-->
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+1,5,10,15,20,25,30,35,40,45,50,55 * * * * /data/mta4/space_weather/G13_calc.csh >> $HOME/Logs/goes13.cron 
+<br />
+1,5,10,15,20,25,30,35,40,45,50,55 * * * * /data/mta4/space_weather/G13_Ecalc.csh >> $HOME/Logs/goes13.cron
+<br />
+2,6,11,16,21,26,31,36,41,46,51,56 * * * * /data/mta4/space_weather/G15_calc.csh >> $HOME/Logs/goes15.cron 
+<br />
+0,15,30,45 * * * * cd /data/mta4/space_weather/ACE; /usr/local/bin/idl mta_ace >> $HOME/Logs/ace_p3_plot.cron 2>&1
+<br />
+1 * * * * cd /data/mta4/space_weather/ACE; /usr/local/bin/idl mta_fast >> $HOME/Logs/ace_p3_plot_fast.cron 2>&1
+<br />
+2,7,12,17,22,27,32,37,42,47,52,57 * * * * cd /data/mta4/space_weather/ ; ./calculate.csh> $HOME/Logs/ace.cron 2>&1
+<br />
+0 * * * * cd /data/mta4/space_weather/ ; ./calculate_fast.csh> $HOME/Logs/ace_fast.cron 2>&1
+<br />
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * /data/mta4/proj/rac/ops/ACE/fmon.pl       >> $HOME/Logs/fmon_linux.cron   2>&1
+<br />
+2,6,11,16,21,26,31,36,41,46,51,56 * * * * /data/mta4/space_weather/STEREO/calculate.csh>> $HOME/Logs/stereo.cron 
+<br />
+15 8,20 * * * cd /data/mta4/space_weather/MSM; /usr/local/bin/idl gsm_plots.idl > $HOME/Logs/plot_gsm.cron 2>&1
+<br />
+12,32,52  * * * * cd /data/mta4/proj/rac/ops/CRM3/;/usr/local/bin/idl CRM_plots.idl >> $HOME/Logs/crm3_plot_linux.cron   2>&1
+<br />
+<br />
+# <b>(in stasis)</b> 7,22,37,52 * * * * /data/mta4/space_weather/KPII/kpalert.pl >> $HOME/Logs/kp.cron
+<br />
+# <b>(retired)</b> 1,5,10,15,20,25,30,35,40,45,50,55 * * * * /data/mta4/space_weather/G14_calc.csh >> $HOME/Logs/goes14.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<ul>
+<li><a href='https://cxc.cfa.harvard.edu/mta/ace.html'>https://cxc.cfa.harvard.edu/mta/ace.html </a></li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/ace_fast.html'>https://cxc.cfa.harvard.edu/mta/ace_fast.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/ace_i.html'>https://cxc.cfa.harvard.edu/mta/ace_i.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/G13.html'>https://cxc.cfa.harvard.edu/mta/G13.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/G13E.html'>https://cxc.cfa.harvard.edu/mta/G13E.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/G15.html'>https://cxc.cfa.harvard.edu/mta/G15.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/G15_xray.html'>https://cxc.cfa.harvard.edu/mta/G15_xray.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/kp.html'>https://cxc.cfa.harvard.edu/mta/kp.html</a> </li>
+<li><a href='https://cxc.cfa.harvard.edu/mta/orbit.html'>https://cxc.cfa.harvard.edu/mta/orbit.html</a> </li>
+</ul>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+README file must be updated.
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<ul>
+<!-- please describe update plan etc yere -->
+None
+</ul>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

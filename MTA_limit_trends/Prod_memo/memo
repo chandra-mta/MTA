@@ -1,0 +1,56 @@
+
+glimmon wiki
+https://occweb.cfa.harvard.edu/twiki/bin/view/ChandraCode/G_LIMMONSQLite3Database
+
+
+
+
+
+
+
+
+Email 10-31-19 from Dan
+===============
+OK, finally getting to this. Apologies for the delay. To answer your 2nd question first:
+
+I (and the HRC team independently) determine which detector is the selected detector 
+by looking at the voltage steps for the detector. There are three possible configurations:
+
+HRC-I at full or half power, HRC-S off
+HRS-S at full or half power, HRC-I off
+
+both at half power, which occurs after SCS-107 has run and we need to manually execute 
+a return to safe science commanding to set the voltage to 0 for one of the detectors. 
+There is also a MSID 2IMONST and 2SPONST which is will tell you, but it is a single bit, 
+and I cannot recall which bit setting corresponds to ON and which to OFF. I can modify 
+my real time monitoring software to output the value in order to give you a definitive 
+answer though. That will take a bit of time.
+
+The MSIDS to determine the voltage settings are:
+
+2SPTPAST  SP DET TOP HV STEP Caution > step 90, Warning > step 92
+2SPBPAST  SP DET BOT HV STEP Caution > step 102,Warning > step 104
+2IMTPAST  IM DET TOP HV STEP Caution > step 79, Warning > step 81
+2IMBPAST  IM DET BOT HV STEP Caution > step 91, Warning > step 93
+
+For half power, the HRC-I is set at 42 and 53
+for half power, the HRS-S is set at 43 and 54
+for full power, the HRC-I is set at 77 and 89
+for full power, the HRC-S is set at 93 and 105
+for off, both are set to 0 and 0
+
+Note that the settings for the HRC-S ON are above the warning levels. This is because 
+the voltage was increased in 2012. These are all steps. There are other MSIDS which 
+are dn values, but really you want to monitor steps.
+
+For M&TA, I don't see the value in tracking certain MSIDs. They are instrument settings 
+and will vary as step functions. For instance, the MSID you linked to is related to 
+the center blanking hi setting along the U axis. It is, in general, going to be only 
+a handful of integers, depending upon the SIMODE that is chosen for the observation.
+
+I am attaching a file which contains the complete set of HRC MSIDSs, and includes tables 
+of their yellow and red limits. I believe that SKA archive has the converted values, 
+so you can pull the limits out of this file. 
+
+I will review the list of MSIDs that you sent, and tell you which are meaningful and 
+which are not.

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+<title>ACIS Rejected Events</title>
+
+<style  type='text/css'>
+    table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+    td{text-align:center;padding:8px}
+    a:link {color:blue;}
+    a:visited {color:red;}
+    span.nobr {white-space:nowrap;}
+</style>
+
+<script>
+    function WindowOpener(imgname) {
+        msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no ,width=1200,height=750,resize=yes");
+        msgWindow.document.close();
+        msgWindow.document.write("<!DOCTYPE html><html><head><title>ACIS Rejected Event:"+imgname+"</title></head>");
+        msgWindow.document.write("<body style='background-color:white'>");
+        msgWindow.document.write("<img src='./Plots/"+imgname+"' style='border-width:0px;width:1100px;height:700px'><p></body></html>");
+        msgWindow.focus();
+    }
+
+    function DataOpen(ifile) {
+        window.open(ifile,"displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no ,width=1100,height=700,resize=yes");
+    }
+</script>
+
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>MTA ACIS Rejected Events</h2>
+
+<p style='margin-left:30px;margin-right:30px; text-align:jastify;'>
+The links below are plots of stat1 quantities, showing on-board rejected events. 
+The average EVTSENT, DROP_AMP, DROP_GRD, and THR_PIX obtained from L1 acis*stat1.fits 
+files are plotted for each observation. CTI observations are plotted separately 
+from regular science observations.
+</p>
+
+<h4> Data Column definitions: </h4>
+<ul>
+    <li><b>EVTSENT</b>  - number of events sent in data record</li>
+    <li><b>DROP_AMP</b> - number of discarded events due to corrected amplitude</li>
+    <li><b>DROP_POS</b> - number of discarded events due to CCD position</li>
+    <li><b>DROP_GRD</b> - number of discarded events due to grade code</li>
+    <li><b>THR_PIX</b>  - number of pixels above respective threshold level</li>
+    <li><b>BERR_SUM</b> - number of pixel bias errors so far in science run</li>
+    <li><b>Navg</b>     - number of samples in averages</li>
+    <li><b>OBS_ID</b>   - Observation to which statistics apply</li>
+    <li><b>CCD</b>      - CCD to which statistics apply </li>
+</ul>
+
+
+<div style='padding-bottom:40px;'></div>
+
+<table border=1  cellpadding=2 cellspacing=2 style='margin-left:auto;margin-right:auto;'>
+<tr>
+    <th style='width:20%;'>CTI Obs</th><th style='width:20%;'>Sci Obs</th><th style='width:20%;'>Data</th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd0_cti.png')">CCD 0</a></th>
+    <th><a href="javascript:WindowOpener('ccd0_sci.png')">CCD 0</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD0_rej.dat')"> CCD 0</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd1_cti.png')">CCD 1</a></th>
+    <th><a href="javascript:WindowOpener('ccd1_sci.png')">CCD 1</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD1_rej.dat')"> CCD 1</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd2_cti.png')">CCD 2</a></th>
+    <th><a href="javascript:WindowOpener('ccd2_sci.png')">CCD 2</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD2_rej.dat')"> CCD 2</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd3_cti.png')">CCD 3</a></th>
+    <th><a href="javascript:WindowOpener('ccd3_sci.png')">CCD 3</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD3_rej.dat')"> CCD 3</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd4_cti.png')">CCD 4</a></th>
+    <th><a href="javascript:WindowOpener('ccd4_sci.png')">CCD 4</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD4_rej.dat')"> CCD 4</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd5_cti.png')">CCD 5</a></th>
+    <th><a href="javascript:WindowOpener('ccd5_sci.png')">CCD 5</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD5_rej.dat')"> CCD 5</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd6_cti.png')">CCD 6</a></th>
+    <th><a href="javascript:WindowOpener('ccd6_sci.png')">CCD 6</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD6_rej.dat')"> CCD 6</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd7_cti.png')">CCD 7</a></th>
+    <th><a href="javascript:WindowOpener('ccd7_sci.png')">CCD 7</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD7_rej.dat')"> CCD 7</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd8_cti.png')">CCD 8</a></th>
+    <th><a href="javascript:WindowOpener('ccd8_sci.png')">CCD 8</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD8_rej.dat')"> CCD 8</a></th>
+</tr>
+<tr>
+    <th><a href="javascript:WindowOpener('ccd9_cti.png')">CCD 9</a></th>
+    <th><a href="javascript:WindowOpener('ccd9_sci.png')">CCD 9</a></th>
+    <th><a href="javascript:DataOpen('./Data/CCD9_rej.dat')"> CCD 9</a></th>
+</tr>
+</table>
+
+<div style='padding-bottom:30px;'></div>
+
+<hr />
+<div style='padding-bottom:5px;'></div>
+
+<p> <em>Last Update: Oct 25, 2018</em><p>
+
+<p>
+If you have any questions about this page, please contact 
+<a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+</p>
+

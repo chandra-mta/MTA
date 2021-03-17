@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        th.rotate {
+        /* Something you can count on */
+            height: 115px;
+            white-space: nowrap;
+            font-size:70%
+      }
+
+      th.rotate > div {
+        transform: 
+            /* Magic Numbers */
+            translate(25px, 51px)
+            /* 45 is really 360 - 45 */
+            rotate(270deg);
+        width: 30px;
+      }
+      th.rotate > div > span {
+        border-bottom: 1px solid #ccc;
+        padding: 5px 10px;
+      }
+
+    </style>
+    <script type="text/javascript">
+        function WindowOpener(file) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=400,resize=no");
+            if (msgWindow) {
+                window.msgWindow.close();
+            }
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=400,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><head><title>Solar Pannel Trending </title></head>");
+            msgWindow.document.write("<body bgcolor='white'>");
+            msgWindow.document.write("<img src='./" + file+"' width=95%>")
+            msgWindow.document.write("</body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+         
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=400, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+</script>
+</head>
+
+<body>
+
+<table border=0>
+<tr>
+    <th>Angle</th>
+    <th> 40 -  60 deg</th>
+    <th> 60 -  80 deg</th>
+    <th> 80 - 100 deg</th>
+    <th>100 - 120 deg</th>
+    <th>120 - 140 deg</th>
+    <th>140 - 160 deg</th>
+    <th>160 - 180 deg</th>
+</tr>
+<tr>
+    <th class="rotate"><div><span><span style='padding-left:30px;'></span>ELBI</span></div></th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle40.png')">
+            <img src='./Plots/Elbi/elbi_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle60.png')">
+            <img src='./Plots/Elbi/elbi_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle80.png')">
+            <img src='./Plots/Elbi/elbi_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle100.png')">
+            <img src='./Plots/Elbi/elbi_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle120.png')">
+            <img src='./Plots/Elbi/elbi_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle140.png')">
+            <img src='./Plots/Elbi/elbi_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbi/elbi_angle160.png')">
+            <img src='./Plots/Elbi/elbi_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+</tr>
+<tr>
+    <th class="rotate"><div><span><span style='padding-left:30px;'></span>ELBV</span></div></th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle40.png')">
+            <img src='./Plots/Elbv/elbv_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle60.png')">
+            <img src='./Plots/Elbv/elbv_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle80.png')">
+            <img src='./Plots/Elbv/elbv_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle100.png')">
+            <img src='./Plots/Elbv/elbv_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle120.png')">
+            <img src='./Plots/Elbv/elbv_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle140.png')">
+            <img src='./Plots/Elbv/elbv_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Elbv/elbv_angle160.png')">
+            <img src='./Plots/Elbv/elbv_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+</tr>
+<tr>
+    <th class="rotate"><div><span>OHRMRMAPWR</span></div></th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle40.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle60.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle80.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle100.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle120.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle140.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Ohrmapwr/ohrmapwr_angle160.png')">
+            <img src='./Plots/Ohrmapwr/ohrmapwr_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+
+
+
+
+</tr>
+    <th class="rotate"><div><span><span style='padding-left:15px;'></span>OOBAPWR</span></div></th>
+
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle40.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle40.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle60.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle60.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle80.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle80.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle100.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle100.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle120.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle120.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle140.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle140.png' style='width:2in;'>
+        </a>
+    </th>
+    <th>
+        <a href="javascript:WindowOpener('Plots/Oobapwr/oobapwr_angle160.png')">
+            <img src='./Plots/Oobapwr/oobapwr_angle160.png' style='width:2in;'>
+        </a>
+    </th>
+
+
+
+
+
+
+
+
+</tr>
+</table>
+
+</body>
+</html>

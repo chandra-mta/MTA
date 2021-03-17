@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Chandra Real-time Snapshot *</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Chandra Real-time Snapshot *</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Produces Snapshop page: https://cxc.cfa.harvard.edu/mta/Snapshot/snap.cgi?action=Latest
+and send out an alert email if needed.
+</p>
+<p>
+See when the alert is sent out at:
+<a href='https://cxc.cfa.harvard.edu/mta/REPORTS/sot_jobs_alerts.html' target='blank'>CHANDRA SOT ALERTS</a> page.
+</p>
+<p>
+Input data are created by <a href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_acorn.html">
+Acorn</a> process (data name: *.tl) and read by tlogr.pl which creates a few text files used by snap.cgi. 
+Another data: CRMsummary.dat is updated only when Chandra is in comm pass, typically 3 times a day. 
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<table border=0>
+<tr>
+<th>Location:</th> <td>/data/mta4/www/Snapshot/<td>
+</tr><tr>
+<th>&#160;</th><td>/data/mta/www/MIRROR/Snap/Scrips/</td>
+</tr>
+</table>
+</p>
+
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/mta/Snapshot
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th><th>Note</th></tr>
+<tr><td>tlogr.pl</td>               <td>Jun 30, 2015</td><td>main script</td></tr>
+<tr><td>snap.cgi</td>               <td>Jul 10, 2014</td><td>display page</td></tr>
+<tr><td>plot.pro</td>               <td>Apr 02, 2004</td></tr>
+<tr><td>plot_iru.pro</td>           <td>Apr 06, 2004</td></tr>
+<tr><td>plot_mom.pro</td>           <td>Sep 20, 2004</td></tr>
+<tr><td>plot_ctx.pro</td>           <td>Apr 06, 2004</td></tr>
+<tr><td>snap.pm</td>                <td>Oct 06, 2015</td><td>tlogr.pl related module</td></tr>
+<tr><td>check_state.pm</td>         <td>Jun 27, 2017</td><td> alert check system module: 
+<a href='https://cxc.cfa.harvard.edu/mta/REPORTS/sot_jobs_alerts.html' target='blank'>CHANDRA SOT ALERTS</a>
+</td></tr>
+<tr><td>snarcl.pl</td>              <td>Jan 23, 2012</td></tr>
+<tr><td>run-acorn.pl</td>           <td>Oct 28, 2016</td><td> see
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_acorn.html'>ACORN</a>
+for more details
+</td></tr>
+<tr><td>Chex.pm</td>               <td>Jul 23, 2009</td><td>predicting the expected state of Chandra</td></tr>
+<tr><td>Time/</td>                  <td>&#160;</td><td>Directory contains time related perl modules</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details: /data/mta4/www/Snapshot/README.
+</p>
+<table border = 0>
+<tr><th>Sep 24, 2015</th><td>Initially logged</td></tr>
+<tr><th>Oct 01, 2015</th><td>Description updated</td></tr>
+<tr><th>Oct 06, 2015</th><td>data link changed from  /proj/rac/ops/  to /data/mta4/proj/rac/ops/</td></tr>
+<tr><th>Oct 28, 2016</th><td>IPCL definition in run-acorn.pl updated to:</td></tr>
+<tr><th>&#160;</th><td>/data/mta4/www/Snapshot/P011 (primary), /data/mta4/www/Snapshot/P009 (secondary) </td></tr>
+<tr><th>&#160;</th><td>/data/mta/www/MIRROR/Snap/Scripts/P011 (primary), /data/mta/www/MIRROR/Snap/Scripts/P009 (secondary) </td></tr>
+<tr><th>Mar 10, 2017</th><td>AOFSTAR BRIT alert is now sent to sot_red_alert</td></tr>
+<tr><th>Jun 27, 2017</th><td>Added info on OCC voice loops to alerts with telecon</td></tr>
+<tr><th>&#160;</th><td>Alerts sent previously to brad are now sent to malgosia</td></tr>
+</table>
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta4/www/Snapshot/ (see <a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_acorn.html'>Acorn</a> page.)
+    <ul>
+        <li>chandraACA_&lt;time&gt;.ti</li>
+        <li>chandraCCDM_&lt;time&gt;.ti</li>
+        <li>chandraEPHIN_&lt;time&gt;.ti</li>
+        <li>chandraEPS_&lt;time&gt;.ti</li>
+        <li>chandraPCAD_&lt;time&gt;.ti</li>
+        <li>chandraSIM_&lt;time&gt;.ti</li>
+        <li>chandraSI_&lt;time&gt;.ti</li>
+        <li>chandraTEL_&lt;time&gt;.ti</li>
+        <li>snaps.par</li>
+        <li>chandra-msids.list</li>
+        <li>P011/ (IPCL Directory contains acorn environment setting data files)</li>
+        <li>P009/ (IPCL Directory contains acorn environment setting data files)</li>
+    </ul>
+</li>
+<li>
+/proj/rac/ops/CRM3/CRMsummary.dat
+</li>
+<!-- how to get archive
+<li>
+data 2
+</li>
+-->
+</ul>
+
+<p>
+<b>Note: </b>
+CRMsummary.dat is created in /proj/rac/opt/CRM3. This to be always current, all related scripts 
+described in:
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/Realtime/bs_tst_related.html'>
+TST related collections of scripts
+</a>
+must be running. If CRMsummary.dat is not updating, go to the page, and check their output.
+</p>
+<p>
+<b>IPCL</b> stands for Instrumentation Program and Component List.
+In MTA case, it contains the D to A conversion instructions and limits for each msid.
+Currently in use: local versions of P011 (primary) and P009 (secondary) with 2DETART and 2SHLDART set to
+uncalibrated values.
+</p>
+
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+Perl environment set in script
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+    <li>
+        /data/mta4/www/Snapshot/
+        <ul>
+            <li>snarc&lt;time&gt; (display on snap.cgi)</li>
+            <li>chandra.snapshot (display on snap.cgi)</li>
+            <li>CRMsummary.data (display on snap.cgi)</li>
+            <li>snarc.html</li>
+        </ul>
+    </li>
+    <li>
+        /data/mta4/www/DAILY/mta_rt/
+        <ul>
+            <li>irui_rtplot.gif</li>
+            <li>irui_bias_rtplot.gif</li>
+            <li>mom_rtplot.gif</li>
+            <li>ctx_rtplot.gif </li>
+        </ul>
+    </li>
+    <li>/pool14/chandra/
+        <ul>
+            <li>chandra_psi.snapshot</li>
+        </ul>
+    </li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>go to: /data/mta4/www/Snapshot</li>
+<li>run:   tlogr.pl</li>
+</ol>
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available for this set of script
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+</p>
+</div>
+
+<h3>Cron Job</h3>
+
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+
+<ul>
+<li>* * * * * cd /data/mta4/www/Snapshot; ./tlogr_linux.pl >> $HOME/Logs/RT/tlogr_linux.cron 2>&1 </li>
+<li>1 0 * * * /data/mta4/www/Snapshot/snarcl.pl > $HOME/Logs/RT/snarcl.cron 2>&1</li>
+</ul>
+
+<table border= 0>
+<tr><th>CPU: </th><td>colossus-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+
+<ul>
+<li>* * * * *    cd /data/mta/www/MIRROR/Snap/Exc/; /data/mta/www/MIRROR/Snap/Scripts/tlogr.pl     >> $HOME/Logs/RT/tlogr_colossus.cron 2>&1 </li>
+<li>1 0 * * *    cd /data/mta/www/MIRROR/Snap/Exc/; /data/mta/www/MIRROR/Snap/Scripts/snarcl.pl    > $HOME/Logs/RT/snarcl_bu.cron 2>&1</li>
+</ul>
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/MIRROR/Snap/snap.cgi?action=Latest'>
+https://cxc.cfa.harvard.edu/mta_days/MIRROR/Snap/snap.cgi?action=Latest</a>
+<br />
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta/Snapshot/snap.cgi?action=Latest'>
+https://cxc.cfa.harvard.edu/mta/Snapshot/snap.cgi?action=Latest
+</a>
+</p>
+
+<h3>Note</h3>
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<ul>
+<!-- please describe update plan etc yere -->
+None
+</ul>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/'>
+Back to Top Page
+</a>
+
+</body>
+</html>

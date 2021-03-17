@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>SIM Motor Temperatures</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>SIM Motor Temperatures</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+Update SIM motor temperature page: 
+https://cxc.cfa.harvard.edu/mta_days/mta_sim/MTR/index.html
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/SIM/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/SIM_temperature.git
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>sim_temp_wrap_script</td>   <td>Jan 14, 2016</td></tr>
+<tr><td>sim_temp_main_script</td>   <td>Apr 07, 2016</td></tr>
+<tr><td>run_sim_temp.py</td>        <td>Apr 25, 2016</td></tr>
+<tr><td>plot_sim_temp_data.py</td>  <td>Jan 15, 2016</td></tr>
+<tr><td>update_html.py</td>         <td>Jan 19, 2016</td></tr>
+<tr><td>monitor_sim.pl</td>         <td>Jan 19, 2016</td></tr>
+<tr><td>proc_sim.pl</td>            <td>Jan 11, 2016</td></tr>
+
+<tr><td>update</td>                 <td>Mar 25, 2014 (retired Jan 19, 2016)</td></tr>
+<tr><td>run.pro</td>                <td>Update yearly manuall (retired Jan 19, 2016)y</td></tr>
+<tr><td>tsc_temps.pro</td>          <td>Oct 12, 201 (retired Jan 19, 2016)2</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+For more details, please read /data/mta/Script/SIM/Scripts/README file.
+</p>
+<table border = 0>
+<tr><th>Sep 24, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 28, 2014</th><td>Description updated</td></tr>
+<tr><th>Jan 19, 2016</th><td>Major Update;a new set of scripts are introduced</td></tr>
+<tr><th>Apr 07, 2016</th><td>arc4gl --> arc5gl</td></tr>
+<tr><th>Apr 07, 2016</th><td>hanging up bug fixed</td></tr>
+<tr><th>Apr 22, 2016</th><td>reverted back to arc4gl</td></tr>
+<tr><th>Apr 25, 2016</th><td>possible bug removed</td></tr>
+<ol>
+<li>missing data (2013-current) were added</li>
+<li>data are collected from archive (more relaiable data input)</li>
+<li>the system is automeated and now run by a cron job</li>
+<li>plotting formats changed (instead of counting the date from mission starting to a unit of year etc). </li>
+</ol>
+                    </td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+    <li>EM_Dump data from arc4gl</li>
+    <li>/data/mta/DataSeeker/data/repository/orb_angle.rdb</li>
+    <li>/data/mta/Script/SIM/Scripts/hosue_keeping/msid_sim.list</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+    <li>
+    setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+    </li>
+    <li>
+    source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param
+    </li>
+    <li>
+    IPCL_DIR = /home/ascds/DS.release/config/tp_template/P011/
+    </li>
+    <li>
+    ACORN_GUI = /home/ascds/DS.release/config/mta/acorn/scripts/
+    </li>
+    <li>
+    LD_LIBRARY_PATH = /home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib
+    </li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>/data/mta/Script/SIM/Data/
+    <ul>
+        <li>tsc_temps.txt</li>
+        <li>sim_ftabs.out</li>
+        <li>sim_ttabs.out</li>
+        <li>sim_temps.out</li>
+        <li>limits.txt</li>
+        <li>plotfile.out</li>
+        <li>sim_summary.out</li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sim/MTR/
+    <ul>
+        <li>fullrange.html</li>
+        <li>sim_&lt;yyyy&gt;.html</li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sim/MTR/Plots/
+    <ul>
+        <li>sim_temp_fullrange.html</li>
+        <li>sim_temp_&lt;yyyy&gt;.png</li>
+        <li>sim_translation_fullrange.html</li>
+        <li>sim_translation_&lt;yyyy&gt;.png</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+    <li>
+    go to: /data/mta/Script/SIM/Exc/
+    </li>
+    <li>
+    set:    setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+    </li>
+    <li>
+    run:    /data/mta/Script/SIM/Scripts/run_sim_temp.py
+    </li>
+    <li>
+    run:    /data/mta/Script/SIM/Scripts/plot_sim_temp_data.py
+    </li>
+    <li>
+    run:    /data/mta/Script/SIM/Scripts/update_html.py
+    </li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this set of scripts.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+35 4 * * *  cd /data/mta/Script/SIM/Exc; /data/mta/Script/SIM/Scripts/sim_temp_wrap_script > $HOME/Logs/sim_temp_trend.cron
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sim/MTR/index.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_sim/MTR/index.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

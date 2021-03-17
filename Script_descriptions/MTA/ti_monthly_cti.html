@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>CTI Plots for Monthly Report</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>CTI Plots for Monthly Report</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+The scripts create CTI trend plots for Monthly Report.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Month/CTI/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: not uploaded
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>monthly_report_cti_avg_plots.py</td>             <td>Jun 06, 2016</td></tr>
+<tr><td>monthly_report_cti_avg_plots_two_section.py</td> <td>Jun 06, 2016</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Month/CTI/README.
+</p>
+<table border = 0>
+<tr><th>Sep 22, 2014</th><td>Initially logged</td></tr>
+<tr><th>Jun 06, 2016</th><td>Plotting range updated</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Data_adjust/&lt;elm&gt;_ccd&lt;ccd#&gt;
+</li>
+<li>
+/data/mta/Script/ACIS/CTI/Data/Det_Data_adjust/&lt;elm&gt;_ccd&lt;ccd#&gt;
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+These scripts run under SOT python2.7 environment. Set: <br />
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Month/CTI/Data/cti_data/
+    <ul>
+    <li>
+    ccd&lt;ccd#&gt;_data
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Month/CTI/Plots/
+    <ul>
+    <li> cti_avg_acis_bi.png</li>
+    <li> cti_avg_acis_i.png</li>
+    <li> cti_avg_acis_s.png</li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Month/CTI/
+</li>
+<li>
+set: setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+run:   monthly_report_cti_avg_plots.py
+</li>
+<li>
+run:   monthly_report_cti_avg_plots_two_section.py
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No  specific test is available, but simply run them to see whether the results are created. 
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+No cron job for the scripts.
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web page, but see monthly report. 
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

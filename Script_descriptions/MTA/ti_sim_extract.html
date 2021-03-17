@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>SIM Data Extraction</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>SIM Data Extraction</h2>
+
+<b><u>Dec 01, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/www/mta_sim/Scripts/SIM_extract/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>extract_sim_data.py</td>    <td>Dec 01, 2014</td></tr>
+<tr><td>sim_data_main_script</td>   <td>Nov 18, 2013</td></tr>
+<tr><td>sim_data_wrap_script</td>   <td>Nov 18, 2014</td></tr>
+<tr><td>run_script.py</td>          <td>Nov 18, 2014</td></tr>
+<tr><td>filters_ccdm</td>           <td>Nov 18, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read /data/mta_www/mta_sim/Scripts/SIM_extract/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Nov 18, 2014</th><td>Initially logged</td></tr>
+<tr><th>Dec 01, 2014</th><td>a bug fixed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/data/mta_www/mta_sim/Scripts/sim_data.out
+</li>
+<li>
+/data/mta/Script/Dumps/PRIMARYCCDM_*.*.tl  (this is updated by /data/mta/Script/Dumps/filte_wrap_script)
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta_www/mta_sim/Scripts/
+    <ul>
+    <li>
+    sim_data.out
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+run: /data/mta/Script/Dumps/filters_wrap_script
+</li>
+<li>
+go to: cd /data/mta_www/mta_sim/Scripts/SIM_extract
+</li>
+<li>
+set:   setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+run:   extract_sim_data.py
+</li>
+</ol>
+
+<p>
+If you need to fill/recreate a certain part of the data
+<ol>
+<li>
+go to: cd /data/mta_www/mta_sim/Scripts/SIM_extract
+</li>
+<li>
+edit run_script.py: change year and month cycle to the part you want to extract data
+</li>
+<li>
+set:   setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages"
+</li>
+<li>
+run run_script.py
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test for this script yet.
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+15 2 * * *  cd /data/mta_www/mta_sim/Scripts/SIM_extract/; /data/mta_www/mta_sim/Scripts/SIM_extract/sim_data_wrap_script >> $HOME/Logs/sim_data_ti.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+No web page for this data.
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+add test capability. Upload to git hab.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

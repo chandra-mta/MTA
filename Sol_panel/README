@@ -1,0 +1,93 @@
+#######################################################
+Solar Panel/Electric Power/Fine Sensor with Solar Angle
+#######################################################
+
+This directory contains scripts which used to create solar panel/spacecraft electric power a
+and fine sensor temperature evolution along the time.
+
+++++++++
+Scripts
+++++++++
+solor_wrap_script
+solar_main_script               ---- environment setting script
+
+extract_soloar_panel_data.py    --- extract data
+    access needed:
+                /data/mta/DataSeeker/data/repository/orb_angle.rdb
+                sot ska data base
+                dataseeker
+    output:
+        <data_dir>/solar_pannel_all_data
+        <data_dir>/solar_pannel_angle_<angle>
+
+plot_solar_pannel_data.py       --- plot extracted data
+    data needed:
+        <data_dir>/solar_pannel_all_data
+        <data_dir>/solar_pannel_angle_<angle>
+
+    output:
+        <web_dir>/Plots/sada_elbi.png
+        <web_dir>/Plots/<Msid>/<msid>_angle<angle>.png
+
+check_limit_val.py              --- call glimmon and extract limit data
+    input: msid
+    output:
+        a list of [<start time>, <stop time>, <yellow lower>, <yellow ypper>, <red lower>, <red upper>]
+
+    note: this script uses the sql database saved in /data/mta/Script/MSID_limit/
+
++++++++++
+Directory
++++++++++
+'/data/mta/Script/Sol_panel/Scripts/house_keeping/'     : house_keeping
+'/data/mta/Script/Sol_panel/Scripts/'                   : bin_dir
+'/data/mta/Script/Sol_panel/Data/'                      : data_dir
+'/data/mta/Script/Python3.8/MTA/'                       : mta_dir
+'/data/mta/www/mta_sol_panel/'                          : web_dir
+
+
++++++++
+Output
++++++++
+/data/mta/Script/Sol_panel/Data/
+    solar_pannel_all_data
+    solar_pannel_angle_<angle>
+
+/data/mta_www/mta_sol_panel/Plots
+    sada_elbi.png
+    <Msid>/<msid>_angle<angle>.png
+
+++++++++++
+Web Adress
+++++++++++
+https://cxc.cfa.harvard.edu/mta_days/mta_sol_panel/solarpanel.html
+
+++++++++
+Cron Job
+++++++++
+on c3po-v as mta
+0 3 2 * * cd /data/mta/Script/Sol_panel/Exc; /data/mta/Script/Sol_panel/Scripts/solar_wrap_script >> $HOME/Logs/solar_angle.cron 2>&1
+
+++++
+Note 
+++++
+About the dataseeker values
+(from email from MarkCresitelloDittmar  --- Jul 09, 2018)
+
+These are not computed.. they are monitored from L0 products:
+Looking at the database table spec - https://icxc.harvard.edu/scio/dp/mta_msid_eval.txt
+o these 3 come straight from monitoring the OBC1ENG data product in the mta_monitor_static pipeline.
+
+ OBATTPWR           1I        8.2       SPCELEC_OBC1ENG      static     Y    Y     Y   Phase 1  
+ OHRMAPWR           1E        8.2       SPCELEC_OBC1ENG      static     Y    Y     Y   Phase 1  
+ OOBAPWR            1E        8.2       SPCELEC_OBC1ENG      static     Y    Y     Y   Phase 1  
+
+%> dmlist /proj/sciops/test/master/in/mta_mon_stat/indata/obcf117159292N001_1_eng0.fits'[cols obattpwr,ohrmapwr,oobapwr]' cols 
+  --------------------------------------------------------------------------------
+  Columns for Table Block AXAF_OBC
+  --------------------------------------------------------------------------------
+  ColNo  Name          Unit          Type             Range
+   1   OBATTPWR                      Int2           -32768:32767         BATTERIES COMPUTED TOTAL POWER -- OBATTPWR
+   2   OHRMAPWR         W            Real4          0:     6553.50       HRMA COMPUTED TOTAL POWER
+   3   OOBAPWR          W            Real4          0:     6553.50       OBA COMPUTED TOTAL POWER
+

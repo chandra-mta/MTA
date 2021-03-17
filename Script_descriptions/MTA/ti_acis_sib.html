@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>ACIS SIB</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>ACIS SIB</h2>
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extracts ACIS SIB data and plots their trends.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>:
+</p>
+<ul>
+<li>/data/mta/Script/ACIS/SIB/Correct_excess/Scripts</li>
+<li>/data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr</li>
+</ul>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Sib_corr
+</p>
+
+
+<table border=0>
+<tr><td>ccd_comb_plot.py</td>       <td>Apr 02, 2014</td></tr>
+<tr><td>update_html.py</td>         <td>Feb 05, 2014</td></tr>
+<tr><td>run_evt_script.py</td>      <td>Apr 07, 2016</td></tr>
+<tr><td>sib_corr_functions.py</td>  <td>Apr 07, 2016</td></tr>
+<tr><td>exclude_srouces.py</td>     <td>Apr 07, 2016</td></tr>
+<tr><td>create_sib_data.py</td>     <td>Jan 03, 2018</td></tr>
+<tr><td>DBI.py</td>                 <td>Apr 07, 2016</td></tr>
+<tr><td>OcatSQL.py</td>             <td>Apr 07, 2016</td></tr>
+<tr><td>run_extract_evt1_wrap_script</td>   <td>Jul 21, 2016</td></tr>
+<tr><td>run_extract_evt1_main_script</td>   <td>Jul 21, 2016</td></tr>
+<tr><td>run_extract_evt2_wrap_script</td>   <td>Apr 07, 2016</td></tr>
+<tr><td>run_extract_evt2_main_script</td>   <td>May 02, 2016</td></tr>
+<tr><td>run_create_wrap_script</td>         <td>Apr 07, 2016</td></tr>
+<tr><td>run_create_main_script</td>         <td>Oct 24, 2016</td></tr>
+</table>
+
+<h3>Following scripts are retired or replaced with scripts in the above list</h3>
+<table border=0>
+<tr><td>wrap_script</td>            <td>Feb 24, 2010</td></tr>
+<tr><td>main_script</td>            <td>Feb 24, 2010</td></tr>
+<tr><td>process_evt1.perl</td>      <td>Apr 22, 2013</td></tr>
+<tr><td>process_evt2.perl</td>      <td>Apr 23, 2013</td></tr>
+<tr><td>exclude_srouces.perl</td>   <td>Jun 03, 2013</td></tr>
+<tr><td>sib_corr_comp_sib.perl</td> <td>Apr 22, 2013</td></tr>
+<tr><td>correct_factor.perl</td>    <td>Feb 12, 2010</td></tr>
+<tr><td>find_excess_file.perl</td>  <td>Feb 11, 2010</td></tr>
+<tr><td>move_exess_list.perl</td>   <td>May 02, 2014</td></tr>
+<tr><td>sib_corr_comb.perl</td>     <td>Apr 22, 2013</td></tr>
+
+<tr><td>run_create_evt1_wrap_script</td>  <td>Sep 18, 2915</td></tr>
+<tr><td>run_create_evt1_main_script</td>  <td>Sep 18, 2915</td></tr>
+<tr><td>run_extract_evt1_wrap_script</td> <td>Sep 17, 2915</td></tr>
+<tr><td>run_extract_evt1_main_script</td> <td>Sep 17, 2915</td></tr>
+<tr><td>run_create_evt2_wrap_script</td>  <td>Sep 18, 2915</td></tr>
+<tr><td>run_create_evt2_main_script</td>  <td>Sep 18, 2915</td></tr>
+<tr><td>run_extract_evt2_wrap_script</td> <td>Sep 17, 2915</td></tr>
+<tr><td>run_extract_evt2_main_script</td> <td>Sep 17, 2915</td></tr>
+<tr><td>run_evt1_script.py</td>           <td>Sep 17, 2915</td></tr>
+<tr><td>run_evt2_script.py</td>           <td>Sep 17, 2915</td></tr>
+<tr><td>create_sib_data_evt1.py</td>      <td>Sep 18, 2915</td></tr>
+<tr><td>create_sib_data_evt2.py</td>      <td>Sep 18, 2915</td></tr>
+
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/README
+</p>
+<table border = 0>
+<tr><th>Sep 16, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 18, 2015</th><td>Converted to cron job</td></tr>
+<tr><th>Apr 07, 2016</th><td>All scripts are rewritten in python</td></tr>
+<tr><th>Oct 24, 2016</th><td>ska environment setting updated</td></tr>
+<tr><th>Jan 03, 2018</th><td>error handling updated</td></tr>
+</table>
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+    acis evt1 and evt2 fits files extracted by arc5gl from archive.
+</li>
+<li>
+    sybase database access
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+    <li> /proj/sot/ska/</li>
+</ul>
+<h3>the follwoing settings are set under python ska</h3>
+<ul>
+    <li> ASCDS  (source /home/mta/.ascrc) </li>
+    <li> source /home/mta/bin/reset_param </li>
+    <li> unsetenv PERLLIB; unsetenv PERL5LIB </li>
+    <li> set path = (/home/ascds/DS.release/bin/  $path) </li>
+    <li> set path = (/home/ascds/DS.release/ots/bin/ $path) </li>
+    <li> setenv MTA_REPORT_DIR  /data/mta/Script/ACIS/SIB/Correct_excess/Lev1/Reportdir/ </li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/ACIS/SIB/Data/Data_&lt;year&gt;_&lt;month&gt;/
+    <ul>
+    <li> lres_ccd&lt;ccd#&gt;_merged.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/ACIS/SIB/Lev2/Data/Data_&lt;year&gt;_&lt;month&gt;/
+    <ul>
+    <li> lres_ccd&lt;ccd#&gt;_merged.fits.gz </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sib/Plots/Plot_&lt;year&gt;_&lt;month&gt;/
+    <ul>
+    <li> combined_month_plot_ccd&lt;ccd#&gt;.png </li>
+    <li> month_ccd&lt;ccd#&gt;.png </li>
+    </ul>
+</li>
+<li>
+/data/mta_www/mta_sib/Lev2/Plots/Plot_&lt;year&gt;_&lt;month&gt;/
+    <ul>
+    <li> combined_month_plot_ccd&lt;ccd#&gt;.png </li>
+    <li> month_ccd&lt;ccd#&gt;.png </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<p>
+<b>Following describe manual processs.</b>
+</p>
+<ol> 
+<li>
+<li>
+    go to:  cd /data/mta/Script/Sib/Correct_excess/
+</li>
+<li>
+    run:    /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_evt_script.py Lev1
+</li>
+<li>
+    run:    /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_evt_script.py Lev2
+</li>
+<li>
+    run:    /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/create_sib_data.py
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+Test is not available for this set of scripts.
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+50 22 2,10,20,30  * * cd /data/mta/Script/ACIS/SIB/Correct_excess/Lev2; /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_extract_evt2_wrap_script>> $HOME/Logs/sib_lev2_data.cron 
+<br />
+15 3  3 * *   cd /data/mta/Script/ACIS/SIB/Correct_excess/; /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_create_wrap_script >> $HOME/Logs/sib_lev2_create.cron 
+
+</p>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+35 23 *  * *  cd /data/mta/Script/ACIS/SIB/Correct_excess/Lev1; /data/mta/Script/ACIS/SIB/Correct_excess/Sib_corr/run_extract_evt1_wrap_script>> $HOME/Logs/sib_lev1_data.cron 
+</p>
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_sib/sib_main.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_sib/sib_main.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+Rewrite all perl scripts by python scripts
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

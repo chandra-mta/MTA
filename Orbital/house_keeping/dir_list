@@ -1,0 +1,5 @@
+'/data/mta/Script/Orbital/Scripts/'                     :bin_dir
+'/data/mta/Script/Orbital/Data/'                        :data_dir
+'/data/mta/DataSeeker/data/repository/'                 :repository
+'/data/mta/Script/Orbital/Scripts/house_keeping/'       :house_keeping
+'/data/mta/Script/Python3.8/MTA/'                       :mta_dir

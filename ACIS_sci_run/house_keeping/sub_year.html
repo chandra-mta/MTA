@@ -1,0 +1,126 @@
+<!DOCTYPE html> 
+ 
+<html> 
+<head> 
+	   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> 
+        <style  type='text/css'>
+        </style>
+        <title> ACIS Science Run</title> 
+ 
+        <script> 
+                function WindowOpener(imgname) { 
+                        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=1100,height=800,resize=no"); 
+                        msgWindow.document.clear(); 
+                        msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</title>"); 
+                        msgWindow.document.write("<body bgcolor='white'>"); 
+                        msgWindow.document.write("<img src='./"+imgname+"' border=0 style='width:95%;' ><p></p></body></html>") 
+                        msgWindow.document.close(); 
+                        msgWindow.focus(); 
+                } 
+        </script> 
+ 
+</head> 
+
+<body style='background-color:#FFEBCD'>
+<div style='float:right;'>
+    <a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/science_run.html>Back to Top</a></th> 
+</div>
+
+<h2 style="text-align:center">
+ACIS Science Run Year: #YEAR#
+</h2>
+
+<hr />
+
+<p>
+<b>
+Data plotted here are taken from psi processing log 
+(<a href='https://acisweb.mit.edu/acs'>https://acisweb.mit.edu/acs</a>). 
+</b>
+</p>
+<p>
+There are three plots in each FEP mode:
+</p>
+<table style='border-width:0px;padding-left:10px'> 
+<tr>
+    <td>Top:</td>
+    <td style="text-align:left"> evnets per second for each science run</td>
+</tr>
+<tr>
+    <td>Middle:</td>
+    <td style="text-align:left"> numbers of errors reported by psi per ksec for each science run</td>
+</tr>
+<tr>
+    <td>Bottom:</td>
+    <td style="text-align:left"> Percentage of exposures dropped for each science run</td>
+</tr>
+</table>
+
+<p>
+For more  details, plese go to <a href='https://acisweb.mit.edu/acs'>mit web site</a>. 
+</p>
+
+<h3 style='padding-top:20px;'>Trend Plots for Year #YEAR# (Click to Enlarge)</h3>
+
+<table border=0 cellspacing=5>
+<tr>
+<th style='width:20%;'>TE 3x3</th>
+<th style='width:20%;'>TE 5x5</th>
+<th style='width:20%;'>TE Raw</th>
+<th style='width:20%;'>CC 3x3</th>
+</tr>
+<td><a href="javascript:WindowOpener('te3_3_out.png')"><img src="te3_3_out.png" style='width:95%;'></a></td>
+<td><a href="javascript:WindowOpener('te5_5_out.png')"><img src="te5_5_out.png" style='width:95%;'></a></td>
+<td><a href="javascript:WindowOpener('te_raw_out.png')"><img src="te_raw_out.png" style='width:95%;'></a></td>
+<td><a href="javascript:WindowOpener('cc3_3_out.png')"><img src="cc3_3_out.png" style='width:95%;'></a></td>
+</tr>
+</table>
+
+<div style='padding-bottom:30px;'>
+</div>
+
+<h3>Data</h3>
+
+<table border=1 cellpadding=3>
+<tr>
+<td colspan=3 style='text-align:center;'>
+<a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/data#YEAR# target="_blank">DATA Plotted (ASCII format)</a>
+</td>
+</tr>
+<tr>
+<td><a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/drop_#YEAR# target="_blank">Te3x3 DATA with Dropped Rate > 3 %</a></td>
+<td><a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/high_event_#YEAR# target="_blank">Te3x3 DATA with Event Rate > 180 cnt/sec</a></td>
+<td><a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/high_error_#YEAR# target="_blank">Te3x3 DATA with Error # > 1 cnt/ksec</a></td>
+</tr>
+<tr>
+<td><a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/drop5x5_#YEAR# target="_blank">Te5x5 DATA with Dropped Rate > 3 %</a></td>
+<td><a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/high_event5x5_#YEAR# target="_blank">Te5x5 DATA with Event Rate > 56 cnt/sec</a></td>
+<td><a href=https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run//Year#YEAR#/high_error5x5_#YEAR# target="_blank">Te5x5 DATA with Error # > 1 cnt/ksec</a></td>
+</tr>
+</table> 
+
+<br>
+<hr />
+<h3>Plots/Data for Each Year </h3>
+<table border=0 cellpadding=5 cellspacing=3>
+<tr> 
+#YLIST#
+</tr>
+</table> 
+
+<div style='padding-bottom:20px;'>
+</div>
+<hr />
+<p>
+If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+<br />
+<br />
+<em>
+Last Data Update: #UPDATE# 
+</em>
+</p>
+<div style='padding-bottom:20px;'>
+</div>
+
+</body>
+</html>

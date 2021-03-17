@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SIM Monitoring</title>
+    <script language="JavaScript">
+        function WindowOpener(imgname) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1000,height=750,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</TITLE>");
+            msgWindow.document.write("<body bgcolor='black'>");
+            msgWindow.document.write("<img src='"+imgname+"' border =0 style='width:95%' ><p></p></body></html>")
+            msgWindow.document.close();
+            msgWindow.focus();
+        }
+    </script>
+
+</head>
+
+<body style="width:95%;margin-left:10px; margin-right;10px;background-color:#FAEBD7;font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>MTA SIM Movement Monitoring</h2>
+
+<p>
+These pages track the movement of Chandra's Science Instrument Module (SIM). 
+Motion between detectors and focus positions is plotted. Data is processed using 
+full-frame raw telemetry, so the temporal resolution is about 32s. Moves 
+between ACIS-I and ACIS-S are usually shorter than 32s, so times shown below for 
+these moves are understated. Processing parameters/assumptions include a maximum 
+move time of 500s and minimum time "settled"at a particular detector of 1500s.
+</p>
+
+<h3>SIM Position --- SIM position when it stays at the same spot more than 1,500 seconds</h3>
+<p>(Click a plot to enlarge it)</p>
+
+<table border=0 cellpadding=5 cellspacing=5>
+<tr>
+<th>&#160;</th>
+<th style='width:30%;'>TSC Position (z-axis)</th>
+<th style='width:30%;'>FA position (x-axis)</th>
+<th style='width:30%;'>Max Pulse Width Modulation</th>
+</tr>
+<tr>
+<th>ACIS-I</th>
+<td>
+<a href="javascript:WindowOpener('./Position/tscpos_acis_i_full.png')">
+<img src='./Position/tscpos_acis_i_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/fapos_acis_i_full.png')">
+<img src='./Position/fapos_acis_i_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/mrmmxmv_acis_i_full.png')">
+<img src='./Position/mrmmxmv_acis_i_full.png' style='width:90%'></a>
+</td>
+</tr>
+
+<tr>
+<th>ACIS-S</th>
+<td>
+<a href="javascript:WindowOpener('./Position/tscpos_acis_s_full.png')">
+<img src='./Position/tscpos_acis_s_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/fapos_acis_s_full.png')">
+<img src='./Position/fapos_acis_s_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/mrmmxmv_acis_s_full.png')">
+<img src='./Position/mrmmxmv_acis_s_full.png' style='width:90%'></a>
+</td>
+</tr>
+
+<tr>
+<th>HRC-I</th>
+<td>
+<a href="javascript:WindowOpener('./Position/tscpos_hrc_i_full.png')">
+<img src='./Position/tscpos_hrc_i_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/fapos_hrc_i_full.png')">
+<img src='./Position/fapos_hrc_i_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/mrmmxmv_hrc_i_full.png')">
+<img src='./Position/mrmmxmv_hrc_i_full.png' style='width:90%'></a>
+</td>
+</tr>
+
+<tr>
+<th>HRC-S</th>
+<td>
+<a href="javascript:WindowOpener('./Position/tscpos_hrc_s_full.png')">
+<img src='./Position/tscpos_hrc_s_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/fapos_hrc_s_full.png')">
+<img src='./Position/fapos_hrc_s_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Position/mrmmxmv_hrc_s_full.png')">
+<img src='./Position/mrmmxmv_hrc_s_full.png' style='width:90%'></a>
+</td>
+</tr>
+</table>
+
+<h4>Note: Instruments and  Expected SIM Ranges</h4>
+<table border=none cellpadidng=3>
+<tr> <th>ACIS I</th><td style='text-align:right'>  89000 </td>
+<td style='text-align:right'> 94103</td></tr>
+<tr> <th>ACIS S</th><td style='text-align:right'>  71420 </td>
+<td style='text-align:right'> 76823</td></tr>
+<tr> <th>HRC  I</th><td style='text-align:right'> -51705 </td>
+<td style='text-align:right'>-49306</td></tr>
+<tr> <th>HRC  S</th><td style='text-align:right'>-100800 </td>
+<td style='text-align:right'>-98400</td></tr>
+</table>
+<div styple='padding- bottom:5px;'>
+</div>
+
+
+
+
+
+
+<h3>SIM Transit Times --- A total transition time from one instrument to another</h3>
+<p>(Click a plot to enlarge it)</p>
+
+<table border=0 cellpadding=5 cellspacing=5>
+<tr>
+<th>ACIS-I</th>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_acisi_aciss_full.png')">
+<img src='./Transit/tsc_acisi_aciss_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_acisi_hrci_full.png')">
+<img src='./Transit/tsc_acisi_hrci_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_acisi_hrcs_full.png')">
+<img src='./Transit/tsc_acisi_hrcs_full.png' style='width:90%'></a>
+</td>
+</tr>
+<tr>
+<th>ACIS-S</th>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_aciss_acisi_full.png')">
+<img src='./Transit/tsc_aciss_acisi_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_aciss_hrci_full.png')">
+<img src='./Transit/tsc_aciss_hrci_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_aciss_hrcs_full.png')">
+<img src='./Transit/tsc_aciss_hrcs_full.png' style='width:90%'></a>
+</td>
+</tr>
+<tr>
+<th>HRC-I</th>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_hrci_acisi_full.png')">
+<img src='./Transit/tsc_hrci_acisi_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_hrci_aciss_full.png')">
+<img src='./Transit/tsc_hrci_aciss_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_hrci_hrcs_full.png')">
+<img src='./Transit/tsc_hrci_hrcs_full.png' style='width:90%'></a>
+</td>
+</tr>
+<tr>
+<th>HRC-S</th>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_hrcs_acisi_full.png')">
+<img src='./Transit/tsc_hrcs_acisi_full.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_hrcs_aciss_full.png')">
+<img src='./Transit/tsc_hrcs_aciss_full.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Transit/tsc_hrcs_hrci_full.png')">
+<img src='./Transit/tsc_hrcs_hrci_full.png' style='width:90%'></a>
+</td>
+</tr>
+</tr>
+</table>
+
+<h3>SIM Stepping Times --- A length of time to take each step</h3>
+<p>(Click a plot to enlarge it)</p>
+
+<table border=0 cellpadding=5 cellspacing=5>
+<tr>
+<th>ACIS-I</th>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_acisi_aciss.png')">
+<img src='./Step/tsc_steps_acisi_aciss.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_acisi_hrci.png')">
+<img src='./Step/tsc_steps_acisi_hrci.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_acisi_hrcs.png')">
+<img src='./Step/tsc_steps_acisi_hrcs.png' style='width:90%'></a>
+</td>
+</tr>
+<tr>
+<th>ACIS-S</th>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_aciss_acisi.png')">
+<img src='./Step/tsc_steps_aciss_acisi.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_aciss_hrci.png')">
+<img src='./Step/tsc_steps_aciss_hrci.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_aciss_hrcs.png')">
+<img src='./Step/tsc_steps_aciss_hrcs.png' style='width:90%'></a>
+</td>
+</tr>
+<tr>
+<th>HRC-I</th>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_hrci_acisi.png')">
+<img src='./Step/tsc_steps_hrci_acisi.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_hrci_aciss.png')">
+<img src='./Step/tsc_steps_hrci_aciss.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_hrci_hrcs.png')">
+<img src='./Step/tsc_steps_hrci_hrcs.png' style='width:90%'></a>
+</td>
+</tr>
+<tr>
+<th>HRC-S</th>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_hrcs_acisi.png')">
+<img src='./Step/tsc_steps_hrcs_acisi.png'  style='width:90%'/></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_hrcs_aciss.png')">
+<img src='./Step/tsc_steps_hrcs_aciss.png'   style='width:90%'></a>
+</td>
+<td>
+<a href="javascript:WindowOpener('./Step/tsc_steps_hrcs_hrci.png')">
+<img src='./Step/tsc_steps_hrcs_hrci.png' style='width:90%'></a>
+</td>
+</tr>
+</table>
+
+<h3>Summary Table</h3>
+<center>
+#SUMMARY_TABLE#
+</center>
+
+<h3>SIM Cumulative Trends</h3>
+
+<center>
+<img src='./Cumulative/monthly_sim.png' style='width:90%'></a>
+</center>
+
+
+<div style='padding-top:20px; padding-bottom:5px;'>
+<hr>
+</div>
+<i>Last Modified: Feb 17, 2021</i>
+<p style='padding-bottom:5px;'>
+If you have any quesitons, plase contact:
+ <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu</a>
+</p>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

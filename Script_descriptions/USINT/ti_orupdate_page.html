@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Target Parameter Update Status Form</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Target Parameter Update Status Form</h2>
+
+<b><u>Last Updated: Sep 30, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This form contains all requested updates which have either not been verified or have been verified in the last 24 hours.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/CUS/www/Usint/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Usint_script
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>orupdate.cgi</td>       <td>Sep 23, 2014</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+There is a short description of this script in: /data/mta4/obs_ss/Usint_test/Usint_script/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 23, 2014</th><td>SyBase link update: SYBASE_OCS15.5 ---> SYBASE15.7</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> syBase access </li>
+<li> /data/mta4/CUS/www/Usint/ocat/approved </li>
+<li> /data/mta4/CUS/www/Usint/ocat/updates_table.list </li>
+<li> /data/mta4/CUS/www/Usint/ocat/updates/&lt;obsid&gt;.&lt;ver#&gt; </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/usint_users </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/user_email_list </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/.htpasswd </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/.htgroup </li>
+<li> /data/mta4/obs_ss/acess_list </li>
+<li> /data/mta4/obs_ss/cdo_warning_list </li>
+
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+/soft/ascds/DS.release/ots/bin/perl
+</li>
+<li>
+$ENV{SYBASE} = "/soft/SYBASE15.7";
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+NA
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+NA
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NA
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+NA
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/CUS/Usint/orupdate.cgi'>
+https://cxc.cfa.harvard.edu/mta/CUS/Usint/orupdate.cgi
+</a>
+<br />
+<a href='https://icxc.cfa.harvard.edu/mta/CUS/Usint/orupdate.cgi'>
+https://icxc.cfa.harvard.edu/mta/CUS/Usint/orupdate.cgi
+</a>
+<br />
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+The script will be rewritten in python cgi.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

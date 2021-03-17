@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style  type="text/css">
+table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+td{text-align:center;padding:8px}
+
+a:link {color:blue;}
+a:visited {color:red;}
+
+span.nobr {white-space:nowrap;}
+</style>
+<title>ACIS Count Rate Plots </title>
+<script>
+    function WindowOpener(imgname) {
+        msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,,width=1000,height=600,resize=no");
+        msgWindow.document.clear();
+        msgWindow.document.write("<html><title>ACIS Count Rate:   "+imgname+"</TITLE>");
+        msgWindow.document.write("<body>");
+        msgWindow.document.write("<img src='../Plots/"+imgname+"' border =0 style='width:95%;' ><p></p></body></html>")
+        msgWindow.document.close();
+        msgWindow.focus();
+    }
+</script>
+</head>
+<body style="background-color:#FFEBCD;">
+<h2 style="text-align:center">ACIS Dose Plot: Year #YEAR#</h2>
+
+<div style='text-align:right;'>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_dose_count/main_acis_dose_plot.html'>Back to Top   </a>
+<br />
+#DIRECT#
+</div>
+
+<table boder= 0 sellspacing=2 style='border-color:#FFEBCD;'>
+<tr>
+<th>Imaging CCDs</th><th>FrontSide Spec CCDs</th><th>BackSide CCDs</th>
+</tr>
+
+<tr>
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd0.png')"><img src="../Plots/#YEAR#/acis_dose_ccd0.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd4.png')"><img src="../Plots/#YEAR#/acis_dose_ccd4.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd5.png')"><img src="../Plots/#YEAR#/acis_dose_ccd5.png" style="text-align:center; width: 95%"></a>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd1.png')"><img src="../Plots/#YEAR#/acis_dose_ccd1.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd6.png')"><img src="../Plots/#YEAR#/acis_dose_ccd6.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd7.png')"><img src="../Plots/#YEAR#/acis_dose_ccd7.png" style="text-align:center; width: 95%"></a>
+</td>
+</tr>
+
+
+
+<tr>
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd2.png')"><img src="../Plots/#YEAR#/acis_dose_ccd2.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd8.png')"><img src="../Plots/#YEAR#/acis_dose_ccd8.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td valign='bottom'>
+<b>
+#EPHINTITLE#
+</b>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd3.png')"><img src="../Plots/#YEAR#/acis_dose_ccd3.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+<a href="javascript:WindowOpener('#YEAR#/acis_dose_ccd9.png')"><img src="../Plots/#YEAR#/acis_dose_ccd9.png" style="text-align:center; width: 95%"></a>
+</td>
+
+<td>
+#EPHIN#
+</td>
+</tr>
+</table>
+
+<div style='padding-bottom:30px;'></div>
+<hr />
+<p style="font-size:90%">
+<em>
+If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu.
+</em>
+</p>
+
+<p style="font-size:90%">
+Last Update: #UPDATE#
+</p>
+
+</body>
+</html>
+
+
+

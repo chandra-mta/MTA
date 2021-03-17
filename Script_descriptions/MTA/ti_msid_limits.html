@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>MSID Limit Database Update</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>MSID Limit Database Update</h2>
+
+
+<h3>Description</h3>
+<p>
+This script compares the current mta limit data base to glimmon and update the former
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/MSID_limit
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: <!--https://github.com/taldcroft/workflow/blob/master/README.md-->
+Not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>compare_database_wrap_script</td>       <td>May 10, 2017</td></tr>
+<tr><td>compare_database_main_script</td>       <td>May 10, 2017</td></tr>
+<tr><td>compare_database_and_update.py</td>     <td>Feb 15, 2018</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+</p>
+<table border = 0>
+<tr><th>May 31, 2017</th><td>Initially logged</td></tr>
+<tr><th>Feb 15, 2018</th><td>special_msid_list added; which prevent glimmon to rewrite the limits</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/AXAFAUTO_RSYNC/G_LIMMON_Archive/glimmondb.sqlite3
+</li>
+<li>
+/data/mta4/MTA/data/op_limits/op_limits.db
+</li>
+<li>
+/data/mta/Script/MSID_limit/special_msid_list
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/MSID_limit/
+    <ul>
+    <li>
+    glimmondb.sqlite3_<time stamp>
+    </li>
+    <li>
+    op_limits.db_<time stamp>
+    </ul>
+</li>
+<li>
+/data/mta4/MTA/data/op_limits/
+    <ul>
+    <li>
+    op_limits.db
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+cd  /data/mta/Script/MSID_limit/
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+<li>
+compare_database_and_update.py
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+cd  /data/mta/Script/MSID_limit/
+</li>
+<li>
+source /proj/sot/ska/bin/ska_envs.csh
+</li>
+<li>
+compare_database_and_update.py test
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+35 4 1 * * cd /data/mta/Script/MSID_limit; /data/mta/Script/MSID_limit/compare_database_wrap_script > /home/mta/op_limit_updates.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+None
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

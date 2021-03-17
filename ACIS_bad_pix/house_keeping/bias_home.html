@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head> 
+       <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+        <!-- <link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta/REPORTS/Template/mta.css" /> -->
+        <style  type='text/css'>
+        table{text-align:center;margin-left:auto;margin-right:auto;border-style:solid;border-spacing:8px;border-width:2px;border-collapse:separate}
+        td{text-align:center;padding:8px}
+        a:link {color:blue;}
+        a:visited {color:red;}
+        span.nobr {white-space:nowrap;}
+        </style>
+        <title>ACIS Total Bias Plots</title> 
+
+	<script>
+	function MyWindowOpener(imgname) {
+	msgWindow=open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=732,height=600,resize=yes");
+	msgWindow.document.close();
+	msgWindow.document.write("<!DOCTYPE html>");
+	msgWindow.document.write("<html><head><title>Bias plot:   "+imgname+"</title></head>");
+        msgWindow.document.write("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />");
+	msgWindow.document.write("<body style='background-color:white'>");
+	msgWindow.document.write("<img src='https://cxc.cfa.harvard.edu/mta_days/mta_bias_bkg/Plots/"+imgname+"' style=\"width:692px;height:540px\"></body></html>");
+	msgWindow.focus();
+	}
+	</script>
+
+</head>
+
+<body style='color:black; background-color:#FFEBCD;'>
+
+<h1 style='text-align:center;margin-left:auto;margin-right:auto'>ACIS Total Bias Plots</h1>
+<hr />
+<div style='font-size:90%'>
+<p>
+These plots show the average value in ADU of each node of each CCD when a bias measurement was made.
+</p>
+
+<ul>
+<li> 
+<a href="#bias_no_overclk">'Plot of Bias without Overclock Subtracted'</a> row shows plots of averages of readout counts of the CCD without overclock subtraction.
+</li>
+<li> 
+<a href="#overclk">'Plots of Overclock'</a> row shows plots of overclock values of the CCD.
+</li>
+<li> 
+<a href="#bias_with_overclk">'Plots of Bias with Overclock Subtracted'</a> row shows plots of bias (subtracted overclock) of the CCD.
+</li>
+</ul>
+<br />
+<br />
+
+<ul>
+<li> 
+<a href="#obs_mode">'Plots of Bias and  Overclock Values Separated by Observation Mode'</a> rows show 
+ plots of bias and overclock values discriminated into Faint, Very Faint, and other modes.
+</li>
+<li> 
+<a href="#ccd_on">'Plots of Bias  Overclock Values Separated by Number of CCD On"</a> rows show plots 
+ of bias and overclock values discriminated based on how many CCDs were used: 6 CCD, 5 CCD, and 1, 2, 3, or 4 CCD cases are plotted.
+</li>
+<li> 
+<a href="#readout">'Plots of Bias and Overclock on CCD Readout Area'</a> rows show plots of bias and overclock values 
+ discriminated by whether the entire CCD area is used or only partly used.
+</li>
+<li> 
+<a href="#bias_arg">'Plots of Bias and Overclock on Bias Argument Setting'</a> rows show different setting of one of 
+ bias setting argument (arg1--- there are 5 arguments). 
+</li>
+</ul>
+<br />
+
+<p>
+Please select CCD:
+</p>
+</div>
+
+<table border=1 style='border-width:1px'>
+<tr>
+<th><a id="bias_no_overclk" style="font-size:95%;color:black">Plots of Bias without Overclock Subtracted</a></th>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd0.png')">CCD0</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd1.png')">CCD1</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd2.png')">CCD2</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd3.png')">CCD3</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd4.png')">CCD4</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd5.png')">CCD5</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd6.png')">CCD6</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd7.png')">CCD7</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd8.png')">CCD8</a></td>
+<td><a href="javascript:MyWindowOpener('./Bias_bkg/ccd9.png')">CCD9</a></td>
+</tr><tr>
+<th><a id="overclk" style="font-size:95%;color:black">Plots of Overclock</a></th>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd0.png')">CCD0</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd1.png')">CCD1</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd2.png')">CCD2</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd3.png')">CCD3</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd4.png')">CCD4</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd5.png')">CCD5</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd6.png')">CCD6</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd7.png')">CCD7</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd8.png')">CCD8</a></td>
+<td><a href="javascript:MyWindowOpener('./Overclock/ccd9.png')">CCD9</a></td>
+</tr><tr>
+<th><a id="bias_with_overclk" style="font-size:95%;color:black">Plots of Bias with Overclock Subtracted</a></th>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd0.png')">CCD0</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd1.png')">CCD1</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd2.png')">CCD2</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd3.png')">CCD3</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd4.png')">CCD4</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd5.png')">CCD5</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd6.png')">CCD6</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd7.png')">CCD7</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd8.png')">CCD8</a></td>
+<td><a href="javascript:MyWindowOpener('./Sub/ccd9.png')">CCD9</a></td>
+</tr><tr>
+
+
+
+
+
+
+<th colspan=11 style='text-align:left' id="obs_mode"> Plots of Bias and  Overclock Values Separated by  Observation Mode:</th>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad0</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q0/obs_mode.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q0/obs_mode.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q0/obs_mode.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q0/obs_mode.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q0/obs_mode.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q0/obs_mode.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q0/obs_mode.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q0/obs_mode.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q0/obs_mode.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q0/obs_mode.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q0/obs_mode.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q0/obs_mode.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q0/obs_mode.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q0/obs_mode.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q0/obs_mode.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q0/obs_mode.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q0/obs_mode.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q0/obs_mode.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q0/obs_mode.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q0/obs_mode.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad1</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q1/obs_mode.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q1/obs_mode.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q1/obs_mode.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q1/obs_mode.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q1/obs_mode.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q1/obs_mode.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q1/obs_mode.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q1/obs_mode.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q1/obs_mode.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q1/obs_mode.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q1/obs_mode.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q1/obs_mode.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q1/obs_mode.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q1/obs_mode.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q1/obs_mode.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q1/obs_mode.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q1/obs_mode.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q1/obs_mode.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q1/obs_mode.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q1/obs_mode.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad2</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q2/obs_mode.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q2/obs_mode.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q2/obs_mode.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q2/obs_mode.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q2/obs_mode.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q2/obs_mode.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q2/obs_mode.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q2/obs_mode.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q2/obs_mode.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q2/obs_mode.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q2/obs_mode.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q2/obs_mode.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q2/obs_mode.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q2/obs_mode.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q2/obs_mode.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q2/obs_mode.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q2/obs_mode.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q2/obs_mode.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q2/obs_mode.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q2/obs_mode.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad3</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q3/obs_mode.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q3/obs_mode.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q3/obs_mode.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q3/obs_mode.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q3/obs_mode.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q3/obs_mode.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q3/obs_mode.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q3/obs_mode.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q3/obs_mode.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q3/obs_mode.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q3/obs_mode.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q3/obs_mode.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q3/obs_mode.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q3/obs_mode.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q3/obs_mode.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q3/obs_mode.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q3/obs_mode.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q3/obs_mode.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q3/obs_mode.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q3/obs_mode.png')">OC9</a></td>
+</tr><tr>
+
+<th colspan=11 style='text-align:left' id="ccd_on"> Plots of Bias and  Overclock Values Separated by Number of CCD ON:</th>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad0</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q0/no_ccds.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q0/no_ccds.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q0/no_ccds.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q0/no_ccds.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q0/no_ccds.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q0/no_ccds.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q0/no_ccds.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q0/no_ccds.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q0/no_ccds.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q0/no_ccds.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q0/no_ccds.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q0/no_ccds.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q0/no_ccds.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q0/no_ccds.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q0/no_ccds.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q0/no_ccds.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q0/no_ccds.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q0/no_ccds.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q0/no_ccds.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q0/no_ccds.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad1</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q1/no_ccds.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q1/no_ccds.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q1/no_ccds.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q1/no_ccds.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q1/no_ccds.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q1/no_ccds.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q1/no_ccds.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q1/no_ccds.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q1/no_ccds.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q1/no_ccds.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q1/no_ccds.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q1/no_ccds.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q1/no_ccds.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q1/no_ccds.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q1/no_ccds.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q1/no_ccds.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q1/no_ccds.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q1/no_ccds.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q1/no_ccds.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q1/no_ccds.png')">OC9</a></td>
+</tr><tr>
+
+<th rowspan=2 style='font-size:90%;color:black'>Quad2</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q2/no_ccds.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q2/no_ccds.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q2/no_ccds.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q2/no_ccds.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q2/no_ccds.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q2/no_ccds.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q2/no_ccds.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q2/no_ccds.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q2/no_ccds.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q2/no_ccds.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q2/no_ccds.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q2/no_ccds.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q2/no_ccds.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q2/no_ccds.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q2/no_ccds.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q2/no_ccds.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q2/no_ccds.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q2/no_ccds.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q2/no_ccds.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q2/no_ccds.png')">OC9</a></td>
+</tr><tr>
+
+<th rowspan=2 style='font-size:90%;color:black'>Quad3</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q3/no_ccds.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q3/no_ccds.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q3/no_ccds.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q3/no_ccds.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q3/no_ccds.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q3/no_ccds.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q3/no_ccds.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q3/no_ccds.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q3/no_ccds.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q3/no_ccds.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q3/no_ccds.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q3/no_ccds.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q3/no_ccds.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q3/no_ccds.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q3/no_ccds.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q3/no_ccds.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q3/no_ccds.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q3/no_ccds.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q3/no_ccds.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q3/no_ccds.png')">OC9</a></td>
+</tr><tr>
+
+
+
+
+<th colspan=11 style='align:left' id="readout"> Plots of Bias and  Overclock values  Separated by CCD Readout Area:</th>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad0</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q0/partial_readout.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q0/partial_readout.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q0/partial_readout.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q0/partial_readout.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q0/partial_readout.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q0/partial_readout.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q0/partial_readout.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q0/partial_readout.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q0/partial_readout.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q0/partial_readout.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q0/partial_readout.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q0/partial_readout.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q0/partial_readout.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q0/partial_readout.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q0/partial_readout.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q0/partial_readout.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q0/partial_readout.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q0/partial_readout.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q0/partial_readout.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q0/partial_readout.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad1</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q1/partial_readout.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q1/partial_readout.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q1/partial_readout.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q1/partial_readout.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q1/partial_readout.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q1/partial_readout.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q1/partial_readout.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q1/partial_readout.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q1/partial_readout.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q1/partial_readout.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q1/partial_readout.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q1/partial_readout.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q1/partial_readout.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q1/partial_readout.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q1/partial_readout.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q1/partial_readout.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q1/partial_readout.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q1/partial_readout.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q1/partial_readout.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q1/partial_readout.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad2</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q2/partial_readout.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q2/partial_readout.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q2/partial_readout.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q2/partial_readout.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q2/partial_readout.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q2/partial_readout.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q2/partial_readout.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q2/partial_readout.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q2/partial_readout.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q2/partial_readout.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q2/partial_readout.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q2/partial_readout.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q2/partial_readout.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q2/partial_readout.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q2/partial_readout.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q2/partial_readout.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q2/partial_readout.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q2/partial_readout.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q2/partial_readout.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q2/partial_readout.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad3</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q3/partial_readout.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q3/partial_readout.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q3/partial_readout.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q3/partial_readout.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q3/partial_readout.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q3/partial_readout.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q3/partial_readout.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q3/partial_readout.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q3/partial_readout.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q3/partial_readout.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q3/partial_readout.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q3/partial_readout.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q3/partial_readout.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q3/partial_readout.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q3/partial_readout.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q3/partial_readout.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q3/partial_readout.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q3/partial_readout.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q3/partial_readout.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q3/partial_readout.png')">OC9</a></td>
+</tr><tr>
+
+
+<th colspan=11 style='text-align:left' id="bias_arg"> Plots of Bias and  Overclock Values Separated by Bias Argument Setting: </th>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad0</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q0/bias_arg1.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q0/bias_arg1.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q0/bias_arg1.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q0/bias_arg1.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q0/bias_arg1.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q0/bias_arg1.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q0/bias_arg1.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q0/bias_arg1.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q0/bias_arg1.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q0/bias_arg1.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q0/bias_arg1.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q0/bias_arg1.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q0/bias_arg1.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q0/bias_arg1.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q0/bias_arg1.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q0/bias_arg1.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q0/bias_arg1.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q0/bias_arg1.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q0/bias_arg1.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q0/bias_arg1.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad1</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q1/bias_arg1.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q1/bias_arg1.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q1/bias_arg1.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q1/bias_arg1.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q1/bias_arg1.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q1/bias_arg1.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q1/bias_arg1.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q1/bias_arg1.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q1/bias_arg1.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q1/bias_arg1.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q1/bias_arg1.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q1/bias_arg1.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q1/bias_arg1.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q1/bias_arg1.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q1/bias_arg1.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q1/bias_arg1.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q1/bias_arg1.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q1/bias_arg1.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q1/bias_arg1.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q1/bias_arg1.png')">OC9</a></td>
+
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad2</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q2/bias_arg1.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q2/bias_arg1.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q2/bias_arg1.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q2/bias_arg1.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q2/bias_arg1.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q2/bias_arg1.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q2/bias_arg1.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q2/bias_arg1.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q2/bias_arg1.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q2/bias_arg1.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q2/bias_arg1.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q2/bias_arg1.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q2/bias_arg1.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q2/bias_arg1.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q2/bias_arg1.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q2/bias_arg1.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q2/bias_arg1.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q2/bias_arg1.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q2/bias_arg1.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q2/bias_arg1.png')">OC9</a></td>
+</tr><tr>
+<th rowspan=2 style='font-size:90%;color:black'>Quad3</th>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_bias_q3/bias_arg1.png')">BIAS0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_bias_q3/bias_arg1.png')">BIAS1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_bias_q3/bias_arg1.png')">BIAS2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_bias_q3/bias_arg1.png')">BIAS3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_bias_q3/bias_arg1.png')">BIAS4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_bias_q3/bias_arg1.png')">BIAS5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_bias_q3/bias_arg1.png')">BIAS6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_bias_q3/bias_arg1.png')">BIAS7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_bias_q3/bias_arg1.png')">BIAS8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_bias_q3/bias_arg1.png')">BIAS9</a></td>
+</tr><tr>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD0/CCD0_q3/bias_arg1.png')">OC0</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD1/CCD1_q3/bias_arg1.png')">OC1</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD2/CCD2_q3/bias_arg1.png')">OC2</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD3/CCD3_q3/bias_arg1.png')">OC3</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD4/CCD4_q3/bias_arg1.png')">OC4</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD5/CCD5_q3/bias_arg1.png')">OC5</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD6/CCD6_q3/bias_arg1.png')">OC6</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD7/CCD7_q3/bias_arg1.png')">OC7</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD8/CCD8_q3/bias_arg1.png')">OC8</a></td>
+<td><a href="javascript:MyWindowOpener('./Param_diff/CCD9/CCD9_q3/bias_arg1.png')">OC9</a></td>
+</tr><tr>
+
+
+
+
+
+
+
+<th colspan=11 style='text-align:left'> Data</th>
+</tr><tr>
+<th style='font-size:90%;color:black'>Quad0</th>
+<td><a href='./Bias_save/CCD0/quad0'>CCD 0</a></td>
+<td><a href='./Bias_save/CCD1/quad0'>CCD 1</a></td>
+<td><a href='./Bias_save/CCD2/quad0'>CCD 2</a></td>
+<td><a href='./Bias_save/CCD3/quad0'>CCD 3</a></td>
+<td><a href='./Bias_save/CCD4/quad0'>CCD 4</a></td>
+<td><a href='./Bias_save/CCD5/quad0'>CCD 5</a></td>
+<td><a href='./Bias_save/CCD6/quad0'>CCD 6</a></td>
+<td><a href='./Bias_save/CCD7/quad0'>CCD 7</a></td>
+<td><a href='./Bias_save/CCD8/quad0'>CCD 8</a></td>
+<td><a href='./Bias_save/CCD9/quad0'>CCD 9</a></td>
+</tr><tr>
+<th  style='font-size:90%;color:black'>Quad1</th>
+<td><a href='./Bias_save/CCD0/quad1'>CCD 0</a></td>
+<td><a href='./Bias_save/CCD1/quad1'>CCD 1</a></td>
+<td><a href='./Bias_save/CCD2/quad1'>CCD 2</a></td>
+<td><a href='./Bias_save/CCD3/quad1'>CCD 3</a></td>
+<td><a href='./Bias_save/CCD4/quad1'>CCD 4</a></td>
+<td><a href='./Bias_save/CCD5/quad1'>CCD 5</a></td>
+<td><a href='./Bias_save/CCD6/quad1'>CCD 6</a></td>
+<td><a href='./Bias_save/CCD7/quad1'>CCD 7</a></td>
+<td><a href='./Bias_save/CCD8/quad1'>CCD 8</a></td>
+<td><a href='./Bias_save/CCD9/quad1'>CCD 9</a></td>
+</tr><tr>
+<th style='font-size:90%;color:black'>Quad2</th>
+<td><a href='./Bias_save/CCD0/quad2'>CCD 0</a></td>
+<td><a href='./Bias_save/CCD1/quad2'>CCD 1</a></td>
+<td><a href='./Bias_save/CCD2/quad2'>CCD 2</a></td>
+<td><a href='./Bias_save/CCD3/quad2'>CCD 3</a></td>
+<td><a href='./Bias_save/CCD4/quad2'>CCD 4</a></td>
+<td><a href='./Bias_save/CCD5/quad2'>CCD 5</a></td>
+<td><a href='./Bias_save/CCD6/quad2'>CCD 6</a></td>
+<td><a href='./Bias_save/CCD7/quad2'>CCD 7</a></td>
+<td><a href='./Bias_save/CCD8/quad2'>CCD 8</a></td>
+<td><a href='./Bias_save/CCD9/quad2'>CCD 9</a></td>
+</tr><tr>
+<th style='font-size:90%;color:black'>Quad3</th>
+<td><a href='./Bias_save/CCD0/quad3'>CCD 0</a></td>
+<td><a href='./Bias_save/CCD1/quad3'>CCD 1</a></td>
+<td><a href='./Bias_save/CCD2/quad3'>CCD 2</a></td>
+<td><a href='./Bias_save/CCD3/quad3'>CCD 3</a></td>
+<td><a href='./Bias_save/CCD4/quad3'>CCD 4</a></td>
+<td><a href='./Bias_save/CCD5/quad3'>CCD 5</a></td>
+<td><a href='./Bias_save/CCD6/quad3'>CCD 6</a></td>
+<td><a href='./Bias_save/CCD7/quad3'>CCD 7</a></td>
+<td><a href='./Bias_save/CCD8/quad3'>CCD 8</a></td>
+<td><a href='./Bias_save/CCD9/quad3'>CCD 9</a></td>
+</tr></table>
+
+<p style='font-size:90%'>
+The bias level was calculated following.
+</p>
+
+<ul style='font-size:90%;padding-bottom:30px'>
+<li> Get acisf*bias0.fits is obtained from a database or /dsops/ap/sdp/cache/*/acis/</li>
+<li> Data with timed mode exposure is selected.</li>
+<li> Fits files were divided into 4 quads, then an average of bias level of each quad is computed.
+     No corrections for dead spots, columns etc were included.</li>
+</ul>
+
+<hr >
+Last Update:
+

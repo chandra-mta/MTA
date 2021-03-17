@@ -1,0 +1,6 @@
+'/data/mta/Script/Grating/Grating_DB/Scripts/'                  : bin_dir
+'/data/mta/Script/Grating/Grating_DB/Scripts/house_keeping/'    : house_keeping
+'/data/mta/Script/Grating/Grating_DB/Data/'                     : data_dir
+'/data/mta/Script/Python_script2.7/'                            : mta_dir
+'/data/mta_www/mta_grat/'                                       : web_dir
+'/data/mta_www/mta_grat/Grating_Data/'                          : gdata_dir

@@ -1,0 +1,12 @@
+cd /data/mta/Script/Grating/EdE_trend/Exc
+rm -rf param
+mkdir param
+
+source /soft/SYBASE16.0/SYBASE.csh
+setenv PYTHONPATH /soft/SYBASE16.0/OCS-16_0/python/python34_64r/lib
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/Grating/EdE_trend/Scripts/extract_line_stat.py   all
+/data/mta/Script/Grating/EdE_trend/Scripts/ede_plot.py
+/data/mta/Script/Grating/EdE_trend/Scripts/ede_temperature_plots.py

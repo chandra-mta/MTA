@@ -1,0 +1,1 @@
+TERM=dummy; export TERM; /bin/tcsh  </data/mta_www/mta_sim/Scripts/SIM_extract/sim_data_main_script

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Creating Orbital Data RDB files</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Creating Orbital Data RDB files</h2>
+
+<b><u>Last Updated: Nov 24, 2014</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of scripts extract orbital element related data from
+archived data and create rdb files.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Orbital/Orbital/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Orbital
+</p>
+
+
+<table border=0>
+<b><u>Last Updated: Sep 30, 2014</u></b>
+<tr><td>orb_elm_wrap_script</td>           <td>Aug 23, 2013</td></tr>
+<tr><td>orb_elm_main_script</td>           <td>Jul 02, 2013</td></tr>
+<tr><td>orb_elm_wrap_script_test</td>      <td>Feb 27, 2013</td></tr>
+<tr><td>orb_elm_main_script_test</td>      <td>Jul 02, 2013</td></tr>
+<tr><td>orb_elm_create_rdb_file.perl</td>  <td>Jul 02, 2013</td></tr>
+<tr><td>orb_elm_get_orb.perl</td>          <td>Jul 02, 2013</td></tr>
+<tr><td>clean_up.perl</td>                 <td>Nov 18, 2014</td></td>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+Please read README file for more details.
+/data/mta/Script/Orbital/Orbital/README.
+</p>
+<table border = 0>
+<tr><th>Sep 22, 2014</th><td>Initially logged</td></tr>
+<tr><th>Nov 18, 2014</th><td>clean_up.perl addes to remove duplicated data</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+orbitf*_eph1.fits, anglef*_eph1.fits using arc4gl.
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS (source /home/mta/.ascrc)
+</li>
+<li>
+source /home/mta/bin/reset_param
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Orbital/Orb/
+    <ul>
+    <li> orbit_data_&lt;time stamp&gt </li>
+    <li> Data_&lt;year&gt;/orbit_data_&lt;time stamp&gt </li>
+    </ul>
+</li>
+<li>
+/data/mta/DataSeeker/data/repository/
+    <ul>
+    <li>
+    aorbital.rdb
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Orbital/Exec
+</li>
+<li>
+run:    /data/mta/MTA/bin/orb_elm_wrap_script
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Orbital/Exec
+</li>
+<li>
+run:    /data/mta/MTA/bin/orb_elm_wrap_script_test
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+The results are save in /data/mta/Script/Orbital/Test_out. Compare the results to those in 
+/data/mta/Script/Orbital/Orbital/Test_comp_results/.
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>r2d2-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+30 2 * * 0 cd /data/mta/Script/Orbital/Exec; /data/mta/MTA/bin/orb_elm_wrap_script >> $HOME/Logs/orb_elm.cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/template.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_script_list/template.html
+</a>
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+the script will be rewritten in python.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

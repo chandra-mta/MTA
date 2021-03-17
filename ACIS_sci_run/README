@@ -1,0 +1,158 @@
+################
+ACIS Science Run
+################
+
+This set of scripts retrieve ACIS science run data from MIT web site, check event rate, error rate,
+and drop rate and plot trends. If any of these higher than specified limits, it will send out
+email notification.
+
+##########
+How to run
+##########
+
+Create a directory for computation, then type:
+
+    /data/mta/Script/ACIS/Acis_sci_run/Script/acis_sci_run_wrap_script
+
+The output are automatically directed into /data/mta/www/mta_acis_sci_run directory.
+If you want to change directories of input/output, change $web_dir/$bin_dir/$current_dir etc (see below).
+
+         
+################### 
+Script descriptions 
+################### 
+
+Directory settings:
+-------------------
+See  /data/mta/Script/ACIS/Acis_sci_run/house_keeping/dir_list_py
+
+'/data/mta/www/mta_acis_sci_run/'                   :web_dir            #----- web directory
+'/data/mta/Script/ACIS/Acis_sci_run/house_keeping/' :house_keeping      #----- house keeping direcotry
+'/data/mta/Script/ACIS/Acis_sci_run/Script/'        :bin_dir            #----- script location
+'/data/mta/MTA/data/Acis_sci_run/'                  :bin_data_dir       #----- some information kept here
+'/data/mta/Script/Python3.6/'                       :mta_dir            #----- mta related python function kept here
+
+
+acis_sci_run_wrap_script
+--------------------------
+a wrap script to run the main script. The first one is the regular one and the latter two are for test. 
+
+acis_sci_run_main_script
+--------------------------
+a main calling scripts for a regular and two types of tests.
+
+acis_sci_run_get_data.py
+------------------------
+the main script to extract the data from mit sites.
+
+acis_sci_run_functions.py
+--------------------------
+several related functions are kept in this file
+
+plot_sci_run_trends.py
+----------------------
+create all plots realted to acis science run
+
+mta_common_functions.py
+-----------------------
+this is kept in "mta_dir" : give a set of functions used by mta
+
+
+Descriptions of columns are following:
+		Col     #       Title           Description
+
+		A       0       #               Science run number
+		B       1       obsid           Observation ID
+		C       2       mode            "SI mode (ACIS-I,ACIS-S,HRC-I,HRC-S,NONE)"
+		D       3       otgm            "OTG mode (HETG,LETG,NONE)"
+		E       4       seqnum          Observation sequence number
+		F       5       targetname      Short name of target
+		G       6       ao              AO phase
+		H       7       vcdu            VCDU frame of start of science run
+		I       8       start           Doy:Sec of start of ACIS exposure Number
+		J       9       stop            Doy:Sec of start of last ACIS exposure Number
+		K       10      ksec            Duration of run in kiloseconds
+		L       11      prcnt           Percentage of sent exposure frames processed
+		M       12      ccd             "Type: {I,S}, and number of CCDs clocked"
+		N       13      frames          Number of exposure frames downlinked
+		O       14      events          Number of events downlinked
+		P       15      eps             Average number of events downlinked per second
+		Q       16      errs            Number of errors reported by `psci'
+		R       17      drop            Percentage of exposures dropped
+		S       18      berr            Number of bias parity errors reported
+		T       19      plow            Number of anomalously low pixel values
+		U       20      blow            Number of anomalously low bias values
+		V       21      pblock          Science parameter block ID
+		W       22      wblock          Window block ID
+		X       23      nw              Number of windows used
+		Y       24      mode            "FEP mode: {Cc,Te}, {1x3,3x3,5x5,Raw,Hist}"
+		Z       25      bm              "BEP mode: {G,F,FB,EH}"
+		AA      26      rw0             Starting CCD row index (first row = 0)
+		AB      27      rows            Number of CCD rows              int
+		AC      28      t1              Primary exposure time (x 0.1 sec) - TE mode only
+		AD      29      t2              Secondary exposure time (x 0.1 sec) - TE mode only
+		AE      30      d               Duty Cycle - TE mode only
+		AF      31      s               On-chip summing enabled (1) or disabled (0)
+		AG      32      b               New bias maps must be computed (1) or not (0)
+		AH      33      t               Bias maps to be telemetered (1) or not (0)
+		AI      34      nb              Science run number of appropriate bias map
+		AJ      35      temp            Average focal plane temperature for this OBSID
+		AK      36      btmp            Average focal plane temperature during bias
+		AL      37      procdate        PSCI processing date
+		AM      38      start           Doy.fract of start of ACIS exposureNumber 0
+		AN      39      stop            Doy.fract of last ACIS exposureNumber   [8]
+		AO      40      starttime       Start time of exposureNumber 0 as yy-mm-dd hh:mm:ss
+		AP      41      cxctime         Start time of exposureNumber 0 as seconds from 1998.0
+		AQ      42      ao1             Kiloseconds of AO 1 observing time
+		AR      43      ao2             Kiloseconds of AO 2 observing time
+		AS      44      ao3             Kiloseconds of AO 3 observing time
+		AT      45      cal             Kiloseconds of CAL observing time
+		AU      46      fep0            Kiloseconds of FEP_0 run time
+		AV      47      eh0             Kiloseconds of FEP_0 runtime in Event Histogram mode
+		AW      48      drop            Percentage of exposures dropped in non-cal runs
+		AX      49      mjf             Major frame index
+		AY      50      evts            Number of events downlinked
+		AZ      51      lows            Number of anomalously low bias and pixel values
+		BA      52      inter-run       Kiloseconds since end of previous science run
+
+Output:
+        $web_dir/$current_dir/te1_3_out        1x3 timed data table
+        $web_dir/$current_dir/te3_3_out        3x3 timed data table
+        $web_dir/$current_dir/te5_5_out        5x5 timed data table
+        $web_dir/$current_dir/te_raw_out       raw timed data table
+        $web_dir/$current_dir/te_hist_out      histogram timed data table
+        $web_dir/$current_dir/cc1_3_out        1x3 continuous data table
+        $web_dir/$current_dir/cc3_3_out        3x3 continuous data table
+        $web_dir/$current_dir/cc5_5_out        5x5 continuous data table
+        $web_dir/$current_dir/cc_raw_out       raw continuous data table
+        $web_dir/$current_dir/cc_hist_out      histogram continous data table
+
+        Note: out of these, we follow only te3x3, te5x5, te_raw, and cc3x3.
+
+	    $web_dir/$current_dir/cc3_3_out.png
+	    $web_dir/$current_dir/te3_3_out.png
+	    $web_dir/$current_dir/te5_5_out.png
+	    $web_dir/$current_dir/te_raw_out.png
+	
+	    $web_dir/science_run.html			        a main http page
+	    $web_dir/$current_dir/science_run.html		supplemental amin http page (used for past record)
+	    $web_dir/Long_term/science_run.html		    a main http page for a long term plots
+	    $web_dir/$current_dir/cc3_3.html
+	    $web_dir/$current_dir/te3_3.html
+	    $web_dir/$current_dir/te5_5.html
+	    $web_dir/$current_dir/te_raw.html
+
+	    $web_dir/Long_term/cc3_3_out.png
+	    $web_dir/Long_term/te3_3_out.png
+	    $web_dir/Long_term/te5_5_out.png
+	    $web_dir/Long_term/te_raw_out.png
+
+web address:
+------------
+https://cxc.cfa.harvard.edu/mta_days/mta_acis_sci_run/science_run.html
+
+cron job:
+---------
+on luke-v as mta:
+7 2  * * *  cd /data/mta/Script/ACIS/Acis_sci_run/Exc; /data/mta/Script/ACIS/Acis_sci_run/Script/acis_sci_run_wrap_script >> $HOME/Logs/acis_sci_run_py.cron 2>&1
+

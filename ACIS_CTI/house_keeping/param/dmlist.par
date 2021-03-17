@@ -1,0 +1,7 @@
+infile,f,a,"/data/mta/Script/ACIS/CTI_test/Exc//Temp_comp_area//mtaf61585_000N003_9n3_evt1.fits",,,"Input dataset/block specification"
+opt,s,a,"raw,clean,header",,,"Option"
+outfile,f,h,"",,,"Output file (optional)"
+rows,s,h,"",,,"Range of table rows to print (min:max)"
+cells,s,h,"",,,"Range of array indices to print (min:max)"
+verbose,i,h,0,0,5,"Debug Level(0-5)"
+mode,s,h,"ql",,,

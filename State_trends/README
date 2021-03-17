@@ -1,0 +1,82 @@
+
+This set of scripts extracts and plots SIM and other state conditions.
+
+#######
+Scripts
+#######
+
+obt_wrap_script
+obt_main_script
+----------------
+Environment setting scripts
+
+
+update_state_trend_data.py
+--------------------------
+This is the main script to retrive the data and update the MJ and SIM summary data.
+
+Data Needed: /dsops/GOT/input/*Dump_EM*gz
+
+Output: <mj_data_dir>/comprehensive_data_summary<year>
+        <sim_data_dir>/sim_data_summary<year>
+        <data_dir>/todays_data          #--- used by another set of scripts
+
+        Most recent data files are symbolic linked to:
+        <html_dir>/mta_comprehensive_data_summary
+        <html_dir>/ma_sim_data_summary
+
+Secondary Scripts used:
+        <house_keeping>/mj_nawkscript
+        <house_keeping>/mj_sedscript1
+        <house_keeping>/sim_nawkscript
+        <house_keeping>/simpos_acis2.scr
+        <house_keeping>/simpos_acis.scr
+        <house_keeping>/sim_sedscript1
+
+
+state_plot_data.py
+------------------
+Plot time trend of each msid. The data is daily average and none numeric entries
+are converted either 0 or 1, except fmt which dispays 0, 1, 2, 3, or 4
+
+Input:  <mj_data_dir>/comprehensive_data_summary<year>
+        <sim_data_dir>/sim_data_summary<year>
+
+Output: <html_dir>/Plots/<catg>/*.png
+
+clean_the_data.py
+-----------------
+This is manually used once in a while to remove dupulicated entries
+input: the file name of which you want to clean the data
+output: cleaned data file
+    ex: clean_the_data.py /data/mta/www/mta_states/Data/MJ/comprehensive_data_summary2019
+
+##################
+Directory Setting:
+##################
+
+'/data/mta/Script/OBT/'                             : main_dir
+'/data/mta/Script/OBT/Scripts/'                     : bin_dir
+'/data/mta/Script/OBT/MJ/'                          : data_dir
+'/data/mta_www/mta_temp/mta_states/Data/MJ/'        : mj_data_dir
+'/data/mta_www/mta_temp/mta_states/Data/SIM/'       : sim_data_dir
+'/data/mta/Script/OBT/Scripts/house_keeping/'       : house_keeping
+'/data/mta_www/mta_temp/mta_states/'                : html_dir
+'/data/mta/Script/Python3.8/MTA/'                   : mta_dir
+
+######################
+Environmental Setting
+######################
+
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+The script also uses ascds environment internally
+
+########
+Cron job
+########
+on c3po-v as mta:
+
+14 1 * * * cd /data/mta/Script/OBT/;  /data/mta/Script/OBT/Scripts/obt_wrap_script >> $HOME/Logs/mj.cron 2>&1
+
+

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Primary Filtering Processes</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Primary Filtering Processes</h2>
+
+<h3>Descriptions</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This set of  scripts which extract OTG and CCDM related data
+from dump data (*Dump_EM_*).
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Dumps/Scripts
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Primary_filters
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>            <th>Last Updated</th></tr>
+<tr><td>filters_wrap_script</td>    <td>Jun 10, 2015</td></tr>
+<tr><td>filters_main_script</td>    <td>Jun 10, 2015</td></tr>
+<tr><td>filters_wrap_script2</td>   <td>Jun 10, 2015</td></tr>
+<tr><td>filters_main_script2</td>   <td>Jun 10, 2015</td></tr>
+<tr><td>run_filter_scripts.py</td>  <td>Mar 23, 2016</td></tr>
+<tr><td>otg_proc.pl</td>            <td>Jun 09, 2015</td></tr>
+<tr><td>gratstat.pl</td>            <td>Mar 09, 2015</td></tr>
+<tr><td>cleano.pl</td>              <td>Mar 09, 2015</td></tr>
+<tr><td>move_tl_files.py</td>       <td>Mar 23, 2016</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+This set of scripts read *OTG*.tl files and create OTG_summary.rdb, OTG_filtered.rdb, and OTG_sorted.rdb database
+files and web pages and plot reated to the data. filter_ccdm also runs getdata to update
+/data/mta_www/mta_sim/Script/sim_data with ccdm information.
+</p>
+<p>
+Please read /data/mta/Script/Dumps/Scripts/README file for more details.
+</p>
+<table border = 0>
+<tr><th>Oct 09, 2014</th><td>Initially logged</td></tr>
+<tr><th>Oct 28, 2014</th><td>The scripts are updated to work with a new input format. Plotting routine updated.</td></tr>
+<tr><th>Nov 20, 2014</th><td>Added wrapping scripts to set the environment and run cron job.</td></tr>
+<tr><th>Mar 09, 2015</th><td>plotting bug in cleano.pl fixed</td></tr>
+<tr><th>Mar 17, 2015</th><td>Initially logged</td></tr>
+<tr><th>Mar 19, 2015</th><td>a bug fixed</td></tr>
+<tr><th>Jun 08, 2015</th><td>ascds env settings moved in ska.shell</td></tr>
+<tr><th>Jun 10, 2015</th><td>python and perl run are separated to two different runs</td></tr>
+<tr><th>Jul 22, 2015</th><td>added to github</td></tr>
+<tr><tH>Oct 20, 2015</th><td>a script to  manage # of trail files in the directories added</td></tr>
+<tr><th>Nov 04, 2015</th><td>move_tl_files.py now makes list of trace files in Dumps_mon/IN/</td></tr>
+<tr><th>Jan 28, 2016</th><td>move_tl_files.py file checking bugs fixed.</td></tr>
+<tr><th>Mar 11, 2016</th><td>move_tl_files.py moving file location/checking updated</td></tr>
+<tr><th>Mar 23, 2016</th><td>move_tl_files.py file existing check updated</td></tr>
+<tr><th>Mar 23, 2016</th><td>run_filter_scripts.py index checking bug fixed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/dsops/GOT/input/*Dump_EM_*
+</li>
+<li>
+/data/mta/ScriptDumps/PRIMARYOTG_&lttimestamp&gt;.tl
+</li>
+<li>
+/data/mta/www/mta_otg/OTG_summary.rdb  (this file will be updated)
+</li>
+<li>
+/data/mta/Script/Dumps/Scripts/hosue_keepnig/otg-msids.list
+</li>
+<li>
+/data/mta/Script/Dumps/Scripts/hosue_keepnig/msids.list
+</li>
+<li>
+/data/mta/Script/Dumps/Scripts/hosue_keepnig/processed_list
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS 
+</li>
+<li>
+ASCDS_CONFIG_MTA_DATA "/home/ascds/DS.release/config/mta/data"
+</li>
+<li>
+IPCL_DIR "/home/ascds/DS.release/config/tp_template/P011/"
+</li>
+<li>
+ACORN_GUI "/home/ascds/DS.release/config/mta/acorn/scripts/"
+</li>
+<li> LD_LIBRARY_PATH "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/Script/Dumps/
+    <ul>
+    <li>
+    ELBILOW_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    ELBILOW_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    MUPSMUPS1_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    MUPSMUPS2_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    PRIMARYCCDM_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    PRIMARYPCAD_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    PRIMARYIRU_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    PRIMARYACIS_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    PRIMARYACIS_STAT_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    PRIMARYEPHIN_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    <li>
+    gratstat.lis
+    </li>
+    <li>
+    OTG_summary.rdb
+    </li>
+    <li>
+    OTG_filtered.rdb
+    </li>
+    <li>
+    OTG_sorted.rdb
+    </li>
+    <li>
+    EMF_AVG_LONG.gif   EMF_MAX_LONG.gif   EMF_MIN_LONG.gif EMF_AVG_SHORT.gif  EMF_MAX_SHORT.gif  EMF_MIN_SHORT.gif 
+    </li>
+    <li>
+    f4HPOSARO.gif  f4HPOSBRO.gif  i4HPOSARO.gif i4HPOSBRO.gif
+    </li>
+    <li>
+    N_LONG.gif   N_SHORT.gif   T_LONG.gif N_MOVES.gif  OBC_ERRS.gif
+    </li>
+    <li>
+    gratstat.html OTG_filtered.html  OTG_filtered_short.html  OTG_sorted.html
+    </li>
+    </ul>
+</li>
+<li>
+/data/mta/Script/Dumps/OTG/TLsave/
+    <ul>
+    <li>
+    PRIMARYOTG_&lt;&gt;.&lt;&gt;.tl
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to: cd /data/mta/Script/Dumps/Scripts/
+
+</li>
+<li>
+set: <br />
+setascds<br />
+setenv ASCDS_CONFIG_MTA_DATA "/home/ascds/DS.release/config/mta/data"<br />
+setenv IPCL_DIR "/home/ascds/DS.release/config/tp_template/P011/"<br />
+setenv ACORN_GUI "/home/ascds/DS.release/config/mta/acorn/scripts/"<br />
+setenv LD_LIBRARY_PATH "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"<br />
+</li>
+<li>
+copy:   cp ./house_keeping/msids.list ./house_keeping/otg-msids.list .
+</li>
+<li>
+run:    /data/mta/Script/Dumps/Scripts/run_filter_scripts.py
+</li>
+<li>
+move:   mv -f *.tl /data/mta/Script/Dumps/
+</li>
+<li>
+run: /data/mta/Script/Dumps/Scripts/otg_proc.pl
+</li>
+<li>
+run:    /data/mta/www/mta_sim/Scripts/getdata
+</li>
+<li>
+cat data:  ./gratstat.lis >> /data/mta/Script/Dumps/gratstat.lis
+</li>
+</ol>
+<p>
+<b>Second Method: getting data from archive.</b>
+</p>
+<ol>
+<li>
+go to: cd /data/mta/Script/Dumps/
+</li>
+<li>
+run arc4gl to extract data.
+<ul>
+    <li>operation = retrieve</li>
+    <li>dataset = flight</li>
+    <li>detector = telem</li>
+    <li>level = raw</li>
+    <li>tstart = &lt;start time &gt; (e.g., 12/01/02)</li>
+    <li>tstop = &lt;end time &gt; (e.g., 01/01/03)</li>
+    <li>go</li>
+</ul>
+
+</li>
+<li>
+remove *log* file
+</li>
+<li>
+unzip the file: gzip -d *sto.gz
+</li>
+<li>
+create input list: ls *.sto > xtmpnew
+</li>
+<li>
+run: /home/ascds/DS.release/bin/acorn -nOC $workdir/otg-msids.list -f&lt;file name&gt;
+</li>
+<li>
+run:    otg_proc.pl
+</li>
+<li>
+clean:  rm *.sto  *.tl
+</li>
+</ol>
+
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test available for this set of scripts yet
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+test results -- test results -- test results
+
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<ul>
+<li>14 1 * * *  cd /data/mta/Script/Dumps/Scripts/; /data/mta/Script/Dumps/Scripts/filters_wrap_script >> $HOME/Logs/filters_otg.cron </li>
+<li>34 1 * * *  cd /data/mta/Script/Dumps/Scripts/; /data/mta/Script/Dumps/Scripts/filters_wrap_script2 >> $HOME/Logs/filters_otg.cron </li>
+<li>5 2  * * *  cd /data/mta/Script/Dumps/Scripts/; /data/mta/Script/Dumps/Scripts/filters_dea >> $HOME/Logs/filters_dea.cron </li>
+<li>10 2  * * *  cd /data/mta/Script/Dumps/;  /data/mta/Script/Dumps/Scripts/move_tl_files.py  >> $HOME/Logs/move_tl_files.cron </li>
+</ul>
+
+
+<h3>Web Addreess</h3>
+<ul>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/gratstat.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/gratstat.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered_short.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered_short.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_sorted.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_sorted.html
+</a>
+</li>
+</ul>
+
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

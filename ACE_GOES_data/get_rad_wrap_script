@@ -1,0 +1,2 @@
+TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/MTA_Rad/Scripts/get_rad_main_script
+

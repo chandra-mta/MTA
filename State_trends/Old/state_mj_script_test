@@ -1,0 +1,17 @@
+source /home/mta/.ascrc
+
+rm -rf param
+mkdir param
+source /home/mta/bin/reset_param
+set path = (/home/ascds/DS.release/bin/  $path)
+
+unsetenv PERLLIB
+unsetenv PERL5LIB
+
+set path = (/home/ascds/DS.release/bin/  $path)
+set path = (/home/ascds/DS.release/ots/bin/ $path)
+
+
+/usr/local/bin/perl /data/mta/Script/OBT/State_trends_linux/state_mj_run.perl test
+
+/usr/local/bin/perl /data/mta/Script/OBT/State_trends_linux/state_mj_size_check.perl test

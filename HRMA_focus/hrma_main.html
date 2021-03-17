@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HRMA SRC2 Trend</title>
+    <script type="text/javascript">
+
+        var  popupWindow;
+
+        function WindowOpener(file) {
+
+            if (popupWindow){
+                popupWindow.close();
+            }
+
+            popupWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=760,height=760,resize=no");
+            popupWindow.document.clear();
+            popupWindow.document.write("<html><head><title>HRMA SRC2 Trends</title></head>");
+            popupWindow.document.write("<body bgcolor='white'>");
+            popupWindow.document.write("<img src='./Plots/" + file+"' width=95%>")
+            popupWindow.document.write("</body></html>")
+            popupWindow.document.close();
+            popupWindow.focus();
+        }
+
+        function WindowOpener_large(file,shtml, title) {
+
+            if (popupWindow){
+                popupWindow.close();
+            }
+
+            popupWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=yes,status=no,width=700,height=1050,resize=no");
+            popupWindow.document.clear();
+            popupWindow.document.write("<html><head><title>HRMA SRC2 Trends</title></head>");
+            popupWindow.document.write("<body bgcolor=#FAEBD7>");
+            popupWindow.document.write("<h3>"+title+": Full Range</h3>");
+            popupWindow.document.write("<img src='./Plots/" + file+"' height='400' width=650px style='margin-left:auto;margin-right:auto;'>");
+            popupWindow.document.write("<p style='padding-top:10px;'>Move the slider at the bottom to see a different year.</p>");
+
+            popupWindow.document.write('<iframe height="530"  allowTransparency="true" frameborder="0" scrolling="yes" style="width:100%;" src="'+shtml+'" type= "text/javascript"></iframe>');
+
+            popupWindow.document.write("</body></html>");
+            popupWindow.document.close();
+            popupWindow.focus();
+
+        }
+
+        function popitup(url) {
+            newwindow=window.open(url,'name','height=400, width=760');
+            if (window.focus) {newwindow.focus()}
+        }
+
+        function prepareFrame(shtml) {
+            var ifrm = document.createElement("iframe");
+            ifrm.setAttribute("src", shtml);
+            ifrm.style.width = "640px";
+            ifrm.style.height = "480px";
+            document.body.appendChild(ifrm);
+        }
+
+    </script>
+    <style>
+        .tl = {width:14%}
+    </style>
+
+
+</head>
+<body style="background-color:#FAEBD7; font-family:Georgia, "Times New Roman", Times, serif">
+
+<h2>HRMA SRC2 Trends</h2>
+
+<p style='text-align:justify;margin-left:20px; margin-right:30px;'>
+The links below show various characteristics of detected imaging sources. Standard level 2 data products 
+(*src2.fits) are used. Only observations with focus (sim_x) within 0.01 mm of nominal value for given SI 
+configuration are used. Since many HRC observations in early years have a larger defocus value, there are
+almost no HRC observations in years 1999 and 2000.  Sources are also filtered for strength (SNR > 6). 
+Extended sources are eliminated by rejecting sources wider than 15 pixels for ACIS and 500 pixels for HRC. 
+</p>
+
+
+<ul>
+    <li><b>X,Y</b> - position plots of detected sources</li>
+    <li><b>PSF</b> - point spread function vs. off-axis distance</li>
+    <li><b>Roundness</b> - roundness metric of source ellipse (major axis / minor axis) vs. off-axis distance</li>
+    <li><b>EE_Radius</b> - encircled energy radius vs. off-axis distance (with celldetect artifacts)</li>
+    <li><b>SNR</b> - signal-to-noise ratio of detected sources vs. off-axis distance; used to filter out poor quality sources</li>
+    <li><b>Rotation</b> - Rotation angle of source region; rotation agngle (rotang) vs. angle computed from x-y positions (angd)</li>
+    <li><b>Rotation2</b> - Rotang/Angd vs. off-axis distance</li>
+</ul>
+
+<p>
+<b><i>Click a plot below to see the larger plot.</i></b>
+</p>
+
+<table border=1 style="width:98%;">
+<tr>
+    <th>&#160;</th><th width=13%>XY</th><th width=13%>PSF</th><th width=13%>Roundness</th><th width=13%>EE Radius</th><th width=13%>SNR</th><th width=13%>Rotation</th><th width=13%>Rotation2</th>
+</tr>
+<tr>
+    <th>ACIS I</th>
+    <td>
+        <a href='javascript:WindowOpener("Positions/Acis_i/acis_i_sky_position.png")'>
+            <img src='./Plots/Positions/Acis_i/acis_i_sky_position.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Psf/Acis_i/acis_i_dist_psf.png", "Psf/acis_i_dist_psf_year.html", "PSF")'>
+            <img src='./Plots/Psf/Acis_i/acis_i_dist_psf.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Roundness/Acis_i/acis_i_dist_roundness.png","Roundness/acis_i_dist_roundness_year.html", "Roundness")'>
+            <img src='./Plots/Roundness/Acis_i/acis_i_dist_roundness.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Radius/Acis_i/acis_i_dist_radius.png", "Radius/acis_i_dist_radius_year.html","EE Radius")'>
+            <img src='./Plots/Radius/Acis_i/acis_i_dist_radius.png' style='width:95%;'>
+        </a>
+    </td>
+    <td>
+        <a href='javascript:WindowOpener_large("Snr/Acis_i/acis_i_dist_snr.png", "Snr/acis_i_dist_snr_year.html", "SNR")'>
+            <img src='./Plots/Snr/Acis_i/acis_i_dist_snr.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener("Rotation/Acis_i/acis_i_angd_rotang.png")'>
+            <img src='./Plots/Rotation/Acis_i/acis_i_angd_rotang.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Rotation/Acis_i/acis_i_dist_rotation.png", "Rotation/acis_i_dist_rotation_year.html", "Rotation")'>
+            <img src='./Plots/Rotation/Acis_i/acis_i_dist_rotation.png' style='width:95%;'>
+        </a>
+    </td>
+</tr>
+
+<tr>
+    <th>ACIS S</th>
+    <td>
+        <a href='javascript:WindowOpener("Positions/Acis_s/acis_s_sky_position.png")'>
+            <img src='./Plots/Positions/Acis_s/acis_s_sky_position.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Psf/Acis_s/acis_s_dist_psf.png", "Psf/acis_s_dist_psf_year.html", "PSF")'>
+            <img src='./Plots/Psf/Acis_s/acis_s_dist_psf.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Roundness/Acis_s/acis_s_dist_roundness.png","Roundness/acis_s_dist_roundness_year.html", "Roundness")'>
+            <img src='./Plots/Roundness/Acis_s/acis_s_dist_roundness.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Radius/Acis_s/acis_s_dist_radius.png", "Radius/acis_s_dist_radius_year.html","EE Radius")'>
+            <img src='./Plots/Radius/Acis_s/acis_s_dist_radius.png' style='width:95%;'>
+        </a>
+    </td>
+    <td>
+        <a href='javascript:WindowOpener_large("Snr/Acis_s/acis_s_dist_snr.png", "Snr/acis_s_dist_snr_year.html", "SNR")'>
+            <img src='./Plots/Snr/Acis_s/acis_s_dist_snr.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener("Rotation/Acis_s/acis_s_angd_rotang.png")'>
+            <img src='./Plots/Rotation/Acis_s/acis_s_angd_rotang.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Rotation/Acis_s/acis_s_dist_rotation.png", "Rotation/acis_s_dist_rotation_year.html", "Rotation")'>
+            <img src='./Plots/Rotation/Acis_s/acis_s_dist_rotation.png' style='width:95%;'>
+        </a>
+    </td>
+</tr>
+
+<tr>
+    <th>HRC I</th>
+    <td>
+        <a href='javascript:WindowOpener("Positions/Hrc_i/hrc_i_sky_position.png")'>
+            <img src='./Plots/Positions/Hrc_i/hrc_i_sky_position.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Psf/Hrc_i/hrc_i_dist_psf.png", "Psf/hrc_i_dist_psf_year.html", "PSF")'>
+            <img src='./Plots/Psf/Hrc_i/hrc_i_dist_psf.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Roundness/Hrc_i/hrc_i_dist_roundness.png","Roundness/hrc_i_dist_roundness_year.html", "Roundness")'>
+            <img src='./Plots/Roundness/Hrc_i/hrc_i_dist_roundness.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Radius/Hrc_i/hrc_i_dist_radius.png", "Radius/hrc_i_dist_radius_year.html","EE Radius")'>
+            <img src='./Plots/Radius/Hrc_i/hrc_i_dist_radius.png' style='width:95%;'>
+        </a>
+    </td>
+    <td>
+        <a href='javascript:WindowOpener_large("Snr/Hrc_i/hrc_i_dist_snr.png", "Snr/hrc_i_dist_snr_year.html", "SNR")'>
+            <img src='./Plots/Snr/Hrc_i/hrc_i_dist_snr.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener("Rotation/Hrc_i/hrc_i_angd_rotang.png")'>
+            <img src='./Plots/Rotation/Hrc_i/hrc_i_angd_rotang.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Rotation/Hrc_i/hrc_i_dist_rotation.png", "Rotation/hrc_i_dist_rotation_year.html", "Rotation")'>
+            <img src='./Plots/Rotation/Hrc_i/hrc_i_dist_rotation.png' style='width:95%;'>
+        </a>
+    </td>
+</tr>
+
+
+
+<tr>
+    <th>HRC S</th>
+    <td>
+        <a href='javascript:WindowOpener("Positions/Hrc_s/hrc_s_sky_position.png")'>
+            <img src='./Plots/Positions/Hrc_s/hrc_s_sky_position.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Psf/Hrc_s/hrc_s_dist_psf.png", "Psf/hrc_s_dist_psf_year.html", "PSF")'>
+            <img src='./Plots/Psf/Hrc_s/hrc_s_dist_psf.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Roundness/Hrc_s/hrc_s_dist_roundness.png","Roundness/hrc_s_dist_roundness_year.html", "Roundness")'>
+            <img src='./Plots/Roundness/Hrc_s/hrc_s_dist_roundness.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Radius/Hrc_s/hrc_s_dist_radius.png", "Radius/hrc_s_dist_radius_year.html","EE Radius")'>
+            <img src='./Plots/Radius/Hrc_s/hrc_s_dist_radius.png' style='width:95%;'>
+        </a>
+    </td>
+    <td>
+        <a href='javascript:WindowOpener_large("Snr/Hrc_s/hrc_s_dist_snr.png", "Snr/hrc_s_dist_snr_year.html", "SNR")'>
+            <img src='./Plots/Snr/Hrc_s/hrc_s_dist_snr.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener("Rotation/Hrc_s/hrc_s_angd_rotang.png")'>
+            <img src='./Plots/Rotation/Hrc_s/hrc_s_angd_rotang.png' style='width:95%;'>
+        </a>
+    </td>
+
+    <td>
+        <a href='javascript:WindowOpener_large("Rotation/Hrc_s/hrc_s_dist_rotation.png", "Rotation/hrc_s_dist_rotation_year.html", "Rotation")'>
+            <img src='./Plots/Rotation/Hrc_s/hrc_s_dist_rotation.png' style='width:95%;'>
+        </a>
+    </td>
+</tr>
+
+
+</table>
+
+<div style='padding-bottom:30px;'>
+</div>
+
+<hr />
+
+<p>
+If you have any questions about this page, please contact <a href='mailto:tiosbe@cfa.harvard.edu'>tiosbe@cfa.harvard.edu</a>.
+</p>
+<p>
+<i>
+Last Site Update: Jun 11, 2018
+</i>
+</p>
+
+
+
+</body>
+</html>

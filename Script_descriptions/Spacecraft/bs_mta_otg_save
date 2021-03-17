@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>OTG Moves</title>
+
+<script  src="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/j_module.js"> </script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>OTG Moves</h2>
+
+<b><u>Mar 09, 2015</u></b>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta/Script/Dumps
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>:  not uploaded yet
+</p>
+
+
+<table border=0>
+<tr><th>Script Name</th>              <th>Last Updated</th></tr>
+<tr><td>filters_main_script</td>      <td>Nov 20, 2014</td></tr>
+<tr><td>filters_wrap_script</td>      <td>Nov 20, 2014</td></tr>
+<tr><td>filters_otg</td>              <td>Oct 23, 2014</td></tr>
+<tr><td>filters_ccdm</td>             <td>Aug 29, 2014</td></tr>
+<tr><td>otg_proc.pl</td>              <td>Oct 28, 2013</td></tr>
+<tr><td>gratstat.pl</td>              <td>Jun 19, 2014</td></tr>
+<tr><td>cleano.pl</td>                <td>Mar 09, 2015</td></tr>
+<tr><td>/data/mta_www/mta_sim/Scripts/getdata</td>  <td>Mar 09, 2015</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+This set of scripts read *OTG*.tl files and create OTG_summary.rdb, OTG_filtered.rdb, and OTG_sorted.rdb database 
+files and web pages and plot reated to the data. filter_ccdm also runs getdata to update 
+/data/mta_www/mta_sim/Script/sim_data with ccdm information.
+</p>
+<table border = 0>
+<tr><th>Oct 09, 2014</th><td>Initially logged</td></tr>
+<tr><th>Oct 28, 2014</th><td>The scripts are updated to work with a new input format. Plotting routine updated.</td></tr>
+<tr><th>Nov 20, 2014</th><td>Added wrapping scripts to set the environment and run cron job.</td></tr>
+<tr><th>Mar 09, 2015</th><td>plotting bug in cleano.pl fixed</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li>
+/dsops/GOT/input/&lt;year&gt;_&ltydate&gt;_&lt;time&gt;_&lt;ydate&gt;_&lt;time&gt;_Dump_EM_&lt;stamp&gt;.gz
+<li>
+/data/mta/ScriptDumps/PRIMARYOTG_&lttimestamp&gt;.tl 
+</li>
+<li>
+/data/mta/www/mta_otg/OTG_summary.rdb  (this file will be updated)
+</li>
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+ASCDS 
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+/data/mta/www/mta_otg/
+    <ul>
+    <li>
+    OTG_summary.rdb
+    </li>
+    <li>
+    OTG_filtered.rdb
+    </li>
+    <li>
+    OTG_sorted.rdb
+    </li>
+    <li> 
+    EMF_AVG_LONG.gif   EMF_MAX_LONG.gif   EMF_MIN_LONG.gif EMF_AVG_SHORT.gif  EMF_MAX_SHORT.gif  EMF_MIN_SHORT.gif 
+    </li>
+    <li>
+    f4HPOSARO.gif  f4HPOSBRO.gif  i4HPOSARO.gif i4HPOSBRO.gif
+    </li>
+    <li>
+     N_LONG.gif   N_SHORT.gif   T_LONG.gif N_MOVES.gif  OBC_ERRS.gif
+    </li>
+    <li>
+     gratstat.html OTG_filtered.html  OTG_filtered_short.html  OTG_sorted.html
+     </li>
+     </ul>
+</li>
+<li>
+/data/mta/Script/Dumps/OTG/TLsave/
+    <ul>
+    <li>
+     PRIMARYOTG_<timestamp>.tl
+    </li>
+    </ul>
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+go to:  cd /data/mta/Script/Dumps/
+</li>
+<li>
+run:    filters_otg
+<br />
+this reads data from /dsops/GOT/input/ 
+</li>
+</ol>
+<p>
+<b>Second Method: getting data from archive.</b>
+</p>
+<ol>
+<li>
+go to: cd /data/mta/Script/Dumps/
+</li>
+<li>
+run arc4gl to extract data.
+    <ul>
+    <li>operation = retrieve</li>
+    <li>dataset = flight</li>
+    <li>detector = telem</li>
+    <li>level = raw</li>
+    <li>tstart = &lt;start time &gt; (e.g., 12/01/02)</li>
+    <li>tstop = &lt;end time &gt; (e.g., 01/01/03)</li>
+    <li>go</li>
+    </ul>
+    
+</li>
+<li>
+remove *log* file
+</li>
+<li>
+unzip the file: gzip -d *sto.gz
+</li>
+<li>
+create input list: ls *.sto > xtmpnew
+</li>
+<li>
+run: /home/ascds/DS.release/bin/acorn -nOC $workdir/otg-msids.list -f&lt;file name&gt;
+</li>
+<li>
+run:    otg_proc.pl
+</li>
+<li>
+clean:  rm *.sto  *.tl
+</li>
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+No test is available for this function
+</li>
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+&#160;
+</p>
+
+
+
+
+</div>
+
+<h3>Cron Job</h3>
+<table border= 0>
+<tr><th>CPU: </th><td>c3po-v</td></tr>
+<tr><th>User: </th><td>mta</td></tr>
+</table>
+<p>
+14 3 * * 0,2,4  cd /data/mta/Script/Dumps; /data/mta/Script/Dumps/filters_otg_wrap_script >> $HOME/Logs/filters_otg.
+cron 2>&1
+</p>
+
+
+<h3>Web Addreess</h3>
+<ul>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/gratstat.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/gratstat.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered_short.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_filtered_short.html
+</a>
+</li>
+<li>
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_sorted.html'>
+https://cxc.cfa.harvard.edu/mta_days/mta_otg/OTG_sorted.html
+</a>
+</li>
+
+
+</ul>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+None
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

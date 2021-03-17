@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="https://cxc.cfa.harvard.edu/mta_days/mta_script_list/house_keeping/style_sheet.css" />
+<style>
+    th{padding:5px;text-align:left}
+</style>
+
+<title>Ocat Data Page</title>
+
+<script>
+<!-- none -->
+</script>
+
+</head>
+
+<body>
+
+<!-- ######################## -->
+<!-- begining of the document -->
+<!-- ######################## -->
+
+
+<h2>Ocat Data Page</h2>
+
+
+<h3>Description</h3>
+<p>
+<!-- here you need to put what is the purpose of this script. -->
+This perl cgi script let USINT to update observational parameters.
+</p>
+
+<h3>Location of Scripts and Their Names</h3>
+
+<p>
+<!-- physical location of the files -->
+<b>Location</b>: /data/mta4/CUS/www/Usint/
+</p>
+<p>
+<!-- if you uploaded to gibhub, please put the address of github  -->
+<b>GitHub Address</b>: https://github.com/tisobe/Usint_script
+</p>
+
+
+<table border=0>
+<tr><td>ocatdata2html.cgi</td>       <td>Oct 02, 2017</td></tr>
+<tr><td>ocatdata2html_full.cgi</td>  <td>Oct 02, 2017</td></tr>
+</table>
+
+<p>
+<!--  here you put a short description of scripts or README file location.-->
+There is a short description of this script in: /data/mta4/obs_ss/Usint_test/Usint_script/README
+</p>
+<table border = 0>
+<tr><th>Sep 17, 2014</th><td>Initially logged</td></tr>
+<tr><th>Sep 23, 2014</th><td>SyBase link update: SYBASE_OCS15.5 ---> SYBASE15.7</td></tr>
+<tr><th>Oct 30, 2014</th><td>Note about ACIS Window Exclusion added.</td></tr>
+<tr><th>Dec 21, 2014</th><td>Exposure time is now uneditable</td></tr>
+<tr><th>Feb 13, 2015</th><td>CDO warning on change of Y/Z det offset added (>10arcmin)</td></tr>
+<tr><th>Jul 17, 2015</th><td>Reorder aciswin order in increasing order</td></tr>
+<tr><th>Oct 26, 2015</th><td>Aimpoint Chipx and Chipy values added</td></tr>
+<tr><th>May 10, 2016</th><td>Monitoring Obs note modified</td></tr>
+<tr><th>May 26, 2016</th><td>Warning email to MP about the late submission</td></tr>
+<tr><th>Jun 07, 2016</th><td>Bug due to null lts_lt_plan date fixed</td></tr>
+<tr><th>Jun 30, 2016</th><td>Warning email to MP now also sent to USINT user</td></tr>
+<tr><th>Aug 10, 2016</th><td>the bug introduced by Jul 17, 2015 update (not showing the first row) fixed</td></tr>
+<tr><th>Nov 21, 2016</th><td>archive access user name(s) changed from brower to mtaops_internal/public</td></tr>
+<tr><th>Jan 03, 2017</th><td>mjuda email address to HRC removed</td></tr>
+<tr><th>Jan 04, 2017</th><td>mp eamil address is now mp@cfa.harvard.edu</td></tr>
+<tr><th>Jan 04, 2017</th><td>check_lts_date_coming: inverval checking changed from <10 to <=10</td></tr>
+<tr><th>Jan 04, 2017</th><td>hrc si mode change only buttom added (create na na null output)</td></tr>
+<tr><th>Jan 06, 2017</th><td>lts warning is preceeded for or list waring to mp@cfa.havard.edu</td></tr>
+<tr><th>Jul 06, 2017</th><td>Language specification added in ENV</td></tr>
+<tr><th>Sep 29, 2017</th><td>doc2unix added to solve 32 bits problems</td></tr>
+<tr><th>Oct 02, 2017</th><td>mailx system: remove doc2unix and back to "cat" method</td></tr>
+</table>
+
+
+
+<h3>Data Needed</h3>
+<!--- a list of input data --->
+
+<ul>
+<li> syBase access </li>
+<li> /data/mta4/CUS/www/Usint/ocat/approved </li>
+<li> /data/mta4/CUS/www/Usint/ocat/updates_table.list </li>
+<li> /data/mta4/CUS/www/Usint/ocat/updates/&lt;obsid&gt;.&lt;ver#&gt; </li>
+<li> /data/mta4/CUS/www/Usint/ocat/Info_save/name_list </li>
+<li> /data/mta4/CUS/www/Usint/ocat/Info_save/ocat_values </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/usint_users </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/user_email_list </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/cxc_user </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/.htpasswd </li>
+<li> /data/mta4/CUS/www/Usint/Pass_dir/.htgroup </li>
+<li> /data/mta4/obs_ss/sot_ocat.out </li>
+<li> /data/mta4/obs_ss/scheduled_obs_list </li>
+<li> /data/mta4/obs_ss/mp_long_term </li>
+
+</ul>
+
+<h3>Environment Setting</h3>
+<!-- describe the environment setting -->
+<ul>
+<li>
+/soft/ascds/DS.release/ots/bin/perl
+</li>
+<li>
+$ENV{SYBASE} = "/soft/SYBASE15.7";
+</li>
+</ul>
+
+<h3>Output Locations and File Names</h3>
+<!-- describe the output location and the file names -->
+<ul>
+<li>
+NA
+</li>
+</ul>
+
+
+<h3>How to Run the Script(s)</h3>
+<!-- describe how to run all scripts. start from environmental setting -->
+<ol> 
+<li>
+NA
+</li>
+
+</ol>
+
+
+<h3>How to Run Test(s)</h3>
+<!-- describe how to run test. start from environmental setting -->
+<ol> 
+<li>
+NA
+</li>
+
+</ol>
+
+<div style='padding-left:20px'>
+<h4>Expected result from the test</h4>
+<!-- describe what we should see when we run the test -->
+<p>
+NA
+
+</p>
+
+
+</div>
+
+<h3>Cron Job</h3>
+<p>
+NA
+</p>
+
+
+<h3>Web Addreess</h3>
+<p>
+<a href='https://cxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html.cgi?16259'>
+https://cxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html.cgi?&lt;obsid&gt;
+</a>
+<br />
+<a href='https://cxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html_full.cgi?16259'>
+https://cxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html_full.cgi?&lt;obsid&gt;
+</a>
+<br />
+<a href='https://icxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html.cgi?16259'>
+https://icxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html.cgi?&lt;obsid&gt;
+</a>
+<br />
+<a href='https://icxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html_full.cgi?16259'>
+https://icxc.cfa.harvard.edu/mta/CUS/Usint/ocatdata2html_full.cgi?&lt;obsid&gt;
+</a>
+<br />
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+<!-- describe any other concern / instructions -->
+None
+</p>
+
+<h3>Future Plan/Update Schedule</h3>
+<p>
+<!-- please describe update plan etc yere -->
+The script will be rewritten in python cgi.
+</p>
+
+<!-- the end of the document -->
+
+<div  style='padding-top:10px'>
+</div>
+<hr />
+<div  style='padding-top:10px'>
+</div>
+
+<a href='https://cxc.cfa.harvard.edu/mta_days/mta_script_list/mta_script_list.html'>
+Back to Top Page
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
