@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Jan 01, 2020                                                   #
+#               last update: Mar 25, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -31,7 +31,7 @@ from Ska.Shell import getenv, bash
 ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param', shell='tcsh')
 
 base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.6/MTA/'
+mta_dir  = '/data/mta/Script/Python3.8/MTA/'
 
 sys.path.append(mta_dir)
 sys.path.append(base_dir)
@@ -259,8 +259,12 @@ def read_focal_temp(tyear, yday, tstart, tstop):
     if yday < 8:
         ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear-1)
         data   = read_data_file_col(ifile, sep='\s+', c_len=2)
-        ftime  = data[0]
-        focal  = data[1]
+        if data[0] != 0:
+            ftime  = data[0]
+            focal  = data[1]
+        else:
+            ftime  = []
+            focal  = []
     else:
         ftime  = []
         focal  = []
@@ -270,8 +274,9 @@ def read_focal_temp(tyear, yday, tstart, tstop):
     try:
         ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear)
         data   = read_data_file_col(ifile, sep='\s+', c_len=2)
-        ftime  = ftime + data[0]
-        focal  = focal + data[1]
+        if data[0] != 0:
+            ftime  = ftime + data[0]
+            focal  = focal + data[1]
     except:
         pass
 #
@@ -298,11 +303,11 @@ def select_data_by_date(x, y, tstart, tstop):
     
     x   = numpy.array(x)
     y   = numpy.array(y)
-    ind = [x >= tstart]
+    ind = x >= tstart
     x   = x[ind]
     y   = y[ind]
 
-    ind = [x <= tstop]
+    ind = x <= tstop
     x   = list(x[ind])
     y   = list(y[ind])
     
@@ -683,6 +688,9 @@ def read_data_file_col(ifile, sep='', remove=0, c_len=0):
     if remove > 0:
         mcf.rm_file(ifile)
     
+    if len(data) == 0:
+        return [0, 0]
+
     if sep != '':
         atemp = re.split(sep, data[0])
         if c_len == 0:
