@@ -6,7 +6,7 @@
 #                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                   #
 #                                                                           #
-#               last update: Mar 03, 2021                                   #
+#               last update: Apr 16, 2021                                   #
 #                                                                           #
 #############################################################################
 
@@ -101,7 +101,10 @@ def plot_aiming_trend_data():
             except:
                 continue
 
-        [atime, dy, dz] = remove_extreme(atime, dy, dz)
+        try:
+            [atime, dy, dz] = remove_extreme(atime, dy, dz)
+        except:
+            pass
 
         plot_data(atime, dy, 1999, xmax, -2, 2, inst, 'y')
         plot_data(atime, dz, 1999, xmax, -2, 2, inst, 'z')
