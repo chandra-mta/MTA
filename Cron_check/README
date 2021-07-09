@@ -74,8 +74,24 @@ This is run by:
 cron_wrap_script
 cron_main_script
 
+-------------------
+backup_cron_log.py
+-------------------
+
+This script backs up cron log
+
+Input:
+------
+a list of cron jobs
+
+Output:
+-------
+/home/<user>/Past_logs/<cron name>_<yyyymmdd>
+It removes older filers; either older than a month (frequent log writing) or a year (once a day or less log writing)
+
+
 ------------------
-monthly_cleanup.py
+monthly_cleanup.py --- deactivated (07/09/21)
 ------------------
 
 This script moves the last months error logs to Past_logs directory
