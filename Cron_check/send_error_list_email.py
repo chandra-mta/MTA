@@ -178,7 +178,7 @@ def send_mail(tag, email_list):
             atemp = re.split('_', tag)
 
             for email_address in email_list:
-                cmd = 'cat ' + zspace + ' | mailx -s "Subject: Cron Error : ' 
+                cmd = 'cat ' + zspace + '| /usr/bin/tr -cd "\11\12\15\40-\176" | mailx -s "Subject: Cron Error : '
                 cmd = cmd    + atemp[1] + ' on ' + atemp[0] + '"  ' + email_address
                 os.system(cmd)
 
