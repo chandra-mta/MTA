@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: May 23, 2019                                                   #
+#               last update: Sep 03, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -490,11 +490,21 @@ def analyze_move(otg, ibeg, iend, st_list, d_dict, ovc, cvc):
                 emf_s.append(d_dict["4MP28AV"][m])
                 ns += 1
         aline = aline +  "%6d: %8.3f" % (k+1, dt[k]) + '\n'
-
-    tl = '%.3f' % (tl)
-    arc.append(len(i0)+1)
-    arc.append(nl)
-    arc.append(tl)
+#
+#---  N_MOVES N_LONG  T_LONG  N_SHORT
+#
+###    tl = '%.3f' % (tl)
+###    arc.append(len(i0)+1)
+###    arc.append(nl)
+###    arc.append(tl)
+    arc.append(len(i0))
+    arc.append('1')
+    try:
+        vchk = float(tl) / float(nl)
+    except:
+        vchk = 0.0
+    vchk = '%3.3f' % vchk
+    arc.append(vchk)
     arc.append(ns)
 #
 #--- Limit switch data
@@ -701,7 +711,11 @@ def emf_stats(edata):
     calculate back-emf statistics
     """
     if len(edata) > 0:
-        avg  = float('%.2f' % numpy.mean(edata))
+        try:
+            out  = numpy.mean(edata)
+        except:
+            out  = 0.0
+        avg  = float('%.2f' % out)
         emin = min(edata)
         emax = max(edata)
         return [emin, avg, emax]
