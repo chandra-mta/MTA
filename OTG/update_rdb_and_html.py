@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: May 23, 2019                                                   #
+#               last update: Sep 17, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -495,6 +495,8 @@ def update_html_page():
     tline = ''
     for ent in data:
         atemp = re.split('\s+', ent)
+        start = atemp[2].replace('.', '')
+        plt   = 'Ind_Plots/' + start + '.png'
         tline = tline + '<tr>\n'
         tline = tline + '<td>' + atemp[0] + '</td>\n'
         tline = tline + '<td>' + atemp[1] + '</td>\n'
@@ -503,6 +505,7 @@ def update_html_page():
         tline = tline + '<td>' + atemp[4] + '</td>\n'
         tline = tline + '<td>' + atemp[5] + '</td>\n'
         tline = tline + '<td><a href="' + hdepot + atemp[2] + '">Summary</a></td>\n'
+        tline = tline + "<td><a href='javascript:WindowOpener2(\"" + plt + "\")'>Plot</a></td>\n"
         tline = tline + '</tr>\n'
 
     hline = hline.replace('#TABLE#', tline)

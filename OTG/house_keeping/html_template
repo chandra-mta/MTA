@@ -9,10 +9,20 @@
         msgWindow.document.clear();
         msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</TITLE>");
         msgWindow.document.write("<body>");
-        msgWindow.document.write("<img src='http://cxc.harvard.edu/mta_days/mta_otg/OTG_Plots/"+imgname+"' border =0 style='width:90%;'><p></p></body></hvtml>")
+        msgWindow.document.write("<img src='https://cxc.harvard.edu/mta_days/mta_otg/OTG_Plots/"+imgname+"' border =0 style='width:90%;'><p></p></body></hvtml>")
         msgWindow.document.close();
         msgWindow.focus();
     }
+function WindowOpener2(imgname) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=900,height=500,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</TITLE>");
+            msgWindow.document.write("<body>");
+            msgWindow.document.write("<img src='./OTG_Plots/"+imgname+"' border =0 style='width:95%;'><p></p></body></hvtml>")
+            msgWindow.document.close();
+            msgWindow.focus();
+    }
+
 </script>
 
 </head>
@@ -35,22 +45,23 @@ movements and the "All Data" will show all data since year 2000.
 <td>STOP_TIME</td>
 <td>STOP_VCDU</td>
 <td>SUMMARY</td>
+<td>PLOT</td>
 #TABLE#
 </table>
 </div>
 
 <div style='margin-top:30px;'>
-<a href='http://cxc.harvard.edu/mta_days//mta_otg/OTG_filtered.rdb'>See All Data</a>
+<a href='https://cxc.harvard.edu/mta_days//mta_otg/OTG_filtered.rdb'>See All Data</a>
 </div>
 
 <h3>Example Plots</h3>
 <div style='text-align:center;'>
 <a href='javascript:WindowOpener("N_MOVES_plot.png")'>
-<img src='http://cxc.harvard.edu/mta_days//mta_otg/OTG_Plots/N_MOVES_plot.png' style="width:45%;">
+<img src='https://cxc.harvard.edu/mta_days//mta_otg/OTG_Plots/N_MOVES_plot.png' style="width:45%;">
 </a>
 
 <a href='javascript:WindowOpener("N_SHORT_plot.png")'>
-<img src='http://cxc.harvard.edu/mta_days//mta_otg/OTG_Plots/N_SHORT_plot.png' style="width:45%;">
+<img src='https://cxc.harvard.edu/mta_days//mta_otg/OTG_Plots/N_SHORT_plot.png' style="width:45%;">
 </a>
 </div>
 
@@ -92,7 +103,7 @@ movements and the "All Data" will show all data since year 2000.
 <div style='padding-top:20px; padding-bottom:10px;'>
 <hr />
 <p>
-Last Update: Feb 16, 2018
+Last Update: Spe 17, 2021
 </p>
 <p>
 If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu.
