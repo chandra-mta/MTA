@@ -6,7 +6,7 @@
 #                                                                       #
 #               author: t. isobe (tisobe@cfa.harvard.edu)               #
 #                                                                       #
-#               Last update: Mar 03, 2021                               #
+#               Last update: Sep 23, 2021                               #
 #                                                                       #
 #########################################################################
 
@@ -148,9 +148,9 @@ def acis_gain_plot_trend():
 #--- set plotting range
 #
             avg  = mean(gain)
-            ymin = avg - 0.002
+            ymin = avg - 0.005
             ymin = round(ymin, 3) -0.001
-            ymax = avg + 0.002
+            ymax = avg + 0.005
             ymax = round(ymax, 3) +0.001
             yMin_gain.append(ymin)
             yMax_gain.append(ymax)
@@ -162,9 +162,9 @@ def acis_gain_plot_trend():
             Eset_offset.append(oerr)
             
             avg = mean(offset)
-            ymin = avg - 8.0
+            ymin = avg - 30.0
             ymin = int(ymin)
-            ymax = avg + 8.0
+            ymax = avg + 30.0
             ymax = int(ymax)
             yMin_offset.append(ymin)
             yMax_offset.append(ymax)
