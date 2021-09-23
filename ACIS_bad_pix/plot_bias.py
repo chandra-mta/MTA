@@ -6,7 +6,7 @@
 #                                                                                       #
 #                   author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                                       #
-#                   Last update: Mar 04, 2021                                           #
+#                   Last update: Sep 23, 2021                                           #
 #                                                                                       #
 #########################################################################################
 
@@ -335,7 +335,8 @@ def readBiasInfo(ifile):
 
     for ent in data:
         try:
-            atemp = re.split('\s+|\t+', ent)
+            #atemp = re.split('\s+|\t+', ent)
+            atemp = re.split('\s+', ent)
             time.append(float(atemp[0]))
             overclock.append(float(atemp[1]))
             mode.append(atemp[2])
@@ -368,10 +369,10 @@ def readBiasInfo2(ccd, quad, dataSets):
     reads bias data and adds the list to category information
     input:      ccd   --- CCD #
                 quad  --- Quad #
-                dataSets --- a list of 12 data sets (lists) which contains category data
+                dataSets --- a list of 13 data sets (lists) which contains category data
                 also need:
                 <data_dir>/Bias_save/CCD<ccd>/quad<quad>
-    output:     a list of 13 entiries; 12 above and one of category of 
+    output:     a list of 14 entiries; 13 above and one of category of 
                     <bias> - <overclock>
                 at the 13th position
     """
@@ -388,13 +389,16 @@ def readBiasInfo2(ccd, quad, dataSets):
 #
 #--- initialize a list to read out each category from dataSets
 #
-    biasSets = [[] for x in range(0, 13)]
+    biasSets = []
+    for k in range(0, dlen):
+        biasSets.append([])
     biasdata = []
 #
 #--- start checking bias data
 #
+    bgn = 0
     for ent in data:
-       atemp = re.split('\s+|\t+', ent)
+       atemp = re.split('\s+', ent)
        try:
 #
             btime = float(atemp[0])
@@ -407,10 +411,13 @@ def readBiasInfo2(ccd, quad, dataSets):
 #
 #--- match the time in two data sets
 #
-            for i in range(0, len(ctime)):
-                if btime < int(ctime[i]):
+            for i  in range(bgn, len(ctime)):
+                if btime < float(ctime[i]):
                     break
-                elif int(btime) == int(ctime[i]):
+                elif int(btime) == int(float(ctime[i])):
+                    bgn = i - 5
+                    if bgn < 0:
+                        bgn = 0
 #
 #--- if the time stamps match, save all category data 
 #
@@ -418,14 +425,7 @@ def readBiasInfo2(ccd, quad, dataSets):
                     for j in range(0, dlen):
                         earray  = dataSets[j]
                         val     = earray[i]
-                        if isinstance(val, (long, int)):
-                            biasSets[j].append(int(val))
-
-                        elif isinstance(val, float):
-                            biasSets[j].append(float(val))
-
-                        else:
-                            biasSets[j].append(val)
+                        biasSets[j].append(val)
                     break    
        except:
             pass
@@ -451,6 +451,8 @@ def plot_obs_mode(mdir, dataSets, col, yname, lbound, ubound):
     output:     <mdir>/obs_mode.png     
     """
     dtime     = dataSets[0]             #--- time in Year
+    if len(dtime) == 0:
+        exit(1)
 
     if len(dtime) < 1:
         cmd = 'cp ' + house_keeping + 'no_data.png ' + mdir + '/obs_mode.png'
@@ -469,19 +471,16 @@ def plot_obs_mode(mdir, dataSets, col, yname, lbound, ubound):
 #
 #--- divide data into three categories
 #
-    try:
-        for i in range(0, len(dtime)):
-            if mode[i] == 'FAINT':
-                x1.append(dtime[i])
-                y1.append(dataset[i])
-            elif mode[i] == 'VFAINT':
-                x2.append(dtime[i])
-                y2.append(dataset[i])
-            else:
-                x3.append(dtime[i])
-                y3.append(dataset[i])
-    except:
-        pass
+    for i in range(0, len(dtime)):
+        if mode[i] == 'FAINT':
+            x1.append(dtime[i])
+            y1.append(dataset[i])
+        elif mode[i] == 'VFAINT':
+            x2.append(dtime[i])
+            y2.append(dataset[i])
+        else:
+            x3.append(dtime[i])
+            y3.append(dataset[i])
 #
 #--- create lists of lists to pass the data into plotting rouinte
 #
@@ -520,7 +519,10 @@ def plot_obs_mode(mdir, dataSets, col, yname, lbound, ubound):
     for ent  in dataset:
         asum += float(ent)
         acnt += 1.0
-    avg = asum / acnt
+    try:
+        avg = asum / acnt
+    except:
+        avg = 0.0
 
     if lbound > 10:
         ymin = int(avg - lbound)
