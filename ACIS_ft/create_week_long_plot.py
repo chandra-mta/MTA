@@ -6,7 +6,7 @@
 #                                                                                       #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                               #
 #                                                                                       #
-#               last update: Mar 03, 2021                                               #
+#               last update: Sep 23, 2021                                               #
 #                                                                                       #
 #########################################################################################
 
@@ -95,7 +95,7 @@ def create_plot(year, week, start, stop):
     xlab1  = "Time (Day of Year)"
     ylab1  = "Focal Temp (C)"
     ymin   = -120
-    ymax   = -105
+    ymax   = -90
 
     wstart = week * 7 + 1           #--- the first week start day 1
     wstop  =  wstart + 7
@@ -435,9 +435,9 @@ def plot_data(x, y0, y1, y2, xmin, xmax, ymin, ymax,  xname, yname, outname, wid
 #
     ax0 = plt.subplot(gs[0])
     ax0.set_xbound(xmin, xmax)
-    ax0.set_ybound(-120, -100)
+    ax0.set_ybound(-120, -90)
     ax0.set_xlim(xmin=xmin, xmax=xmax, auto=False)
-    ax0.set_ylim(ymin=-120, ymax=-100, auto=False)
+    ax0.set_ylim(ymin=-120, ymax=-90, auto=False)
     ax0.text(xpos, -103, "Focal", fontsize=6)
 
     line0 = ax0.plot(x, y0, color='r', marker=mkt, markersize=mks, lw=0, label='Focal')
