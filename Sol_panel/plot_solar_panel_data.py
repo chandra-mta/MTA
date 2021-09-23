@@ -6,7 +6,7 @@
 #                                                                                               #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                               #
-#               last update: Mar 12, 2021                                                       #
+#               last update: Sep 23, 2021                                                       #
 #                                                                                               #
 #################################################################################################
 import os
@@ -86,17 +86,21 @@ def plot_solar_panel_data():
 #--- read data
 #
         dfile = data_dir + 'solar_panel_angle_' + str(angle)
-        our   = mcf.read_data_file(dfile)
+        out   = mcf.read_data_file(dfile)
         data  = []
-        for ent in data:
+        for k in range(0, 14):
+            data.append([])
+
+        for ent in out:
             if ent[0] == '#':
                 continue
             else:
-                data.append(ent)
+                atemp = re.split('\s+', ent)
+                for k in range(0, 14):
+                    data[k].append(float(atemp[k]))
 
-        if len(data) < 2:
-            exit(1)
-
+        if len(data[0]) < 2:
+           continue 
 #
 #--- plot time trend of each msid
 #
@@ -478,7 +482,7 @@ def fit_poly(x, y, nterms):
     v = numpy.array(y)
 
     try:
-        out = numpy.polyfit(d, v, nterms)
+        out = numpy.polyfit(d, v, nterms-1)
     except:
         out = numpy.zeros(nterms)
         print("Something wrong with polinomial fit")
