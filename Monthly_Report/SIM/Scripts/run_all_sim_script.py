@@ -6,7 +6,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Mar 10, 2021                                                       #
+#           last update: Oct 04, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -57,15 +57,11 @@ import sim_plot             as sim
 #-- plot_sim_movement: read tsc and fa data and plot their cummulatinve movement        --
 #-----------------------------------------------------------------------------------------
 
-def run_all_sim_script():
+def run_all_sim_script(year, month):
 
-    grat.plot_grat_movement()
-    sim.plot_sim_movement()
+    grat.plot_grat_movement(year, month)
+    sim.plot_sim_movement(year, month)
 
-    out   = time.strftime('%Y:%m', time.gmtime())
-    atemp = re.split(':', out)
-    year  = int(float(atemp[0]))
-    month = int(float(atemp[1])) - 1            #--- last month
 
     if month < 1:
         month = 12
@@ -77,7 +73,16 @@ def run_all_sim_script():
 
 if __name__ == '__main__':
 
-    run_all_sim_script()
+    if len(sys.argv) > 1:
+        year  = int(sys.argv[1])
+        month = int(sys.argv[2])
+    else:
+        out   = time.strftime('%Y:%m', time.gmtime())
+        atemp = re.split(':', out)
+        year  = int(float(atemp[0]))
+        month = int(float(atemp[1])) - 1            #--- last month
+
+    run_all_sim_script(year, month)
 
 
 

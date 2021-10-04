@@ -6,7 +6,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Mar 10, 2021                                                       #
+#           last update: Oct 04, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -50,13 +50,13 @@ sys.path.append(mta_dir)
 #
 import mta_common_functions as mcf
 
-datafile = "/data/mta_www/mta_sim/Scripts/sim_data.out"
+datafile = "/data/mta/Script/SIM_move/Data/sim_data.out"
 
 #-----------------------------------------------------------------------------------------
 #-- plot_sim_movement: read tsc and fa data and plot their cummulatinve movement        --
 #-----------------------------------------------------------------------------------------
 
-def plot_sim_movement():
+def plot_sim_movement(year, month):
 
     """
     read tsc and fa data and plot their cummulatinve movement
@@ -66,24 +66,24 @@ def plot_sim_movement():
 #
 #--- read data
 #
-    [time, month_tsc_mm, month_fa_mm] = get_sim_data()
+    [ltime, month_tsc_mm, month_fa_mm] = get_sim_data(year, month)
 #
 #--- plot data
 #
-    plot_steps(time, month_tsc_mm, month_fa_mm)
+    plot_steps(year, month, ltime, month_tsc_mm, month_fa_mm)
 
 
 #-----------------------------------------------------------------------------------------
 #-- get_sim_data: read data and compute tsc and fa values                              ---
 #-----------------------------------------------------------------------------------------
 
-def get_sim_data():
+def get_sim_data(year, mon):
 
     """
     read data and compute tsc and fa values
     input: none, but read from /data/mta_www/mta_sim/Scripts/sim_data.out
-    output: [avg_time, month_tsc_mm, month_fa_mm]
-                avg_time     --- fractional year
+    output: [avg_ltime, month_tsc_mm, month_fa_mm]
+                avg_ltime     --- fractional year
                 month_tsc_mm --- TSC value in 1.0e-4 mm size
                 month_fa_mm  --- FA value in mm size
     """
@@ -93,7 +93,7 @@ def get_sim_data():
 #
     data = mcf.read_data_file(datafile)
 
-    time   = []
+    ltime   = []
     tsc_mm = []
     fa_mm  = []
     prev   = ''
@@ -113,10 +113,10 @@ def get_sim_data():
         except:
             continue
 #
-#--- converting time to fractional year
+#--- converting ltime to fractional year
 #
         try:
-            time.append(convert_time(atemp[0]))
+            ltime.append(convert_ltime(atemp[0]))
         except:
             continue
 #
@@ -136,25 +136,21 @@ def get_sim_data():
         except:
             fa_mm.append(0.0)
 #
-#--- sort the list according to time
+#--- sort the list according to ltime
 #
-    sorted_index   = numpy.argsort(time)
-    time           = [time[i]   for i in sorted_index]
+    sorted_index   = numpy.argsort(ltime)
+    ltime           = [ltime[i]   for i in sorted_index]
     tsc_mm         = [tsc_mm[i] for i in sorted_index]
     fa_mm          = [fa_mm[i]  for i in sorted_index]
 #
-#--- create start and end time list of monthly bins
+#--- create start and end ltime list of monthly bins
 #
-    out            = time.strftime('%Y:%m', time.gmtime())
-    atemp          = re.split(':', out)
-    year           = int(float(atemp[0]))
-    mon            = int(float(atemp[1]))
     [blist, elist] = create_monthly_bins(2000, year, mon)
     blen           = len(blist)
 
     month_tsc_mm   = [0 for x in range(0, blen)]
     month_fa_mm    = [0 for x in range(0, blen)]
-    avg_time       = [0 for x in range(0, blen)]
+    avg_ltime       = [0 for x in range(0, blen)]
     test       = [0 for x in range(0, blen)]
 #
 #--- fill the monthly bin values
@@ -166,13 +162,13 @@ def get_sim_data():
 #
         month_tsc_mm[j]   = month_tsc_mm[j-1]
         month_fa_mm[j]    = month_fa_mm[j-1]
-        avg_time[j]       = 0.5 *  (blist[j] + elist[j])
+        avg_ltime[j]       = 0.5 *  (blist[j] + elist[j])
 
-        for i in range(k, len(time)):
+        for i in range(k, len(ltime)):
 
-            if time[i] < blist[j]:
+            if ltime[i] < blist[j]:
                 continue
-            elif time[i] >=  elist[j]:
+            elif ltime[i] >=  elist[j]:
                 k = i - 5
                 if k < 1:
                     k = 1
@@ -184,28 +180,28 @@ def get_sim_data():
                 month_tsc_mm[j] += abs(tsc_mm[i] - tsc_mm[i-1]) /1.0e4
                 month_fa_mm[j]  += abs(fa_mm[i]  - fa_mm[i-1])
 
-    return [avg_time, month_tsc_mm, month_fa_mm]
+    return [avg_ltime, month_tsc_mm, month_fa_mm]
 
 
 #-----------------------------------------------------------------------------------------
-#-- convert_time:  convert timer format from <year>:<ydate>:<hours>:<mins>:<sec> to fractional year
+#-- convert_ltime:  convert ltimer format from <year>:<ydate>:<hours>:<mins>:<sec> to fractional year
 #-----------------------------------------------------------------------------------------
 
-def convert_time(otime):
+def convert_ltime(oltime):
 
     """
-    convert timer format from <year>:<ydate>:<hours>:<mins>:<sec> to fractional year
-    input:  otime   --- time in <year>:<ydate>:<hours>:<mins>:<sec>
-    output  fyear   --- time in fractional year
+    convert ltimer format from <year>:<ydate>:<hours>:<mins>:<sec> to fractional year
+    input:  oltime   --- ltime in <year>:<ydate>:<hours>:<mins>:<sec>
+    output  fyear   --- ltime in fractional year
     """
 #
-#--- input data sometime comes with an extra ":" at the front; check whether it is the case
+#--- input data someltime comes with an extra ":" at the front; check whether it is the case
 #
     k = 0
-    if otime[0] == ':':
+    if oltime[0] == ':':
         k = 1
 
-    atemp = re.split(':', otime)
+    atemp = re.split(':', oltime)
     year  = float(atemp[k])
     ydate = float(atemp[k+1])
     hours = float(atemp[k+2])
@@ -248,11 +244,11 @@ def compute_fa_val(val):
 #-- plot_steps: plot tsc and fa movement                                                --
 #-----------------------------------------------------------------------------------------
 
-def plot_steps(time, set1, set2):
+def plot_steps(year, mon,ltime, set1, set2):
 
     """
     plot tsc and fa movement
-    input:  time    --- a list of time in fractional year
+    input:  ltime    --- a list of ltime in fractional year
             set1    --- a list of tsc value
             set2    --- a list of fa value
     output: monthly_sim.png
@@ -261,10 +257,6 @@ def plot_steps(time, set1, set2):
 #
 #--- set plottting range
 #
-    out   = time.strftime('%Y:%m', time.gmtime())
-    atemp = re.split(':', out)
-    year  = int(float(atemp[0]))
-    mon   = int(float(atemp[1]))
     xmin  = 2000
     xmax  = year + 1
     if mon > 6:
@@ -291,7 +283,7 @@ def plot_steps(time, set1, set2):
 #--- TSC plot
 #
     a1 = plt.subplot(121)
-    plot_sub(a1, time, set1, xmin, xmax, ymin, ymax1, color, lsize, marker, msize, tline='TSC')
+    plot_sub(a1, ltime, set1, xmin, xmax, ymin, ymax1, color, lsize, marker, msize, tline='TSC')
 
     a1.set_xlabel('Time (year)', size=fsize)
     a1.set_ylabel('TSC Cummulative Moter Dist (x10^4 mm)', size=fsize)
@@ -299,7 +291,7 @@ def plot_steps(time, set1, set2):
 #-- FA plot
 #
     a2 = plt.subplot(122)
-    plot_sub(a2, time, set2, xmin, xmax, ymin, ymax2, color, lsize, marker, msize, tline='FA')
+    plot_sub(a2, ltime, set2, xmin, xmax, ymin, ymax2, color, lsize, marker, msize, tline='FA')
 
     a2.set_xlabel('Time (year)', size=fsize)
     a2.set_ylabel('FA Cummulative Moter Dist (mm)', size=fsize)
@@ -404,7 +396,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_get_grat_data(self):
 
-        [time, month_tsc_mm, month_fa_mm] = get_sim_data()
+        [ltime, month_tsc_mm, month_fa_mm] = get_sim_data()
         tsc_test = [149.98111244808828, 152.98157312565843, 156.27616167563252, 158.44641907570602, 161.62239429853992]
         fa_test  = [161.8751384693151, 163.99024743039809, 166.3105800124211, 168.3032416093816, 170.9834847924358]
 
@@ -413,10 +405,10 @@ class TestFunctions(unittest.TestCase):
     
 #------------------------------------------------------------
 
-    def test_convert_time(self):
+    def test_convert_ltime(self):
 
-        time = '2014:059:12:23:33.1'
-        val  =  convert_time(time)
+        ltime = '2014:059:12:23:33.1'
+        val  =  convert_ltime(ltime)
         val  = round(val, 7)
         self.assertEquals(val, 2014.1630585)
         

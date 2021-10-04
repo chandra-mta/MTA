@@ -6,7 +6,7 @@
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.eud)                                   #
 #                                                                                       #
-#           last update: Mar 10, 2021                                                   #
+#           last update: Oct 04, 2021                                                   #
 #                                                                                       #
 #########################################################################################
 
@@ -16,6 +16,7 @@ import re
 import string
 import math
 import unittest
+import time
 
 import matplotlib as mpl
 if __name__ == '__main__':
@@ -46,7 +47,6 @@ sys.path.append(mta_dir)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
-import convertTimeFormat    as tcnv
 import mta_common_functions as mcf
 
 datafile = "/data/mta/www/mta_otg/OTG_sorted.rdb"
@@ -55,7 +55,7 @@ datafile = "/data/mta/www/mta_otg/OTG_sorted.rdb"
 #-- plot_grat_movement: create grating movement plots                                  ---
 #-----------------------------------------------------------------------------------------
 
-def plot_grat_movement():
+def plot_grat_movement(year, month):
 
     """
     create grating movement plots
@@ -65,21 +65,22 @@ def plot_grat_movement():
 #
 #--- read data
 #
-    [time, h_in_ang, h_out_ang, l_in_ang, l_out_ang, h_in, h_out, l_in, l_out] = get_grat_data()
+    [ltime, h_in_ang, h_out_ang, l_in_ang, l_out_ang, h_in, h_out, l_in, l_out]\
+                                    = get_grat_data(year, month)
 #
 #--- plot insertion/retraction angle plots
 #
-    plot_steps(time, h_in_ang, h_out_ang, l_in_ang, l_out_ang)
+    plot_steps(year, month, ltime, h_in_ang, h_out_ang, l_in_ang, l_out_ang)
 #
 #--- plot hetg/letg cumulative count rate plots
 #
-    plot_cum_grating(time, h_in, l_in)
+    plot_cum_grating(ltime, h_in, l_in)
 
 #-----------------------------------------------------------------------------------------
 #-- get_grat_data: read database and extract needed information, then create data       --
 #-----------------------------------------------------------------------------------------
 
-def get_grat_data():
+def get_grat_data(year, mon):
     """
     read database and extract needed information, then create data
     input: none but read from the database: "/data/mta/www/mta_otg/OTG_sorted.rdb"
@@ -98,13 +99,6 @@ def get_grat_data():
 #--- read data
 #
     data = mcf.read_data_file(datafile)
-#
-#--- find the current year. this will be used to remove iregular data
-#
-    out   = time.strftime("%Y:%m:%d", time.gmtime())
-    atemp = re.split(':', out)
-    year  = int(float(atemp[0]))
-    mon   = int(float(atemp[1]))
 
     direct   = []
     grating  = []
@@ -139,7 +133,7 @@ def get_grat_data():
     [blist, elist] = create_monthly_bins(2000, year, mon)
 
     blen          = len(blist)
-    time          = [0 for x in range(0, blen)]
+    ltime          = [0 for x in range(0, blen)]
     h_in          = [0 for x in range(0, blen)]     #--- hetg insertion cumm count rate
     h_in_ang      = [0 for x in range(0, blen)]     #--- hetg insertion angle
     h_out         = [0 for x in range(0, blen)]     #--- hetg retraction cumm count rate
@@ -152,7 +146,7 @@ def get_grat_data():
 
     for j in range(1, blen):
 
-        time[j]       = 0.5 * (blist[j] + elist[j]) #--- take a mid point for the bin's time 
+        ltime[j]       = 0.5 * (blist[j] + elist[j]) #--- take a mid point for the bin's time 
 #
 #-- creating cummulative count; the current bin should have, at least, as the same as the 
 #-- previous bin
@@ -207,7 +201,7 @@ def get_grat_data():
         l_in[j]  += l_in_ang_cnt
         l_out[j] += l_out_ang_cnt
 
-    return [time, h_in_ang, h_out_ang, l_in_ang, l_out_ang, h_in, h_out, l_in, l_out]
+    return [ltime, h_in_ang, h_out_ang, l_in_ang, l_out_ang, h_in, h_out, l_in, l_out]
 
 #-----------------------------------------------------------------------------------------
 #-- convert_time: convert time format from <year><ydate>.<hh><mm><ss> to frac year     ---
@@ -287,10 +281,10 @@ def create_monthly_bins(ystart, ystop, mstop):
 #-- : create insertion and retraction angle plots for hetig and letig                   --
 #-----------------------------------------------------------------------------------------
 
-def plot_steps(time, set1, set2, set3, set4):
+def plot_steps(year, mon, ltime, set1, set2, set3, set4):
     """
     create insertion and retraction angle plots for hetig and letig
-    input:  time    --- time in fractional year
+    input:  ltime    --- time in fractional year
             set1    --- mean hetig insertion angle
             set2    --- mean hetig retraction angle
             set3    --- mean letig insertion angle
@@ -298,14 +292,6 @@ def plot_steps(time, set1, set2, set3, set4):
             where "mean" means month average
     output: monthly_grat_ang.png
     """
-#
-#--- setting plotting range
-#
-    out   = time.strftime("%Y:%m:%d", time.gmtime())
-    atemp = re.split(':', out)
-    year  = int(float(atemp[0]))
-    mon   = int(float(atemp[1]))
-
     xmin  = 2000
     xmax  = year + 1
     if mon > 6:
@@ -328,31 +314,31 @@ def plot_steps(time, set1, set2, set3, set4):
     plt.close("all")
     mpl.rcParams['font.size'] = fsize
     props = font_manager.FontProperties(size=fsize)
-    plt.subplots_adjust(hspace=0.11, wspace=0.11)  #--- spacing of panels 
+    plt.subplots_adjust(hspace=0.20, wspace=0.11)  #--- spacing of panels 
 #
 #--- 'Mean HETG Inserted Angle
 #
     a1 = plt.subplot(221)
-    plot_sub(a1, time, set1, xmin, xmax, ymin1, ymax1, color, lsize, marker, msize, tline='Mean HETG Inserted Angle')
+    plot_sub(a1, ltime, set1, xmin, xmax, ymin1, ymax1, color, lsize, marker, msize, tline='Mean HETG Inserted Angle')
     a1.set_ylabel('Insertion Angle (Degree)', size=fsize)
 #
 #--- 'Mean HETG Retracted Angle
 #
     a2 = plt.subplot(223)
-    plot_sub(a2, time, set2, xmin, xmax, ymin2, ymax2, color, lsize, marker,  msize, tline='Mean HETG Retracted Angle')
+    plot_sub(a2, ltime, set2, xmin, xmax, ymin2, ymax2, color, lsize, marker,  msize, tline='Mean HETG Retracted Angle')
     a2.set_xlabel('Time (year)', size=fsize)
     a2.set_ylabel('Retraction Angle (Degree)', size=fsize)
 #
 #--- 'Mean LETG Inserted Angle
 #
     a3 = plt.subplot(222)
-    plot_sub(a3, time, set3, xmin, xmax, ymin1, ymax1, color, lsize, marker,  msize, tline='Mean LETG Inserted Angle')
+    plot_sub(a3, ltime, set3, xmin, xmax, ymin1, ymax1, color, lsize, marker,  msize, tline='Mean LETG Inserted Angle')
 
 #
 #--- 'Mean LETG Retracted Angle
 #
     a4 = plt.subplot(224)
-    plot_sub(a4, time, set4, xmin, xmax, ymin2, ymax2, color, lsize, marker,  msize, tline='Mean LETG Rectracted Angle')
+    plot_sub(a4, ltime, set4, xmin, xmax, ymin2, ymax2, color, lsize, marker,  msize, tline='Mean LETG Rectracted Angle')
     a4.set_xlabel('Time (year)', size=fsize)
 #
 #--- save the plot
@@ -361,16 +347,16 @@ def plot_steps(time, set1, set2, set3, set4):
     fig.set_size_inches(7.5, 3.75)
 
     outname = 'monthly_grat_ang.png'
-    plt.savefig(outname, format='png', dpi=80)
+    plt.savefig(outname, format='png', dpi=200)
 
 #-----------------------------------------------------------------------------------------
 #-- plot_cum_grating: plot cummulative count rates of hetig and letig insertion         --
 #-----------------------------------------------------------------------------------------
 
-def plot_cum_grating(time, h_in, l_in):
+def plot_cum_grating(ltime, h_in, l_in):
     """
     plot cummulative count rates of hetig and letig insertion. 
-    input:  time    --- fractional year
+    input:  ltime    --- fractional year
             h_in    --- hetig insertion cummulative count rate (month step)
             l_in    --- letig insertion cummulative count rate 
     output: monthly_grat.prn
@@ -378,9 +364,12 @@ def plot_cum_grating(time, h_in, l_in):
 #
 #--- set x axis plotting range
 #
-    [year, mon, day, hours, min, sec, weekday, yday, dst] = tcnv.currentTime()
+    out = time.strftime('%Y:%m', time.gmtime())
+    atemp = re.split(':', out)
+    year  = int(atemp[0])
+    mon   = int(atemp[1])
     xmin  = 2000
-    xmax  = year + 1
+    xmax  = int(year) + 1
     if mon > 6:
         xmax += 1
 #
@@ -408,7 +397,7 @@ def plot_cum_grating(time, h_in, l_in):
 #--- HETG Cumulative Count Plots
 #
     a1 = plt.subplot(121)           #--- two panel plot: left
-    plot_sub(a1, time, h_in, xmin, xmax, ymin, ymax, color, lsize, marker,  msize, tline='HETG')
+    plot_sub(a1, ltime, h_in, xmin, xmax, ymin, ymax, color, lsize, marker,  msize, tline='HETG')
 
     a1.set_xlabel('Time (year)', size=fsize)
     a1.set_ylabel('Cumulative Insertion Counts', size=fsize)
@@ -416,7 +405,7 @@ def plot_cum_grating(time, h_in, l_in):
 #--- LETG Cumulative Count Plots
 #
     a1 = plt.subplot(122)           #--- two panel plot: right
-    plot_sub(a1, time, l_in, xmin, xmax, ymin, ymax, color, lsize, marker,  msize, tline='LETG')
+    plot_sub(a1, ltime, l_in, xmin, xmax, ymin, ymax, color, lsize, marker,  msize, tline='LETG')
 
     a1.set_xlabel('Time (year)', size=fsize)
 #

@@ -6,7 +6,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Mar 10, 2021                                                       #
+#           last update: Oct 04, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -16,7 +16,7 @@ import re
 import string
 import math
 import numpy
-import pyfits
+import astropy.io.fits  as pyfits
 import time
 import Chandra.Time
 import unittest
@@ -196,17 +196,17 @@ def get_new_value(year, month):
     year2 = year
     month2 = month -1
     if month2 < 1:
-        mont2  = 12
+        month2 = 12
         year2 -= 1
 
     ltime = str(year) + ':' + mcf.add_leading_zero(month) + ':15'
     ltime = time.strftime('%Y:%j:00:00:00', time.strptime(ltime, '%Y:%m:%d'))
-    time1 = Chandra.Time.DateTime(ltime)
+    time1 = Chandra.Time.DateTime(ltime).date
 
 
     ltime = str(year2) + ':' + mcf.add_leading_zero(month2) + ':15'
     ltime = time.strftime('%Y:%j:00:00:00', time.strptime(ltime, '%Y:%m:%d'))
-    time2 = Chandra.Time.DateTime(ltime)
+    time2 = Chandra.Time.DateTime(ltime).date
 #
 #--- set command to call dataseeker
 #
@@ -344,7 +344,7 @@ def plot_data(time, aw1, aw2, aw3, aw4, aw5, aw6):
             for label in  line:
                 label.set_visible(False)
         if i != 0 and i != 1 and i != 2:
-            line = evel("%s.get_yticklabels()" % (ax))
+            line = eval("%s.get_yticklabels()" % (ax))
             for label in  line:
                 label.set_visible(False)
         else:
