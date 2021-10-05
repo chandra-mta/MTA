@@ -6,7 +6,7 @@
 #                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                   #
 #                                                                           #
-#               last update: Apr 16, 2021                                   #
+#               last update: Oct 05, 2021                                   #
 #                                                                           #
 #############################################################################
 
@@ -204,12 +204,12 @@ def remove_extreme(atime, dy, dz):
     ay = numpy.array(dy)
     az = numpy.array(dz)
 
-    index = [(ay > -3) & (ay < 3)]
+    index = tuple[(ay > -3) & (ay < 3)]
     at    = at[index]
     ay    = ay[index]
     az    = az[index]
 
-    index = [(az > -3) & (az < 3)]
+    index = tuple[(az > -3) & (az < 3)]
     at    = at[index]
     ay    = ay[index]
     az    = az[index]
