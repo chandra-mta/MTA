@@ -357,6 +357,18 @@ def check_for_error(ifile, start=0):
         ms5 = re.search('improper image header', lent)
         if ms5 is not None:
             continue
+#
+#--- ignore 'warning'
+#
+        ms6 = re.search('RuntimeWarning', lent)
+        if ms6 is not None:
+            continue
+#
+#--- ignore 'cannot stat' error
+#
+        ms7 = re.search('cannot stat', lent)
+        if ms7 is not None:
+            continue
 
         chk = 0
         for test in elist:
