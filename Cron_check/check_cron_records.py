@@ -6,7 +6,7 @@
 #                                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                           #
 #                                                                                               #
-#           Last Update: Mar 03, 2021                                                           #
+#           Last Update: Oct 06, 2021                                                           #
 #                                                                                               #
 #################################################################################################
 
@@ -344,6 +344,18 @@ def check_for_error(ifile, start=0):
             continue 
         ms3 = re.search('% Type conversion error', lent)
         if (ms3 is not None):
+            continue
+#
+#--- ignore 'ls ' error
+#
+        ms4 = re.search('ls: cannot access', lent)
+        if ms4 is not None:
+            continue
+#
+#--- ignore 'image header' error
+#
+        ms5 = re.search('improper image header', lent)
+        if ms5 is not None:
             continue
 
         chk = 0
