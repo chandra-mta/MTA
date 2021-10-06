@@ -1,0 +1,8 @@
+cd /data/mta/Script/MTA_limit_trends/Scripts/Pitch/
+
+setenv SKA /proj/sot/ska
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages"
+
+/data/mta/Script/MTA_limit_trends/Scripts/Pitch/create_msid_pitch_plots.py 1
+
+/data/mta/Script/MTA_limit_trends/Scripts/Pitch/create_pitch_html_page.py

@@ -6,7 +6,7 @@
 #                                                                                   #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                                   #
-#               last update: Feb 01, 2021                                           #
+#               last update: Oct 06, 2021                                           #
 #                                                                                   #
 #####################################################################################
 
@@ -155,14 +155,17 @@ def create_top_html():
     page     = page.replace('<!-- INTRO -->', top_note)
     page     = page.replace('#EXPLANATIONS#', '')
 
-    page     = page.replace('#OTHER_H#', 'mta_trending_sun_angle_main.html')
-    page     = page.replace('#OTHER#', 'Sun Angle Page')
+    page     = page.replace('#OTHER_H#', 'mta_trending_pitch_main.html')
+    page     = page.replace('#OTHER#', 'Temperature vs Pitch')
 
-    page     = page.replace('#OTHER_H2#', 'mta_trending_eph_tephin_main.html')
-    page     = page.replace('#OTHER2#', 'EPHIN Values vs. Temperature Page')
+    #page     = page.replace('#OTHER_H#', 'mta_trending_sun_angle_main.html')
+    #page     = page.replace('#OTHER#', 'Sun Angle Page')
 
-    page     = page.replace('#OTHER_H3#', 'mta_trending_hrcveto_eph_main.html')
-    page     = page.replace('#OTHER3#', 'HRC Shield Rates vs. EPHIN Rates')
+    #page     = page.replace('#OTHER_H2#', 'mta_trending_eph_tephin_main.html')
+    #page     = page.replace('#OTHER2#', 'EPHIN Values vs. Temperature Page')
+
+    #page     = page.replace('#OTHER_H3#', 'mta_trending_hrcveto_eph_main.html')
+    #page     = page.replace('#OTHER3#', 'HRC Shield Rates vs. EPHIN Rates')
 
     page     = page.replace('#VIO1#', 'yellow_violation.html')
     page     = page.replace('#VIO2#', 'red_violation.html')
