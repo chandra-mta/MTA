@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Mar 04, 2021                                                   #
+#               last update: Sep 16, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -483,18 +483,30 @@ def analyze_move(otg, ibeg, iend, st_list, d_dict, ovc, cvc):
         if dv > 100:
             for m in range(i0[k], i1[k]-1):
                 emf_l.append(d_dict["4MP28AV"][m])
-                nl += 1
-                tl += dv
+            nl += 1
+            tl += dv
         if dv < 2:
             for m in range(i0[k], i1[k]-1):
                 emf_s.append(d_dict["4MP28AV"][m])
-                ns += 1
+            ns += 1
         aline = aline +  "%6d: %8.3f" % (k+1, dt[k]) + '\n'
-
-    tl = '%.3f' % (tl)
-    arc.append(len(i0)+1)
+#
+#---  N_MOVES N_LONG  T_LONG  N_SHORT
+#
+    arc.append(len(i0))
     arc.append(nl)
-    arc.append(tl)
+    try:
+        vchk = float(tl) / float(nl)
+    except:
+        vchk = 0.0
+    vchk = '%3.3f' % vchk
+    arc.append(vchk)
+#
+#--- make sure that ns matches with a definition!
+#
+    if ns != len(i0) -1:
+        ns = len(i0) - 1
+
     arc.append(ns)
 #
 #--- Limit switch data

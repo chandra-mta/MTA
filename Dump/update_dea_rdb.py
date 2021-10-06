@@ -91,11 +91,11 @@ def update_dea_rdb():
         cmd   = cmd1 + cmd2 
         bash(cmd, env=ascdsenv)
 
-    if os.path.isfile('./deahk_temp.tmp'):
-        process_deahk('deahk_temp')
+        if os.path.isfile('./deahk_temp.tmp'):
+            process_deahk('deahk_temp')
 
-    if os.path.isfile('./deahk_elec.tmp'):
-        process_deahk('deahk_elec')
+        if os.path.isfile('./deahk_elec.tmp'):
+            process_deahk('deahk_elec')
 
 #-----------------------------------------------------------------------------------------------
 #-- process_deahk: process deahk data to match dataseeker data format                         --
