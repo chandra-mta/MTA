@@ -7,7 +7,7 @@
 #                                                                                   #
 #           author: t. isobe    (tisobe@cfa.harvard.edu)                            #
 #                                                                                   #
-#           last update:    Mar 09, 2021                                            #
+#           last update:    Oct 13, 2021                                            #
 #                                                                                   #
 #####################################################################################
 
@@ -32,7 +32,7 @@ import matplotlib.pyplot       as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines        as lines
 
-path = '/data/mta/Script/Interrupt/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/Interrupt_p/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -176,6 +176,7 @@ def read_xmm_and_process(selected):
 #
 #--- compute statistics
 #
+        else:
             interrupt_pos = find_interruption_pos_index(time_save, interrupt_start[i])
 
             line = '\tAvg\t\t\t Max\t\t\tTime\t\tMin\t\t\tTime\t\tValue at Interruption Started\n'
@@ -228,8 +229,8 @@ def read_xmm_and_process(selected):
                           col6_save, col7_save, col8_save, part2='part2')
             break
 
-        elif time_list[j] < interrupt_start[i]:
-            continue
+        #elif time_list[j] < interrupt_start[i]:
+        #    continue
 
         if chk > 0:
             continue
