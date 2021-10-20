@@ -6,7 +6,7 @@
 #                                                                                                   #
 #           author: t. isobe(tisobe@cfa.harvard.edu)                                                #
 #                                                                                                   #
-#           Last Update:    Mar 02, 2021                                                            #
+#           Last Update:    Oct 20, 2021                                                            #
 #                                                                                                   #
 #####################################################################################################
 
@@ -49,6 +49,10 @@ rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
 working_dir = exc_dir + '/Working_dir/'
+#
+#--- arc5gl user name
+#
+arc_user = 'isobe'
 
 #---------------------------------------------------------------------------------------------------
 #-- acis_cti_get_data: extract acis evt1 files which are not processed for CTI observations       --
@@ -126,10 +130,10 @@ def extract_acis_evt1(obsid):
 #--- run arc5gl
 #
     try:
-        cmd = ' /proj/sot/ska/bin/arc5gl -user isobe -script ' + zspace
+        cmd = ' /proj/sot/ska/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
         os.system(cmd)
     except:
-        cmd  = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace
+        cmd  = ' /proj/axaf/simul/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
         os.system(cmd)
 
     mcf.rm_files(zspace)

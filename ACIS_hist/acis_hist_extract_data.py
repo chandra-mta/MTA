@@ -7,7 +7,7 @@
 #                                                                                                   #
 #                       author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                                   #
-#                       last update: Feb 03, 2021                                                   #
+#                       last update: Oct 20, 2021                                                   #
 #                                                                                                   #
 #####################################################################################################
 
@@ -93,6 +93,10 @@ import mta_common_functions as mcf
 #
 rtail  = int(time.time()*random.random())
 zspace = '/tmp/zspace' + str(rtail)
+#
+#--- arc5gl user name
+#
+arc_user = 'isobe'
 
 #------------------------------------------------------------------------------------
 #---- acis_hist_extract_data: extract acis histgram data                           --
@@ -364,11 +368,11 @@ def use_arc5gl_acis_hist(year, month, end_year, end_month):
 #--- run arc5gl
 #
     try:
-        cmd =  'cd ' + exc_dir + '; /proj/sot/ska/bin/arc5gl -user isobe -script ' + zspace
+        cmd =  'cd ' + exc_dir + '; /proj/sot/ska/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
         os.system(cmd)
     except:
         cmd1 = "/usr/bin/env PERL5LIB= "
-        cmd2 = '  cd ' + exc_dir + '; /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace
+        cmd2 = '  cd ' + exc_dir + '; /proj/axaf/simul/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
         os.system(cmd2)
 
     mcf.rm_files(zspace)
@@ -417,7 +421,7 @@ def extract_head_info(ifile):
     cmd = 'rm -f ' + exc_dir + 'zout'
     os.system(cmd)
 #
-#--- extract head information
+#--- extract header information
 #
     header   = pyfits.getheader(ifile, 1)
 
@@ -630,7 +634,8 @@ def find_peaks(hist_data):
         [pos3, count3, width3, perr3, cerr3, werr3] = [-999,-999,-999, -999,-999,-999]
 
 
-    return [pos1, count1, width1, pos2, count2, width2, pos3, count3, width3, perr1, cerr1, werr1, perr2, cerr2, werr2,perr3, cerr3, werr3]
+    return [pos1, count1, width1, pos2, count2, width2, pos3, count3, width3, perr1,\
+            cerr1, werr1, perr2, cerr2, werr2,perr3, cerr3, werr3]
 
 #------------------------------------------------------------------------------------
 #-- fits_gaus_line: fit gaussian profile                                          ---

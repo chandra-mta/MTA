@@ -6,7 +6,7 @@
 #                                                                                           #
 #       author: t. isobe (tisobe@cfa.harvard.edu)                                           #
 #                                                                                           #
-#       last update Mar 02, 2021                                                            #
+#       last update Oct 20, 2021                                                            #
 #                                                                                           #
 #############################################################################################
 
@@ -66,6 +66,10 @@ hot_factor = 1000.0     #--- hot pixel
 day30      = 2592000.0  #---- (in sec)
 day14      = 1209600.0
 day7       =  604800.0
+#
+#--- arc5gl user name
+#
+arc_user = 'isobe'
 
 #------------------------------------------------------------------------------------------
 #--- find_bad_pix_main: contorl function to extract bad pixels and bad columns          ---
@@ -1424,12 +1428,12 @@ def get_data_out(start, stop):
 #
     outf = exc_dir + 'Temp_data/zout'
     try:
-        cmd = 'cd ' + exc_dir +  'Temp_data; /proj/sot/ska/bin/arc5gl -user isobe -script ' 
+        cmd = 'cd ' + exc_dir +  'Temp_data; /proj/sot/ska/bin/arc5gl -user ' + arc_user + ' -script ' 
         cmd = cmd   + zspace  + ' > ' + outf
         os.system(cmd)
     except:
         cmd1 = "/usr/bin/env PERL5LIB= "
-        cmd2 = '  cd ' + exc_dir + 'Temp_data; /proj/axaf/simul/bin/arc5gl -user isobe -script ' 
+        cmd2 = '  cd ' + exc_dir + 'Temp_data; /proj/axaf/simul/bin/arc5gl -user ' + arc_user + ' -script ' 
         cmd2 = cmd2    + zspace  + '> ' + outf
         try:
             os.system(cmd2)

@@ -7,7 +7,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Feb 22, 2021                                                       #
+#           last update: Oct 20, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -59,7 +59,10 @@ dmon2 = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335]
 inst_list = ['ACIS-1', 'ACIS-2', 'ACIS-3', 'ACIS-4', 'ACIS-5', 'ACIS-6', \
              'HRC-I-1', 'HRC-I-2', 'HRC-I-3', 'HRC-I-4', \
              'HRC-S-1', 'HRC-S-2', 'HRC-S-3', 'HRC-S-4']
-
+#
+#--- arc5gl user name
+#
+arc_user = 'isobe'
 
 #-----------------------------------------------------------------------------------
 #-- process_data_for_the_month: analysis ACA trending data for the given month    --
@@ -152,7 +155,7 @@ def extract_data(year, month):
     year2 = year
 
     if month == 12:
-        yday2 = 1
+        yday2  = 1
         year2 += 1
     else:
         yday2 = mlist[month] + 1
@@ -207,11 +210,11 @@ def run_arc5gl(operation, detector, subdetector, level, filetype, tstart, tstop,
         fo.write(line)
 
     try:
-        cmd = 'cd ' + fits_dir + '; /proj/sot/ska/bin/arc5gl    -user isobe -script ' 
+        cmd = 'cd ' + fits_dir + '; /proj/sot/ska/bin/arc5gl    -user ' + arc_user + ' -script ' 
         cmd = cmd   + zspace   + '> ./ztemp_out'
         os.system(cmd)
     except:
-        cmd = 'cd ' + fits_dir + '; /proj/axaf/simul/bin/arc5gl -user isobe -script ' 
+        cmd = 'cd ' + fits_dir + '; /proj/axaf/simul/bin/arc5gl -user ' + arc_user + ' -script ' 
         cmd = cmd   ++ zspace  + '> ./ztemp_out'
         os.system(cmd)
 
@@ -474,7 +477,8 @@ def create_html_table(data):
     output: line    --- a table in html format
     """
 
-    line = '<table border=1 cellpadding=2 style="margin-left:auto;margin-right:auto;text-align:center;">\n'
+    line = '<table border=1 cellpadding=2 style="margin-left:auto;margin-right:auto;'
+    line = line + 'text-align:center;">\n'
     line = line + '<tr><td rowspan=2 style="padding-left:10px;padding-right:10px;">ID</td>'
     line = line + '<td rowspan=2>ID String</td>'
     line = line + '<td colspan=3>Magnitude</td><td colspan=3>Data Quality (%)</td>'

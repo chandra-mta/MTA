@@ -6,7 +6,7 @@
 #                                                                               #
 #           author: t. isobe(tisobe@cfa.harvard.edu)                            #
 #                                                                               #
-#           Last Update:    Mar 03, 2021                                        #
+#           Last Update:    Oct 20, 2021                                        #
 #                                                                               #
 #################################################################################
 
@@ -19,7 +19,7 @@ import operator
 import math
 import numpy
 import time
-import astropy.io.fits as pyfits
+#import astropy.io.fits as pyfits
 from astropy.table import Table
 import scipy
 from scipy.optimize import curve_fit
@@ -61,6 +61,10 @@ working_dir = exc_dir + '/Working_dir/'
 #
 peak_ev = [1486.70, 4510.84, 5898.75]
 cselect = ['time', 'ccd_id', 'node_id', 'pha', 'grade']
+#
+#--- arc5gl user name
+#
+arc_user = 'isobe'
 
 #-------------------------------------------------------------------------------------------
 #-- acis_gain_get_data: extract acis evt1 files and compute monnth averaged gain and offset-
@@ -413,10 +417,10 @@ def extract_acis_evt1(obsid):
 #--- run arc5gl
 #
     try:
-        cmd = ' /proj/sot/ska/bin/arc5gl -user isobe -script ' + zspace
+        cmd = ' /proj/sot/ska/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
         os.system(cmd)
     except:
-        cmd  = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace
+        cmd  = ' /proj/axaf/simul/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
         os.system(cmd)
         
     mcf.rm_files(zspace)

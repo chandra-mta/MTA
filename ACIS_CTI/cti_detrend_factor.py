@@ -6,7 +6,7 @@
 #                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                               #
-#           last update: Mar 02, 2021                                           #
+#           last update: Oct 20, 2021                                           #
 #                                                                               #
 #################################################################################
 
@@ -53,6 +53,10 @@ zspace = '/tmp/zspace' + str(rtail)
 #
 working_dir = exc_dir + '/Working_dir/'
 temp_dir    = exc_dir + '/Temp_dir/'
+#
+#--- arc5gl user name
+#
+arc_user    = 'isobe'
 
 #---------------------------------------------------------------------------------------------------
 #-- cti_detrend_factor: update detrend factor table, then update detrend data table              ---
@@ -254,10 +258,10 @@ def extract_stat_fits_file(obsid, out_dir='./'):
         fo.write(line)
     try:
         try:
-            cmd = ' /proj/sot/ska/bin/arc5gl -user isobe -script ' + zspace
+            cmd = ' /proj/sot/ska/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
             os.system(cmd)
         except:
-            cmd  = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace
+            cmd  = ' /proj/axaf/simul/bin/arc5gl -user ' + arc_user + ' -script ' + zspace
             os.system(cmd)
     
         cmd  = 'ls ' + exc_dir + '> ' + zspace

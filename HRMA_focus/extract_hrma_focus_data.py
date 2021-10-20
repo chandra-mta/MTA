@@ -6,7 +6,7 @@
 #                                                                                               #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                               #
-#               last update: Mar 09, 2021                                                       #
+#               last update: Oct 20, 2021                                                       #
 #                                                                                               #
 #################################################################################################
 
@@ -62,6 +62,10 @@ snr_lim   = 6.0
 rmaj_hrc  = 500.0
 rmaj_acis = 15.0
 defoc_lim = 0.01
+#
+#--- arc5gl user name
+#
+arc_user = 'isobe'
 
 #-----------------------------------------------------------------------------------------
 #-- extract_hrma_focus_data: extract hrma src2 data                                     --
@@ -225,7 +229,7 @@ def create_fits_list(inst, start, stop):
     operation = 'browse'
     write_arc5gl_input(tstart, tstop, inst=inst, operation=operation)
 
-    cmd2 = ' /proj/sot/ska/bin/arc5gl -user isobe -script ' + zspace + '> zout'
+    cmd2 = ' /proj/sot/ska/bin/arc5gl -user ' + arc_user + ' -script ' + zspace + '> zout'
     os.system(cmd2)
     mcf.rm_files(zspace)
 
@@ -329,7 +333,7 @@ def extract_src_info(fits_list, inst):
 #
         fnam = ent.replace('.gz', '')
         write_arc5gl_input(0, 0, inst=inst, filename=fnam)
-        cmd2 = ' /proj/sot/ska/bin//arc5gl -user isobe -script ' + zspace + '> zout'
+        cmd2 = ' /proj/sot/ska/bin//arc5gl -user  ' + arc_user + ' -script ' + zspace + '> zout'
         try:
             os.system(cmd2)
             mcf.rm_files(zspace)

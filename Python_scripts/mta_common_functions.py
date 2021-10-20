@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################
 #                                                                           #
@@ -6,7 +6,7 @@
 #                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                           #
-#           last update: Dec 17, 2020                                       #
+#           last update: Mar 16, 2021                                       #
 #                                                                           #
 #############################################################################
 
@@ -18,8 +18,7 @@ import random
 import time
 import math
 import numpy
-import astropy.io.fits  as pyfits
-#import Ska.engarchive.fetch as fetch
+#import astropy.io.fits  as pyfits
 from datetime import datetime
 import Chandra.Time
 from io import BytesIO
@@ -34,36 +33,7 @@ ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/re
 tail = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(tail)
 
-house_keeping = '/data/mta/Script/Python3.6/MTA/'
-
-#--------------------------------------------------------------------------
-#-- read_data_file: read a data file and create a data list              --
-#--------------------------------------------------------------------------
-
-def read_data_file_old(ifile, remove=0, ctype='r'):
-    """
-    read a data file and create a data list
-    input:  ifile   --- input file name
-            remove  --- if > 0, remove the file after reading it
-            ctype   --- reading type such as 'r' or 'b'
-    output: data    --- a list of data
-    """
-#
-#--- if a file specified does not exist, return an empty list
-#
-    if not os.path.isfile(ifile):
-        return []
-
-    with open(ifile, ctype) as f:
-        data = [line.strip() for line in f.readlines()]
-#
-#--- if asked, remove the file after reading it
-#
-    if remove > 0:
-        rm_files(ifile)
-
-    return data
-
+house_keeping = '/data/mta/Script/Python3.8/MTA/'
 
 #--------------------------------------------------------------------------
 #-- read_data_file: read a data file and create a data list              --
@@ -695,6 +665,56 @@ def run_arc5gl_process(cline):
         except:
             cmd1 = "/usr/bin/env PERL5LIB= "
             cmd2 = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace + ' > ./zout'
+            cmd  = cmd1 + cmd2
+            bash(cmd,  env=ascdsenv)
+    
+    rm_files(zspace)
+    
+    out  = read_data_file('./zout', remove=1)
+    save = []
+    for ent in out:
+        if ent == "":
+            continue
+        mc = re.search('Filename', ent)
+        if mc is not None:
+            continue
+        mc = re.search('Retrieved', ent)
+        if mc is not None:
+            continue
+        mc = re.search('---------------', ent)
+        if mc is not None:
+            continue
+    
+        atemp = re.split('\s+', ent)
+        save.append(atemp[0])
+    
+    return save
+
+#--------------------------------------------------------------------------
+#-- run_arc5gl_process_user: un arc5gl process with a user option        --
+#--------------------------------------------------------------------------
+
+def run_arc5gl_process_user(cline, user='isobe'):
+    """
+    run arc5gl process with a user option
+    input:  cline   --- command lines
+            user    --- user option
+    output: f_list  --- a list of fits (either extracted or browsed)
+            *fits   --- if the command asked to extract; resulted fits files
+    """
+    with open(zspace, 'w') as fo:
+        fo.write(cline)
+    
+    try:
+        cmd = ' /proj/sot/ska/bin/arc5gl -user ' + user + ' -script ' + zspace + ' > ./zout'
+        os.system(cmd)
+    except:
+        try:
+            cmd  = ' /proj/axaf/simul/bin/arc5gl -user ' + user + ' -script ' + zspace + ' > ./zout'
+            os.system(cmd)
+        except:
+            cmd1 = "/usr/bin/env PERL5LIB= "
+            cmd2 = ' /proj/axaf/simul/bin/arc5gl -user ' + user + ' -script ' + zspace + ' > ./zout'
             cmd  = cmd1 + cmd2
             bash(cmd,  env=ascdsenv)
     
