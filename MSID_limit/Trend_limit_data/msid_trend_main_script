@@ -1,0 +1,6 @@
+cd /data/mta/Script/MSID_limit/Trend_limit_data/Scripts
+
+setenv SKA /proj/sot/ska
+setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/data/mta/Script/MSID_limit/Trend_limit_data/Scripts/create_limit_tables.py
