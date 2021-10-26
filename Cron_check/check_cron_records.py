@@ -6,7 +6,7 @@
 #                                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                           #
 #                                                                                               #
-#           Last Update: Oct 06, 2021                                                           #
+#           Last Update: Oct 26, 2021                                                           #
 #                                                                                               #
 #################################################################################################
 
@@ -66,15 +66,16 @@ zspace = '/tmp/zspace' + str(rtail)
 #--- a list of error signatures
 #
 elist = ['error', 'cannot', 'permission denied', 'not found', 'failed', 'invalid',\
-         'out of range', 'undefined']
+         'out of range', 'undefined',"Can't Access", "Execution halted",\
+        "Unable to connect to remote host"]
 #
 #--- a list of none-real error signature (to be ignored)
 #
-nlist = ['cleartool', 'file exists', 'cannot remove', '\/usr\/bin\/du']
+nlist = ['cleartool', 'file exists', 'cannot remove', 'cannot stat', '\/usr\/bin\/du']
 
-#------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------
 #-- check_cron_errors: reads cron job file and find newly recorded error message of each job 
-#------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------
 
 def check_cron_records():
     """
@@ -121,9 +122,9 @@ def check_cron_records():
 #
         [cname, ctime, csize] = update_record_file(cfile, lname)
 
-#--------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------
 #-- update_record_file: for each cron job, find the last updated time and the current file length
-#--------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------
 
 def update_record_file(cfile, lname):
     """
@@ -158,9 +159,9 @@ def update_record_file(cfile, lname):
 
     return [cname, ctime, csize]
 
-#--------------------------------------------------------------------------------------------------
-#-- get_prev_data: read the last recorded data from <hosue_keeping>/<machine>_<user>            ---
-#--------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------
+#-- get_prev_data: read the last recorded data from <hosue_keeping>/<machine>_<user>       ---
+#---------------------------------------------------------------------------------------------
 
 def get_prev_data(cfile):
     """
@@ -326,6 +327,13 @@ def check_for_error(ifile, start=0):
                         check from the beginning
     Output: error_list --- a list of error messages collected from the file
     """
+#
+#--- ignore idl processes
+#
+    mc = re.search('idl', ifile)
+    if mc is not None:
+        return 'na'
+
     data = read_data_file(ifile)
 
     error_list = []
@@ -357,17 +365,14 @@ def check_for_error(ifile, start=0):
         ms5 = re.search('improper image header', lent)
         if ms5 is not None:
             continue
+        ms8 - re.search('convert: no images defined', lent)
+        if ms8 is not None:
+            continue
 #
 #--- ignore 'warning'
 #
         ms6 = re.search('RuntimeWarning', lent)
         if ms6 is not None:
-            continue
-#
-#--- ignore 'cannot stat' error
-#
-        ms7 = re.search('cannot stat', lent)
-        if ms7 is not None:
             continue
 
         chk = 0
@@ -378,7 +383,7 @@ def check_for_error(ifile, start=0):
                 chk = 1
                 break
 #
-#--- check whether they are non significant error. if so ignore
+#--- check other non-significant error
 #
         if chk == 1:
             for test in nlist:
