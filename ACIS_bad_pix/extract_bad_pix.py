@@ -6,7 +6,7 @@
 #                                                                                           #
 #       author: t. isobe (tisobe@cfa.harvard.edu)                                           #
 #                                                                                           #
-#       last update Oct 20, 2021                                                            #
+#       last update Oct 27, 2021                                                            #
 #                                                                                           #
 #############################################################################################
 
@@ -69,7 +69,7 @@ day7       =  604800.0
 #
 #--- arc5gl user name
 #
-arc_user = 'isobe'
+arc_user = 'swolk'
 
 #------------------------------------------------------------------------------------------
 #--- find_bad_pix_main: contorl function to extract bad pixels and bad columns          ---
@@ -1519,11 +1519,11 @@ def mv_old_file(tdate):
         atemp = re.split('\/acis', ent)
         btemp = re.split('_', atemp[1])
     
-    if int(btemp[0]) < tdate:
-        out = ent
-        out = out.replace('Defect', 'Defect/Save')
-        cmd = 'mv ' + ent + ' ' + out
-        os.system(cmd)
+        if int(btemp[0]) < tdate:
+            out = ent
+            out = out.replace('Defect', 'Defect/Save')
+            cmd = 'mv ' + ent + ' ' + out
+            os.system(cmd)
 
 #-----------------------------------------------------------------------------------------
 #-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST    ---
