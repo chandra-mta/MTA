@@ -6,7 +6,7 @@
 #                                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                           #
 #                                                                                               #
-#           Last Update: Oct 26, 2021                                                           #
+#           Last Update: Oct 27, 2021                                                           #
 #                                                                                               #
 #################################################################################################
 
@@ -67,7 +67,7 @@ zspace = '/tmp/zspace' + str(rtail)
 #
 elist = ['error', 'cannot', 'permission denied', 'not found', 'failed', 'invalid',\
          'out of range', 'undefined',"Can't Access", "Execution halted",\
-        "Unable to connect to remote host"]
+        "Unable to connect to remote host", "UnboundLocalError" , "Illegal division by zero"]
 #
 #--- a list of none-real error signature (to be ignored)
 #
@@ -365,7 +365,7 @@ def check_for_error(ifile, start=0):
         ms5 = re.search('improper image header', lent)
         if ms5 is not None:
             continue
-        ms8 - re.search('convert: no images defined', lent)
+        ms8 = re.search('convert: no images defined', lent)
         if ms8 is not None:
             continue
 #

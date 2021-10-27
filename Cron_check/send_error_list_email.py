@@ -6,7 +6,7 @@
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                       #
-#           Last Update: Mar 03, 2021                                                   #
+#           Last Update: Oct 27, 2021                                                   #
 #                                                                                       #
 #########################################################################################
 
@@ -56,17 +56,16 @@ machine = machine.strip()
 #--- possible machine names and user name lists
 #
 cpu_list     = ['colossus-v', 'c3po-v', 'r2d2-v', 'boba-v']
-usr_list     = ['mta', 'cus']
-cpu_usr_list = ['colossus-v_mta', 'r2d2-v_mta', 'r2d2-v_cus', 'c3po-v_mta',\
-                'c3po-v_cus', 'boba-v_mta', 'boba-v_cus']
+usr_list     = ['mta']
+cpu_usr_list = ['colossus-v_mta', 'r2d2-v_mta', 'boba-v_mta', 'c3po-v_mta',]
+                #'c3po-v_cus', 'r2d2-v_cus', 'boba-v_cus']
 #
 #--- temp writing file name
 #
 rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
-email_list = ['tisobe@cfa.harvard.edu','swolk@head.cfa.harvard.edu',\
-              'msobolewska@cfa.harvard.edu','lina.pulgarin-duque@cfa.harvard.edu']
+email_list = ['mtadude@cfa.harvard.edu',]
 
 #--------------------------------------------------------------------------------------------------
 #-- report_error: read errors from <cup_usr_list>_error_list, sort it out, clean, and send out email
@@ -125,6 +124,9 @@ def report_error():
                 if stime < cut:
                     continue
 
+                if atemp[2].strip() == '':
+                    continue
+
                 task_list.append(atemp[0])
                 time_list.append(dtime)
 
@@ -144,9 +146,9 @@ def report_error():
 #
                 line = time_list[i] + ' : ' + mssg_list[i] + '\n'
 
-                if line != prev_line:
+                if ent != prev_line:
                     sline = sline + line
-                prev_line = line
+                prev_line = ent 
 
             with open(zspace, 'w') as fo:
                 fo.write(sline)
