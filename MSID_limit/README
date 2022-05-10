@@ -76,5 +76,5 @@ Cron Job
 ++++++++
 on boba-v as mta
 
-35 4 1 * * cd /data/mta/Script/MSID_limit; /data/mta/Script/MSID_limit/Scripts/compare_database_wrap_script > $HOME/Logs/op_limit_updates.cron 2>&1
+35 0 1 * * cd /data/mta/Script/MSID_limit; /data/mta/Script/MSID_limit/Scripts/compare_database_wrap_script > $HOME/Logs/op_limit_updates.cron 2>&1
 
