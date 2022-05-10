@@ -23,19 +23,23 @@ for ent in data:
 
 glimmon      = main_dir +'glimmondb.sqlite3'
 
-msid = sys.argv[1].strip().lower()
+def check_msid(msid):
+    db = sqlite3.connect(glimmon)
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM limits WHERE msid='%s'" %msid)
+    allrows = cursor.fetchall()
+    
+    if len(allrows) == 0:
+        print("not in glimmon database")
+        exit(1)
+    
+    for ent in allrows:
+        print(str(ent))
+    
+#--------------------------------------------
 
-db = sqlite3.connect(glimmon)
-cursor = db.cursor()
-cursor.execute("SELECT * FROM limits WHERE msid='%s'" %msid)
-allrows = cursor.fetchall()
+if __name__ == '__main__':
 
-if len(allrows) == 0:
-    print("not in glimmon database")
-    exit(1)
-
-for ent in allrows:
-    print(str(ent))
-
-
+    msid = sys.argv[1].strip().lower()
+    check_msid(msid)
 

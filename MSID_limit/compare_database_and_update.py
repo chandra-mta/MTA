@@ -7,7 +7,7 @@
 #                                                                                   #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                               #
 #                                                                                   #
-#           last update: Mar 10, 2021                                               #
+#           last update: Sep 27, 2021                                               #
 #                                                                                   #
 #####################################################################################
 
@@ -47,7 +47,7 @@ zspace = '/tmp/zspace' + str(rtail)
 #
 mta_op_limit = '/data/mta4/MTA/data/op_limits/op_limits.db'
 glimmon      = main_dir + 'glimmondb.sqlite3'
-admin        = 'tisobe@cfa.harvard.edu'
+admin        = 'msobolewska@cfa.harvard.edu'
 temp_opfile  = main_dir + 'op_limits_new'
 
 #-----------------------------------------------------------------------------------
@@ -104,6 +104,8 @@ def compare_database_and_update():
         if tail == 'TC':
             name = msid[:-1]
             ind = 0
+        if name[-1] == 'T':
+            ind = 1
         mc = re.search('ARWA', msid)
         if mc is not None:
             ind = 1

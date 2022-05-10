@@ -6,7 +6,7 @@
 #                                                                               #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                               #
-#               last update: Mar 10, 2021                                       #
+#               last update: Sep 27, 2021                                       #
 #                                                                               #
 #################################################################################
 
@@ -220,7 +220,7 @@ def check_entry():
         with open(zspace, 'w') as fo:
             fo.write(line)
 
-        cmd = 'cat ' + zspace + ' |mailx -s "Subject: Possible op_limit Problems" tisobe@cfa.harvard.edu'
+        cmd = 'cat ' + zspace + ' |mailx -s "Subject: Possible op_limit Problems" msobolewska@cfa.harvard.edu'
         os.system(cmd)
 
         mcf.rm_files(zspace)
