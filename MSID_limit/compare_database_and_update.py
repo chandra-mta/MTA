@@ -21,6 +21,7 @@ import sqlite3
 import unittest
 import time
 import Chandra.Time
+import Ska.ftp
 
 #--- reading directory list
 #
@@ -361,13 +362,16 @@ def download_glimmon():
     cmd = 'mv -f  ' + glimmon + ' ' + glimmon + '~'
     os.system(cmd)
 
-    with open('/home/isobe/.occpass' , 'r') as f:
-        out = f.read().strip()
+    netrc = Ska.ftp.parse_netrc()
+    if 'occweb' not in netrc:
+        raise RuntimeError('must have occweb auth in ~/.netrc')
+
+    user = netrc['occweb']['login']
+    password = netrc['occweb']['password']
 #
 #--- download the database
 #
-    cmd = 'curl -u tisobe:' + out 
-    cmd = cmd + ' https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/'
+    cmd = f'curl -u {user}:{password} https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/'
     cmd = cmd + 'AXAFAUTO_RSYNC/G_LIMMON_Archive/glimmondb.sqlite3 > ' +  glimmon
 
     os.system(cmd)
@@ -401,20 +405,20 @@ def test_and_save():
 #--- update the main mta limit database
 #
     if len(data) < 1:
-        cmd = 'rm '  + temp_opfile
+        cmd = f'rm {temp_opfile}'
         os.system(cmd)
     else:
-        cmd  = 'mv ' + temp_opfile + ' ' + main_dir +'op_limits.db'
+        cmd  = f'mv {temp_opfile} {main_dir}/op_limits.db'
         os.system(cmd)
 
         tail = time.strftime("%m%d%y", time.gmtime())
-        cmd  = 'cp ' + main_dir + 'op_limits.db ' + main_dir + 'Past_data/op_limits.db_' + tail
+        cmd  = f'cp {main_dir}/op_limits.db {main_dir}/Past_data/op_limits.db_{tail}'
         os.system(cmd)
 
-        cmd = 'cp -f ' + main_dir + glimmon  + '/data/mta4/MTA/data/op_limits/.'
+        cmd = f'cp -f {glimmon} /data/mta4/MTA/data/op_limits/.'
         os.system(cmd)
 
-        cmd = 'cp ' + main_dir  +  glimmon + ' ' + main_dir + 'Past_data/' + glimmon + '_' + tail
+        cmd = f'cp {glimmon} {main_dir}/Past_data/glimmondb.sqlite3_{tail}'
         os.system(cmd)
 #
 #--- notify the changes to admin person
