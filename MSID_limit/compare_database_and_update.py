@@ -21,7 +21,9 @@ import sqlite3
 import unittest
 import time
 import Chandra.Time
-import Ska.ftp
+from pathlib import Path
+from kadi.occweb import get_auth
+import requests
 
 #--- reading directory list
 #
@@ -362,19 +364,15 @@ def download_glimmon():
     cmd = 'mv -f  ' + glimmon + ' ' + glimmon + '~'
     os.system(cmd)
 
-    netrc = Ska.ftp.parse_netrc()
-    if 'occweb' not in netrc:
-        raise RuntimeError('must have occweb auth in ~/.netrc')
-
-    user = netrc['occweb']['login']
-    password = netrc['occweb']['password']
 #
 #--- download the database
 #
-    cmd = f'curl -u {user}:{password} https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/'
-    cmd = cmd + 'AXAFAUTO_RSYNC/G_LIMMON_Archive/glimmondb.sqlite3 > ' +  glimmon
 
-    os.system(cmd)
+    url = 'https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/AXAFAUTO_RSYNC/G_LIMMON_Archive/glimmondb.sqlite3'
+    # get_auth() will look for occweb credentials in $HOME/.netrc
+    response = requests.get(url, auth=get_auth(), timeout=30)
+    Path('glimmondb.sqlite3').write_bytes(response.content)
+
 
 #-----------------------------------------------------------------------------------------
 #-- test_and_save: save a copy of op_limit.db and glimon to Past_data directory         --
