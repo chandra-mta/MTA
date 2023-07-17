@@ -616,6 +616,14 @@ def set_min_max(xdata, ydata, xtime = 0, ybot = -999):
 
 if __name__ == "__main__":
 #
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    if os.path.isfile(f"/tmp/mta/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running. Check calling scripts/cronjob.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
+#
 #--- if you give start = stop = <year>
 #--- it will create the plot for the <year>
 #
@@ -640,4 +648,7 @@ if __name__ == "__main__":
 #
     if stop > start+1:
         create_sim_temp_plots(stop-1, stop)
-
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/mta/{name}.lock")

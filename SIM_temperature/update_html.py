@@ -143,6 +143,14 @@ def run_update(year):
 #---------------------------------------------------------------------------------------
  
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    if os.path.isfile(f"/tmp/mta/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running. Check calling scripts/cronjob.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
 
     if len(sys.argv) == 2:
         update = 1
@@ -150,3 +158,7 @@ if __name__ == "__main__":
         update = 0
 
     update_html(update)
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/mta/{name}.lock")
