@@ -30,7 +30,8 @@ ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testSIM/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -314,7 +315,7 @@ if __name__ == "__main__":
 #
     name = os.path.basename(__file__).split(".")[0]
     if os.path.isfile(f"/tmp/mta/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running. Check calling scripts/cronjob.")
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
         os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
 
