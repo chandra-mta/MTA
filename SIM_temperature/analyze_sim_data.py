@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -33,7 +33,7 @@ for ent in data:
     line  = atemp[0].strip()
     exec("%s = %s" %(var, line))
 
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #--- import several functions
 #
 import mta_common_functions   as mcf
@@ -295,7 +295,7 @@ def analyze_sim_data():
                 tsc_line = tsc_line + '\n'
 
             if motoc[k] > 0:
-                lim_line = lim_line + "%16s %8d\n", dd[k], motoc[k]
+                lim_line = lim_line + "%16s %8d\n" % (dd[k], motoc[k])
 
             if maxpwm[k-1] > max_tsc_pwm:
                 max_tsc_pwm = maxpwm[k]

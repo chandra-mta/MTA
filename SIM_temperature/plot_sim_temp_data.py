@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################
 #                                                                                   #
@@ -42,7 +42,7 @@ for ent in data:
 #--- append a path to a private folder to python directory
 #
 sys.path.append(bin_dir)
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
@@ -373,7 +373,7 @@ def plot_sim_temp_data(xmin, xmax, simtx, simtl, simth, mxs, mys, mxe, mye,\
     plt.text(xpos, ypos2, label, size=fsize, color=colorList[0])
 
     plt.text(xpos3, ypos3, title, size=fsize)
-    plt.text(xpos4, ypos3, 'SIM TSC Moter Temperatures', size=fsize)
+    plt.text(xpos4, ypos3, 'SIM TSC Motor Temperatures', size=fsize)
 #
 #--- label axes
 #
