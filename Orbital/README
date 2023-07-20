@@ -72,7 +72,7 @@ A wrap script to run orb_elm_main_script
 
 extract_orbital_main_script
 -------------------
-A main script to run two perl scripts
+A main script to run python script
 
 
 ++++++++++++
@@ -82,7 +82,7 @@ Directories
 '/data/mta/Script/Orbital/Data/'                        :data_dir
 '/data/mta/DataSeeker/data/repository/'                 :repository
 '/data/mta/Script/Orbital/Scripts/house_keeping/'       :house_keeping
-'/data/mta/Script/Python3.8/MTA/'                       :mta_dir
+'/data/mta4/Script/Python3.10/MTA/'                     :mta_dir
 
 
 +++++++++

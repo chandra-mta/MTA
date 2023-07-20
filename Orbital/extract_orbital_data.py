@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -6,7 +6,7 @@
 #                                                                                       #
 #       author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                       #
-#       last update: Mar 10, 2021                                                       #
+#       last update: Jul 19, 2023                                                       #
 #                                                                                       #
 #########################################################################################
 
@@ -36,7 +36,7 @@ for ent in data:
 #--- append path to a private folder
 #
 sys.path.append(bin_dir)
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #
 #--- import several functions
 #
@@ -272,20 +272,7 @@ def run_arc5gl(detector, level, filetype, tstart, tstop, sub=''):
     line = line + 'tstop = '+ str(tstop)  + '\n'
     line = line + 'go\n'
     
-    with open(zspace, 'w') as fo:
-        fo.write(line)
-    
-    try:
-        cmd = ' /proj/sot/ska/bin/arc5gl    -user isobe -script ' + zspace + '> ztemp_out'
-        os.system(cmd)
-    except:
-        cmd = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace + '> ztemp_out'
-        os.system(cmd)
-    
-    mcf.rm_files(zspace)
-
-    out = mcf.read_data_file('ztemp_out', remove=1)
-    out = out[1:]
+    out = mcf.run_arc5gl_process(line)
 
     return out
 
@@ -398,12 +385,13 @@ def update_rdb_files(data_list):
 #
 #--- go though new data
 #
-    try:
+    try: #If data list is empty, errors, meaning no new data is pulled from arc5gl
         atemp = re.split('\s+', data_list[0])
         ptime = float(atemp[0]) - 300
     except:
-        exit(1)
-
+        os.system(f"rm -f /tmp/mta/{name}.lock")
+        exit("No new orbital data pulled")
+    
     for k in range(0, len(data_list)):
         ent   = re.split('\s+', data_list[k])
         ctime = float(ent[0])
@@ -480,6 +468,14 @@ def clean_the_data(tfile):
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    if os.path.isfile(f"/tmp/mta/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
 
     if len(sys.argv) > 3:
         start = float(sys.argv[1])
@@ -490,3 +486,7 @@ if __name__ == "__main__":
 
     extract_orbital_data(start, stop)
 
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm -f /tmp/mta/{name}.lock")
