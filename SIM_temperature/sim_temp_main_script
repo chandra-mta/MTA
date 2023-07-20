@@ -1,12 +1,14 @@
-cd /data/mta/Script/SIM/Exc/
+cd /data/mta4/testSIM/Exc/
 
 rm -rf param
 mkdir  param
 
-/data/mta/Script/SIM/Scripts/extract_tl_data.py
+/data/mta4/testSIM/Scripts/process_sim_data.py 2023 199 199
 
-/data/mta/Script/SIM/Scripts/analyze_sim_data.py
+#/data/mta4/testSIM/Scripts/extract_tl_data.py
 
-/data/mta/Script/SIM/Scripts/plot_sim_temp_data.py
+#/data/mta4/testSIM/Scripts/analyze_sim_data.py
 
-/data/mta/Script/SIM/Scripts/update_html.py
+#/data/mta4/testSIM/Scripts/plot_sim_temp_data.py
+
+#/data/mta4/testSIM/Scripts/update_html.py
