@@ -18,6 +18,7 @@ import string
 import random
 import time
 import Chandra.Time
+import glob
 
 #
 #--- from ska
@@ -53,7 +54,8 @@ import mta_common_functions   as mcf
 rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
-tl_dir = exc_dir + '/TL/'
+#tl_dir = exc_dir + '/TL/'
+tl_dir = exc_dir
 
 simt   = [23336, 92905, 75620, -50505, -99612]
 tscloc = ["SAFE", "ACIS-I", "ACIS-S", "HRC-I", "HRC-S"]
@@ -73,8 +75,9 @@ fa_test      = 9
 #---------------------------------------------------------------------------------------
 #-- extract_tl_data: extract TL data                                                 ---
 #---------------------------------------------------------------------------------------
+"""def extract_tl_data(year, sdate, edate):"""
 
-def extract_tl_data(year, sdate, edate):
+def extract_tl_data(year, yday):
     """
     extract tl data
     input:  year    --- year of the data to be extracted
@@ -84,10 +87,12 @@ def extract_tl_data(year, sdate, edate):
         day after the date of the last data entry to today
     output: <exc_dir>/TL/PRIMARYSIM_<#>.tl
     """
+    """
 #
 #--- if the range is not given, start from the last date of the data entry
 #
     tperiod = set_data_period(year, sdate, edate)
+    
 #
 #--- process the data for each day
 #
@@ -102,6 +107,9 @@ def extract_tl_data(year, sdate, edate):
 #--- extract trace log files. if chk == 0, no files are extracted
 #
         chk = run_filter_script(start, stop)
+    """
+    [start, stop] = start_stop_period(year, yday)
+    chk = run_filter_script(start, stop)
 
 #---------------------------------------------------------------------------------------
 #-- start_stop_period: convert year and yday to the mm/dd/yy, 00:00:00 format         --
@@ -143,14 +151,6 @@ def run_filter_script(start, stop):
 #--- create .tl files from Dmup_EM files
 #
         filters_sim(unprocessed_data)
-
-        cmd = 'rm -f ' + exc_dir + 'EM_Data/*Dump_EM*'
-        os.system(cmd)
-        
-        cmd = 'mv -f  *.tl* ' + exc_dir + 'TL/.'
-        os.system(cmd)
-        
-
         return 1
 #---------------------------------------------------------------------------------------
 #-- filters_sim: run acorn for sim filter                                             --
@@ -195,28 +195,29 @@ def get_dump_em_files(start, stop):
 #
     if len(out) > 0:
 #
-#--- move the data to EM_Data directory and return the list of the data extracted
-#
-        cmd = 'mv *Dump_EM* ' + exc_dir + 'EM_Data/. 2>/dev/null'
-        os.system(cmd)
-    
-        cmd = 'ls ' + exc_dir + 'EM_Data/ > ' + zspace
-        os.system(cmd)
-        with open(zspace, 'r') as f:
-            test = f.read()
-     
-        mcf.rm_file(zspace)
+#--- Find the list of the data extracted
+#       
+        """
+        test = sp.check_output(f"ls {exc_dir}*Dump_EM*",shell=True).decode()
+        """
+        test = ''.join(glob.glob(exc_dir+'*Dump_EM*'))
     
         mc   = re.search('sto', test)
     
         if mc is not None:
-            cmd = 'gzip -d ' + exc_dir + 'EM_Data/*gz'
+            cmd = 'gzip -d ' + exc_dir + '*gz'
             os.system(cmd)
     
-            cmd = 'ls ' + exc_dir + 'EM_Data/*Dump_EM*sto > ' + zspace
+            """
+            cmd = 'ls ' + exc_dir + '*Dump_EM*sto > ' + zspace
             os.system(cmd)
-    
+            
+            data = sp.check_output(f"ls {exc_dir}*Dump_EM*sto",shell=True).decode()
+            """
+            data = glob.glob(exc_dir+'*Dump_EM*sto')
+            """
             data = mcf.read_data_file(zspace, remove=1)
+            """
         else:
             data = []
     else:
@@ -231,7 +232,7 @@ def get_dump_em_files(start, stop):
 def run_arc5gl(start, stop):
     """
     extract data from archive using arc5gl
-    input:  start   --- starting time in the format of mm/dd/yy,hh/mm/ss. hh/mm/ss is optional
+    input:  start   --- starting time in the format of mm/dd/yy,hh/mm/ss. hh/mm/ss is optional. mm/dd/yy, 00:00:00 format    
             stop    --- stoping time
     output: extracted data set
     """
@@ -341,13 +342,9 @@ def run_tl_analysis():
 #
 #--- check whether there are tl data
 #
-    if os.listdir(tl_dir) != []:
+    if glob.glob(tl_dir+'*.tl') != []:
         analyze_sim_data()
-#
-#--- clean up TL directory
-#
-        cmd = 'rm -rf ' + tl_dir + '*'
-        os.system(cmd)
+
 #
 #--- order and removed duplicated entries from tsc_temps.txt
 #
@@ -376,9 +373,12 @@ def analyze_sim_data():
 #
 #--- read data from tl files
 #
+    """
     cmd   = 'ls ' + tl_dir + '*SIM*tl* > ' + zspace
     os.system(cmd)
     file_list = mcf.read_data_file(zspace, remove=1)
+    """
+    file_list = glob.glob(tl_dir+'*SIM*tl*')
 
     tldat, deltsc, delfa, ntsc, nfa  = read_tl_file(file_list)
 #
@@ -1119,9 +1119,29 @@ if __name__ == "__main__":
 #
 #--- Split process into time sections for digestable processing
 #
-    extract_tl_data(year, sdate, edate)
 
-    run_tl_analysis()
+#
+#--- if the range is not given, start from the last date of the data entry
+#
+    tperiod = set_data_period(year, sdate, edate)
+#
+#--- process the data for each day
+#
+    for tent in tperiod:
+        print(f"Processing: {tent}")
+        year  = tent[0]
+        yday  = tent[1]
+
+        extract_tl_data(year, yday)
+
+        run_tl_analysis()
+
+        remov = glob.glob(exc_dir+'*Dump_EM*') + glob.glob(exc_dir+'*tl')
+        print('Removing these files')
+        print(remov)
+
+        cmd = f'rm -f {exc_dir}*Dump_EM* {tl_dir}*tl'
+        os.system(cmd)
 
 #
 #--- Remove lock file once process is completed
