@@ -3,7 +3,7 @@ cd /data/mta4/testSIM/Exc/
 rm -rf param
 mkdir  param
 
-/data/mta4/testSIM/Scripts/process_sim_data.py 2023 200 201
+/data/mta4/testSIM/Scripts/process_sim_data.py
 
 #/data/mta4/testSIM/Scripts/extract_tl_data.py
 

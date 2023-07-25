@@ -54,7 +54,12 @@ import mta_common_functions   as mcf
 rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
-#tl_dir = exc_dir + '/TL/'
+#
+#--- Record of Processed Files
+#
+DUMP_EM_PROCESSED = set()
+TL_PROCESSED = set()
+
 tl_dir = exc_dir
 
 simt   = [23336, 92905, 75620, -50505, -99612]
@@ -75,7 +80,6 @@ fa_test      = 9
 #---------------------------------------------------------------------------------------
 #-- extract_tl_data: extract TL data                                                 ---
 #---------------------------------------------------------------------------------------
-"""def extract_tl_data(year, sdate, edate):"""
 
 def extract_tl_data(year, yday):
     """
@@ -85,31 +89,18 @@ def extract_tl_data(year, yday):
             edate   --- ending ydate
         these three can be <blank>. if that is the case, the period starts from the
         day after the date of the last data entry to today
-    output: <exc_dir>/TL/PRIMARYSIM_<#>.tl
+    output: List of unanalyzed data
+            <exc_dir>/PRIMARYSIM_<#>.tl
     """
-    """
-#
-#--- if the range is not given, start from the last date of the data entry
-#
-    tperiod = set_data_period(year, sdate, edate)
-    
-#
-#--- process the data for each day
-#
-    for tent in tperiod:
-        year  = tent[0]
-        yday  = tent[1]
 #
 #--- covert date foramt to  mm/dd/yy, 00:00:00
 #
-        [start, stop] = start_stop_period(year, yday)
-#
-#--- extract trace log files. if chk == 0, no files are extracted
-#
-        chk = run_filter_script(start, stop)
-    """
     [start, stop] = start_stop_period(year, yday)
-    chk = run_filter_script(start, stop)
+#
+#--- extract trace log files. if chk == 0, no files are extracted. Recorda TL files recently extracted but unanalyzed.
+#
+    chk, unanalyzed_data = run_filter_script(start, stop)
+    return unanalyzed_data
 
 #---------------------------------------------------------------------------------------
 #-- start_stop_period: convert year and yday to the mm/dd/yy, 00:00:00 format         --
@@ -136,7 +127,8 @@ def run_filter_script(start, stop):
     """
     collect data and run sim script
     input:  none
-    outout: various *.tl files
+    output: various *.tl files
+            list of unanalyzed TL files
             return 1 if the data extracted; otherwise: 0
     """
 #
@@ -145,13 +137,20 @@ def run_filter_script(start, stop):
     unprocessed_data = get_dump_em_files(start, stop)
 
     if len(unprocessed_data) < 1:
-        return 0
+        return 0, []
     else:
 #
 #--- create .tl files from Dmup_EM files
 #
-        filters_sim(unprocessed_data)
-        return 1
+        #"""
+        unanalyzed_data = filters_sim(unprocessed_data)
+        return 1, unanalyzed_data
+        #"""
+    #test without acorn processing
+        """
+        unanalyzed_data =[]
+        return 1, unanalyzed_data
+        """
 #---------------------------------------------------------------------------------------
 #-- filters_sim: run acorn for sim filter                                             --
 #---------------------------------------------------------------------------------------
@@ -160,7 +159,8 @@ def filters_sim(unprocessed_data):
     """
     run acorn for sim filter
     input: unprocessed_data    --- list of data
-    output: various *.tl files
+    output: List of unanalyzed TL files
+            various *.tl files
     """
 
     for ent in unprocessed_data:
@@ -173,7 +173,15 @@ def filters_sim(unprocessed_data):
             bash(cmd, env=ascdsenv)
         except:
             pass
-
+#
+#--- Identify which recently added *tl files need to be analyzed and store them
+#
+    tmp = glob.glob(tl_dir+'*.tl')
+    global TL_PROCESSED
+    data = list(set(tmp) - TL_PROCESSED)
+    data.sort()
+    TL_PROCESSED = TL_PROCESSED.union(tmp)
+    return data
 #---------------------------------------------------------------------------------------
 #-- get_dump_em_files: extract Dump_EM files from archive                             --
 #---------------------------------------------------------------------------------------
@@ -197,32 +205,25 @@ def get_dump_em_files(start, stop):
 #
 #--- Find the list of the data extracted
 #       
-        """
-        test = sp.check_output(f"ls {exc_dir}*Dump_EM*",shell=True).decode()
-        """
-        test = ''.join(glob.glob(exc_dir+'*Dump_EM*'))
-    
-        mc   = re.search('sto', test)
+        mc   = re.search('sto', ' '.join(out))
     
         if mc is not None:
-            cmd = 'gzip -d ' + exc_dir + '*gz'
+            cmd = 'gzip -qd ' + exc_dir + '*.sto.gz'
             os.system(cmd)
-    
-            """
-            cmd = 'ls ' + exc_dir + '*Dump_EM*sto > ' + zspace
-            os.system(cmd)
-            
-            data = sp.check_output(f"ls {exc_dir}*Dump_EM*sto",shell=True).decode()
-            """
-            data = glob.glob(exc_dir+'*Dump_EM*sto')
-            """
-            data = mcf.read_data_file(zspace, remove=1)
-            """
+#
+#--- Select only the most recently aquired data files which have yet to be processed into tl files
+#
+
+            tmp = [a[:-3] for a in out if 'log' not in a]
+            global DUMP_EM_PROCESSED
+            data = list(set(tmp) - DUMP_EM_PROCESSED)
+            data.sort()
+            DUMP_EM_PROCESSED = DUMP_EM_PROCESSED.union(tmp)
         else:
             data = []
     else:
         data = []
-
+    
     return  data
 
 #---------------------------------------------------------------------------------------
@@ -333,7 +334,7 @@ def set_data_period(year, sdate, edate):
 #-- run_tl_analysis: run sim analysis function                                       ---
 #---------------------------------------------------------------------------------------
 
-def run_tl_analysis():
+def run_tl_analysis(unanalyzed_data):
     """
     run sim analysis function
     input:none
@@ -342,8 +343,8 @@ def run_tl_analysis():
 #
 #--- check whether there are tl data
 #
-    if glob.glob(tl_dir+'*.tl') != []:
-        analyze_sim_data()
+    if unanalyzed_data != []:
+        analyze_sim_data(unanalyzed_data)
 
 #
 #--- order and removed duplicated entries from tsc_temps.txt
@@ -355,7 +356,7 @@ def run_tl_analysis():
 #-- analyze_sim_data: read data from TL files and analyze sim movements               --
 #---------------------------------------------------------------------------------------
 
-def analyze_sim_data():
+def analyze_sim_data(unanalyzed_data):
     """
     read data from TL files and analyze sim movements
     input:  none, but read from saved TL files
@@ -373,14 +374,7 @@ def analyze_sim_data():
 #
 #--- read data from tl files
 #
-    """
-    cmd   = 'ls ' + tl_dir + '*SIM*tl* > ' + zspace
-    os.system(cmd)
-    file_list = mcf.read_data_file(zspace, remove=1)
-    """
-    file_list = glob.glob(tl_dir+'*SIM*tl*')
-
-    tldat, deltsc, delfa, ntsc, nfa  = read_tl_file(file_list)
+    tldat, deltsc, delfa, ntsc, nfa  = read_tl_file(unanalyzed_data)
 #
 #--- open the list of lists; just to make it easy to read
 #
@@ -595,13 +589,15 @@ def analyze_sim_data():
 
             if tsc_steps_moved > 0:
                 tmoves                += 1
-                tsc_line = tsc_line + "%16s %8d %6s %6s %6d %3d %7s %4d %4d %4.1f \
-                                       %10d %10d %4d %3d %3d %6.1f\n"\
+                tsc_line = tsc_line + "%16s %8d %6s %6s %6d \
+                                        %3d %7s %4d %4d \
+                                        %4.1f %10d %10d %4d %3d \
+                                        %3d %6.1f\n"\
                                     % (dd[k], tsc[k], tstate[k], tscmove[k], trpm[k],\
                                        maxpwm[k], tloc[k], tsc_err[k], n_tt_sum, \
                                        rms_tt_err, tsctot, tscsum, tmoves, motoc[k],\
                                        stall[k], ttscmot[k])
-
+                
                 th_line    = th_line + "%16s %10d %10d %10d\n" \
                                    % (dd[k], start_tsc, stop_tsc, tsc_move_size)
 
@@ -1117,9 +1113,10 @@ if __name__ == "__main__":
         edate = ''
 
 #
-#--- Split process into time sections for digestable processing
+#--- Split process into time sections for digestable processing with removal stages
 #
-
+    count = 0
+    rm_len = 14 #14 days of data before deletion, making room for more intermediary files
 #
 #--- if the range is not given, start from the last date of the data entry
 #
@@ -1132,16 +1129,24 @@ if __name__ == "__main__":
         year  = tent[0]
         yday  = tent[1]
 
-        extract_tl_data(year, yday)
+        unanalyzed_data = extract_tl_data(year, yday)
 
-        run_tl_analysis()
+        run_tl_analysis(unanalyzed_data)
 
-        remov = glob.glob(exc_dir+'*Dump_EM*') + glob.glob(exc_dir+'*tl')
-        print('Removing these files')
-        print(remov)
+        print(f"Count:{count}")
+        if count == rm_len:
+            count = 0
+            print("Removing Files")
+            cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
+            os.system(cmd)
+            DUMP_EM_PROCESSED = set()
+            TL_PROCESSED = set()
+        else:
+            count +=1
 
-        cmd = f'rm -f {exc_dir}*Dump_EM* {tl_dir}*tl'
-        os.system(cmd)
+    print(f"Running Final Removal")
+    cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
+    os.system(cmd)
 
 #
 #--- Remove lock file once process is completed
