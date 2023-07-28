@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################
 #                                                                                   #
@@ -21,6 +21,9 @@ import math
 import astropy.io.fits  as pyfits
 import Chandra.Time
 from copy import deepcopy
+import argparse
+from datetime import date
+DAYS = ['mon', 'tus','wed', 'thu', 'fri', 'sat', 'sun']
 #
 #--- pylab plotting routine related modules
 #
@@ -48,7 +51,7 @@ for ent in data:
 
 bin_dir = './'
 
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 sys.path.append(bin_dir)
 
 import mta_common_functions     as mcf  #---- mta common functions
@@ -2247,16 +2250,53 @@ def compute_stat(x, y):
 
     return line
 
+#-----------------------------------------------------------------------------
+#-- day_string: return string for current day of week                       --
+#-----------------------------------------------------------------------------
+def day_string():
+    today = date.today()
+    return DAYS[today.weekday()]
+
 #-----------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-
+    """
     ifile = sys.argv[1]
     dtype = sys.argv[2]
     ifile.strip()
     dtype.strip()
 
     create_msid_plots(ifile, dtype)
+    """
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    if os.path.isfile(f"/tmp/mta/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
 
+    parser = argparse.ArgumentParser()
+    """
+    parser.add_argument("-w","--week", help="Process last two weeks in a [msid]_week_data.fits file", dest='period', action="append_const",const="week")
+    parser.add_argument("-s","--short", help="Process last 1.5 years in a [msid]_short_data.fits file", dest='period', action="append_const",const="short")
+    parser.add_argument("-l","--long", help="Process till 1999:201 in a [msid]_data.fits file", dest='period', action="append_const",const="long")
+    """
+    parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
+                        action="extend",nargs='*',type=str, choices=["week","short","long"])
+    
+    parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
+    args = parser.parse_args()
 
-
+    if args.msid_list is None:
+        msid_list = f"msid_list_{day_string()}"
+    else:
+        msid_list = args.msid_list.strip()
+    
+    for dtype in args.period:
+        create_msid_plots(msid_list,dtype)
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/mta/{name}.lock")

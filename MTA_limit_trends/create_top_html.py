@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################
 #                                                                                   #
@@ -22,6 +22,7 @@ import time
 import numpy
 import astropy.io.fits  as pyfits
 import Chandra.Time
+import glob
 #
 #--- reading directory list
 #
@@ -37,7 +38,7 @@ for ent in data:
 #
 #--- append path to a private folder
 #
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 sys.path.append(bin_dir)
 #
 import mta_common_functions     as mcf  #---- mta common functions
@@ -212,10 +213,12 @@ def find_future_violation(p_dict):
 #
 #--- find violation files
 #
+    """
     cmd  = 'ls -d ' + web_dir + '/*/violations > ' + zspace
     os.system(cmd)
     vlist = mcf.read_data_file(zspace, remove=1)
-
+    """
+    vlist = glob.glob(f"{web_dir}/*/violations")
     line  = ''
     hline = ''
     for vfile in vlist:
@@ -486,5 +489,17 @@ def update_violation_page(line, line2, color):
 #----------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    if os.path.isfile(f"/tmp/mta/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
 
     create_top_html()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/mta/{name}.lock")

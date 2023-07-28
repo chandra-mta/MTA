@@ -1,0 +1,13 @@
+
+rm -rf  /data/mta4/www/MSID_Trends/Interactive/*_inter_page.html
+
+cd /data/mta/Script/MTA_limit_trends/Exc
+
+/data/mta/Script/MTA_limit_trends/Scripts/run_glimmon_trend_data_update.py -m msid_list_all -p week short long
+/data/mta/Script/MTA_limit_trends/Scripts/create_msid_plots.py -m msid_list_all -p week
+#Daily choice of msid_list selected in script
+/data/mta/Script/MTA_limit_trends/Scripts/create_msid_plots.py -p short long
+/data/mta/Script/MTA_limit_trends/Script/create_html_page.py -m msid_list_all
+/data/mta/Script/MTA_limit_trends/Script/update_limits_table.py
+/data/mta/Script/MTA_limit_trends/Script/update_sub_html_pages.py
+/data/mta/Script/MTA_limit_trends/Script/create_top_html.py
