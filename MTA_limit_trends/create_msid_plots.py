@@ -1,5 +1,4 @@
 #!/proj/sot/ska3/flight/bin/python
-
 #####################################################################################
 #                                                                                   #
 #       create_trend_plot.py: create trend plot                                     #
@@ -22,6 +21,7 @@ import astropy.io.fits  as pyfits
 import Chandra.Time
 from copy import deepcopy
 import argparse
+import getpass
 from datetime import date
 DAYS = ['mon', 'tus','wed', 'thu', 'fri', 'sat', 'sun']
 #
@@ -38,7 +38,8 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
 
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -1164,12 +1165,14 @@ def set_plot_range(x, y, dtype):
         elif dtype == 'short':
             xmax = eyday + 10 
             xmin = xmax - 100
+
         else:
             xmax = eyday + 30
             xmin = xmax  - 396
         if xmin < 1:
             xmax += base
             xmin += base
+        
 #
 #--- if the data type is five or long, your year for the range
 #
@@ -2272,21 +2275,23 @@ if __name__ == '__main__':
 #--- Create a lock file and exit strategy in case of race conditions
 #
     name = os.path.basename(__file__).split(".")[0]
-    if os.path.isfile(f"/tmp/mta/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
-    parser = argparse.ArgumentParser()
     """
     parser.add_argument("-w","--week", help="Process last two weeks in a [msid]_week_data.fits file", dest='period', action="append_const",const="week")
     parser.add_argument("-s","--short", help="Process last 1.5 years in a [msid]_short_data.fits file", dest='period', action="append_const",const="short")
     parser.add_argument("-l","--long", help="Process till 1999:201 in a [msid]_data.fits file", dest='period', action="append_const",const="long")
     """
+    parser = argparse.ArgumentParser()
+
     parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
                         action="extend",nargs='*',type=str, choices=["week","short","long"])
-    
     parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
+
     args = parser.parse_args()
 
     if args.msid_list is None:
@@ -2299,4 +2304,4 @@ if __name__ == '__main__':
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/mta/{name}.lock")
+    os.system(f"rm /tmp/{user}/{name}.lock")

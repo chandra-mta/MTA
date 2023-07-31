@@ -20,10 +20,12 @@ import unittest
 import time
 from datetime import datetime
 from time import gmtime, strftime, localtime
+import getpass
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -169,7 +171,7 @@ def create_html(catg, msid_list, ytime, udict, ddict, dtype, mtype, ptype='stati
     line = line + create_link_names(catg, dtype, mtype, ptype)
 
     line = line + '<p style="margin-left:35px; margin-right:35px;">'
-    line = line + '<em><b>Delta/Yr</b></em> below is a slope of the liear fitting '
+    line = line + '<em><b>Delta/Yr</b></em> below is a slope of the linear fitting '
     line = line + 'over the data of the period. '
     line = line + '<em><b>Delta/Yr/Yr</b></em> is a slope of the liner fitting '
     line = line + 'over the devivative data of the period. <em><b>Slope</b></em> '
@@ -685,13 +687,14 @@ if __name__ == "__main__":
 #--- Create a lock file and exit strategy in case of race conditions
 #
     name = os.path.basename(__file__).split(".")[0]
-    if os.path.isfile(f"/tmp/mta/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
     create_sub_html()
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/mta/{name}.lock")
+    os.system(f"rm /tmp/{user}/{name}.lock")

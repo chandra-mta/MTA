@@ -23,10 +23,12 @@ import numpy
 import astropy.io.fits  as pyfits
 import Chandra.Time
 import glob
+import getpass
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -176,9 +178,10 @@ def create_top_html():
 #--- add the potential violation candidate table
 #
     violation_table = find_future_violation(p_dict)
-
     if violation_table != 'na':
         page     = page.replace('#VIOLATION#', violation_table)
+    else:
+        page     = page.replace('#VIOLATION#','<h3>No Near Future Violations</h3>\n')
 #
 #--- the template for the closing part
 #
@@ -493,13 +496,14 @@ if __name__ == "__main__":
 #--- Create a lock file and exit strategy in case of race conditions
 #
     name = os.path.basename(__file__).split(".")[0]
-    if os.path.isfile(f"/tmp/mta/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
     create_top_html()
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/mta/{name}.lock")
+    os.system(f"rm /tmp/{user}/{name}.lock")
