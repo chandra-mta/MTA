@@ -38,8 +38,8 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
 
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -2263,14 +2263,6 @@ def day_string():
 #-----------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    """
-    ifile = sys.argv[1]
-    dtype = sys.argv[2]
-    ifile.strip()
-    dtype.strip()
-
-    create_msid_plots(ifile, dtype)
-    """
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
@@ -2280,14 +2272,7 @@ if __name__ == '__main__':
         sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
         os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
-
-    """
-    parser.add_argument("-w","--week", help="Process last two weeks in a [msid]_week_data.fits file", dest='period', action="append_const",const="week")
-    parser.add_argument("-s","--short", help="Process last 1.5 years in a [msid]_short_data.fits file", dest='period', action="append_const",const="short")
-    parser.add_argument("-l","--long", help="Process till 1999:201 in a [msid]_data.fits file", dest='period', action="append_const",const="long")
-    """
     parser = argparse.ArgumentParser()
-
     parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
                         action="extend",nargs='*',type=str, choices=["week","short","long"])
     parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)

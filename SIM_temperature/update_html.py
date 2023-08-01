@@ -19,12 +19,12 @@ import time
 import operator
 import math
 import getpass
+import glob
 
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testSIM/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -35,7 +35,7 @@ for ent in data:
     line = atemp[0].strip()
     exec("%s = %s" %(var, line))
 
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append("/data/mta4/Script/Python3.10/MTA/")
 #
 #--- import several functions
 #
@@ -70,13 +70,9 @@ def update_html(update):
 #--- otherwise, find the last update, and if needed, run the update
 #
     else:
-        cmd   = 'ls ' + web_dir +'*.html > ' + zspace
-        os.system(cmd)
-        with  open(zspace, 'r') as f:
-            out   = f.read()
-        mcf.rm_files(zspace)
+        out = ' '.join(glob.glob(f"{web_dir}*.html"))
 #
-#--- chekcing the file existance (looking for year in the file name)
+#--- checking the file existance (looking for year in the file name)
 #
         mc    = re.search(str(year), out)
 
@@ -164,4 +160,4 @@ if __name__ == "__main__":
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/{user}/{name}.lock")
+    os.system(f"rm /tmp{user}/{name}.lock")

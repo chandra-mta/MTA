@@ -25,17 +25,7 @@ import glob
 #
 #--- read argv
 #
-"""
-try:
-    option, remainder = getopt.getopt(sys.argv[1:],'t',['test'])
-except getopt.GetoptError as err:
-     print(str(err))
-     sys.exit(2)
-"""
-
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
-
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -851,26 +841,3 @@ if __name__ == '__main__':
 #--- Remove lock file once process is completed
 #
     os.system(f"rm /tmp/{user}/{name}.lock")
-    
-    """
-        if len(sys.argv) == 2:
-            msid_list = sys.argv[1].strip()
-            create_html_page(msid_list)
-
-        elif len(sys.argv) == 3:
-            msid_list = sys.argv[1].strip()
-            ds        = sys.argv[2].strip()
-            create_html_page(msid_list, ds=ds)
-
-        elif len(sys.argv) == 4:
-            msid_list = sys.argv[1].strip()
-            ds        = sys.argv[2].strip()
-            ms        = sys.argv[3].strip()
-            create_html_page(msid_list, ds=ds, ms=ms)
-
-        else:
-            line = "create_html_page(qtype=<inter/static> msid_list=<list name> "
-            line = line + "ds=<week/short/long/all> ms=<mid/min/max/all>"
-            print(line)
-            exit(1)
-        """

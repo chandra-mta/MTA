@@ -1,1 +1,0 @@
-TERM=dummy; export TERM; /proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta/Script/MTA_limit_trends/Scripts/run_trend_main_script

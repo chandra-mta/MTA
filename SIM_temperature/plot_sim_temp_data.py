@@ -28,8 +28,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testSIM/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -43,7 +42,7 @@ for ent in data:
 #--- append a path to a private folder to python directory
 #
 sys.path.append(bin_dir)
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append("/data/mta4/Script/Python3.10/MTA/")
 #
 #--- converTimeFormat contains MTA time conversion routines
 #

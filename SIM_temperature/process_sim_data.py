@@ -33,8 +33,8 @@ ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testSIM/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -170,7 +170,7 @@ def filters_sim(unprocessed_data):
         cmd2 = cmd2 + house_keeping + 'msids_sim.list -f ' + ent
         cmd  = cmd1 + cmd2
         try:
-            print('Data: ' + ent)
+            #print('Data: ' + ent)
             bash(cmd, env=ascdsenv)
         except:
             pass
@@ -576,7 +576,7 @@ def analyze_sim_data(unanalyzed_data):
                 sumsq_tt_err = sumsq_tt_err + tsc_err[k]**2
                 rms_tt_err   = math.sqrt(sumsq_tt_err / n_tt_sum)
 
-            stop_tsc      = tsc[k];
+            stop_tsc      = tsc[k]
             tsc_move_size = stop_tsc - start_tsc
             met           = tdays[k] - 204.5
             metyr         = met / 365.0
@@ -1127,7 +1127,7 @@ if __name__ == "__main__":
 #--- process the data for each day
 #
     for tent in tperiod:
-        print(f"Processing: {tent}")
+        #print(f"Processing: {tent}")
         year  = tent[0]
         yday  = tent[1]
 
@@ -1135,18 +1135,14 @@ if __name__ == "__main__":
 
         run_tl_analysis(unanalyzed_data)
 
-        print(f"Count:{count}")
         if count == rm_len:
             count = 0
-            print("Removing Files")
             cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
             os.system(cmd)
             DUMP_EM_PROCESSED = set()
             TL_PROCESSED = set()
         else:
             count +=1
-
-    print(f"Running Final Removal")
     cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
     os.system(cmd)
 

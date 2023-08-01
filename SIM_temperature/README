@@ -19,8 +19,12 @@ sim_temp_main_script
 -------------------- 
 a main script to control all scripts
 
+process_sim_data.py
+-------------------
+Performs the extration of SIM data using arc5gl then analyzes the SIM movements.
+Combines the extract_tl_data.py script and the analyze_sim_data.py script in processing batches of time.
 
-extract_tl_data.py
+extract_tl_data.py (outdated)
 ------------------
 extract PRIMARYSIM_<#>.tl files
 
@@ -63,7 +67,7 @@ Output:
 
 Note: this script uses acorn process and needs to access <house_keeping>/msids_sim.list
 
-analyze_sim_data.py
+analyze_sim_data.py(outdated)
 -------------------
 read data from TL files and analyze sim movements 
 
@@ -123,8 +127,8 @@ Directories
 /data/mta/Script/SIM/Scripts/hosue_keeping  --- house keeping (e.g. save msid_sim.list)
 /data/mta/Script/SIM/Data                   --- data directory
 /data/mta/Script/SIM/Exc                    --- execution directory
-/data/mta/Script/SIM/Exc/EM_Data            --- keep EM data while the proccess is running
-/data/mta/Script/SIM/Exc/TL                 --- keep tracelogs while the proccess is running
+/data/mta/Script/SIM/Exc/EM_Data            --- keep EM data while the proccess is running(outdated)
+/data/mta/Script/SIM/Exc/TL                 --- keep tracelogs while the proccess is running(outdated)
 /data/mta_www/mta_sim/MTR                   --- web directory
 /data/mta_www/mta_sim/MTR/Plots             --- all trending plots are kept
 
@@ -152,7 +156,9 @@ Output
 ++++++++++++++++++++
 Environment Setting
 ++++++++++++++++++++
-setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+(outdated) setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+
+/proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta/Script/SIM/Scripts/sim_temp_main_script
 
 
 It also requires (but set under ska system in run_sim_temp.py)

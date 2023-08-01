@@ -25,8 +25,7 @@ import Chandra.Time
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -751,28 +750,6 @@ def create_category_dict():
 #--------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    """
-    if len(sys.argv) > 4:
-
-        msid  = sys.argv[1].strip()         #--- msid
-        start = float(sys.argv[3])          #--- start time in seconds from 1998.1.1
-        stop  = float(sys.argv[4])          #--- stop  time in seconds from 1998.1.1
-        dtype = sys.argv[3].strip()         #--- week, short, long
-
-        [lim_dict, cnd_dict] = rlt.get_limit_table()
-        alimit   = lim_dict[msid]
-        cnd_msid = cnd_dict[msid]
-        extract_data_from_ska(msid, start, stop, dtype, alimit, cnd_msid)
-
-    elif len(sys.argv) == 3:
-        msid_list = sys.argv[1].strip()     #--- name of a file contain a msid list
-        dtype     = sys.argv[2].strip()     #--- week, short, long
-
-        run_for_msid_list(msid_list, dtype)
-
-    else:
-        run_glimmon_trend_data_update()
-    """
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
@@ -785,11 +762,6 @@ if __name__ == "__main__":
     
 
     parser = argparse.ArgumentParser()
-    """
-    parser.add_argument("-w","--week", help="Process last two weeks in a [msid]_week_data.fits file", dest='period', action="append_const",const="week")
-    parser.add_argument("-s","--short", help="Process last 1.5 years in a [msid]_short_data.fits file", dest='period', action="append_const",const="short")
-    parser.add_argument("-l","--long", help="Process till 1999:201 in a [msid]_data.fits file", dest='period', action="append_const",const="long")
-    """
     parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
                         action="extend",nargs='*',type=str, choices=["week","short","long"])
     parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
