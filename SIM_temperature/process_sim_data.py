@@ -19,6 +19,7 @@ import random
 import time
 import Chandra.Time
 import glob
+import getpass
 
 #
 #--- from ska
@@ -1089,10 +1090,11 @@ if __name__ == "__main__":
 #--- Create a lock file and exit strategy in case of race conditions
 #
     name = os.path.basename(__file__).split(".")[0]
-    if os.path.isfile(f"/tmp/mta/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
     
 #
 #--- if you like to specify the date period, give
@@ -1151,4 +1153,4 @@ if __name__ == "__main__":
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/mta/{name}.lock")
+    os.system(f"rm /tmp/{user}/{name}.lock")
