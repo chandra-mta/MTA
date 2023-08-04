@@ -1,0 +1,6 @@
+#!/bin/tcsh
+
+cd /data/mta4/testDEA/Exc2
+
+/proj/sot/ska3/flight/bin/skare /data/mta4/testDEA/Scripts/DEA/missing_Dumps.py
+

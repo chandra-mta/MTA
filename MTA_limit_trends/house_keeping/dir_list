@@ -1,11 +1,11 @@
-'/data/mta/Script/MTA_limit_trends/Scripts/'                :bin_dir
-'/data/mta/Script/MTA_limit_trends/Data/'                   :data_dir
-'/data/mta/Script/MTA_limit_trends/Exc/'                    :exc_dir
-'/data/mta/Script/MTA_limit_trends/Deposit/'                :deposit_dir
-'/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/'  :house_keeping
+'/data/mta4/testDEA/Scripts/'                :bin_dir
+'/data/mta4/testDEA/Data/'                   :data_dir
+'/data/mta4/testDEA/Exc/'                    :exc_dir
+'/data/mta4/testDEA/Deposit/'                :deposit_dir
+'/data/mta4/testDEA/Scripts/house_keeping/'  :house_keeping
 '/data/mta4/Script/Python3.10/MTA/'                           :mta_dir
 '/data/mta/Script/MSID_limit/'                              :glim_dir
 '/data/mta4/MTA/data/op_limits/'                            :mlim_dir
 '/data/mta/Script/MSID_limit/Trend_limit_data/'             :limit_dir
-'/data/mta4/www/MSID_Trends/'                               :web_dir
+'/data/mta4/testDEA/web/'                               :web_dir
 'cxc.cfa.harvard.edu/mta/MSID_Trends/'                      :web_address

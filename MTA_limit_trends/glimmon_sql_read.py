@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -25,7 +25,8 @@ import random
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
