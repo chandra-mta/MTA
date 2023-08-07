@@ -15,6 +15,7 @@ import os
 import sys
 import re
 import getpass
+import subprocess
 #
 #--- reading directory list
 #
@@ -84,7 +85,7 @@ def find_new_dump():
 #--- find the last entry
 #
     last_entry = plist[-1]
-    
+
     cmd = ' mv ' +  infile + ' ' + infile2
     os.system(cmd)
 #
@@ -115,6 +116,65 @@ def find_new_dump():
             dlist.append(ent)
     
     return dlist
+#------------------------------------
+#-- tail: functions like tail command
+#------------------------------------
+
+def tail(f, n=10):
+    proc = subprocess.Popen(['tail', '-n', str(n), f], stdout=subprocess.PIPE)
+    lines = list(proc.stdout.readlines())
+    lines = [x.decode() for x in lines]
+    if len(lines) == 1:
+        return lines[0]
+    elif len(lines) == 0:
+        return ''
+    else:
+        return lines
+#---------------------
+#-- smart_append: appends a processed data file into an existing data set without repeating time entries.
+#-- Note: Designed for this projects rdb files where time is recorded as the frist tesxt entry in each line. does not work in general.
+#-----------------------
+"""
+def smart_append(file, append):
+    with open(append,'r') as f:
+            data = f.readlines()
+    data = [x.strip() for x in data if x.strip() != ''] #cleanup step in case appending file contains unnecessary extra spacing
+    if os.path.isfile(file) == False:
+        appendstring= "\n".join(data)+"\n"
+        with open(file,'w') as f:
+            f.write(appendstring)
+    else:
+        endtime = float(tail(file,n=1).strip().split()[0])
+        chk = 0
+        for i in range(len(data)):
+            if float(data[i].split()[0]) > endtime:
+                chk = 1
+                break
+            #if this break is never reached, then the sliced data results in appending an empty string, thereby not repeating any data.
+        if chk == 1:
+            data = data[i:]
+        else:
+            data = []
+        appendstring = "\n".join(data)+"\n"
+        with open(file,'a+') as f:
+            f.write(appendstring)
+"""
+#another verison which can handle processing of larger appending files but might be slower?
+def smart_append(file, append):
+    if os.path.isfile(file) == False:
+        cmd = f"cp {append} {file}"
+        os.system(cmd)
+        return
+    else:
+        endtime = float(tail(file,n=1).strip().split()[0])
+        with open(append,'r') as f:
+            for line in f:
+                data = line.strip()
+                if data != '':
+                    chk = 0
+                    if float(data.split()[0]) > endtime:
+                        with open(file,'a+') as f:
+                            f.write(line)
 
 #------------------------------------------------------------------------------------
 #-- run_dea_perl: run perl scripts to extract data from dump data                  --
@@ -147,25 +207,37 @@ def run_dea_perl(dlist):
 #
         cmd  = dea_dir + 'average1.pl -i deahk_temp_in.tmp -o deahk_temp.rdb'
         os.system(cmd)
+        """
         cmd  = 'cat deahk_temp.rdb >> ' + repository + 'deahk_temp_week' + year + '.rdb'
         os.system(cmd)
+        """
+        smart_append(f"{repository}/deahk_temp_week{year}.rdb","deahk_temp.rdb")
 
         cmd  = dea_dir + 'average1.pl -i deahk_elec_in.tmp -o deahk_elec.rdb'
         os.system(cmd)
+        """
         cmd  = 'cat deahk_elec.rdb >> ' + repository + 'deahk_elec_week' + year + '.rdb'
         os.system(cmd)
+        """
+        smart_append(f"{repository}/deahk_elec_week{year}.rdb","deahk_elec.rdb")
 #
 #--- one hour resolution
 #
         cmd  = dea_dir + 'average2.pl -i deahk_temp_in.tmp -o deahk_temp.rdb'
         os.system(cmd)
+        """
         cmd  = 'cat deahk_temp.rdb >> ' + repository + 'deahk_temp_short.rdb'
         os.system(cmd)
+        """
+        smart_append(f"{repository}/deahk_temp_short.rdb","deahk_temp.rdb")
 
         cmd  = dea_dir + 'average2.pl -i deahk_elec_in.tmp -o deahk_elec.rdb'
         os.system(cmd)
+        """
         cmd  = 'cat deahk_elec.rdb >> ' + repository + 'deahk_elec_short.rdb'
         os.system(cmd)
+        """
+        smart_append(f"{repository}/deahk_elec_short.rdb","deahk_elec.rdb")
 #
 #--- clean up
 #

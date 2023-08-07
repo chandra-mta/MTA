@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #################################################################################    
 #                                                                               #
@@ -19,10 +19,12 @@ import numpy
 import astropy.io.fits  as pyfits
 import Chandra.Time
 import random
+import getpass
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -174,6 +176,15 @@ def create_full_dea_data(dhead, group,  drange, pyear):
 #-------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
         year = sys.argv[1]
@@ -181,3 +192,7 @@ if __name__ == "__main__":
         year = ''
 
     process_dea_data_full(year)
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

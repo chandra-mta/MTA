@@ -1,1 +1,2 @@
 TERM=dummy; export TERM; /proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta4/testDEA/Scripts/mta_limit_dea_main_script
+#TERM=dummy; export TERM; /proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta/Script/MTA_limit_trends/Scripts/mta_limit_dea_main_script

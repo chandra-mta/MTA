@@ -51,24 +51,51 @@ def tail(f, n=10):
 #-- smart_append: appends a processed data file into an existing data set without repeating time entries.
 #-- Note: Designed for this projects rdb files where time is recorded as the frist tesxt entry in each line. does not work in general.
 #-----------------------
+"""
 def smart_append(file, append):
-    endtime = float(tail(file,n=1).strip().split()[0])
     with open(append,'r') as f:
-        data = f.readlines()
+            data = f.readlines()
     data = [x.strip() for x in data if x.strip() != ''] #cleanup step in case appending file contains unnecessary extra spacing
-    chk = 0
-    for i in range(len(data)):
-        if float(data[i].split()[0]) > endtime:
-            chk = 1
-            break
-    if chk == 1:
-        data = data[i:]
+    if os.path.isfile(file) == False:
+        appendstring= "\n".join(data)+"\n"
+        with open(file,'w') as f:
+            f.write(appendstring)
     else:
-        data = []
-    appendstring = "\n".join(data)
-    with open(file,'a+') as f:
-        f.write(appendstring)
-
+        endtime = float(tail(file,n=1).strip().split()[0])
+        print(f"endtime: {endtime}")
+        chk = 0
+        for i in range(len(data)):
+            if float(data[i].split()[0]) > endtime:
+                chk = 1
+                break
+            #if this break is never reached, then the sliced data results in appending an empty string, thereby not repeating any data.
+        print(f"preslice:{data}")
+        if chk == 1:
+            data = data[i:]
+        else:
+            data = []
+        print(f"final data slice:{data}")
+        appendstring = "\n".join(data)+"\n"
+        with open(file,'a+') as f:
+            f.write(appendstring)
+"""
+#another verison which can handle processing of larger appending files but might be slower?
+def smart_append(file, append):
+    if os.path.isfile(file) == False:
+        cmd = f"cp {append} {file}"
+        os.system(cmd)
+        return
+    else:
+        endtime = float(tail(file,n=1).strip().split()[0])
+        #print(f"endtime: {endtime}")
+        with open(append,'r') as f:
+            for line in f:
+                data = line.strip()
+                if data != '':
+                    chk = 0
+                    if float(data.split()[0]) > endtime:
+                        with open(file,'a+') as f:
+                            f.write(line)
 
 def start_stop_period(year, yday, range):
     """
@@ -93,7 +120,7 @@ def run_arc5gl(ctime):
 #--- covert date foramt to  mm/dd/yy, 00:00:00
 #
     #calculate in batches of 10 days.
-    range = 10
+    range = 20
     [start, stop] = start_stop_period(year, yday, range)
     
 #
