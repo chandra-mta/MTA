@@ -14,8 +14,6 @@ import sys
 import re
 import string
 import time
-#import numpy
-#print(f"pathing: {sys.path}")
 import astropy.io.fits  as pyfits
 import Chandra.Time
 import random
@@ -23,8 +21,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -37,7 +34,7 @@ for ent in data:
 #--- append path to a private folder
 #
 sys.path.append(bin_dir)
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append(mta_dir)
 #
 #--- import several functions
 #
@@ -157,6 +154,7 @@ def create_dea_fits_file(dhead, group, period, drange):
 
     elif period == '_week':
         data = []
+
         for pyear in range(lyear, tyear+1):
             dfile = dhead +  str(pyear) +'.rdb'
             out   = mcf.read_data_file(dfile)
@@ -228,7 +226,6 @@ def create_dea_fits_file(dhead, group, period, drange):
         os.system(cmd)
         cmd = 'rm -rf ' + fits
         os.system(cmd)
-
         ecf.create_fits_file(fits, cols, cdata)
 
     if period == '_short':
@@ -273,12 +270,11 @@ def create_long_term_dea_data(dhead, group,  drange):
 #--- checking the last entry date 
 #
     efits = data_dir + group + '/' + name_list[0] + '_data.fits'
-
     if os.path.isfile(efits):
         ltime = ecf.find_the_last_entry_time(efits)
         try:
-            ltime = find_starting_of_the_day(ltime) 
-            out   = Chandra.Time.DateTime(ltime)
+            ltime = find_starting_of_the_day(ltime)
+            out   = Chandra.Time.DateTime(ltime).date
             atemp = re.split(':', out)
             syear = int(atemp[0])
             lchk  = 1

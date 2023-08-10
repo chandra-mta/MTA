@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################    
 #                                                                                   #
@@ -14,17 +14,7 @@ import os
 import sys
 import numpy
 import Chandra.Time
-#
-#--- set python environment if it is not set yet
-#
-if 'PYTHONPATH' not in os.environ:
-    os.environ['SAK']        = "/proj/sot/ska"
-    os.environ['PYTHONPATH'] = "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages"
-    try:
-        os.execv(sys.argv[0], sys.argv)
-    except Exception:
-        print('Failed re-exec:', exc)
-        sys.exit(1)
+import getpass
 
 import re
 import Ska.engarchive.fetch as fetch
@@ -246,7 +236,7 @@ def plot_color_coordinated_data(msid, group, year, a_list, min_list, avg_list, m
 #
 #--- set the size of the plotting area in inch (width: 10.0in, height 5 in)
 #
-    fig = matplotlib.pyplot.gcf()
+    fig = plt.gcf()
     fig.set_size_inches(10.0, 5.0)
 #
 #--- save the plot in png format
@@ -337,7 +327,7 @@ def plot_pitch_binned_data(msid, group, year, angles, x_set,y_set, ymin, ymax):
         if i < tot-2:
             exec("%s.axes.xaxis.set_visible(False)" %(axNam))
     
-    fig = matplotlib.pyplot.gcf()
+    fig = plt.gcf()
     fig.set_size_inches(10.0, 10.0)
 #
 #--- save the plot in png format
@@ -612,6 +602,15 @@ def get_data(msid, start, stop):
 #-------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
         switch = 1
@@ -620,3 +619,7 @@ if __name__ == "__main__":
 
     create_msid_pitch_plots(switch)
 
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

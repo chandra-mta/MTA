@@ -25,8 +25,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -64,7 +63,7 @@ def update_sim_offset():
     """
     t_file  = 'flexadif_full_data_*.fits*'
     out_dir = deposit_dir + 'Comp_save/Compsimoffset/'
-
+    
     [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
 #
 #--- update the data
@@ -88,7 +87,7 @@ def get_data(start, stop, year, out_dir):
             out_dir --- output_directory
     output: <out_dir>/Comp_save/Compsimoffset/<msid>_full_data_<year>.fits
     """
-    #print(str(start) + '<-->' + str(stop))
+    print(f"Period: {start} <--> {stop} in Year: {year}")
 
     for msid in ['flexadif', 'flexbdif', 'flexcdif']:
 

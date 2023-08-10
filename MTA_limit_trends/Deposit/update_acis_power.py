@@ -25,8 +25,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -64,8 +63,9 @@ def update_acis_power():
     """
     t_file  = '1dppwra_full_data_*.fits*'
     out_dir = deposit_dir + 'Comp_save/Compacispwr/'
-
+    
     [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
+    
 #
 #--- update the data
 #
@@ -88,7 +88,7 @@ def get_data(start, stop, year, out_dir):
             out_dir --- output directory
     output: <out_dir>/1dppwra_full_data_<year>.fits, <out_dir>/1dppwrb_full_data_<year>fits
     """
-    print(str(start) + '<-->' + str(stop))
+    print(f"Period: {start} <--> {stop} in Year: {year}")
 
     for msid in ['1dppwra', '1dppwrb']:
 

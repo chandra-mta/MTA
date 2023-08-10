@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################
 #                                                                           #
@@ -18,6 +18,7 @@ import random
 import math
 import time
 import numpy
+import getpass
 #
 #--- interactive plotting module
 #
@@ -174,7 +175,7 @@ def plot_data(sdata, mdata, year, msid, oname, ymin, ymax, ydrange, msid_list, l
     """
     plt.close('all')
 
-    fig, ax = plt.subplots(1, figsize=(8,6))
+    fig, ax = plt.subplots(2,1, figsize=(8,6))
     props   = font_manager.FontProperties(size=14)
     mpl.rcParams['font.size']   = 14
     mpl.rcParams['font.weight'] = 'bold'
@@ -205,7 +206,7 @@ def plot_data(sdata, mdata, year, msid, oname, ymin, ymax, ydrange, msid_list, l
         ydiff = ymax - ymin
         ypos  = ymax - 0.1 * ydiff
 
-    ax1 = plt.subplot(211)
+    ax1 = plt.subplot(2,1,1)
 
     ax1.set_xlim(xmin, xmax)
     ax1.set_ylim(ymin, ymax)
@@ -258,7 +259,7 @@ def plot_data(sdata, mdata, year, msid, oname, ymin, ymax, ydrange, msid_list, l
     ypos  = ymax - 0.1 * ydiff
 
     ax2 = plt.subplot(212)
-
+    
     ax2.set_xlim(xmin, xmax)
     ax2.set_ylim(ymin, ymax)
 
@@ -510,6 +511,15 @@ def find_deriv(x, y, ltype='', step=200):
 #-----------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) == 2:
         msid_list = sys.argv[1]
@@ -553,4 +563,7 @@ if __name__ == "__main__":
 
     else:
        print("please provide <msid_list>. you can also specify year. year=<year> lupdate=<lupdate: 0 or 1>" )
-
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

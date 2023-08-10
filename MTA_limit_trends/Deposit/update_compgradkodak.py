@@ -25,8 +25,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -52,6 +51,14 @@ import envelope_common_function as ecf
 rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
+#
+#----MSID List
+#
+
+MSID_LIST = ['hrmaavg', 'hrmacav', 'hrmaxgrd', 'hrmaradgrd', 'obaavg', 'obaconeavg', 'fwblkhdt',\
+                'aftblkhdt', 'obaaxgrd', 'mzobacone', 'pzobacone', 'obadiagrad', 'hrmarange',\
+                'tfterange', 'hrmastrutrnge', 'scstrutrnge']
+
 #-------------------------------------------------------------------------------------------
 #-- update_compgradkodak: update compgradkodak related data sets                          --
 #-------------------------------------------------------------------------------------------
@@ -62,13 +69,26 @@ def update_compgradkodak():
     input: none
     output: <out_dir>/<msid>_fill_data_<year>.fits
     """
+    """
+    #Define an earliest time entry for all MSIDS in consideration.
+    out_dir = deposit_dir + '/Comp_save/Compgradkodak/'
+    t_file  = 'obaavg_full_data_*.fits*'
+    [START, STOP, YEAR] = ecf.find_data_collecting_period(out_dir, t_file)
+    for msid in MSID_LIST:
+        t_file = f"{msid}_full_data_*.fits*"
+        [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
+        if tstart < START:
+            START = tstart
+            STOP = tstop
+            YEAR = year
+        print(f"MSID: {msid} Period: {tstart} <---> {tstop} in Year: {year}")
+
+    get_data(START,STOP,YEAR,out_dir)
+    """
     t_file  = 'obaavg_full_data_*.fits*'
     out_dir = deposit_dir + '/Comp_save/Compgradkodak/'
-    
     [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
-    
     print("Period: " + str(tstart) + '<-->' + str(tstop) + ' in Year: ' + str(year))
-    
     get_data(tstart, tstop, year, out_dir)
 #
 #--- zip the fits file from the last year at the beginning of the year
@@ -78,8 +98,8 @@ def update_compgradkodak():
 #-------------------------------------------------------------------------------------------
 #-- get_data: extract data and update the compgradkodak related data sets for the given period 
 #-------------------------------------------------------------------------------------------
-
 def get_data(start, stop, year, out_dir):
+
     """
     extract data and update the compgradkodak related data sets for the given period
     input:  start   --- start time in seconds from 1998.1.1

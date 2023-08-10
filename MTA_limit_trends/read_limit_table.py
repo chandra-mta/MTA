@@ -21,8 +21,7 @@ from astropy.io.fits import Column
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -35,7 +34,7 @@ for ent in data:
 #--- append path to a private folder
 #
 sys.path.append(bin_dir)
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append(mta_dir)
 #
 #--- import several functions
 #

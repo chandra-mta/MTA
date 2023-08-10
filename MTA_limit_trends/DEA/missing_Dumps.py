@@ -3,6 +3,8 @@
 #In the event of the GOT Dumps data archive missing/deleting data which hasn't been processed into deahk rdb files,
 #this script will calculate and donwload the missing Dumps_EM data into the Exc directory.
 #This script is to repairing missing data, not for typical running.
+#Be sure to adjust pathing for repository repair in a separeate test directory to avoid
+#clashing with the live data feed
 
 import sys, os
 from Chandra.Time import DateTime
@@ -120,7 +122,7 @@ def run_arc5gl(ctime):
 #--- covert date foramt to  mm/dd/yy, 00:00:00
 #
     #calculate in batches of 10 days.
-    range = 20
+    range = 200
     [start, stop] = start_stop_period(year, yday, range)
     
 #
@@ -167,7 +169,7 @@ def run_dea_perl(dlist):
         cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_temp_in.tmp ' + year
         os.system(cmd)
 
-        cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_elec_in.tmp ' + year
+        cmd = dea_dir + 'out2in.pl deahk_elec.tmp deahk_elec_in.tmp ' + year
         os.system(cmd)
 #
 #--- 5 min resolution

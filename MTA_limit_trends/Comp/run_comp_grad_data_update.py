@@ -24,8 +24,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -167,7 +166,7 @@ def run_comp_grad_data_update():
 #
     if yday >= 3 and yday < 5:
         lyear = year - 1
-        cmd =  'gzip -fq ' + depoit_dir + '*/*/*_full_data_' + str(lyear) + '.fits'
+        cmd =  'gzip -fq ' + deposit_dir + '*/*/*_full_data_' + str(lyear) + '.fits'
         os.system(cmd)
 
 #--------------------------------------------------------------------------------

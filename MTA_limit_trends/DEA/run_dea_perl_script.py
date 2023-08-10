@@ -19,8 +19,7 @@ import subprocess
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with  open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -33,7 +32,7 @@ for ent in data:
 #--- append path to a private folder
 #
 sys.path.append(bin_dir)
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append(mta_dir)
 
 dea_dir    = bin_dir + '/DEA/'
 infile     = dea_dir + 'past_dump_list'
@@ -134,32 +133,6 @@ def tail(f, n=10):
 #-- smart_append: appends a processed data file into an existing data set without repeating time entries.
 #-- Note: Designed for this projects rdb files where time is recorded as the frist tesxt entry in each line. does not work in general.
 #-----------------------
-"""
-def smart_append(file, append):
-    with open(append,'r') as f:
-            data = f.readlines()
-    data = [x.strip() for x in data if x.strip() != ''] #cleanup step in case appending file contains unnecessary extra spacing
-    if os.path.isfile(file) == False:
-        appendstring= "\n".join(data)+"\n"
-        with open(file,'w') as f:
-            f.write(appendstring)
-    else:
-        endtime = float(tail(file,n=1).strip().split()[0])
-        chk = 0
-        for i in range(len(data)):
-            if float(data[i].split()[0]) > endtime:
-                chk = 1
-                break
-            #if this break is never reached, then the sliced data results in appending an empty string, thereby not repeating any data.
-        if chk == 1:
-            data = data[i:]
-        else:
-            data = []
-        appendstring = "\n".join(data)+"\n"
-        with open(file,'a+') as f:
-            f.write(appendstring)
-"""
-#another verison which can handle processing of larger appending files but might be slower?
 def smart_append(file, append):
     if os.path.isfile(file) == False:
         cmd = f"cp {append} {file}"
@@ -199,44 +172,33 @@ def run_dea_perl(dlist):
 
         cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_temp_in.tmp ' + year
         os.system(cmd)
+        
 
-        cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_elec_in.tmp ' + year
+        cmd = dea_dir + 'out2in.pl deahk_elec.tmp deahk_elec_in.tmp ' + year
         os.system(cmd)
 #
 #--- 5 min resolution
 #
         cmd  = dea_dir + 'average1.pl -i deahk_temp_in.tmp -o deahk_temp.rdb'
         os.system(cmd)
-        """
-        cmd  = 'cat deahk_temp.rdb >> ' + repository + 'deahk_temp_week' + year + '.rdb'
-        os.system(cmd)
-        """
+        
         smart_append(f"{repository}/deahk_temp_week{year}.rdb","deahk_temp.rdb")
 
         cmd  = dea_dir + 'average1.pl -i deahk_elec_in.tmp -o deahk_elec.rdb'
         os.system(cmd)
-        """
-        cmd  = 'cat deahk_elec.rdb >> ' + repository + 'deahk_elec_week' + year + '.rdb'
-        os.system(cmd)
-        """
+
         smart_append(f"{repository}/deahk_elec_week{year}.rdb","deahk_elec.rdb")
 #
 #--- one hour resolution
 #
         cmd  = dea_dir + 'average2.pl -i deahk_temp_in.tmp -o deahk_temp.rdb'
         os.system(cmd)
-        """
-        cmd  = 'cat deahk_temp.rdb >> ' + repository + 'deahk_temp_short.rdb'
-        os.system(cmd)
-        """
+        
         smart_append(f"{repository}/deahk_temp_short.rdb","deahk_temp.rdb")
 
         cmd  = dea_dir + 'average2.pl -i deahk_elec_in.tmp -o deahk_elec.rdb'
         os.system(cmd)
-        """
-        cmd  = 'cat deahk_elec.rdb >> ' + repository + 'deahk_elec_short.rdb'
-        os.system(cmd)
-        """
+
         smart_append(f"{repository}/deahk_elec_short.rdb","deahk_elec.rdb")
 #
 #--- clean up

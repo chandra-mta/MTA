@@ -1,16 +1,7 @@
-cd /data/mta4/testDEA/Exc2
-#cd /data/mta/Script/MTA_limit_trends/Exc2
+cd /data/mta/Script/MTA_limit_trends/Exc2
 rm -rf param
 mkdir param
 
-#setascds
-#setenv ACISTOOLSDIR "/data/mta/Script3.8/MTA_limit_trends/Scripts/DEA/"
-#setenv PYTHONPATH   "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages"
 
-#/data/mta/Script/MTA_limit_trends/Scripts/DEA/run_dea_perl_script.py
-#/data/mta/Script/MTA_limit_trends/Scripts/DEA/convert_dea_data_to_fits.py
-
-/data/mta4/testDEA/Scripts/DEA/run_dea_perl_script.py
-
-#/data/mta4/testDEA/Scripts/DEA/convert_dea_data_to_fits.py
-
+/data/mta/Script/MTA_limit_trends/Scripts/DEA/run_dea_perl_script.py
+/data/mta/Script/MTA_limit_trends/Scripts/DEA/convert_dea_data_to_fits.py

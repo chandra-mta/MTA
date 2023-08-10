@@ -23,8 +23,7 @@ import getpass
 #
 #--- reading directory list
 #
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testDEA/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -130,7 +129,7 @@ def create_full_dea_data(dhead, group,  drange, pyear):
     dfile = dhead + str(pyear) + '.rdb'
     data  = mcf.read_data_file(dfile)
     if len(data) < 1:
-        print("No Ddata")
+        print("No Data")
         return False
 #
 #--- starting time/stopping time and how many columns in the data

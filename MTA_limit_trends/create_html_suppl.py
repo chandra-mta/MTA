@@ -15,27 +15,13 @@ import os
 import string
 import re
 import numpy
-"""
-import getopt
-"""
 import os.path
 import time
 import math
 import astropy.io.fits  as pyfits
 import Chandra.Time
-#
-#--- read argv
-#
-"""
-try:
-    option, remainder = getopt.getopt(sys.argv[1:],'t',['test'])
-except getopt.GetoptError as err:
-     print(str(err))
-     sys.exit(2)
-"""
 
-#path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-path = '/data/mta4/testTrend/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -46,7 +32,7 @@ for ent in data:
     line = atemp[0].strip()
     exec("%s = %s" %(var, line))
 
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append(mta_dir)
 sys.path.append(bin_dir)
 
 import mta_common_functions     as mcf  #---- mta common functions

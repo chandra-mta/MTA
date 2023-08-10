@@ -1,21 +1,10 @@
-cd /data/mta4/testDEA/Exc2
-#cd /data/mta/Script/MTA_limit_trends/Exc2
+cd /data/mta/Script/MTA_limit_trends/Exc2
 
-#setenv SKA /proj/sot/ska
-#setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
+/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_compgradkodak.py
+/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_grad_data.py
+/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_acis_power.py
+/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_sim_flex.py
+/data/mta/Script/MTA_limit_trends/Scripts/Deposit/process_dea_data_full.py
 
-#/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_compgradkodak.py
-#/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_grad_data.py
-#/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_acis_power.py
-#/data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_sim_flex.py
-#/data/mta/Script/MTA_limit_trends/Scripts/Deposit/process_dea_data_full.py
+/data/mta/Script/MTA_limit_trends/Scripts/Comp/run_comp_grad_data_update.py
 
-#/data/mta/Script/MTA_limit_trends/Scripts/Comp/run_comp_grad_data_update.py
-
-/data/mta4/testDEA/Scripts/Deposit/update_compgradkodak.py
-#/data/mta4/testDEA/Scripts/Deposit/update_grad_data.py
-#/data/mta4/testDEA/Scripts/Deposit/update_acis_power.py
-#/data/mta4/testDEA/Scripts/Deposit/update_sim_flex.py
-#/data/mta4/testDEA/Scripts/Deposit/process_dea_data_full.py
-
-#/data/mta4/testDEA/Scripts/Comp/run_comp_grad_data_update.py
