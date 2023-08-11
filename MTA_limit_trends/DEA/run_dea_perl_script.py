@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################    
 #                                                                                   #
@@ -14,6 +14,8 @@
 import os
 import sys
 import re
+import getpass
+import subprocess
 #
 #--- reading directory list
 #
@@ -82,7 +84,7 @@ def find_new_dump():
 #--- find the last entry
 #
     last_entry = plist[-1]
-    
+
     cmd = ' mv ' +  infile + ' ' + infile2
     os.system(cmd)
 #
@@ -113,6 +115,39 @@ def find_new_dump():
             dlist.append(ent)
     
     return dlist
+#------------------------------------
+#-- tail: functions like tail command
+#------------------------------------
+
+def tail(f, n=10):
+    proc = subprocess.Popen(['tail', '-n', str(n), f], stdout=subprocess.PIPE)
+    lines = list(proc.stdout.readlines())
+    lines = [x.decode() for x in lines]
+    if len(lines) == 1:
+        return lines[0]
+    elif len(lines) == 0:
+        return ''
+    else:
+        return lines
+#---------------------
+#-- smart_append: appends a processed data file into an existing data set without repeating time entries.
+#-- Note: Designed for this projects rdb files where time is recorded as the frist tesxt entry in each line. does not work in general.
+#-----------------------
+def smart_append(file, append):
+    if os.path.isfile(file) == False:
+        cmd = f"cp {append} {file}"
+        os.system(cmd)
+        return
+    else:
+        endtime = float(tail(file,n=1).strip().split()[0])
+        with open(append,'r') as f:
+            for line in f:
+                data = line.strip()
+                if data != '':
+                    chk = 0
+                    if float(data.split()[0]) > endtime:
+                        with open(file,'a+') as f:
+                            f.write(line)
 
 #------------------------------------------------------------------------------------
 #-- run_dea_perl: run perl scripts to extract data from dump data                  --
@@ -137,33 +172,34 @@ def run_dea_perl(dlist):
 
         cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_temp_in.tmp ' + year
         os.system(cmd)
+        
 
-        cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_elec_in.tmp ' + year
+        cmd = dea_dir + 'out2in.pl deahk_elec.tmp deahk_elec_in.tmp ' + year
         os.system(cmd)
 #
 #--- 5 min resolution
 #
         cmd  = dea_dir + 'average1.pl -i deahk_temp_in.tmp -o deahk_temp.rdb'
         os.system(cmd)
-        cmd  = 'cat deahk_temp.rdb >> ' + repository + 'deahk_temp_week' + year + '.rdb'
-        os.system(cmd)
+        
+        smart_append(f"{repository}/deahk_temp_week{year}.rdb","deahk_temp.rdb")
 
         cmd  = dea_dir + 'average1.pl -i deahk_elec_in.tmp -o deahk_elec.rdb'
         os.system(cmd)
-        cmd  = 'cat deahk_elec.rdb >> ' + repository + 'deahk_elec_week' + year + '.rdb'
-        os.system(cmd)
+
+        smart_append(f"{repository}/deahk_elec_week{year}.rdb","deahk_elec.rdb")
 #
 #--- one hour resolution
 #
         cmd  = dea_dir + 'average2.pl -i deahk_temp_in.tmp -o deahk_temp.rdb'
         os.system(cmd)
-        cmd  = 'cat deahk_temp.rdb >> ' + repository + 'deahk_temp_short.rdb'
-        os.system(cmd)
+        
+        smart_append(f"{repository}/deahk_temp_short.rdb","deahk_temp.rdb")
 
         cmd  = dea_dir + 'average2.pl -i deahk_elec_in.tmp -o deahk_elec.rdb'
         os.system(cmd)
-        cmd  = 'cat deahk_elec.rdb >> ' + repository + 'deahk_elec_short.rdb'
-        os.system(cmd)
+
+        smart_append(f"{repository}/deahk_elec_short.rdb","deahk_elec.rdb")
 #
 #--- clean up
 #
@@ -173,8 +209,18 @@ def run_dea_perl(dlist):
 #------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     run_dea_perl_script()
-
-
-
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################    
 #                                                                                   #
@@ -21,6 +21,7 @@ import Ska.engarchive.fetch as fetch
 import Chandra.Time
 import datetime
 import random
+import getpass
 #
 #--- reading directory list
 #
@@ -62,7 +63,7 @@ def update_sim_offset():
     """
     t_file  = 'flexadif_full_data_*.fits*'
     out_dir = deposit_dir + 'Comp_save/Compsimoffset/'
-
+    
     [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
 #
 #--- update the data
@@ -86,7 +87,7 @@ def get_data(start, stop, year, out_dir):
             out_dir --- output_directory
     output: <out_dir>/Comp_save/Compsimoffset/<msid>_full_data_<year>.fits
     """
-    #print(str(start) + '<-->' + str(stop))
+    print(f"Period: {start} <--> {stop} in Year: {year}")
 
     for msid in ['flexadif', 'flexbdif', 'flexcdif']:
 
@@ -133,5 +134,18 @@ def get_data(start, stop, year, out_dir):
 #-------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
+        
     update_sim_offset()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

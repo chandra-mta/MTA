@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #################################################################################
 #                                                                               #
@@ -22,6 +22,7 @@ import astropy.io.fits  as pyfits
 import Ska.Sun
 import Ska.astro
 import Chandra.Time
+import getpass
 #
 #--- reading directory list
 #
@@ -198,13 +199,26 @@ def find_chandra_pitch(time, ra, dec):
 #-----------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) == 3:
         tstart = float(sys.argv[1])
         tstop  = float(sys.argv[2])
         cdata  = find_pitch_angle(tstart, tstop)    
-        update_fits_file('./temp_sun_angle.fits', cols, cdata)
+        ecf.update_fits_file('./temp_sun_angle.fits', cols, cdata)
 
     else:
         run_sun_angle_update()
 
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

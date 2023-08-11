@@ -158,7 +158,9 @@ $USAGE = "$0
 	[file]          # input file name
 ";
 #-----------------------------------------------------------------------
-require "ctime.pl";
+
+#require "ctime.pl";
+
 $ttm = $ENV{ACISTTMFILE} ? $ENV{ACISTTMFILE} : "/data/mta/Script/MTA_limit_trends/Scripts/DEA/lib/acisEng.ttm";
 $nul = pack('C', 0);
 $xb7 = pack('C', 0xb7);

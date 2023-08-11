@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #######################################################################################
 #                                                                                     #
@@ -19,17 +19,13 @@ import getopt
 import os.path
 import time
 import astropy.io.fits  as pyfits
+import argparse
+import getpass
+import glob
 #
 #--- read argv
 #
-try:
-    option, remainder = getopt.getopt(sys.argv[1:],'t',['test'])
-except getopt.GetoptError as err:
-     print(str(err))
-     sys.exit(2)
-
 path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -39,7 +35,7 @@ for ent in data:
     line = atemp[0].strip()
     exec("%s = %s" %(var, line))
 
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 sys.path.append(bin_dir)
 
 import mta_common_functions     as mcf  #---- mta common functions
@@ -92,13 +88,15 @@ for ent in data:
 #------------------------------------------------------------------------------------
 #-- create_html_page: create indivisual html pages for all msids in database       --
 #------------------------------------------------------------------------------------
-
+"""
 def create_html_page(msid_list='', ds='all', ms='all'):
+"""
+def create_html_page(msid_list=None, ds=None, ms=None):
     """
     create indivisual html pages for all msids in database
     input:  msid_list   --- a name of msid_list to be run. if "", 
                             <house_keeping>/msid_list is used
-            ds          --- data set name. if 'all', ['week', 'short', 'long'] is used.
+            ds          --- data set name. if 'all', ['week', 'short', 'year', 'five', 'long'] is used.
             ms          --- category name. if 'all', ['mid', 'min', max'] is used.
     output: <web_dir>/<msid>_plot.html etc
     """
@@ -114,19 +112,31 @@ def create_html_page(msid_list='', ds='all', ms='all'):
 #
 #--- set which data set to run
 #
+    if ds == None:
+        data_sets = ['week', 'short', 'year', 'five', 'long']
+    else:
+        data_sets = ds
+    """
     if ds == 'all':
         data_sets = ['week', 'short', 'long']
     else:
         data_sets = [ds]
+    """
 #
 #--- set which category of plots to create
 #
+    if ms == None:
+        cat_sets = ['mid', 'min', 'max']
+    else:
+        cat_sets = ms
+    """
     if ms == 'all':
         cat_sets = ['mid', 'min', 'max']
     else:
         cat_sets = [ms]
+    """
 
-    print('Data sets: '  + str(data_sets) + ' : ' + 'Categoray: ' + str(cat_sets))
+    print('Data sets: '  + str(data_sets) + ' : ' + 'Category: ' + str(cat_sets))
 #
 #--- clean out future estimate direcotry
 #
@@ -135,6 +145,7 @@ def create_html_page(msid_list='', ds='all', ms='all'):
 #
 #--- get a list of msids (and the group name)
 #
+    """
     if msid_list == "":
         mfile = house_keeping + 'msid_list'
     else:
@@ -142,6 +153,11 @@ def create_html_page(msid_list='', ds='all', ms='all'):
 
         if not os.path.isfile(mfile):
             mfile = house_keeping + 'msid_list'
+    """
+    if msid_list == None:
+        mfile= house_keeping + 'msid_list_all'
+    else:
+        mfile = house_keeping + msid_list
 
     data  = mcf.read_data_file(mfile)
 
@@ -201,12 +217,19 @@ def create_html_page(msid_list='', ds='all', ms='all'):
 #
 #--- check which plot files in the directory
 #
+        """
         for dtype in ['week', 'short', 'year', 'five', 'long']:
             for mtype in ['mid', 'min', 'max']:
+        """
+        for dtype in data_sets:
+            for mtype in cat_sets:
                 hpart = p_dir + msid + '_' + dtype + '_'  + mtype
+                """
                 cmd = 'ls ' +  hpart + '*.png > ' + zspace + ' 2>&1'
                 os.system(cmd)
                 data = mcf.read_data_file(zspace, remove=1)
+                """
+                data = glob.glob(f"{hpart}*.png")
 
                 trend_list = []
                 dev_list   = []
@@ -792,25 +815,29 @@ def find_group_names(msid):
 #------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
-        if len(sys.argv) == 2:
-            msid_list = sys.argv[1].strip()
-            create_html_page(msid_list)
+    parser = argparse.ArgumentParser()
 
-        elif len(sys.argv) == 3:
-            msid_list = sys.argv[1].strip()
-            ds        = sys.argv[2].strip()
-            create_html_page(msid_list, ds=ds)
+    parser.add_argument('-p','--period',help='Process specific time length. If empty defaults to all.', \
+                        action="extend",nargs='*',type=str, choices=['week', 'short', 'year', 'five', 'long'])
+    parser.add_argument('-c','--category',help='Choose category of values to show in plot. If empty defaults to all.', \
+                        action="extend",nargs='*',type=str, choices=["mid","min",'max"'])
+    parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping. Defaults to msid_list_all",type=str)
 
-        elif len(sys.argv) == 4:
-            msid_list = sys.argv[1].strip()
-            ds        = sys.argv[2].strip()
-            ms        = sys.argv[3].strip()
-            create_html_page(msid_list, ds=ds, ms=ms)
+    args = parser.parse_args()
+    create_html_page(args.msid_list,ds=args.period,ms=args.category)
 
-        else:
-            line = "create_html_page(qtype=<inter/static> msid_list=<list name> "
-            line = line + "ds=<week/short/long/all> ms=<mid/min/max/all>"
-            print(line)
-            exit(1)
 
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

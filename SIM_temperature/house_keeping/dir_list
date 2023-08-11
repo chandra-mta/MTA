@@ -2,5 +2,5 @@
 '/data/mta/Script/SIM/Exc/'                                     :exc_dir
 '/data/mta/Script/SIM/Data/'                                    :data_dir
 '/data/mta/Script/SIM/Scripts/house_keeping/'                   :house_keeping
-'/data/mta/Script/Python3.8/MTA/'                               :mta_dir
+'/data/mta4/Script/Python3.10/MTA/'                              :mta_dir
 '/data/mta_www/mta_sim/MTR/'                                    :web_dir

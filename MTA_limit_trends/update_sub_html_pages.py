@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -20,6 +20,7 @@ import unittest
 import time
 from datetime import datetime
 from time import gmtime, strftime, localtime
+import getpass
 #
 #--- reading directory list
 #
@@ -35,7 +36,7 @@ for ent in data:
 #
 #--- append path to a private folder
 #
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 sys.path.append(bin_dir)
 #
 import mta_common_functions     as mcf  #---- mta common functions
@@ -169,7 +170,7 @@ def create_html(catg, msid_list, ytime, udict, ddict, dtype, mtype, ptype='stati
     line = line + create_link_names(catg, dtype, mtype, ptype)
 
     line = line + '<p style="margin-left:35px; margin-right:35px;">'
-    line = line + '<em><b>Delta/Yr</b></em> below is a slope of the liear fitting '
+    line = line + '<em><b>Delta/Yr</b></em> below is a slope of the linear fitting '
     line = line + 'over the data of the period. '
     line = line + '<em><b>Delta/Yr/Yr</b></em> is a slope of the liner fitting '
     line = line + 'over the devivative data of the period. <em><b>Slope</b></em> '
@@ -681,5 +682,18 @@ def clean_the_input(line):
 #---------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
     create_sub_html()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

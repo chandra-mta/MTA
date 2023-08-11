@@ -1,5 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
-
+#!/proj/sot/ska3/flight/bin/python
 #####################################################################################    
 #                                                                                   #
 #           convert_dea_data_to_fits.py: concert dea data into fits data files      #
@@ -15,10 +14,10 @@ import sys
 import re
 import string
 import time
-import numpy
 import astropy.io.fits  as pyfits
 import Chandra.Time
 import random
+import getpass
 #
 #--- reading directory list
 #
@@ -155,6 +154,7 @@ def create_dea_fits_file(dhead, group, period, drange):
 
     elif period == '_week':
         data = []
+
         for pyear in range(lyear, tyear+1):
             dfile = dhead +  str(pyear) +'.rdb'
             out   = mcf.read_data_file(dfile)
@@ -226,7 +226,6 @@ def create_dea_fits_file(dhead, group, period, drange):
         os.system(cmd)
         cmd = 'rm -rf ' + fits
         os.system(cmd)
-
         ecf.create_fits_file(fits, cols, cdata)
 
     if period == '_short':
@@ -271,12 +270,11 @@ def create_long_term_dea_data(dhead, group,  drange):
 #--- checking the last entry date 
 #
     efits = data_dir + group + '/' + name_list[0] + '_data.fits'
-
     if os.path.isfile(efits):
         ltime = ecf.find_the_last_entry_time(efits)
         try:
-            ltime = find_starting_of_the_day(ltime) 
-            out   = Chandra.Time.DateTime(ltime)
+            ltime = find_starting_of_the_day(ltime)
+            out   = Chandra.Time.DateTime(ltime).date
             atemp = re.split(':', out)
             syear = int(atemp[0])
             lchk  = 1
@@ -428,6 +426,15 @@ def find_starting_of_the_day(time):
 #-------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
         part = sys.argv[1]
@@ -435,3 +442,7 @@ if __name__ == "__main__":
         part = ''
 
     process_dea_data(part)
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

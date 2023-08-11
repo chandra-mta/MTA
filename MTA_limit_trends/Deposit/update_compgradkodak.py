@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################    
 #                                                                                   #
@@ -21,6 +21,7 @@ import Ska.engarchive.fetch as fetch
 import Chandra.Time
 import datetime
 import random
+import getpass
 #
 #--- reading directory list
 #
@@ -50,6 +51,14 @@ import envelope_common_function as ecf
 rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
+#
+#----MSID List
+#
+
+MSID_LIST = ['hrmaavg', 'hrmacav', 'hrmaxgrd', 'hrmaradgrd', 'obaavg', 'obaconeavg', 'fwblkhdt',\
+                'aftblkhdt', 'obaaxgrd', 'mzobacone', 'pzobacone', 'obadiagrad', 'hrmarange',\
+                'tfterange', 'hrmastrutrnge', 'scstrutrnge']
+
 #-------------------------------------------------------------------------------------------
 #-- update_compgradkodak: update compgradkodak related data sets                          --
 #-------------------------------------------------------------------------------------------
@@ -60,13 +69,26 @@ def update_compgradkodak():
     input: none
     output: <out_dir>/<msid>_fill_data_<year>.fits
     """
+    """
+    #Define an earliest time entry for all MSIDS in consideration.
+    out_dir = deposit_dir + '/Comp_save/Compgradkodak/'
+    t_file  = 'obaavg_full_data_*.fits*'
+    [START, STOP, YEAR] = ecf.find_data_collecting_period(out_dir, t_file)
+    for msid in MSID_LIST:
+        t_file = f"{msid}_full_data_*.fits*"
+        [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
+        if tstart < START:
+            START = tstart
+            STOP = tstop
+            YEAR = year
+        print(f"MSID: {msid} Period: {tstart} <---> {tstop} in Year: {year}")
+
+    get_data(START,STOP,YEAR,out_dir)
+    """
     t_file  = 'obaavg_full_data_*.fits*'
     out_dir = deposit_dir + '/Comp_save/Compgradkodak/'
-    
     [tstart, tstop, year] = ecf.find_data_collecting_period(out_dir, t_file)
-    
     print("Period: " + str(tstart) + '<-->' + str(tstop) + ' in Year: ' + str(year))
-    
     get_data(tstart, tstop, year, out_dir)
 #
 #--- zip the fits file from the last year at the beginning of the year
@@ -76,8 +98,8 @@ def update_compgradkodak():
 #-------------------------------------------------------------------------------------------
 #-- get_data: extract data and update the compgradkodak related data sets for the given period 
 #-------------------------------------------------------------------------------------------
-
 def get_data(start, stop, year, out_dir):
+
     """
     extract data and update the compgradkodak related data sets for the given period
     input:  start   --- start time in seconds from 1998.1.1
@@ -753,6 +775,18 @@ def fill_gaps(ttime, otime, data):
 #-------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     update_compgradkodak()
-
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

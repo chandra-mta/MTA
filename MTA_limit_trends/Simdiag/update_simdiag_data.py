@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################    
 #                                                                                   #
@@ -20,6 +20,7 @@ import astropy.io.fits  as pyfits
 import Chandra.Time
 import datetime
 import random
+import getpass
 #
 #--- reading directory list
 #
@@ -791,6 +792,15 @@ def find_num_of_elements(carray, lim, side=0):
 #-------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
             date = sys.argv[1]
@@ -799,3 +809,7 @@ if __name__ == "__main__":
     else:
         update_simdiag_data()
 
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

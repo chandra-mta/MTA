@@ -1,1 +1,1 @@
-TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/SIM/Scripts/sim_temp_main_script
+TERM=dummy; export TERM; /proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta/Script/SIM/Scripts/sim_temp_main_script

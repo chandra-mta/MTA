@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Mar 10, 2021                                                   #
+#               last update: Jul 19, 2023                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -30,7 +30,8 @@ ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+#path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+path = '/data/mta4/testSIM/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -41,7 +42,7 @@ for ent in data:
     line  = atemp[0].strip()
     exec("%s = %s" %(var, line))
 
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #
 #--- import several functions
 #
@@ -310,6 +311,15 @@ def set_data_period(year, sdate, edate):
  
 if __name__ == "__main__":
 #
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    if os.path.isfile(f"/tmp/mta/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/mta/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/mta/{name}.lock")
+
+#
 #--- if you like to specify the date period, give
 #---  a year and starting yday and ending yday
 #
@@ -328,3 +338,8 @@ if __name__ == "__main__":
         edate = ''
 
     extract_tl_data(year, sdate, edate)
+
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/mta/{name}.lock")

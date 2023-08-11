@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #######################################################################################
 #                                                                                     #
@@ -15,20 +15,11 @@ import os
 import string
 import re
 import numpy
-import getopt
 import os.path
 import time
 import math
 import astropy.io.fits  as pyfits
 import Chandra.Time
-#
-#--- read argv
-#
-try:
-    option, remainder = getopt.getopt(sys.argv[1:],'t',['test'])
-except getopt.GetoptError as err:
-     print(str(err))
-     sys.exit(2)
 
 path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 

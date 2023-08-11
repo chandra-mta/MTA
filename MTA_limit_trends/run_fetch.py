@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################    
 #                                                                                   #
@@ -12,18 +12,6 @@
 
 import os
 import sys
-#
-#--- set python environment if it is not set yet
-#
-if 'PYTHONPATH' not in os.environ:
-    os.environ['SAK']        = "/proj/sot/ska"
-    os.environ['PYTHONPATH'] = "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.6/site-packages:/data/mta/Script/Python3.6/lib/python3.6/site-packages"
-    try:
-        os.execv(sys.argv[0], sys.argv)
-    except Exception:
-        print('Failed re-exec:', exc)
-        sys.exit(1)
-
 import re
 import Ska.engarchive.fetch as fetch
 #

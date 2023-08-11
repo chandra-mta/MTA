@@ -1,5 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
-
+#!/proj/sot/ska3/flight/bin/python
 #####################################################################################
 #                                                                                   #
 #       create_trend_plot.py: create trend plot                                     #
@@ -21,6 +20,10 @@ import math
 import astropy.io.fits  as pyfits
 import Chandra.Time
 from copy import deepcopy
+import argparse
+import getpass
+from datetime import date
+DAYS = ['mon', 'tus','wed', 'thu', 'fri', 'sat', 'sun']
 #
 #--- pylab plotting routine related modules
 #
@@ -37,6 +40,7 @@ import matplotlib.lines as lines
 
 path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
 
+
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 
@@ -48,7 +52,7 @@ for ent in data:
 
 bin_dir = './'
 
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 sys.path.append(bin_dir)
 
 import mta_common_functions     as mcf  #---- mta common functions
@@ -1161,12 +1165,14 @@ def set_plot_range(x, y, dtype):
         elif dtype == 'short':
             xmax = eyday + 10 
             xmin = xmax - 100
+
         else:
             xmax = eyday + 30
             xmin = xmax  - 396
         if xmin < 1:
             xmax += base
             xmin += base
+        
 #
 #--- if the data type is five or long, your year for the range
 #
@@ -2247,16 +2253,40 @@ def compute_stat(x, y):
 
     return line
 
+#-----------------------------------------------------------------------------
+#-- day_string: return string for current day of week                       --
+#-----------------------------------------------------------------------------
+def day_string():
+    today = date.today()
+    return DAYS[today.weekday()]
+
 #-----------------------------------------------------------------------------------
 
 if __name__ == '__main__':
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
+                        action="extend",nargs='*',type=str, choices=["week","short","long"])
+    parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
 
-    ifile = sys.argv[1]
-    dtype = sys.argv[2]
-    ifile.strip()
-    dtype.strip()
+    args = parser.parse_args()
 
-    create_msid_plots(ifile, dtype)
-
-
-
+    if args.msid_list is None:
+        msid_list = f"msid_list_{day_string()}"
+    else:
+        msid_list = args.msid_list.strip()
+    
+    for dtype in args.period:
+        create_msid_plots(msid_list,dtype)
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

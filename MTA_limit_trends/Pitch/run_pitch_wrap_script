@@ -1,1 +1,1 @@
-/bin/tcsh  < /data/mta/Script/MTA_limit_trends/Scripts/Pitch/run_pitch_main_script
+TERM=dummy; export TERM; /proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta/Script/MTA_limit_trends/Scripts/Pitch/run_pitch_main_script

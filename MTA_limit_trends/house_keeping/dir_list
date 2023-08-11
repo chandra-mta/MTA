@@ -3,7 +3,7 @@
 '/data/mta/Script/MTA_limit_trends/Exc/'                    :exc_dir
 '/data/mta/Script/MTA_limit_trends/Deposit/'                :deposit_dir
 '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/'  :house_keeping
-'/data/mta/Script/Python3.8/MTA/'                           :mta_dir
+'/data/mta4/Script/Python3.10/MTA/'                           :mta_dir
 '/data/mta/Script/MSID_limit/'                              :glim_dir
 '/data/mta4/MTA/data/op_limits/'                            :mlim_dir
 '/data/mta/Script/MSID_limit/Trend_limit_data/'             :limit_dir

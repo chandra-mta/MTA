@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -16,6 +16,8 @@ import re
 import string
 import time
 import numpy
+import argparse
+import getpass
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
@@ -36,7 +38,7 @@ for ent in data:
 #--- append path to a private folder
 #
 sys.path.append(bin_dir)
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #
 #--- import several functions
 #
@@ -47,6 +49,7 @@ import read_limit_table         as rlt  #---- read limit table and create msid<-
 #
 #--- other path setting
 #
+#limit_dir = '/data/mta/Script/MSID_limit/Trend_limit_data/'
 limit_dir = '/data/mta/Script/MSID_limit/Trend_limit_data/'
 #
 #--- fits generation related lists
@@ -747,24 +750,41 @@ def create_category_dict():
 #--------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+    
 
-    if len(sys.argv) > 4:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
+                        action="extend",nargs='*',type=str, choices=["week","short","long"])
+    parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
+    
+    parser.add_argument("--msid", help="Process specific MSID",type=str)
+    parser.add_argument("--start", help="Start time in seconds from 1998.1.1",type=float)
+    parser.add_argument("--stop", help="Stop time in seconds from 1998.1.1",type=float)
+    args = parser.parse_args()
 
-        msid  = sys.argv[1].strip()         #--- msid
-        start = float(sys.argv[3])          #--- start time in seconds from 1998.1.1
-        stop  = float(sys.argv[4])          #--- stop  time in seconds from 1998.1.1
-        dtype = sys.argv[3].strip()         #--- week, short, long
-
+    if args.msid is not None:
         [lim_dict, cnd_dict] = rlt.get_limit_table()
-        alimit   = lim_dict[msid]
-        cnd_msid = cnd_dict[msid]
-        extract_data_from_ska(msid, start, stop, dtype, alimit, cnd_msid)
+        alimit   = lim_dict[args.msid]
+        cnd_msid = cnd_dict[args.msid]
 
-    elif len(sys.argv) == 3:
-        msid_list = sys.argv[1].strip()     #--- name of a file contain a msid list
-        dtype     = sys.argv[2].strip()     #--- week, short, long
-
-        run_for_msid_list(msid_list, dtype)
-
+    if args.period is not None:
+        for dtype in args.period:
+            if args.msid is not None:
+                extract_data_from_ska(args.msid, args.start, args.stop, dtype, alimit, cnd_msid)
+            elif args.msid_list is not None:
+                run_for_msid_list(args.msid_list, dtype)
     else:
         run_glimmon_trend_data_update()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################
 #                                                                                   #
@@ -6,7 +6,7 @@
 #                                                                                   #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                               #
 #                                                                                   #
-#           last update: Mar 10, 2021                                               #
+#           last update: Jul 19, 2023                                               #
 #                                                                                   #
 #####################################################################################
 
@@ -24,6 +24,7 @@ import matplotlib.pyplot       as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines        as lines
 import matplotlib.gridspec     as gridspec
+import getpass
 #
 #--- reading directory list
 #
@@ -41,7 +42,7 @@ for ent in data:
 #--- append a path to a private folder to python directory
 #
 sys.path.append(bin_dir)
-sys.path.append(mta_dir)
+sys.path.append("/data/mta4/Script/Python3.10/MTA/")
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
@@ -372,7 +373,7 @@ def plot_sim_temp_data(xmin, xmax, simtx, simtl, simth, mxs, mys, mxe, mye,\
     plt.text(xpos, ypos2, label, size=fsize, color=colorList[0])
 
     plt.text(xpos3, ypos3, title, size=fsize)
-    plt.text(xpos4, ypos3, 'SIM TSC Moter Temperatures', size=fsize)
+    plt.text(xpos4, ypos3, 'SIM TSC Motor Temperatures', size=fsize)
 #
 #--- label axes
 #
@@ -616,9 +617,19 @@ def set_min_max(xdata, ydata, xtime = 0, ybot = -999):
 
 if __name__ == "__main__":
 #
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+#
 #--- if you give start = stop = <year>
 #--- it will create the plot for the <year>
 #
+
     if len(sys.argv) > 1:
         year  = int(float(sys.argv[1]))
         start = year
@@ -640,4 +651,7 @@ if __name__ == "__main__":
 #
     if stop > start+1:
         create_sim_temp_plots(stop-1, stop)
-
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")
