@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################@###############################################################################
 #                                                                                                   #
@@ -21,10 +21,12 @@ import random
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
 import unittest
+import getpass
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+path = '/data/mta4/testACIS/Focal/Script/house_keeping/dir_list'
+#path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -82,11 +84,17 @@ def create_long_term_max_data(iall=0):
             wind = 'a'
         else:
             wind = 'w'
-    else:
+    elif iall == 1:
         y_list = range(2000, tyear+1)
         cut    = 0.0
         wind   = 'w'
-
+    elif iall == 2:
+#
+#--- unittest options
+#
+        y_list = range(2000,2001)
+        cut = 0
+    
     sline = ''
     for year in y_list:
         print("Processing YEAR: " + str(year))
@@ -145,6 +153,11 @@ def create_long_term_max_data(iall=0):
                 b_list = [crbt]
                 start  = stop
                 stop  += step
+#
+#--- if unittest case then return sline
+#
+    if iall == 2:
+        return sline
 
     with open(ofile, wind) as fo:
         fo.write(sline)
@@ -196,16 +209,42 @@ class TestFunctions(unittest.TestCase):
     """
     testing functions
     """
+    def test_set_start(self):
+        data = ['800000000    foo', '700012868.184    bar']
+        start = set_start(data)
+        self.assertEqual(799977669.184,start)
+        start = set_start(data,pos=1, add=1)
+        self.assertEqual(700012869.184,start)
 
+    def test_create_long_term_max_data(self):
+        data = create_long_term_max_data(2)
+        data = data.strip().split("\n")
+        self.assertEqual('64929664',data[0].split()[0])
+        self.assertEqual('-117.770',data[-1].split()[1])
+    
+    
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
         iall = 1
     else:
         iall = 0
 
+    #unittest.main(exit=False)
     create_long_term_max_data(iall)
 
-    #unittest.main()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

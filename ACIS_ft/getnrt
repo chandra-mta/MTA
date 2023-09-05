@@ -1,9 +1,7 @@
-#! /bin/env perl
-'di';
-'ig00';
+#!/usr/bin/env perl
 #-----------------------------------------------------------------------
 #
-#   Module Name:    $Source: /data/mta4/CVS/Acis_ft/getnrt,v $
+#   Module Name:    $Source: /nfs/acis/h3/acisfs/configcntl/tools/src/GSEtest/scripts/getnrt,v $
 #
 #   Purpose:        Translate ASCDS telemetry frames to packets
 #
@@ -20,8 +18,76 @@
 #   Copyright:      Massachusetts Institute of Technology 1998
 #
 #   $Log: getnrt,v $
-#   Revision 1.1.1.1  2006/04/06 19:09:53  mta
-#   Imported sources
+#   Revision 1.30  2012/12/20 16:00:10  pgf
+#   Improve bad EHS block detection and dscription of -D flag
+#
+#   Revision 1.29  2012/12/19 21:58:29  pgf
+#   Add -D flag to detect and suppress bad EHS blocks
+#
+#   Revision 1.28  2012/12/06 15:47:29  squid
+#   Replace gzcat with gunzip -c
+#
+#   Revision 1.27  2012/11/13 20:41:46  pgf
+#   Make compatible with Linux
+#
+#   Revision 1.26  2012/08/07 16:09:34  pgf
+#   Reformat attached manuals and split them into man/man1.
+#
+#   Revision 1.25  2012/05/30 14:19:11  pgf
+#   Improve roll-over detection.
+#
+#   Revision 1.24  2012/03/09 20:37:03  pgf
+#   Use Socket class when running in perl5
+#
+#   Revision 1.23  2012/03/07 21:05:18  pgf
+#   Reformat floats for LSB architectures
+#
+#   Revision 1.22  2012/03/07 18:08:24  pgf
+#   Open compressed files with gzcat or zcat, for linux compliance
+#
+#   Revision 1.21  2011/06/08 21:22:56  pgf
+#   Update online manual section.
+#
+#   Revision 1.20  2011/05/11 17:58:41  pgf
+#   Add -o option.
+#
+#   Revision 1.19  2010/07/09 15:04:45  pgf
+#   Discard null minor frames.
+#
+#   Revision 1.18  2010/06/21 15:19:23  pgf
+#   Only reject minor frames with flagged errors.
+#
+#   Revision 1.17  2009/01/22 19:16:28  pgf
+#   Fix previous update.
+#
+#   Revision 1.16  2009/01/22 19:06:44  pgf
+#   Prevent integer truncation error in some versions of Perl.
+#
+#   Revision 1.15  2006/04/03 17:49:45  pgf
+#   Begin with generic search for Perl interpreter in $PATH
+#
+#   Revision 1.14  2005/04/25 03:01:40  pgf
+#   Replace missing minor frames with the correct number of nuls.
+#
+#   Revision 1.13  2005/03/26 07:27:47  pgf
+#   Fix typo in printEng().
+#
+#   Revision 1.12  2005/03/25 18:54:35  pgf
+#   Add -V option to display packet header fields.
+#
+# Revision 1.11  2001/07/05  21:30:16  pgf
+# account for wraparound in extra frame counter
+#
+# Revision 1.10  2001/03/16  19:45:14  pgf
+# add -u flag for unbuffered output
+# recognize (tcp|udp):host:port input format.
+#
+# Revision 1.9  2000/08/14  14:28:26  pgf
+# report header fields in verbose messages
+# pass only 1025 bytes of each minor frame
+#
+# Revision 1.8  1999/12/22  22:54:32  pgf
+# Update to interpret VCDU with external fencepost file
 #
 # Revision 1.7  1999/10/10  17:23:18  pgf
 # fix error in science frame time value
@@ -72,30 +138,38 @@
 #-----------------------------------------------------------------------
 
 $USAGE = "$0
-	[-C]		# check VCDU counters
-	[-F file]	# override ACISTTMFILE value
-	[-G]		# use ground receipt times
-	[-M]		# use mission elapsed times
-	[-O]		# use on-board times
-	[-R]		# allow for VCDU rollover
-	[-T time]	# supply time tags based on VCDU
-	[-n frames]	# max extra frames to ignore
-	[-r rolls]	# number of VCDU rollovers since fence start
-	[-t file]	# get time from fencepost file
-	[-v]		# verbose
-	[-x]		# report eng only once per major frame
-	[-X]		# old-style format 1
-	[file]		# input file name
+	[-C]            # report VCDU jumps and bad EHS frames
+	[-D]            # detect and remove bad EHS frames
+	[-F file]       # override ACISTTMFILE value
+	[-G]            # use ground receipt times
+	[-M]            # use mission elapsed times
+	[-O]            # use on-board times
+	[-R]            # allow for VCDU rollover
+	[-T time]       # supply time tags based on VCDU
+	[-V]            # print packet info to STDERR
+	[-X]            # old-style format 1
+	[-n frames]     # max extra frames to ignore
+	[-o path]       # raw output file
+	[-r rolls]      # number of VCDU rollovers since fence start
+	[-t file]       # get time from fencepost file
+	[-u]            # use unbuffered output
+	[-v]            # verbose
+	[-x]            # report eng only once per major frame
+	[file]          # input file name
 ";
 #-----------------------------------------------------------------------
-$ttm = $ENV{ACISTTMFILE} ? $ENV{ACISTTMFILE} : "acisEng.ttm";
+
+#require "ctime.pl";
+
+$ttm = $ENV{ACISTTMFILE} ? $ENV{ACISTTMFILE} : "/data/mta/Script/MTA_limit_trends/Scripts/DEA/lib/acisEng.ttm";
 $nul = pack('C', 0);
 $xb7 = pack('C', 0xb7);
 #-----------------------------------------------------------------------
 # parse command arguments
 while ($_ = shift(@ARGV)) {
-    /^-[FTnrt]$/ && ($_ .= shift(@ARGV));
+    /^-[FTnort]$/ && ($_ .= shift(@ARGV));
     /^-C$/      && ($ckmnf   = 1 )     && next;
+    /^-D$/      && ($Dflag   = 1 )     && next;
     /^-F(.+)/   && ($ttm     = $1)     && next;
     /^-G$/      && ($timeoff = 4 )     && next;
     /^-M$/      && ($timeoff = 36)     && next;
@@ -103,71 +177,91 @@ while ($_ = shift(@ARGV)) {
     /^-R$/      && ($roll    = 1)      && next;
     /^-T(.+)/   && ($time    = $1)     && next;
     /^-X$/      && ($oldfmt1 = 1 )     && next;
+    /^-V$/      && ($Vverbose = 1 )    && next;
     /^-n(\d+)$/ && (($extras = $1)||1) && next;
+    /^-o(.+)/   && ($ofile   = "$1")   && next;
     /^-r(\d+)$/ && (($rolls  = $1)||1) && next;
     /^-t(.+)/   && &readFence($1)      && next;
+    /^-u$/	&& ($|       = 1 )     && next;
     /^-x$/      && ($xflag   = 1 )     && next;
     /^-v$/      && ($verbose = 1 )     && next;
     /^[^-]/     && unshift(@ARGV, $_)  && last;
     die $USAGE;
 }
+@ARGV = ( 'stdin' ) unless $ARGV[0];
 #-----------------------------------------------------------------------
 # read channel locations
 %chan = &readLib($ttm);
 &sortFence if @Gfence;
-
-@ARGV = ( 'stdin' ) unless $ARGV[0];
+#-----------------------------------------------------------------------
+# open raw output file if requested
+! $ofile || open(OUT, ">$ofile") || die "$ofile: $!\n";
 #-----------------------------------------------------------------------
 # diagnostic messages
-$msg1 = "lpkt=%d stat=%04x opts=%02x mask=%02x%02x%02x%02x\n";
+$msg1 = "lpkt=%d lhdr=%d stat=%04x nmnf=%d opts=%02x mask=%02x%02x%02x%02x\n";
 $msg2 = "%d %6d:%03d %8d\n";
 $msg3 = "%s: %s %2d minor frame(s) %d:%03d - %d:%03d fmt %d byte +%d\n";
 $msg4 = "%s: bad ACIS serial byte 0x%02x in %d:%03d\n";
 $msg5 = "%s: bad minor frame offset %d in %d:%03d\n";
 $msg6 = "%s: %s at %04d/%03d/%09.3f vcdu %d:%03d\n";
 $msg7 = "%s: VCDU rollover at %d:%03d - %d:%03d\n";
+$msg8 = "%s: null minor frame ignored after vcdu %d:%03d\n";
+$msg9 = "%s: rejected EHS block %d:%03d scid %d fmt %d byte +%d\n";
+&setProg if $Vverbose;
 #-----------------------------------------------------------------------
 # read OCC telemetry blocks, extract minor frames
 for $file (@ARGV) {
-    local($org, $first);
+    local($org, $first, $lpkt);
     # if necessary, decompress the file
-    if ($file =~ /\.(gz|Z)$/) {
-	open(STDIN, "gzcat $file|") || die "$file: $!\n";
+    if ($file =~ /^(tcp|udp):\/\/([^:]+):([^:]+)$/) {
+	$port = &openPort($1, $2, $3);
+    } elsif ($file =~ /\.(gz|Z)$/) {
+	open(STDIN, "gunzip -cf $file|") || die "$file: $!\n";
     } elsif ($file ne 'stdin') {
 	open(STDIN, $file) || die "$file: $!\n";
     }
     # read the primary EHS header
-    while (read(STDIN, $_, 16) == 16) {
-	local($lpkt) = unpack("x14n", $_);
-	# read the rest of the EHS packet
-	last if $lpkt < 16 || read(STDIN, $_, $lpkt-16, 16) != ($lpkt-16);
+    for ($org = 0; ; $org += $lpkt) {
+	if ($port) {
+	    last unless recv(STDIN, $_, 8192, 0);
+	    $lpkt = unpack("x14n", $_);
+	} else {
+	    last unless read(STDIN, $_, 16) == 16;
+	    $lpkt = unpack("x14n", $_);
+	    # read the rest of the EHS packet
+	    last if $lpkt < 16 || read(STDIN, $_, $lpkt-16, 16) != ($lpkt-16);
+	}
+	print OUT if $ofile;
 	local($lhdr, $stat, $nmnf, $opts) = unpack("x16n2x14C2", $_);
 	if (($stat & 3) != 3 && ($stat & 0x8000) == 0) {
 	    local($obtflg, $nn, @mask) = $opts & 0x40;
 	    # read the optional minor frame status bytes
 	    @mask = unpack('C*', substr($_, $obtflg ? 52 : 36, $nmnf+1))
 		if $stat & 3;
+	    # ignore bad frames
+	    next if $Dflag && &test_frame();
 	    # decode the appropriate timestamp
+	    printf STDERR $msg1, $lpkt, $lhdr, $stat, $nmnf+1, $opts, @mask
+		if $verbose;
 	    &get_frame_time if ! ($stat & 3) && ($obtflg || $timeoff == 4);
-	    printf STDERR $msg1, $lpkt, $stat, $opts, @mask if $verbose;
 	    # process each minor frame
 	    for ($nn = 0; $nn <= $nmnf; $nn++) {
-		local($off) = $lhdr+130+1134*$nn;
+		local($off) = $lhdr+126+1134*$nn;
 		if ($off < 0 || $off >= length($_)) {
-		    printf STDERR $msg5, $file, $off,
+		    printf STDERR $msg5, &fName, $off,
 			$lastmajor & 131071, $lastminor;
-		} elsif (! $mask[$nn]) {
+		} elsif (($mask[$nn] & 0x77) == 0) {
 		    &proc_frame(substr($_, $off, 1029));
 		}
 		&incr_frame_time if $timeoff;
 	    }
 	}
-	$org += $lpkt;
     }
     # report the last VCDU if -C used
-    printf STDERR $msg6, $file, "ends", $year, $doy, $sec,
+    printf STDERR $msg6, &fName, "ends", $year, $doy, $sec,
         $lastmajor & 131071, $lastminor if $ckmnf;
     close(STDIN);
+    close(OUT) if $ofile;
 }
 #-----------------------------------------------------------------------
 # cleanup
@@ -177,24 +271,55 @@ for $file (@ARGV) {
 close(STDIN);
 exit(0);
 #-----------------------------------------------------------------------
+# examine VCDU headers in EHS block
+sub test_frame { # -> {1|0}
+    local($sw, $nn, $sc, $vv, $ff, $vv0, $ff0, @buf) = (0);
+    for ($nn = 0; $nn <= $nmnf; $nn++) {
+	# ignore if flagged bad in EHS header
+	next if $mask[$nn] & 0x77;
+	@buf = unpack('x'.($lhdr+126+1134*$nn).'N3', $_);
+	# extract format and vcdu
+	$sc = ($buf[1] >> 22) & 0xff;
+	$ff = (($buf[1] >> 16) & 7) + 1;
+	$vv = (($buf[1] & 0xffff) << 8) | (($buf[2] >> 24) & 0xff);
+	# ignore if spacecraft code or format incorrect
+	last if ($sc != 6 || $ff > 6) && ++$sw;
+	# formats must be identical within the block
+	last if $ff0 && $ff != $ff0 && ++$sw;
+	# consecutive good vcdus must be ascending
+	last if $vv0 && ($vv <= $vv0 || $vv > $vv0+127) && ++$sw;
+	$ff0 = $ff;
+	$vv0 = $vv;
+    }
+    printf STDERR $msg9, $file, $vv >> 7, $vv & 0x7f,
+	$sc, $ff, $org if $sw && $ckmnf;
+    return $sw;
+}
+#-----------------------------------------------------------------------
 # extract ACIS science and engineering from a minor frame
 sub proc_frame { # minor-frame-buffer -> nul
     local($tlm) = shift;
-    local(@buf) = unpack('N2', $tlm);
+    local($synch, @buf) = unpack('N3', $tlm);
     local($fmt) = (($buf[0] >> 16) & 7) + 1;
     local($major) = (($buf[0] & 0xffff) << 1) | (($buf[1] >> 31) & 1);
     local($minor) = ($buf[1] >> 24) & 0x7f;
 
+    # check for null minor frame
+    if ($synch == 0 && $major == 0 && $minor == 0) {
+	printf STDERR $msg8, $file, $lastmajor, $lastminor;
+	return;
+    }
+
     # handle VCDU rollover
-    if ($roll && $major < 32768 && ($lastmajor & 131071) > (131072-32768)) {
+    if ($roll && ($major & 131071)+100 < ($lastmajor & 131071)) {
 	$rolls++;
-	printf STDERR $msg7, $file, $lastmajor & 131071, $lastminor,
+	printf STDERR $msg7, &fName, $lastmajor & 131071, $lastminor,
 	    $major & 131071, $minor if $verbose || $ckmnf;
     }
     $major += $rolls << 17;
 
     # report the first VCDU if -C used
-    printf STDERR $msg6, $file, "starts", $year, $doy, $sec,
+    printf STDERR $msg6, &fName, "starts", $year, $doy, $sec,
         $major & 131071, $minor if $ckmnf && ($year || $doy) && ! $first++;
 
     # report the VCDU information and byte offset
@@ -202,16 +327,26 @@ sub proc_frame { # minor-frame-buffer -> nul
 
     # report missing or extra minor frames
     if ($nminor++) {
-	$n = 128*($major-$lastmajor)+$minor-$lastminor-1;
-	if ($n > 0) {
+	local($nn) = 128*($major-$lastmajor)+$minor-$lastminor-1;
+	if ($nn > 0) {
 	    # for missing frames, add NUL padding to science packets
-	    printf STDERR $msg3, $file, "missing", $n, $lastmajor & 131071,
+	    printf STDERR $msg3, &fName, "missing", $nn, $lastmajor & 131071,
 		$lastminor, $major & 131071, $minor, $fmt, $org if $ckmnf;
-	    $acis .= $nul x ($n * 16) if $fmt == 1;
-	    $acis .= $nul x ($n * 768) if $fmt == 2;
-	} elsif ($n < -$extras) {
+	    # add nuls to $acis
+	    if ($fmt == 1 || $fmt == 2) {
+		local($mm) = 0;
+		while (--$nn >= 0 && $mm < 4096) {
+		    if (++$lastminor & 7) {
+			$mm += ($fmt == 1 ? 16 : 768);
+		    } else {
+			$mm += ($fmt == 1 ? 12 : 740);
+		    }
+		}
+		$acis .= $nul x $mm;
+	    }
+	} elsif ($nn < -$extras) {
 	    # ignore duplicate frames entirely
-	    @ndup = ($major, $minor) unless $ndup++;
+	    @ndup = ($major & 131071, $minor) unless $ndup++;
 	    return;
 	}
     }
@@ -219,7 +354,7 @@ sub proc_frame { # minor-frame-buffer -> nul
     # report duplicate frames
     if ($ndup) {
 	printf STDERR
-	    $msg3, $file, "extra  ", $ndup, @ndup, $lastmajor & 131071,
+	    $msg3, &fName, "extra  ", $ndup, @ndup, $lastmajor & 131071,
 		$lastminor, $fmt, $org if $ckmnf;
 	$ndup = 0;
     }
@@ -228,7 +363,7 @@ sub proc_frame { # minor-frame-buffer -> nul
 	    
     # get engineering data
     for (split(' ', $chan{"$fmt.$minor"})) {
-	$eng .= substr($tlm, $_, 1).pack('Cv', $minor, $_);
+	$eng .= substr($tlm, $_+4, 1).pack('Cv', $minor, $_);
     }
 	    
     # print separate engineering records in format 4 only
@@ -237,16 +372,16 @@ sub proc_frame { # minor-frame-buffer -> nul
     # copy science data to $acis
     if ($fmt == 1) {
 	if ($minor & 7) {
-	    $acis .= substr($tlm, $oldfmt1 ? 256 : 526, 4);
+	    $acis .= substr($tlm, $oldfmt1 ? 260 : 530, 4);
 	} else {
-	    &printTime(substr($tlm, $oldfmt1 ? 256 : 526, 4));
+	    &printTime(substr($tlm, $oldfmt1 ? 260 : 530, 4));
 	}
-	$acis .= substr($tlm, $oldfmt1 ? 260 : 768, 12);
+	$acis .= substr($tlm, $oldfmt1 ? 264 : 772, 12);
     } elsif ($fmt == 2) {
-	&printTime(substr($tlm, 56, 4)) unless $minor & 7;
+	&printTime(substr($tlm, 60, 4)) unless $minor & 7;
 	local($off) = ($minor & 7) ? 0 : 28;
 	for ($i = 0; $i < 8; $i++, $off = 0) {
-	    $acis .= substr($tlm, 32+$off+128*$i, 96-$off);
+	    $acis .= substr($tlm, 36+$off+128*$i, 96-$off);
 	}
     } else {
 	&printTime($nul x 4) unless $minor & 7;
@@ -254,6 +389,35 @@ sub proc_frame { # minor-frame-buffer -> nul
     
     # process the science data
     &procBuf if $acis;
+}
+#-----------------------------------------------------------------------
+# return file name for messages
+sub fName {
+    local($name) = $file;
+    $name =~ s/^.*\/([^\/]+)$/\1/;
+    $name .= substr(&ctime(time), 3, 13) if $port;
+    return $name;
+}
+#-----------------------------------------------------------------------
+# read data from IP port
+sub openPort {
+    local($proto, $host, $port, $pn, $at, $paddr) = @_;
+    close(STDIN);
+    # the following protects 'use' etc from failing to compile in perl 4.
+    if ($] =~ /^[^\d]*(\d+)/ && $1 < 5) {
+	eval `h2ph -d /tmp - < /usr/include/sys/socket.h | grep -v require`;
+	sub inet_aton { (gethostbyname($_[0]))[4]; }
+	sub pack_sockaddr_in { pack('Sna4x8', &AF_INET, $_[0], $_[1]); }
+    } else {
+	eval 'use Socket';
+    }
+    die "$proto: unknown protocol\n" unless $pn = getprotobyname($proto);
+    die "$host: host unknown\n" unless $at = &inet_aton($host);
+    die "$host:$port: $!\n" unless $paddr = &pack_sockaddr_in($port, $at);
+    die "socket: $!\n" unless socket(STDIN, &PF_INET, &SOCK_DGRAM, $pn);
+    die "$host:$port: bind $!\n" unless bind(STDIN, $paddr);
+    printf STDERR "%s: listening on $host port $port\n", &fName;
+    return $port;
 }
 #-----------------------------------------------------------------------
 # read channel locations
@@ -272,10 +436,10 @@ sub readLib {
 # output an engineering pseudopacket
 sub printEng {
     if ($eng) {
-	print pack('V4', 0x736f4166, (61<<10)+4+int(length($eng)/4),
-		   $fmt, $lastmajor & 131071);
-	print $eng;
+	local($hdr) = (61<<10)+4+int(length($eng)/4);
+	print pack('V4', 0x736f4166, $hdr, $fmt, $lastmajor & 131071).$eng;
 	$eng = '';
+	&printVerbose($hdr) if $Vverbose;
     }
     $lastmajor = $major;
 }
@@ -302,18 +466,18 @@ sub printTime { # BEP-timestamp-string -> nul
 	$lastsec = $sec;
 	@irig = &pack_irig($doy, $sec);
     } else {
-	@irig = unpack('x32n3', $tlm);
+	@irig = unpack('x36n3', $tlm);
     }
     print pack('V4v4', 0x736f4166, (62<<10)+7, $fmt,
-	$major & 131071, $minor, @irig);
-    print shift;
+	$major & 131071, $minor, @irig).shift;
+    &printVerbose((62<<10)+7) if $Vverbose;
 }
 #-----------------------------------------------------------------------
 # convert day and second to IRIG-B format
 sub pack_irig { # doy, sec -> (irig)
     local($d, $s) = @_;
-    local($id, $is, $ms, $us) = (int($d), int($s),
-	int(1000*$s) % 1000, int(1000000*$s) % 1000);
+    local($id, $is, $ms) = (int($d), int($s), int(1000*$s) % 1000);
+    local($us) =  int(1000000.5*($s-$is) % 1000);
     return (($id << 5) | ($is >> 12), (($is & 0xfff) << 4) | ($ms >> 6),
 	(($ms & 0x3f) << 10) | ($us & 0x3ff));
 }
@@ -366,11 +530,13 @@ sub procBuf { # nul -> nul
 	    $ch = substr($acis, $off+$len, 1);
 	    if ($ch ne $xb7 && $ch ne 'f') {
 		printf STDERR
-		    $msg4, $file, unpack('C', $ch),
+		    $msg4, &fName, unpack('C', $ch),
 			$major & 131071, $minor if $ckmnf;
 		$len = 4;
 	    } else {
 		print substr($acis, $off, $len);
+		&printVerbose(unpack("V", substr($acis, $off+4, 4)))
+		    if $Vverbose;
 	    }
 	}
 	$acis = substr($acis, $off+$len);
@@ -382,9 +548,15 @@ sub procBuf { # nul -> nul
 sub readFence {
     local($file) = shift;
     open(file) || die "$file: $!\n";
+    local($msb) = substr(pack("L", 1), 3, 1) eq pack("C", 1);
     while (read(file, $_, 170) == 170) {
 	unpack("l", $_) == 0 && read(file, $_, 337) && next;
-	push(@Gfence, unpack("x16 d2 x32 d2", $_));
+	if ($msb) {
+	    push(@Gfence, unpack("x16 d2 x32 d2", $_));
+	} else {
+	    local(@A) = unpack("x16 V4 x32 V4", $_);
+	    push(@Gfence, unpack("d4", pack("N8", @A[1,0,3,2,5,4,7,6])));
+	}
     }
     close(file);
     return 1;
@@ -429,12 +601,40 @@ sub getFence {
     return ($DDfence+1, $s);
 }
 #-----------------------------------------------------------------------
-__END__
-.00
+# initialize array of packet names
+sub setProg {
+@prog = (
+  '',                    'bepReadReply',        'fepReadReply',
+  'sramReadReply',       'pramReadReply',       'bepExecuteReply',
+  'fepExecuteReply',     'commandEcho',         'bepStartupMessage',
+  'fatalMessage',        'swHousekeeping',      'deaHousekeepingData',
+  'dumpedTeBlock',       'dumpedCcBlock',       'dataTeBiasMap',
+  'scienceReport',       'exposureTeRaw',       'dataTeRaw',
+  'exposureTeHistogram', 'dataTeHist',          'exposureTeFaint',
+  'dataTeFaint',         'exposureTeFaintBias', 'dataTeFaintBias',
+  'exposureTeGraded',    'dataTeGraded',        'exposureCcRaw',
+  'dataCcRaw',           'exposureCcFaint',     'dataCcFaint',
+  'exposureCcGraded',    'dataCcGraded',        'dataCcBiasMap',
+  'dataBiasError',       'bepReadReply',        'bepReadReply',
+  'bepReadReply',        'bepReadReply',        'bepReadReply',
+  'bepReadHuffman',      'bepReadSlots',        'bepReadSlots',
+  'bepReadSlots',        'bepReadSlots',        'bepReadSlots',
+  '',                    'dataTeVeryFaint',     'exposureTeVeryFaint',
+  'dataTeEvHist',        'exposureTeEvHistogram', 'patchDataBiasError',
+  'dataTeFaint',         'exposureCcFaint',     'dataTeGraded',
+  'exposureCcGraded',    'dataTeCti1',          'exposureTeCti1',
+  );
 
-'di
-.nr nl 0-1
-.nr % 0
+  @prog[61..63] = ('engineeringPseudo', 'scienceFramePseudo', 'userPseudo');
+}
+#-----------------------------------------------------------------------
+# report packet name and VCDU to STDERR
+sub printVerbose {
+    printf STDERR "%07d:%03d: %5d %4d %s\n", $major, $minor,
+    ($_[0] >> 16) & 0xffff, $_[0] & 0x3ff, $prog[($_[0] >> 10) & 63];
+}
+#-----------------------------------------------------------------------
+__END__
 .TH GETNRT 1 "April 10, 1998"
 .\" --------------------------------------------------------------------
 .SH NAME
@@ -442,7 +642,7 @@ getnrt \- translate ASCDS telemetry stream to ACIS packets and pseudopackets
 .\" --------------------------------------------------------------------
 .SH SYNOPSIS
 .B getnrt
-.RB [ \-CGMORXvx ]
+.RB [ \-CDGMORXuvx ]
 .RB [ \-F
 .IR ttmfile ]
 .RB [ \-T
@@ -467,6 +667,22 @@ or
 .I
 ".Z",
 it will be decompressed while reading.
+.LP
+Alternatively, a
+.I file
+name of the form
+.I
+"proto://hostname:port"
+will read IP datagram packets in
+.I proto
+protocol (either
+.B tcp
+or
+.BR udp )
+from the specified
+.I port
+of
+.IR hostname .
 .LP
 Timing information will be extracted from the 6-byte IRIG-B fields in
 science frame headers unless overridden by the contents of a \`\`fencepost\'\'
@@ -504,6 +720,18 @@ otherwise, it is ignored.
 writes an error message to
 .I stderr
 whenever a gap in minor frames is detected.
+.\" ------------------------------------
+.TP 8n
+.B \-D
+removes corrupted EHS blocks. If found, and if the
+.B \-C
+flag is also specified,
+.I getnrt
+writes an error message to
+.I stderr
+to report the VCDU time tag, the spacecraft ID (which should be 6 for
+Chandra), the telemetry format (which should not exceed 6), and the
+byte offset of the start of the EHS block in the uncompressed input file.
 .\" ------------------------------------
 .TP 8n
 .BI \-F " ttmfile"
@@ -579,6 +807,19 @@ minor frame), where
 supplies the starting value in seconds elapsed since Jan 1 1970, UTC.
 .\" ------------------------------------
 .TP 8n
+.BI \-V
+For each ACIS packet encountered, write a line to
+.I stderr
+listing the major and minor frame values of the start of the packet,
+its sequence number, 32-bit word length, and mnemonic.
+.\" ------------------------------------
+.TP 8n
+.B \-X
+causes
+.I getp
+to use the old pre-flight byte assignment in Format 1.
+.\" ------------------------------------
+.TP 8n
 .BI \-n " frames"
 ignore duplicate minor frames whose major frame index differs from the
 previous acceptable frame by no more than
@@ -588,6 +829,13 @@ if consecutive frames are received with VCDU major:minor frame indices
 "5:31, 5:32, 2:33, 5:34, 5:35", the third minor frame will be ignored if
 .I frames
 is 3 or less.
+.\" ------------------------------------
+.TP 8n
+.BI \-o " file"
+copy the input to
+.I file
+without making any changes or deletions. This is particularly useful
+when reading from a port or from a combination of files and port.
 .\" ------------------------------------
 .TP 8n
 .BI \-r " rolls"
@@ -606,6 +854,11 @@ indices according to the contents of
 a valid Chandra timing \`\`fencepost\'\' file.
 .\" ------------------------------------
 .TP 8n
+.B \-u
+uses unbuffered output to
+.IR stdout .
+.\" ------------------------------------
+.TP 8n
 .B \-v
 becomes
 .I very
@@ -615,12 +868,6 @@ verbose, listing fields within each OCC and minor frame header.
 .B \-x
 report engineering pseudopackets once per major frame, even in Format 4,
 when 5 ACIS channels are present in each minor frame.
-.\" ------------------------------------
-.TP 8n
-.B \-X
-causes
-.I getp
-to use the old pre-flight byte assignment in Format 1.
 .\" --------------------------------------------------------------------
 .SH AUTHOR
 Peter G. Ford, MIT CSR

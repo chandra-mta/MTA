@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -19,6 +19,7 @@ import getopt
 import time
 import Chandra.Time
 import unittest
+import getpass
 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -618,7 +619,38 @@ def change_ctime_to_ydate(cdate, yd=1):
         return [year, date]
 
 #-------------------------------------------------------------------------------
+#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
+#-------------------------------------------------------------------------------
+
+class TestFunctions(unittest.TestCase):
+    """
+    testing functions
+    """
+#-------------------------------------------------------------------------------
+    def test_range_expand(self):
+        a = 314159
+        b = 525600
+        amin, amax = range_expand(a,b)
+        self.assertEqual(293014,amin)
+        self.assertEqual(546744,amax)
+#-------------------------------------------------------------------------------
+
+
 
 if __name__ == "__main__":
-
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+        
+    #unittest.main(exit=False)
     create_focal_temperature_plots()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -14,13 +14,13 @@ import sys
 import os
 import string
 import re
-import numpy
 import getopt
 import time
 import random
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
 import unittest
+import getpass
 #
 #--- reading directory list
 #
@@ -51,7 +51,7 @@ zspace = '/tmp/zspace' + str(rtail)
 #-- create_full_focal_plane_data: create/update full resolution focal plane data
 #-------------------------------------------------------------------------------
 
-def create_full_focal_plane_data():
+def create_full_focal_plane_data(rfile=''):
     """
     create/update full resolution focal plane data
     input:   none, but read from <short_term>/data_*
@@ -60,41 +60,53 @@ def create_full_focal_plane_data():
 #
 #--- read already processed data file names
 #
-    rfile = house_keeping + 'prev_short_files'
-    try:
-        rlist = mcf.read_data_file(rfile)
-        cmd   = 'mv ' +  rfile + ' ' + rfile + '~'
-        os.system(cmd)
+    if rfile == '':
+        testout = 0
+        rfile = house_keeping + 'prev_short_files'
+    
+        try:
+            rlist = mcf.read_data_file(rfile)
+            cmd   = 'mv ' +  rfile + ' ' + rfile + '~'
+            os.system(cmd)
 
-    except:
-        rlist = []
+        except:
+            rlist = []
 #
 #--- read currently available data file names
 #
-    cmd = 'ls ' + short_term + 'data_* > ' + rfile
-    os.system(cmd)
+        cmd = 'ls ' + short_term + 'data_* > ' + rfile
+        os.system(cmd)
 
-    flist = mcf.read_data_file(rfile)
+        flist = mcf.read_data_file(rfile)
 #
 #--- find un-processed data file names
 #
-    flist = list(numpy.setdiff1d(flist, rlist))
+        flist = list(set(flist).difference(set(rlist)))
 #
 #--- quite often crat and crbt data are not processed on time; so repeat the last
 #--- three data sets to make sure that missing data part is covered
 #
-    if len(rlist) > 3:
-        repeat_part = rlist[-3:]
+        if len(rlist) > 3:
+            repeat_part = rlist[-3:]
+        else:
+            repeat_part = rlist
+
+        flist = repeat_part + flist
+
+        schk   = 0
     else:
-        repeat_part = rlist
+#
+#--- define parameters in terms of test
+#
+        flist = [f"{short_term}{rfile}"]
+        testout = 1
+        schk = 1
+        start = 0
 
-    flist = repeat_part + flist
-
-    schk   = 0
     for ifile in flist:
         print("INPUT: " + ifile)
 #
-#---- checking whether the year change occues in this file
+#---- checking whether the year change occurs in this file
 #
         [year, chg] = find_year_change(ifile)
         data        = mcf.read_data_file(ifile)
@@ -183,12 +195,18 @@ def create_full_focal_plane_data():
         if sline == '':
             continue
 #
+#--- if testing then return the file contents for assertEquals
+#  
+        #print(f"testout:{testout}")
+        #print(f"sline:{sline}")
+        if testout == 1:
+            return sline
+
+#
 #--- write the data out
 #
         if os.path.isfile(outfile):
             wind = 'a'
-            cmd = 'cp ' +  outfile + ' ' +outfile + '~'
-            os.system(cmd)
         else:
             wind = 'w'
 
@@ -324,10 +342,10 @@ def ptime_to_ctime(year, atime, chg):
 #
 #--- add leading zeros
 #
-    day   = add_leading_zero(day, 3)
-    hh    = add_leading_zero(hh,  2)
-    mm    = add_leading_zero(mm,  2)
-    ss    = add_leading_zero(ss,  2)
+    day   = mcf.add_leading_zero(day, 3)
+    hh    = mcf.add_leading_zero(hh,  2)
+    mm    = mcf.add_leading_zero(mm,  2)
+    ss    = mcf.add_leading_zero(ss,  2)
     
     yday  = str(year) + ':' + str(day) + ':' + str(hh) + ':' + str(mm) + ':' + str(ss)
     try:
@@ -336,31 +354,6 @@ def ptime_to_ctime(year, atime, chg):
         ctime = 999.0
     
     return ctime
-
-#-------------------------------------------------------------------------------
-#-- add_leading_zero: add leading zero if needed                              --
-#-------------------------------------------------------------------------------
-
-def add_leading_zero(val, num):
-    """
-    add leading zero if needed
-    input:  val --- value to modified
-    num --- how many digit we need
-    output: sval--- adjust val in string
-    """
-#
-#--- how many digit the "val" already has
-#
-    tval = str(int(val))
-    bst  = len(tval)
-#
-#--- add the leading zero as needed
-#
-    sval = str(val)
-    for k in range(bst, num):
-        sval = '0' + sval
-
-    return sval
 
 #-------------------------------------------------------------------------------
 #-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
@@ -380,8 +373,8 @@ class TestFunctions(unittest.TestCase):
 
         [crat, crbt] = find_cold_plates(t_list)
 
-        self.assertEquals(testa, crat)
-        self.assertEquals(testb, crbt)
+        self.assertEqual(testa, crat)
+        self.assertEqual(testb, crbt)
 
 #        print str(crat)
 #        print str(crbt)
@@ -403,22 +396,44 @@ class TestFunctions(unittest.TestCase):
 
         [year, chg] = find_year_change(ifile)
 
-        self.assertEquals(2017, year)
-        self.assertEquals(1,    chg)
+        self.assertEqual(2017, year)
+        self.assertEqual(1,    chg)
+
+#-------------------------------------------------------------------------------
+    
+    def test_ptime_to_ctime(self):
+        year = 2022
+        val1 = '366:1.000000'
+        chg = 1
+        ctime = ptime_to_ctime(year, val1, chg)
+        self.assertEqual(788918470.184, ctime)
 
 #-------------------------------------------------------------------------------
 
-#    def test_add_leading_zero(self):
-#
-#        out = add_leading_zero(10.121, 2)
-#        print out
-
-
+    def test_create_full_focal_plane_data(self):
+        rfile = 'data_2023_226_2116_227_0241'
+        data = create_full_focal_plane_data(rfile)
+        data = data.strip().split("\n")
+        self.assertEqual('808435046',data[0].split()[0])
+        self.assertEqual('808454568',data[-1].split()[0])
 
 
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
+    #unittest.main(exit=False)
     create_full_focal_plane_data()
-    #unittest.main()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

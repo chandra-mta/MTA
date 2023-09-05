@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -14,13 +14,13 @@ import sys
 import os
 import string
 import re
-import numpy
 import getopt
 import time
 import Chandra.Time
 #import Ska.engarchive.fetch as fetch
 import random
 import unittest
+import getpass
 #
 #--- from ska
 #
@@ -66,6 +66,7 @@ def update_base_data():
 #
 #--- read already processed data list
 #
+
     ifile = house_keeping + 'old_list_short'
     olist = mcf.read_data_file(ifile)
 
@@ -80,7 +81,7 @@ def update_base_data():
 #
 #--- find which ones are not processed yet
 #
-    nlist = numpy.setdiff1d(clist, olist)
+    nlist = list(set(clist).difference(set(olist)))
 #
 #--- create new short term data files (usually 3 per day)
 #
@@ -107,7 +108,7 @@ def extract_data_from_dump(nlist, test=0):
 
         cmd = '/usr/bin/env PERL5LIB= '
         cmd = cmd + 'gzip -dc ' + ent + ' |' + bin_dir + 'getnrt -O $* | '
-        cmd = cmd + bin_dir + '/acis_ft_fptemp.pl >> ' +  nfile
+        cmd = cmd + bin_dir + 'acis_ft_fptemp.pl >> ' +  nfile
         bash(cmd,  env=ascdsenv)
 
     return plist
@@ -144,7 +145,7 @@ class TestFunctions(unittest.TestCase):
         ifile = '/dsops/GOT/input/2018_119_2325_120_1206_Dump_EM_76390.gz'
         out   = create_out_name(ifile)
         atemp = re.split('\/', out)
-        self.assertEquals(atemp[-1], 'data_2018_119_2325_120_1206')
+        self.assertEqual(atemp[-1], 'data_2018_119_2325_120_1206')
 
 
 #-------------------------------------------------------------------------------
@@ -160,9 +161,9 @@ class TestFunctions(unittest.TestCase):
         data  = mcf.read_data_file('./short_term_test', remove=1)
 
         if len(data) > 0:
-            self.assertEquals(1, 1)
+            self.assertEqual(1, 1)
         else:
-            self.assertEquals(0, 1)
+            self.assertEqual(0, 1)
     
 #-------------------------------------------------------------------------------
 #
@@ -170,6 +171,19 @@ class TestFunctions(unittest.TestCase):
 #
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
-    #unittest.main()
+    #unittest.main(exit=False)
     update_base_data()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f'rm /tmp/{user}/{name}.lock')

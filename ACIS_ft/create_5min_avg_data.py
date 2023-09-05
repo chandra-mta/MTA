@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################################################################################################
 #                                                                                                   #
@@ -19,8 +19,9 @@ import getopt
 import random
 import time
 import Chandra.Time
-#import Ska.engarchive.fetch as fetch
+import Ska.engarchive.fetch as fetch
 import unittest
+import getpass
 #
 #--- reading directory list
 #
@@ -55,7 +56,7 @@ hstep = 0.5 * step
 #-- create_5min_avg_data: create data file contains daily max value of focal plane temp 
 #-------------------------------------------------------------------------------
 
-def create_5min_avg_data(year):
+def create_5min_avg_data(year='', dfile=''):
     """
     create data file contains daily max value of focal plane temp 
     input:  all --- default: 0 extract data only this year. otherwise start from year 2000 to current
@@ -75,7 +76,14 @@ def create_5min_avg_data(year):
 #
 #--- read data of each year
 #
-    dfile = data_dir + '/full_focal_plane_data_' + str(year)
+    if dfile == '':
+        testout = 0
+        dfile = data_dir + '/full_focal_plane_data_' + str(year)
+    else:
+        testout = 1
+        if not os.path.isfile(dfile):
+            dfile = f"{data_dir}/{dfile}"
+
     data  = mcf.read_data_file(dfile)
 
     f_list = []
@@ -123,6 +131,12 @@ def create_5min_avg_data(year):
             start  = stop
             stop  += step
 
+#
+#--- If running a test, return the file data instead
+#
+    if testout == 1:
+        return sline
+    
     ofile = data_dir + '/focal_plane_data_5min_avg_' + str(year)
     with  open(ofile, 'w') as fo:
         fo.write(sline)
@@ -150,10 +164,10 @@ def find_last_entry_date():
 
 def set_start(data, pos=0, add=0.0):
     """
-    find the fist day of the data and set to start from hour 00:00:00
+    find the first day of the data and set to start from hour 00:00:00
     input:  data    --- a list of data; <ctime>:<data1>:<data2>:<data3>
             pos     --- a postion of the element, usually 0 (at beginning)
-            add     --- a shifting facotr in seconds; default: 0
+            add     --- a shifting factor in seconds; default: 0
     output: start   --- a starting time in seconds from 1998.1.1
     """
     atemp  = re.split('\s+', data[pos])
@@ -174,17 +188,47 @@ class TestFunctions(unittest.TestCase):
     """
     testing functions
     """
+    def test_set_start(self):
+        data = ['800000000    foo', '700012868.184    bar']
+        start = set_start(data)
+        self.assertEqual(799977669.184,start)
+        start = set_start(data,pos=1, add=1)
+        self.assertEqual(700012869.184,start)
+
+    def test_create_5min_avg_data(self):
+        dfile = "full_focal_plane_data_2022"
+        tfile = 'test_5min_acis_focal_plane_data'
+        user = getpass.getuser()
+        cmd = f"head -n 100 {data_dir}/{dfile} > /tmp/{user}/{tfile}"
+        os.system(cmd)
+        data = create_5min_avg_data(year='',dfile=f"/tmp/{user}/{tfile}").strip().split("\n")
+        cmd = f"rm -f /tmp/{user}/{tfile}"
+        os.system(cmd)
+        self.assertEqual('757383369', data[0].split()[0])
+        self.assertEqual('-119.060',data[-1].split()[1])
 
 
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
         year = int(float(sys.argv[1]))
     else:
         year = ''
 
+    #unittest.main(exit=False)
     create_5min_avg_data(year)
-
-    #unittest.main()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")
