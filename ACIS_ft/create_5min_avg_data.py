@@ -19,7 +19,7 @@ import getopt
 import random
 import time
 import Chandra.Time
-import Ska.engarchive.fetch as fetch
+#import Ska.engarchive.fetch as fetch
 import unittest
 #
 #--- reading directory list

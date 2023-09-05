@@ -1,4 +1,4 @@
-#!/usr/bin/env /usr/local/bin/perl
+#!/usr/bin/env /usr/bin/perl
 
 #################################################################################
 #                                       										#
@@ -12,7 +12,8 @@
 #										                                        #
 #										                                        #
 #	noted by t. isobe							                                #
-#										                                        #
+#	                                                                            #
+#   replaced /usr/local/bin/perl with /usr/bin/perl in #! MS                    #
 #################################################################################
 
 while (read(STDIN, $buf, 8) == 8) {
