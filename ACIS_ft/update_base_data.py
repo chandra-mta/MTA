@@ -12,15 +12,11 @@
 
 import sys
 import os
-import string
 import re
-import getopt
-import time
 import Chandra.Time
-#import Ska.engarchive.fetch as fetch
-import random
 import unittest
 import getpass
+import glob
 #
 #--- from ska
 #
@@ -48,11 +44,6 @@ sys.path.append(mta_dir)
 sys.path.append(bin_dir)
 
 import mta_common_functions     as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 
 #-------------------------------------------------------------------------------
 #-- update_base_data: update acis focal temperature data files                --
@@ -79,6 +70,7 @@ def update_base_data():
     cmd   = 'ls /dsops/GOT/input/*_Dump_EM_*.gz > ' + ifile
     os.system(cmd)
     clist = mcf.read_data_file(ifile)
+    
 #
 #--- find which ones are not processed yet
 #
@@ -151,14 +143,9 @@ class TestFunctions(unittest.TestCase):
 
 #-------------------------------------------------------------------------------
     def test_extract_data_from_dump(self):
-
-        cmd = 'ls  /dsops/GOT/input/*Dump_EM*gz > ' + zspace
-        os.system(cmd)
-        data = mcf.read_data_file(zspace, remove=1)
-        nlist = [data[-1],]
-
+        data = glob.glob('/dsops/GOT/input/*Dump_EM*gz')
+        nlist = [data[-1]]
         plist = extract_data_from_dump(nlist, test=1)
-        
         data  = mcf.read_data_file('./short_term_test', remove=1)
 
         if len(data) > 0:

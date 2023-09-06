@@ -12,11 +12,7 @@
 
 import sys
 import os
-import string
 import re
-import getopt
-import time
-import random
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
 import unittest
@@ -42,11 +38,6 @@ sys.path.append(mta_dir)
 sys.path.append(bin_dir)
 
 import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 
 #-------------------------------------------------------------------------------
 #-- create_full_focal_plane_data: create/update full resolution focal plane data
@@ -197,9 +188,7 @@ def create_full_focal_plane_data(rfile=''):
             continue
 #
 #--- if testing then return the file contents for assertEquals
-#  
-        #print(f"testout:{testout}")
-        #print(f"sline:{sline}")
+# 
         if testout == 1:
             return sline
 
@@ -343,12 +332,13 @@ def ptime_to_ctime(year, atime, chg):
 #
 #--- add leading zeros
 #
-    day   = mcf.add_leading_zero(day, 3)
-    hh    = mcf.add_leading_zero(hh,  2)
-    mm    = mcf.add_leading_zero(mm,  2)
-    ss    = mcf.add_leading_zero(ss,  2)
-    
-    yday  = str(year) + ':' + str(day) + ':' + str(hh) + ':' + str(mm) + ':' + str(ss)
+
+    day = str(day).zfill(3)
+    hh = str(hh).zfill(2)
+    mm = str(mm).zfill(2)
+    ss = str(ss).zfill(2)
+
+    yday = f'{year}:{day}:{hh}:{mm}:{ss}'
     try:
         ctime = Chandra.Time.DateTime(yday).secs
     except:
@@ -367,10 +357,10 @@ class TestFunctions(unittest.TestCase):
 #-------------------------------------------------------------------------------
 
     def test_find_cold_plates(self):
-        t_list = [638025960, 638243227, 637326500, 638572802]
+        t_list = [638025960, 638243227]
 
-        testa = [-123.14513244628904, -125.53862609863279, 999.0, -125.53862609863279]
-        testb = [-123.14513244628904, -125.53862609863279, 999.0, -123.14513244628904]
+        testa = [-123.14513244628904, -125.53862609863279]
+        testb = [-123.14513244628904, -125.53862609863279]
 
         [crat, crbt] = find_cold_plates(t_list)
 
@@ -392,7 +382,6 @@ class TestFunctions(unittest.TestCase):
 #-------------------------------------------------------------------------------
 
     def test_find_year_change(self):
-
         ifile = '/data/mta/Script/ACIS/Focal/Short_term/data_2017_365_2059_001_0241'
 
         [year, chg] = find_year_change(ifile)

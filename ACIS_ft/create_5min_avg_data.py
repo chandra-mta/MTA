@@ -12,11 +12,8 @@
 
 import sys
 import os
-import string
 import re
 import numpy
-import getopt
-import random
 import time
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
@@ -43,11 +40,6 @@ sys.path.append(mta_dir)
 sys.path.append(bin_dir)
 
 import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 #
 #
 step  = 600.0   #---- 5 min step
@@ -227,8 +219,8 @@ if __name__ == "__main__":
     else:
         year = ''
 
-    #unittest.main(exit=False)
-    create_5min_avg_data(year)
+    unittest.main(exit=False)
+    #create_5min_avg_data(year)
 #
 #--- Remove lock file once process is completed
 #
