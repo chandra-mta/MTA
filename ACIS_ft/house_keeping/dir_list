@@ -1,7 +1,7 @@
-'/data/mta4/testACIS/Focal/Script/'               : bin_dir
-'/data/mta4/testACIS/Focal/Script/house_keeping/' : house_keeping
-'/data/mta4/testACIS/Focal/web/'                             : web_dir
-'/data/mta4/testACIS/Focal/web/Plots/'                       : plot_dir
-'/data/mta4/testACIS/Focal/Data/'                 : data_dir
-'/data/mta4/testACIS/Focal/Short_term/'           : short_term
+'/data/mta/Script/ACIS/Focal/Script/'               : bin_dir
+'/data/mta/Script/ACIS/Focal/Script/house_keeping/' : house_keeping
+'/data/mta/www/mta_fp/'                             : web_dir
+'/data/mta/www/mta_fp/Plots/'                       : plot_dir
+'/data/mta/Script/ACIS/Focal/Data/'                 : data_dir
+'/data/mta/Script/ACIS/Focal/Short_term/'           : short_term
 '/data/mta4/Script/Python3.10/MTA/'                 : mta_dir

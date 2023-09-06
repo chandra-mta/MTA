@@ -20,8 +20,7 @@ import getpass
 #
 #--- reading directory list
 #
-path = '/data/mta4/testACIS/Focal/Script/house_keeping/dir_list'
-#path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]

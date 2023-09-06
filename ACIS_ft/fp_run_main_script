@@ -1,20 +1,9 @@
-cd /data/mta4/testACIS/Focal/Script/
+cd /data/mta/Script/ACIS/Focal/Script/
 
-/data/mta4/testACIS/Focal/Script/update_base_data.py
-/data/mta4/testACIS/Focal/Script/full_focal_plane_data.py 
-/data/mta4/testACIS/Focal/Script/create_5min_avg_data.py
-/data/mta4/testACIS/Focal/Script/create_long_term_max_data.py
-/data/mta4/testACIS/Focal/Script/create_focal_temperature_plots.py
-/data/mta4/testACIS/Focal/Script/create_week_long_plot.py
-/data/mta4/testACIS/Focal/Script/create_html_pages.py
-
-
-#cd /data/mta/Script/ACIS/Focal/Script/
-
-#/data/mta/Script/ACIS/Focal/Script/update_base_data.py
-#/data/mta/Script/ACIS/Focal/Script/full_focal_plane_data.py 
-#/data/mta/Script/ACIS/Focal/Script/create_5min_avg_data.py
-#/data/mta/Script/ACIS/Focal/Script/create_long_term_max_data.py
-#/data/mta/Script/ACIS/Focal/Script/create_focal_temperature_plots.py
-#/data/mta/Script/ACIS/Focal/Script/create_week_long_plot.py
-#/data/mta/Script/ACIS/Focal/Script/create_html_pages.py
+/data/mta/Script/ACIS/Focal/Script/update_base_data.py
+/data/mta/Script/ACIS/Focal/Script/full_focal_plane_data.py 
+/data/mta/Script/ACIS/Focal/Script/create_5min_avg_data.py
+/data/mta/Script/ACIS/Focal/Script/create_long_term_max_data.py
+/data/mta/Script/ACIS/Focal/Script/create_focal_temperature_plots.py
+/data/mta/Script/ACIS/Focal/Script/create_week_long_plot.py
+/data/mta/Script/ACIS/Focal/Script/create_html_pages.py
