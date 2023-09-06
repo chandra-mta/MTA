@@ -12,14 +12,12 @@
 
 import sys
 import os
-import string
 import re
-import numpy
-import getopt
 import time
 import Chandra.Time
 import unittest
 import getpass
+import datetime
 
 import matplotlib as mpl
 mpl.use('Agg')

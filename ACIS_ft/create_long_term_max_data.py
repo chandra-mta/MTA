@@ -12,12 +12,9 @@
 
 import sys
 import os
-import string
 import re
 import numpy
-import getopt
 import time
-import random
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
 import unittest
@@ -43,12 +40,7 @@ sys.path.append(mta_dir)
 sys.path.append(bin_dir)
 
 import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-#
+
 step  = 86400   #---- one day step
 hstep = 0.5 * step
 

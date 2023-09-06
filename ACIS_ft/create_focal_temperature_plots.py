@@ -12,10 +12,8 @@
 
 import sys
 import os
-import string
 import re
 import numpy
-import getopt
 import time
 import Chandra.Time
 import unittest
@@ -48,12 +46,6 @@ sys.path.append(mta_dir)
 sys.path.append(bin_dir)
 
 import mta_common_functions     as mcf
-#
-#--- temp writing file name
-#
-import random
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 
 d_in_sec = 86400.0
 

@@ -12,7 +12,6 @@
 
 import sys
 import os
-import string
 import re
 import time
 import unittest
