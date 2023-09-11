@@ -23,9 +23,11 @@ import glob
 from Ska.Shell import getenv, bash
 
 ascdsenv = getenv('source /home/ascds/.ascrc -r release; setenv ACISTOOLSDIR /home/pgf', shell='tcsh')
+
 #
-#--- reading directory list
+#--- directory list
 #
+"""
 path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
 
 with open(path, 'r') as f:
@@ -36,14 +38,23 @@ for ent in data:
     var   = atemp[1].strip()
     line  = atemp[0].strip()
     exec("%s = %s" %(var, line))
+"""
+BIN_DIR = '/data/mta/Script/ACIS/Focal/Script/'
+HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping/'
+SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term/'
+"""
+#TODO change approach to append directly. actually won't need this, moving away from mcf if possible
+MTA_DIR = '/data/mta4/Script/Python3.10/MTA/'
+"""
+
 #
 #--- append path to a private folder
 #
-sys.path.append(mta_dir)
-sys.path.append(bin_dir)
-
+sys.path.append(BIN_DIR)
+"""
+sys.path.append(MTA_DIR)
 import mta_common_functions     as mcf
-
+"""
 #-------------------------------------------------------------------------------
 #-- update_base_data: update acis focal temperature data files                --
 #-------------------------------------------------------------------------------
@@ -57,8 +68,8 @@ def update_base_data():
 #
 #--- read already processed data list
 #
-
-    ifile = house_keeping + 'old_list_short'
+    """
+    ifile = f"{HOUSE_KEEPING}old_list_short"
     olist = mcf.read_data_file(ifile)
 
     cmd   = 'mv -f ' + ifile + ' ' + ifile + '~'
@@ -78,17 +89,28 @@ def update_base_data():
 #--- create new short term data files (usually 3 per day)
 #
     plist = extract_data_from_dump(nlist)
-
+    """
+    ifile = f"{HOUSE_KEEPING}old_list_short"
+    with open(ifile,'r') as f:
+        olist = [x.strip() for x in f.readlines()]
+    os.system(f"mv -f {ifile} {ifile}~")
+    os.system(f"ls /dsops/GOT/input/*_Dump_EM_*.gz > {ifile}")
+    with open(ifile,'r') as f:
+        clist = [x.strip() for x in f.readlines()]
+    nlist = list(set(clist).difference(set(olist)))
+    
+    plist = extract_data_from_dump(nlist)
 #-------------------------------------------------------------------------------
 #-- extract_data_from_dump: extract focal data from dump data                 --
 #-------------------------------------------------------------------------------
 
-def extract_data_from_dump(nlist, test=0):
+"""def extract_data_from_dump(nlist, test=0):"""
+def extract_data_from_dump(nlist):
     """
     extract focal data from dump data
     input:  nlist   --- a list of new dump data file names
-            test    --- for unittest
     output: extracted data: <short_term>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
+    """
     """
     plist = []
     for ent in nlist:
@@ -101,6 +123,15 @@ def extract_data_from_dump(nlist, test=0):
         cmd = '/usr/bin/env PERL5LIB= '
         cmd = cmd + 'gzip -dc ' + ent + ' |' + bin_dir + 'getnrt -O $* | '
         cmd = cmd + bin_dir + 'acis_ft_fptemp.pl >> ' +  nfile
+        bash(cmd,  env=ascdsenv)
+    """
+
+    plist = []
+    for ent in nlist:
+        nfile = create_out_name(ent)
+        plist.append(nfile)
+
+        cmd = f"/usr/bin/env PERL5LIB=  gzip -dc {ent} | {BIN_DIR}getnrt -O $* | {BIN_DIR}acis_ft_fptemp.pl >> {nfile}"
         bash(cmd,  env=ascdsenv)
 
     return plist
@@ -115,47 +146,17 @@ def create_out_name(ifile):
     input:  ifile   --- dump_em file name
     output: ofile   --- output file name in <short_term>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
     """
+    """
     atemp = re.split('\/', ifile)
     btemp = re.split('_Dump', atemp[-1])
-
-    ofile = short_term + 'data_' + btemp[0]
+    ofile = SHORT_TERM + 'data_' + btemp[0]
+    """
+    atemp = ifile.split("/")
+    btemp = atemp[-1].split('_Dump')
+    ofile = f"{SHORT_TERM}data_{btemp[0]}"
 
     return ofile
 
-#-------------------------------------------------------------------------------
-#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
-#-------------------------------------------------------------------------------
-
-class TestFunctions(unittest.TestCase):
-    """
-    testing functions
-    """
-
-#-------------------------------------------------------------------------------
-    def test_create_out_name(self):
-
-        ifile = '/dsops/GOT/input/2018_119_2325_120_1206_Dump_EM_76390.gz'
-        out   = create_out_name(ifile)
-        atemp = re.split('\/', out)
-        self.assertEqual(atemp[-1], 'data_2018_119_2325_120_1206')
-
-
-#-------------------------------------------------------------------------------
-    def test_extract_data_from_dump(self):
-        data = glob.glob('/dsops/GOT/input/*Dump_EM*gz')
-        nlist = [data[-1]]
-        plist = extract_data_from_dump(nlist, test=1)
-        data  = mcf.read_data_file('./short_term_test', remove=1)
-
-        if len(data) > 0:
-            self.assertEqual(1, 1)
-        else:
-            self.assertEqual(0, 1)
-    
-#-------------------------------------------------------------------------------
-#
-#--- if there is any aurgument, it will run normal mode
-#
 
 if __name__ == "__main__":
 #
@@ -168,7 +169,6 @@ if __name__ == "__main__":
     else:
         os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
-    #unittest.main(exit=False)
     update_base_data()
 #
 #--- Remove lock file once process is completed
