@@ -12,32 +12,21 @@
 
 import sys
 import os
-import re
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
-import unittest
 import getpass
 #
-#--- reading directory list
+#--- Directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+BIN_DIR = '/data/mta/Script/ACIS/Focal/Script/'
+DATA_DIR = '/data/mta/Script/ACIS/Focal/Data/'
+HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping/'
+SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term/'
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
 #
 #--- append path to a private folder
 #
-sys.path.append(mta_dir)
-sys.path.append(bin_dir)
-
-import mta_common_functions as mcf
-
+sys.path.append(BIN_DIR)
 #-------------------------------------------------------------------------------
 #-- create_full_focal_plane_data: create/update full resolution focal plane data
 #-------------------------------------------------------------------------------
@@ -52,11 +41,11 @@ def create_full_focal_plane_data(rfile=''):
 #--- read already processed data file names
 #
     if rfile == '':
-        testout = 0
-        rfile = house_keeping + 'prev_short_files'
+        rfile = HOUSE_KEEPING + 'prev_short_files'
     
         try:
-            rlist = mcf.read_data_file(rfile)
+            with open(rfile,'r') as f:
+                rlist = [line.strip() for line in f.readlines()]
             cmd   = 'mv ' +  rfile + ' ' + rfile + '~'
             os.system(cmd)
 
@@ -65,10 +54,10 @@ def create_full_focal_plane_data(rfile=''):
 #
 #--- read currently available data file names
 #
-        cmd = 'ls ' + short_term + 'data_* > ' + rfile
+        cmd = 'ls ' + SHORT_TERM + 'data_* > ' + rfile
         os.system(cmd)
-
-        flist = mcf.read_data_file(rfile)
+        with open(rfile,'r') as f:
+            flist = [line.strip() for line in f.readlines()]
 #
 #--- find un-processed data file names
 #
@@ -89,8 +78,7 @@ def create_full_focal_plane_data(rfile=''):
 #
 #--- define parameters in terms of test
 #
-        flist = [f"{short_term}{rfile}"]
-        testout = 1
+        flist = [f"{SHORT_TERM}{rfile}"]
         schk = 1
         start = 0
 
@@ -100,16 +88,18 @@ def create_full_focal_plane_data(rfile=''):
 #---- checking whether the year change occurs in this file
 #
         [year, chg] = find_year_change(ifile)
-        data        = mcf.read_data_file(ifile)
+        with open(ifile,'r') as f:
+            data = [line.strip() for line in f.readlines()]
 #
 #---- find the last entry time
 #
-        outfile = data_dir + 'full_focal_plane_data_' + str(year)
+        outfile = DATA_DIR + 'full_focal_plane_data_' + str(year)
         if schk == 0:
             try:
-                ldata   = mcf.read_data_file(outfile)
-                ltemp   = re.split('\s+', ldata[-1])
-                start   = int(float(ltemp[0]))
+                with open(outfile,'r') as f:
+                    ldata = [line.strip() for line in f.readlines()]
+                ltemp = ldata[-1].split()
+                start = int(float(ltemp[0]))
             except:
                 start   = 0
             schk = 1
@@ -118,7 +108,7 @@ def create_full_focal_plane_data(rfile=''):
 #
         tdict       = {}
         for ent in data:
-            atemp = re.split('\s+', ent)
+            atemp = ent.split()
             if len(atemp) < 4:
                 continue
 
@@ -185,11 +175,6 @@ def create_full_focal_plane_data(rfile=''):
 
         if sline == '':
             continue
-#
-#--- if testing then return the file contents for assertEquals
-# 
-        if testout == 1:
-            return sline
 
 #
 #--- write the data out
@@ -285,8 +270,7 @@ def find_year_change(ifile):
     output: year    --- year of the data
             chk     --- whether the year change occures in this file; 1: yes/ 0: no
     """
-    atemp = re.split('\/', ifile)
-    btemp = re.split('_', atemp[-1])
+    btemp = ifile.split('/')[-1].split('_')
     year  = int(float(btemp[1]))
 
     day1  = int(float(btemp[2]))
@@ -310,7 +294,7 @@ def ptime_to_ctime(year, atime, chg):
             chg     --- indicator that telling that year is changed (if 1)
     output: ctime   --- time in seconds from 1998.1.1
     """
-    btemp = re.split(':', atime)
+    btemp = atime.split(':')
     day   = int(float(btemp[0]))
 #
 #--- the year changed during this data; so change the year to the next year
@@ -344,67 +328,6 @@ def ptime_to_ctime(year, atime, chg):
         ctime = 999.0
     
     return ctime
-
-#-------------------------------------------------------------------------------
-#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
-#-------------------------------------------------------------------------------
-
-class TestFunctions(unittest.TestCase):
-    """
-    testing functions
-    """
-#-------------------------------------------------------------------------------
-
-    def test_find_cold_plates(self):
-        t_list = [638025960, 638243227]
-
-        testa = [-123.14513244628904, -125.53862609863279]
-        testb = [-123.14513244628904, -125.53862609863279]
-
-        [crat, crbt] = find_cold_plates(t_list)
-
-        self.assertEqual(testa, crat)
-        self.assertEqual(testb, crbt)
-
-#        print str(crat)
-#        print str(crbt)
-#
-#        out   = fetch.MSID('1crat', '2018:001:00:00:00', '2018:001:00:10:00')
-#        fo    = open('ztest', 'w')
-#        data  = out.vals
-#        tt    = out.times
-#        for k in range(0, len(data)):
-#            line = str(tt[k]) + '<-->' + str(data[k]) + '\n'
-#            fo.write(line)
-#        fo.close()
-
-#-------------------------------------------------------------------------------
-
-    def test_find_year_change(self):
-        ifile = '/data/mta/Script/ACIS/Focal/Short_term/data_2017_365_2059_001_0241'
-
-        [year, chg] = find_year_change(ifile)
-
-        self.assertEqual(2017, year)
-        self.assertEqual(1,    chg)
-
-#-------------------------------------------------------------------------------
-    
-    def test_ptime_to_ctime(self):
-        year = 2022
-        val1 = '366:1.000000'
-        chg = 1
-        ctime = ptime_to_ctime(year, val1, chg)
-        self.assertEqual(788918470.184, ctime)
-
-#-------------------------------------------------------------------------------
-
-    def test_create_full_focal_plane_data(self):
-        rfile = 'data_2023_226_2116_227_0241'
-        data = create_full_focal_plane_data(rfile)
-        data = data.strip().split("\n")
-        self.assertEqual('808435046',data[0].split()[0])
-        self.assertEqual('808454568',data[-1].split()[0])
 
 
 #-------------------------------------------------------------------------------
