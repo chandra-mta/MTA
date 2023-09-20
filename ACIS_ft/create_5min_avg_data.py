@@ -12,33 +12,17 @@
 
 import sys
 import os
-import re
 import numpy
 import time
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
-import unittest
 import getpass
 #
-#--- reading directory list
+#--- Directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+DATA_DIR = '/data/mta/Script/ACIS/Focal/Data/'
+OUT_DATA_DIR = DATA_DIR
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append(mta_dir)
-sys.path.append(bin_dir)
-
-import mta_common_functions as mcf
 #
 #
 step  = 600.0   #---- 5 min step
@@ -48,10 +32,10 @@ hstep = 0.5 * step
 #-- create_5min_avg_data: create data file contains daily max value of focal plane temp 
 #-------------------------------------------------------------------------------
 
-def create_5min_avg_data(year='', dfile=''):
+def create_5min_avg_data(year=''):
     """
     create data file contains daily max value of focal plane temp 
-    input:  all --- default: 0 extract data only this year. otherwise start from year 2000 to current
+    input:  year --- default: '' extract data only this year. otherwise start from year 2000 to current
     output: <data_dir>/long_term_max_data format: <ctime>    <max focal temp> <crat> <crbt>
     """
 #
@@ -63,20 +47,15 @@ def create_5min_avg_data(year='', dfile=''):
 #
 #--- find the current year
 #
-        atemp = re.split(':', stday)
+        atemp = stday.split(':')
         year  = int(atemp[0])
 #
 #--- read data of each year
 #
-    if dfile == '':
-        testout = 0
-        dfile = data_dir + '/full_focal_plane_data_' + str(year)
-    else:
-        testout = 1
-        if not os.path.isfile(dfile):
-            dfile = f"{data_dir}/{dfile}"
+    dfile = f"{DATA_DIR}full_focal_plane_data_{year}"
 
-    data  = mcf.read_data_file(dfile)
+    with open(dfile,'r') as f:
+        data = [line.strip() for line in f.readlines()]
 
     f_list = []
     a_list = []
@@ -91,7 +70,7 @@ def create_5min_avg_data(year='', dfile=''):
     for ent in data:
         if ent == '':
             continue
-        atemp = re.split('\s+', ent)
+        atemp = ent.split()
         atime = float(atemp[0])
 
         focal = float(atemp[1])
@@ -108,12 +87,12 @@ def create_5min_avg_data(year='', dfile=''):
 #--- if there are data, take averages of data
 #
             if len(f_list) > 0:
-                afocal = numpy.average(f_list)
-                acrat  = numpy.average(a_list)
-                acrbt  = numpy.average(b_list)
+                afocal = sum(f_list)/len(f_list)
+                acrat  = sum(a_list)/len(a_list)
+                acrbt  = sum(b_list)/len(b_list)
                 mtime  = start + hstep
 
-                sline = sline + "%d\t%4.3f\t%4.3f\t%4.3f\n" % (mtime, afocal, acrat, acrbt)
+                sline  = sline + "%d\t%4.3f\t%4.3f\t%4.3f\n" % (mtime, afocal, acrat, acrbt)
             else:
                 pass
 
@@ -122,33 +101,10 @@ def create_5min_avg_data(year='', dfile=''):
             b_list = [crbt]
             start  = stop
             stop  += step
-
-#
-#--- If running a test, return the file data instead
-#
-    if testout == 1:
-        return sline
     
-    ofile = data_dir + '/focal_plane_data_5min_avg_' + str(year)
+    ofile = OUT_DATA_DIR + '/focal_plane_data_5min_avg_' + str(year)
     with  open(ofile, 'w') as fo:
         fo.write(sline)
-
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-
-def find_last_entry_date():
-
-    ifile = data_dir + 'long_term_max_data'
-
-    try:
-        data  = mcf.read_data_file(ifile)
-        start = set_start(data, pos=-1, add=hstep)
-
-    except:
-        start = 0
-
-    return start
 
 #-------------------------------------------------------------------------------
 #-- set_start: find the fist day of the data and set to start from hour 00:00:00
@@ -162,43 +118,15 @@ def set_start(data, pos=0, add=0.0):
             add     --- a shifting factor in seconds; default: 0
     output: start   --- a starting time in seconds from 1998.1.1
     """
-    atemp  = re.split('\s+', data[pos])
+    atemp  = data[pos].split()
     stday  = float(atemp[0]) + add
     day    = Chandra.Time.DateTime(stday).date
-    btemp  = re.split(':', day)
+    btemp  = day.split(':')
 
     start  = btemp[0] + ':' + btemp[1] + ':00:00:00'
     start  = Chandra.Time.DateTime(start).secs
 
     return start
-
-#-------------------------------------------------------------------------------
-#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
-#-------------------------------------------------------------------------------
-
-class TestFunctions(unittest.TestCase):
-    """
-    testing functions
-    """
-    def test_set_start(self):
-        data = ['800000000    foo', '700012868.184    bar']
-        start = set_start(data)
-        self.assertEqual(799977669.184,start)
-        start = set_start(data,pos=1, add=1)
-        self.assertEqual(700012869.184,start)
-
-    def test_create_5min_avg_data(self):
-        dfile = "full_focal_plane_data_2022"
-        tfile = 'test_5min_acis_focal_plane_data'
-        user = getpass.getuser()
-        cmd = f"head -n 100 {data_dir}/{dfile} > /tmp/{user}/{tfile}"
-        os.system(cmd)
-        data = create_5min_avg_data(year='',dfile=f"/tmp/{user}/{tfile}").strip().split("\n")
-        cmd = f"rm -f /tmp/{user}/{tfile}"
-        os.system(cmd)
-        self.assertEqual('757383369', data[0].split()[0])
-        self.assertEqual('-119.060',data[-1].split()[1])
-
 
 #-------------------------------------------------------------------------------
 
@@ -217,9 +145,7 @@ if __name__ == "__main__":
         year = int(float(sys.argv[1]))
     else:
         year = ''
-
-    unittest.main(exit=False)
-    #create_5min_avg_data(year)
+    create_5min_avg_data(year)
 #
 #--- Remove lock file once process is completed
 #
