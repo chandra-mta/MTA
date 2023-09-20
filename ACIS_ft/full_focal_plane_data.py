@@ -343,7 +343,6 @@ if __name__ == "__main__":
     else:
         os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
 
-    #unittest.main(exit=False)
     create_full_focal_plane_data()
 #
 #--- Remove lock file once process is completed
