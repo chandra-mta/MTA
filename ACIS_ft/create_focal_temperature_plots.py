@@ -15,8 +15,8 @@ import os
 import re
 import numpy
 import time
+import datetime
 import Chandra.Time
-import unittest
 import getpass
 
 import matplotlib as mpl
@@ -26,25 +26,11 @@ from pylab import *
 import matplotlib.pyplot       as plt
 from matplotlib import gridspec
 #
-#--- reading directory list
+#--- Directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
-
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append(mta_dir)
-sys.path.append(bin_dir)
-
-import mta_common_functions     as mcf
+DATA_DIR = '/data/mta/Script/ACIS/Focal/Data/'
+OUT_DATA_DIR = DATA_DIR
+PLOT_DIR = '/data/mta/www/mta_fp/Plots/'
 
 d_in_sec = 86400.0
 
@@ -67,7 +53,7 @@ def create_focal_temperature_plots():
 #
     stday = time.strftime("%Y:%j:%H:%M:%S", time.gmtime())
     today = Chandra.Time.DateTime(stday).secs
-    atemp = re.split(':', stday)
+    atemp = stday.split(":")
     year  = int(atemp[0])
     nyear = year + 1
     yday  = float(time.strftime("%j", time.gmtime()))
@@ -78,7 +64,7 @@ def create_focal_temperature_plots():
     start  = int(change_ctime_to_ydate(cut)[1])
     stop   = int(change_ctime_to_ydate(today)[1])
 
-    ifile  = data_dir + 'full_focal_plane_data_' + str(year)
+    ifile  = DATA_DIR + 'full_focal_plane_data_' + str(year)
     if yday < 7:
         ycut = 0
     else:
@@ -86,11 +72,11 @@ def create_focal_temperature_plots():
     [x, y, rta, rtb] = select_data(ifile, ycut, today)
 
     if yday < 7:
-        if mcf.is_leapyear(year-1):
+        if is_leapyear(year-1):
             dadd = 366.0
         else:
             dadd = 365.0
-        ifile  = data_dir + 'full_focal_plane_data_' + str(year-1)
+        ifile  = DATA_DIR + 'full_focal_plane_data_' + str(year-1)
         [xp, yp, rtap, rtbp] = select_data(ifile, cut, today)
         x   = xp + list(numpy.array(x) + dadd)
         y   = yp + y
@@ -112,7 +98,7 @@ def create_focal_temperature_plots():
 #
     ystart = str(year) + ':001:00:00:00'
     begin  = Chandra.Time.DateTime(ystart).secs
-    ifile  = data_dir + 'focal_plane_data_5min_avg_' +  str(year)
+    ifile  = DATA_DIR + 'focal_plane_data_5min_avg_' +  str(year)
     [x, y, rta, rtb] = select_data(ifile, begin, today)
     ymin   = -120
     ymax   = -90
@@ -123,7 +109,7 @@ def create_focal_temperature_plots():
 #
     if yday < 3:
         syear = year -1
-        ifile  = data_dir + 'focal_plane_data_5min_avg_' +  str(syear)
+        ifile  = DATA_DIR + 'focal_plane_data_5min_avg_' +  str(syear)
         ystart = str(syear) + ':001:00:00:00'
         lbegin = Chandra.Time.DateTime(ystart).secs
         [x, y, rta, rtb] = select_data(ifile, lbegin, begin)
@@ -132,7 +118,7 @@ def create_focal_temperature_plots():
 #
 #--- full range plot
 #
-    ifile  = data_dir + 'long_term_max_data'
+    ifile  = DATA_DIR + 'long_term_max_data'
     cut    = 0.0
     [x, y, rta, rtb] = select_data(ifile, cut, today, yd=0)
     ymin   = -120
@@ -161,14 +147,14 @@ def create_moving_average(data, step):
     out = []
     sum = 0
     partb = data[0:step]
-    bavg  = mean(partb)
+    bavg  = numpy.mean(partb)
     
     for k in range(0, step):
         out.append(bavg)
     
     for k in range(0, dlen-step):
         part = data[k:k+step]
-        pavg = mean(part)
+        pavg = numpy.mean(part)
         out.append(pavg)
     
     return out
@@ -198,11 +184,12 @@ def select_data_over_data_files(start, stop, binsize):
     rtb = []
     chk = 0
     for year in range(year1, year2+1):
-        ifile = data_dir + 'full_focal_plane_data_' + str(year)
-        data  = mcf.read_data_file(ifile)
+        ifile = DATA_DIR + 'full_focal_plane_data_' + str(year)
+        with open(ifile,'r') as f:
+            data = [line.strip() for line in f.readlines()]
 
         for ent in data:
-            atemp = re.split('\s+', ent)
+            atemp = ent.split()
             atime = float(atemp[0])
             if atime < start:
                 continue
@@ -275,7 +262,7 @@ def convert_to_ydate_list(x):
         cdata = change_ctime_to_ydate(val)
         if byear == '':
             byear = cdata[0]
-            if mcf.is_leapyear(byear):
+            if is_leapyear(byear):
                 base = 366
             else:
                 base = 365
@@ -286,26 +273,6 @@ def convert_to_ydate_list(x):
 
     return nx
 
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-
-def adjust_year_date(byear, x):
-
-    if mcf.is_leapyar(byear):
-        base = 366
-    else:
-        base = 365
-
-    nx = []
-    for ent in x:
-        if ent[0] != byear:
-            val = float(ent[1]) + base
-            nx.append(val)
-        else:
-            nx.append(float(ent[1]))
-
-    return nx
 
 #-------------------------------------------------------------------------------
 #-- check_time_format: return time in Chandra time                            --
@@ -324,9 +291,9 @@ def check_time_format(intime):
 #
 #--- it is already chandra format
 #
-    if mcf.is_neumeric(intime):
+    if isinstance(intime,'float') or isinstance(intime,'int'):
         out   = Chandra.Time.DateTime(intime).date
-        atemp = re.split(':', out)
+        atemp = out.split(":")
         year  = int(atemp[0])
         return [year, int(float(intime))]
 #
@@ -335,18 +302,18 @@ def check_time_format(intime):
     elif mc1 is not None:
         mc2 = re.search('T', intime)
         if mc2 is not None:
-            atemp = re.split('T', intime)
-            btemp = re.split('-', atemp[0])
+            atemp = intime.split("T")
+            btemp = atemp[0].split("-")
             year  = int(float(btemp[0]))
             mon   = int(float(btemp[1]))
             day   = int(float(btemp[2]))
-            ctemp = re.split(':', atemp[1])
+            ctemp = atemp[1].split(':')
             hrs   = ctemp[0]
             mins  = ctemp[1]
             secs  = ctemp[2]
      
         else:
-            btemp = re.split('-', intime)
+            btemp = intime.split('-')
             year  = int(float(btemp[0]))
             mon   = int(float(btemp[1]))
             day   = int(float(btemp[2]))
@@ -369,8 +336,7 @@ def check_time_format(intime):
 #--- time in <yyyy>:<ddd>:<hh>:<mm>:<ss>
 #
     elif mc2 is not None:
-
-        atemp = re.split(':', intime)
+        btemp = intime.split(":")
         year  = int(atemp[0])
         return [year, Chandra.Time.DateTime(intime).secs]
 
@@ -382,21 +348,23 @@ def select_data(ifile, start, stop, yd=1):
     """
     select data in the range and change the time format
     input:  ifile   --- data file name
-            cut     --- the data cut time in seconds from 1998.1.1
+            start   --- the data start time in seconds from 1998.1.1
+            stop    --- stop time in seconds from 1998.1.1
             yd      --- indicator to create fractional year (0) or ydate (1)
     output  xdata   --- a list of time data
             ydata   --- a list of temperature data
             radata  --- a list of 1crat data
             rbdata  --- a list of 1crbt data
     """
-    data   = mcf.read_data_file(ifile)
-    xdata  = []
+    with open(ifile,'r') as f:
+        data = [line.strip() for line in f.readlines()]
+    xdata_pre  = []
     ydata  = []
     radata = []
     rbdata = []
     for ent in data:
         try:
-            atemp = re.split('\s+', ent)
+            atemp = ent.split()
             atime = float(atemp[0])
         except:
             continue 
@@ -406,7 +374,7 @@ def select_data(ifile, start, stop, yd=1):
         if atime > stop:
             break
 
-        xdata.append(atime)
+        xdata_pre.append(atime)
         fval  = float(atemp[1])
         ydata.append(fval)
 
@@ -422,7 +390,10 @@ def select_data(ifile, start, stop, yd=1):
         diff = fval - test
         rbdata.append(diff)
 
-    xdata = convert_date_list(xdata, yd=yd)
+    xdata = []
+    for ent in xdata_pre:
+        date = change_ctime_to_ydate(ent, yd=yd)
+        xdata.append(date[1])
 
     return [xdata, ydata, radata, rbdata]
 
@@ -507,7 +478,7 @@ def plot_data(x, y0, y1, y2, xmin, xmax, ymin, ymax,  xname, yname, outname, wid
 #
 #--- set the size of the plotting area in inch (width: 10.0in, height 5 in)
 #
-    fig = matplotlib.pyplot.gcf()
+    fig = plt.gcf()
     fig.set_size_inches(width, height)
 #
 #--- save the plot in png format
@@ -517,10 +488,8 @@ def plot_data(x, y0, y1, y2, xmin, xmax, ymin, ymax,  xname, yname, outname, wid
 #--- close the plot
 #
     plt.close('all')
-
-    cmd = 'convert ./ztemp.png -trim ' + plot_dir +  outname
+    cmd = f"convert ./ztemp.png -trim {PLOT_DIR}{outname}; rm -f ztemp.png"
     os.system(cmd)
-    mcf.rm_files('ztemp.png')
 
 #-------------------------------------------------------------------------------
 #-- set_plotting_range: find min/max of x and y axes and set plotting ranges  --
@@ -535,46 +504,25 @@ def set_plotting_range(x, y):
     """
     xmin = int(min(x))
     xmax = int(max(x))
-    [xmin, xmax] = range_expand(xmin, xmax)
+    diffx = xmax - xmin
+
+    xmax += 0.1 * diffx
+    xmax = int(xmax)
+
+    xmin -= 0.1 * diffx
+    xmin = int(xmin)
     
     ymin = int(min(y))
     ymax = int(max(y))
-    [ymin, ymax] = range_expand(ymin, ymax)
+    diffy = ymax - ymin
+
+    ymax += 0.1 * diffy
+    ymax = int(ymax)
+    
+    ymin -= 0.1 * diffy
+    ymin = int(ymin)
 
     return [xmin, xmax, ymin, ymax]
-
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-
-def range_expand(amin, amax):
-
-    diff  = amax - amin
-    amax += 0.1 * diff
-    amax  = int(amax)
-
-    amin -= 0.1 * diff
-    amin  = int(amin)
-
-    return [amin, amax]
-
-#-------------------------------------------------------------------------------
-#-- convert_date_list: convert date format in the list to either fractional year or ydate
-#-------------------------------------------------------------------------------
-
-def convert_date_list(list, yd=1):
-    """
-    convert date format in the list to either fractional year or ydate
-    input:  list    --- a list of date
-            yd      --- indicator to create fractional year (0) or ydate (1)
-    output: save    --- a list of date in the new format
-    """
-    save = []
-    for ent in list:
-        date = change_ctime_to_ydate(ent, yd=yd)
-        save.append(date[1])
-
-    return save
 
 #-------------------------------------------------------------------------------
 #-- change_ctime_to_ydate: convert chandra time into fractional year or ydate --
@@ -590,7 +538,7 @@ def change_ctime_to_ydate(cdate, yd=1):
     """
 
     date  = Chandra.Time.DateTime(cdate).date
-    atemp = re.split(':', date)
+    atemp = date.split(":")
     year  = float(atemp[0])
     date  = float(atemp[1])
     hh    = float(atemp[2])
@@ -601,7 +549,7 @@ def change_ctime_to_ydate(cdate, yd=1):
     if yd == 1:
         return [year, date]
     else:
-        if mcf.is_leapyear(year):
+        if is_leapyear(year):
             base = 366
         else:
             base = 365
@@ -610,24 +558,30 @@ def change_ctime_to_ydate(cdate, yd=1):
 
         return [year, date]
 
-#-------------------------------------------------------------------------------
-#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
-#-------------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+#-- is_leapyear: check whether the year is a leap year                   --
+#--------------------------------------------------------------------------
 
-class TestFunctions(unittest.TestCase):
+def is_leapyear(year):
     """
-    testing functions
+    check whether the year is a leap year
+    input:  year    --- year
+    output: True/False
     """
-#-------------------------------------------------------------------------------
-    def test_range_expand(self):
-        a = 314159
-        b = 525600
-        amin, amax = range_expand(a,b)
-        self.assertEqual(293014,amin)
-        self.assertEqual(546744,amax)
-#-------------------------------------------------------------------------------
+    year = int(float(year))
+    chk  = year % 4             #--- every 4 years:   leap year
+    chk2 = year % 100           #--- but every 100 years: not leap year
+    chk3 = year % 400           #--- except every 400 year: leap year
 
+    val  = False
+    if chk == 0:
+        val = True
+        if chk2 == 0:
+            val = False
+    if chk3 == 0:
+        val = True
 
+    return val
 
 if __name__ == "__main__":
 #
@@ -638,9 +592,8 @@ if __name__ == "__main__":
     if os.path.isfile(f"/tmp/{user}/{name}.lock"):
         sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
         
-    #unittest.main(exit=False)
     create_focal_temperature_plots()
 #
 #--- Remove lock file once process is completed
