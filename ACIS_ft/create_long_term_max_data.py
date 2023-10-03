@@ -163,7 +163,7 @@ if __name__ == "__main__":
     if os.path.isfile(f"/tmp/{user}/{name}.lock"):
         sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     create_long_term_max_data()
 
