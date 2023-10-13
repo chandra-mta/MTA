@@ -1,4 +1,4 @@
-#!/usr/bin/env /proj/sot/ska/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Oct 11, 2018                                                       #
+#           last update: Oct 12, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -15,17 +15,37 @@ import sys
 import re
 import time
 import platform
+import random
+import Chandra.Time
+import subprocess  
+from subprocess import check_output
+#
+#--- add mta common functions
+#
+mta_dir = '/data/mta/Script/Python3.8/MTA/'
+sys.path.append(mta_dir)
+import mta_common_functions as mcf
 #
 #--- temp writing file name
 #
-rtail  = int(time.time())
+rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
-m_list  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 #
-#--- admin email address
+#--- admin email addresses (list)
 #
-admin   = 'tisobe@cfa.harvard.edu'
+ADMIN = ['mtadude@cfa.harvard.edu']#hardcoded mtadude to be notification of email alert
+
+for i in range(1,len(sys.argv)):
+    if sys.argv[i][:6] == 'email=':
+        ADMIN.append(sys.argv[i][6:])#includes extra emails passed though the script call
+
+#
+#--- a list of processes that we don't mind to kill without checking 
+#
+kill_list = ['update_rdb.py', 'run_filter_scripts.py', 'run_otg_proc.py', 'analyze_sim_data.py',\
+             'copy_data_from_occ.py', 'plot_msid_latest_conda.py', 'MTA_limit_trends',
+             'Disk_check/Scripts/update_html_page.py']
 
 #-----------------------------------------------------------------------------------------
 #-- check_staled_process: check whether any staled process                              --
@@ -37,35 +57,83 @@ def check_staled_process():
     input:  none
     output: email sent to admin if there are staled processes
     """
-#
 #--- find which cpu this one is
 #
     out     = platform.node()
     atemp   = re.split('\.', out)
     machine = atemp[0]
-
-    for proc in ['python', 'idl']:
 #
-#--- check currently running processes
+#--- set the past three day's dates in <Mmm><dd> format
 #
-        cmd     = 'ps aux | grep python >' + zspace
-        os.system(cmd)
-    
-        f       = open(zspace, 'r')
-        data    = [line.strip() for line in f.readlines()]
-        f.close()
-        cmd     = 'rm ' + zspace
+    aday1   = set_ldate(1)
+    aday2   = set_ldate(2)
+    aday3   = set_ldate(3)
+#
+#--- check currently running processes in the past three days
+#
+    mcf.rm_files(zspace)
+    chk = 0
+    for date in [aday1, aday2, aday3]:
+#
+#--- check mta first then cus
+#
+        if chk == 0:
+            cmd = 'ps aux | grep python | grep mta | grep ' + date + ' >' + zspace
+            chk = 1
+        else:
+            cmd = 'ps aux | grep python | grep mta | grep ' + date + ' >>' + zspace
+        x = check_output(cmd, shell=True)
+
+        cmd = 'ps aux | grep python | grep cus | grep ' + date + ' >>' + zspace
+        x = check_output(cmd, shell=True)
+#
+#--- ps aux... command always appear in the output; so remove them
+#
+    data = mcf.read_data_file(zspace, remove=1)
+    save = []
+    for ent in data:
+        mc = re.search('grep', ent)
+        if mc is None:
+            save.append(ent)
+#
+#--- if nothing is left, terminate the process
+#
+    if len(save) == 0:
+        exit(1)
+#
+#--- check whether the processes running are in kill list. if so, just kill them
+#
+    s_list  = []
+    temp_list  = ''                     #---- REMVOE!!
+    for ent in save:
+        chk = 0
+        for s_name in kill_list:
+            mc = re.search(s_name, ent)
+            if mc is not None:
+                temp_list = temp_list + ent + '\n'  #---- REMOVE!!
+                atemp = re.split('\s+', ent)
+                pid   = atemp[1]
+                cmd   = 'kill -9 ' + str(pid)
+                x = subprocess.run(cmd, shell=True)
+                chk = 1
+                break
+
+        if chk == 0:
+            s_list.append(ent)
+
+##   REMOVE REMOVE REMOVE REMOVE      #############
+    if temp_list != '':
+        with open(zspace, 'w') as fx:
+            fx.write(temp_list)
+        cmd = 'cat ' + zspace + '|mailx -s "Subject: Killed Stale Process on ' + machine + '" ' + ' '.join(ADMIN)
         os.system(cmd)
 
-        s_list  = []
-        for ent in data:
-            atemp = re.split('\s+', ent)
-            if atemp[0] in ['mta', 'cus']:
-                tt    = atemp[8]
-                mc    = re.search(':', tt)
-                if mc is None:
-                    s_list.append(ent)
-
+        cmd = 'rm ' + zspace
+        os.system(cmd)
+##   REMOVE REMOVE REMOVE REMOVE      #############
+#
+#--- if the processes which are not in the kill lists show up, report it to admin
+#
     if len(s_list) > 0:
         if len(s_list) == 1:
             line = 'There is a staled process on ' + machine  + ':\n ' 
@@ -77,15 +145,36 @@ def check_staled_process():
 
         line = line + '\nPlease check and, if it is necessary, remove it.\n'
 
-        fx   = open(zspace, 'w')
-        fx.write(line)
-        fx.close()
+        with  open(zspace, 'w') as fx:
+            fx.write(line)
 
-        cmd = 'cat ' + zspace + '|mailx -s "Subject: Staled Process on ' + machine + '" ' + admin
+        cmd = 'cat ' + zspace + '|mailx -s "Subject: Stale Process on ' + machine + '" ' + ' '.join(ADMIN)
         os.system(cmd)
         
         cmd = 'rm ' + zspace
         os.system(cmd)
+
+#-----------------------------------------------------------------------------------------
+#-- set_ldate: create date in <Mmm><dd> of 'day_ago'                                    --
+#-----------------------------------------------------------------------------------------
+
+def set_ldate(day_ago):
+    """
+    create date in <Mmm><dd> of 'day_ago'
+    input:  day_ago --- the date of how many days ago to create; 1 --- one day ago
+    ouput:  date    --- the data in <Mmm><dd>, e,g Jun05
+    """
+    y_day = Chandra.Time.DateTime().secs -  day_ago * 86400.0
+    y_day = Chandra.Time.DateTime(y_day).date
+    atemp = re.split('\.', y_day)
+    y_day = atemp[0]
+    out   = time.strftime('%m:%d', time.strptime(y_day, '%Y:%j:%H:%M:%S'))
+    atemp = re.split(':', out)
+    mon   = int(atemp[0])
+    lmon  = mcf.change_month_format(mon)
+    date  = lmon + atemp[1]
+
+    return date
 
 #-----------------------------------------------------------------------------------------
 

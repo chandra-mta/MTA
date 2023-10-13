@@ -2,7 +2,7 @@
 Staled Process Checker
 ######################
 
-This script will check wehter there are any process running more than a day and report back to admin
+This script will check whether there are any process running more than a day and report back to admin
 
 Script:
 -------
@@ -10,23 +10,32 @@ check_staled_process.py
 
 input: none
 output:     email to admin
+	    --- To pass emails into admin, use the sys args 'email=<address>' or 'email={<address1>,<address2>}' for multiple emails
+
+Note:
+In the script, there is a "kill_list". You can list a name of process which you would like to 
+kill automatically. The name must be unique; so it could be long as 
+"Disk_check/Scripts/update_html_page.py".
 
 cron job
 --------
 r2d2-v as mta:
-23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+23 1 * * * /data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
 
 c3po-v as mta
-23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+23 1 * * * /data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
 
-colossus-v as mta
-23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+boba-v as mta
+23 1 * * * /data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
 
-han-v as mta
-23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+Cleaning /tmp File
+##################
 
-luke-v as mta
-23 0 * * * //data/mta/Script/Check_Staled/Scripts/check_staled_process.py >> $HOME/Logs/check_staled_process.cron 2>&1
+remove_old_temp_files.py: remove old temp file from /tmp directory
+
+boba-v as mta
+
+5,15,25,35,45,55 * * * * cd /data/mta/Script/Check_Staled/Scripts; /data/mta/Script/Check_Staled/Scripts/remove_old_temp_files.py
 
 
 
