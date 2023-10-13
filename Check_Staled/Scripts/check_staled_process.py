@@ -20,12 +20,6 @@ import Chandra.Time
 import subprocess  
 from subprocess import check_output
 #
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-
-#
 #--- admin email addresses (list)
 #
 ADMIN = ['mtadude@cfa.harvard.edu']#hardcoded mtadude to be notification of email alert
@@ -60,8 +54,7 @@ def check_staled_process():
 #
 #--- check currently running processes in the past three days
 #
-    os.system(f"rm -rf {zspace}")
-    chk = 0
+    '''
     for date in [aday1, aday2, aday3]:
 #
 #--- check mta first then cus
@@ -75,10 +68,17 @@ def check_staled_process():
 
         cmd = 'ps aux | grep python | grep -v -e grep -e ps | grep cus | grep ' + date + ' >>' + zspace
         x = check_output(cmd, shell=True)
+    '''
+    #TODO change formating of ps aux
+    cmd = f'ps aux | grep python | grep -v -e grep -e ps | grep -e mta-e cus | grep -e "{aday1}" -e "{aday2}" -e "{aday3}"'
+    x = check_output(cmd,Shell=True)
+    data = [i.strip() for i in x.decode().split("\n") if i != '']
 
+    '''
     with open(zspace, 'r') as f:
             data = [line.strip() for line in f.readlines()]
     os.system(f"rm -rf {zspace}")
+    '''
 #
 #--- if nothing is left, terminate the process
 #
