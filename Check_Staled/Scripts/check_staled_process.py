@@ -32,6 +32,7 @@ KILL_LIST = ['update_rdb.py', 'run_filter_scripts.py', 'run_otg_proc.py', 'analy
              'Disk_check/Scripts/update_html_page.py']
 
 USER_LIST = ['mta','cus']
+PS_FORMAT = ['user','pid','%cpu','%mem','vsz','stat','start','etime','time','cmd']#list of formatting choices for the ps call
 
 #-----------------------------------------------------------------------------------------
 #-- set_ldate: create date in <Mmm><dd> of 'day_ago'                                    --
@@ -93,7 +94,7 @@ def check_staled_process():
         x = check_output(cmd, shell=True)
     '''
     #TODO change formating of ps aux
-    cmd = f'ps aux | grep python | grep -v -e grep -e ps | grep -e {" -e ".join(USER_LIST)} | grep -e {" -e ".join(DATES_LIST)}'
+    cmd = f'ps -eo {",".join(PS_FORMAT)} | grep python | grep -v -e grep -e ps | grep -e {" -e ".join(USER_LIST)} | grep -e {" -e ".join(DATES_LIST)}'
     x = check_output(cmd,Shell=True)
     data = [i.strip() for i in x.decode().split("\n") if i != '']
 
@@ -119,7 +120,7 @@ def check_staled_process():
             if mc is not None:
                 temp_list = temp_list + ent + '\n'  #---- REMOVE!!
                 atemp = re.split('\s+', ent)
-                pid   = atemp[1]
+                pid   = atemp[PS_FORMAT.index('pid')]
                 cmd   = 'kill -9 ' + str(pid)
                 x = subprocess.run(cmd, shell=True)
                 chk = 1
@@ -139,7 +140,9 @@ def check_staled_process():
         cmd = 'rm ' + zspace
         os.system(cmd)
         '''
-        temp_list = f"The following processes were found stale and killed as of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())} \n"+ temp_list
+        temp = f"The following processes were found stale and killed as of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())} \n"
+        temp = temp + f"{' ; '.join(PS_FORMAT)}\n"
+        templist = x + temp_list
         cmd = f'echo {temp_list} | mailx -s "Subject: Killed Stale Process on {machine}" {" ".join(ADMIN)}'
         os.system(cmd)
 ##   REMOVE REMOVE REMOVE REMOVE      #############
@@ -148,9 +151,11 @@ def check_staled_process():
 #
     if len(s_list) > 0:
         if len(s_list) == 1:
-            line = f"As of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())}, There is a staled process on {machine}:\n "
+            line = f"As of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())}, There is a staled process on {machine}:\n"
+            line = line + f"{' ; '.join(PS_FORMAT)}\n"
         else:
             line = f"As of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())}, There are staled processes on {machine}:\n"
+            line = line + f"{' ; '.join(PS_FORMAT)}\n"
 
         for ent in s_list:
             line = line + ent + '\n'
