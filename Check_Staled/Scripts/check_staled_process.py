@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Oct 12, 2021                                                       #
+#           last update: Oct 13, 2023                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -19,12 +19,6 @@ import random
 import Chandra.Time
 import subprocess  
 from subprocess import check_output
-#
-#--- add mta common functions
-#
-mta_dir = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(mta_dir)
-import mta_common_functions as mcf
 #
 #--- temp writing file name
 #
@@ -71,7 +65,7 @@ def check_staled_process():
 #
 #--- check currently running processes in the past three days
 #
-    mcf.rm_files(zspace)
+    os.system(f"rm -rf {zspace}")
     chk = 0
     for date in [aday1, aday2, aday3]:
 #
@@ -89,7 +83,9 @@ def check_staled_process():
 #
 #--- ps aux... command always appear in the output; so remove them
 #
-    data = mcf.read_data_file(zspace, remove=1)
+    with open(zspace, 'r') as f:
+            data = [line.strip() for line in f.readlines()]
+    os.system(f"rm -rf {zspace}")
     save = []
     for ent in data:
         mc = re.search('grep', ent)
@@ -154,6 +150,39 @@ def check_staled_process():
         cmd = 'rm ' + zspace
         os.system(cmd)
 
+#--------------------------------------------------------------------------
+#-- change_month_format: cnvert month format between digit and three letter month 
+#--------------------------------------------------------------------------
+
+def change_month_format(month):
+    """
+    cnvert month format between digit and three letter month
+    input:  month   --- either digit month or letter month
+    oupupt: either digit month or letter month
+    """
+    m_list = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',\
+              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+#
+#--- check whether the input is digit
+#
+    try:
+        var = int(float(month))
+        if (var < 1) or (var > 12):
+            return 'NA'
+        else:
+            return m_list[var-1]
+#
+#--- if not, return month #
+#
+    except:
+        mon = 'NA'
+        var = month.lower()
+        for k in range(0, 12):
+            if var == m_list[k].lower():
+                return k+1
+
+        return mon
+
 #-----------------------------------------------------------------------------------------
 #-- set_ldate: create date in <Mmm><dd> of 'day_ago'                                    --
 #-----------------------------------------------------------------------------------------
@@ -171,7 +200,7 @@ def set_ldate(day_ago):
     out   = time.strftime('%m:%d', time.strptime(y_day, '%Y:%j:%H:%M:%S'))
     atemp = re.split(':', out)
     mon   = int(atemp[0])
-    lmon  = mcf.change_month_format(mon)
+    lmon  = change_month_format(mon)
     date  = lmon + atemp[1]
 
     return date
