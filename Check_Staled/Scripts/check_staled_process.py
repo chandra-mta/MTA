@@ -107,12 +107,16 @@ def check_staled_process():
 
 ##   REMOVE REMOVE REMOVE REMOVE      #############
     if temp_list != '':
+        '''
         with open(zspace, 'w') as fx:
             fx.write(temp_list)
         cmd = 'cat ' + zspace + '|mailx -s "Subject: Killed Stale Process on ' + machine + '" ' + ' '.join(ADMIN)
         os.system(cmd)
 
         cmd = 'rm ' + zspace
+        os.system(cmd)
+        '''
+        cmd = f'echo {temp_list} | mailx -s "Subject: Killed Stale Process on {machine}" {" ".join(ADMIN)}'
         os.system(cmd)
 ##   REMOVE REMOVE REMOVE REMOVE      #############
 #
@@ -128,7 +132,7 @@ def check_staled_process():
             line = line + ent + '\n'
 
         line = line + '\nPlease check and, if it is necessary, remove it.\n'
-
+        '''
         with  open(zspace, 'w') as fx:
             fx.write(line)
 
@@ -136,6 +140,9 @@ def check_staled_process():
         os.system(cmd)
         
         cmd = 'rm ' + zspace
+        os.system(cmd)
+        '''
+        cmd = f'echo {line} | mailx -s "Subject: Stale Process on {machine}" {" ".join(ADMIN)}'
         os.system(cmd)
 
 #--------------------------------------------------------------------------
