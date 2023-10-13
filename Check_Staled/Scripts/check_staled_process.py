@@ -27,9 +27,37 @@ ADMIN = ['mtadude@cfa.harvard.edu']#hardcoded mtadude to be notification of emai
 #
 #--- a list of processes that we don't mind to kill without checking 
 #
-kill_list = ['update_rdb.py', 'run_filter_scripts.py', 'run_otg_proc.py', 'analyze_sim_data.py',\
+KILL_LIST = ['update_rdb.py', 'run_filter_scripts.py', 'run_otg_proc.py', 'analyze_sim_data.py',\
              'copy_data_from_occ.py', 'plot_msid_latest_conda.py', 'MTA_limit_trends',
              'Disk_check/Scripts/update_html_page.py']
+
+USER_LIST = ['mta','cus']
+
+#-----------------------------------------------------------------------------------------
+#-- set_ldate: create date in <Mmm><dd> of 'day_ago'                                    --
+#-----------------------------------------------------------------------------------------
+
+def set_ldate(day_ago):
+    """
+    create date in <Mmm><dd> of 'day_ago'
+    input:  day_ago --- the date of how many days ago to create; 1 --- one day ago
+    ouput:  date    --- the data in <Mmm><dd>, e,g Jun05
+    """
+    y_day = Chandra.Time.DateTime().secs -  day_ago * 86400.0
+    y_day = Chandra.Time.DateTime(y_day).date
+    atemp = re.split('\.', y_day)
+    y_day = atemp[0]
+    out   = time.strftime('%m:%d', time.strptime(y_day, '%Y:%j:%H:%M:%S'))
+    atemp = re.split(':', out)
+    mon   = int(atemp[0])
+    lmon  = change_month_format(mon)
+    date  = lmon + atemp[1]
+
+    return date
+#
+#--- set the past three day's dates in <Mmm><dd> format
+#
+DATES_LIST = [set_ldate(1), set_ldate(2), set_ldate(3)]
 
 #-----------------------------------------------------------------------------------------
 #-- check_staled_process: check whether any staled process                              --
@@ -46,12 +74,6 @@ def check_staled_process():
     out     = platform.node()
     atemp   = re.split('\.', out)
     machine = atemp[0]
-#
-#--- set the past three day's dates in <Mmm><dd> format
-#
-    aday1   = set_ldate(1)
-    aday2   = set_ldate(2)
-    aday3   = set_ldate(3)
 #
 #--- check currently running processes in the past three days
 #
@@ -71,7 +93,7 @@ def check_staled_process():
         x = check_output(cmd, shell=True)
     '''
     #TODO change formating of ps aux
-    cmd = f'ps aux | grep python | grep -v -e grep -e ps | grep -e mta-e cus | grep -e "{aday1}" -e "{aday2}" -e "{aday3}"'
+    cmd = f'ps aux | grep python | grep -v -e grep -e ps | grep -e {" -e ".join(USER_LIST)} | grep -e {" -e ".join(DATES_LIST)}'
     x = check_output(cmd,Shell=True)
     data = [i.strip() for i in x.decode().split("\n") if i != '']
 
@@ -89,10 +111,10 @@ def check_staled_process():
 #--- check whether the processes running are in kill list. if so, just kill them
 #
     s_list  = []
-    temp_list  = ''                     #---- REMVOE!!
+    temp_list  = ''                     #---- REMOVE!!
     for ent in data:
         chk = 0
-        for s_name in kill_list:
+        for s_name in KILL_LIST:
             mc = re.search(s_name, ent)
             if mc is not None:
                 temp_list = temp_list + ent + '\n'  #---- REMOVE!!
@@ -117,6 +139,7 @@ def check_staled_process():
         cmd = 'rm ' + zspace
         os.system(cmd)
         '''
+        temp_list = f"The following processes were found stale and killed as of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())} \n"+ temp_list
         cmd = f'echo {temp_list} | mailx -s "Subject: Killed Stale Process on {machine}" {" ".join(ADMIN)}'
         os.system(cmd)
 ##   REMOVE REMOVE REMOVE REMOVE      #############
@@ -125,9 +148,9 @@ def check_staled_process():
 #
     if len(s_list) > 0:
         if len(s_list) == 1:
-            line = 'There is a staled process on ' + machine  + ':\n ' 
+            line = f"As of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())}, There is a staled process on {machine}:\n "
         else:
-            line = 'There are staled processes on ' + machine  + ':\n' 
+            line = f"As of {time.strftime('%d/%m/%Y - %H:%M:%S',time.localtime())}, There are staled processes on {machine}:\n"
 
         for ent in s_list:
             line = line + ent + '\n'
@@ -178,28 +201,6 @@ def change_month_format(month):
                 return k+1
 
         return mon
-
-#-----------------------------------------------------------------------------------------
-#-- set_ldate: create date in <Mmm><dd> of 'day_ago'                                    --
-#-----------------------------------------------------------------------------------------
-
-def set_ldate(day_ago):
-    """
-    create date in <Mmm><dd> of 'day_ago'
-    input:  day_ago --- the date of how many days ago to create; 1 --- one day ago
-    ouput:  date    --- the data in <Mmm><dd>, e,g Jun05
-    """
-    y_day = Chandra.Time.DateTime().secs -  day_ago * 86400.0
-    y_day = Chandra.Time.DateTime(y_day).date
-    atemp = re.split('\.', y_day)
-    y_day = atemp[0]
-    out   = time.strftime('%m:%d', time.strptime(y_day, '%Y:%j:%H:%M:%S'))
-    atemp = re.split(':', out)
-    mon   = int(atemp[0])
-    lmon  = change_month_format(mon)
-    date  = lmon + atemp[1]
-
-    return date
 
 #-----------------------------------------------------------------------------------------
 
