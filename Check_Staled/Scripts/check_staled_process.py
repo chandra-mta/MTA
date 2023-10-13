@@ -29,11 +29,6 @@ zspace = '/tmp/zspace' + str(rtail)
 #--- admin email addresses (list)
 #
 ADMIN = ['mtadude@cfa.harvard.edu']#hardcoded mtadude to be notification of email alert
-
-for i in range(1,len(sys.argv)):
-    if sys.argv[i][:6] == 'email=':
-        ADMIN.append(sys.argv[i][6:])#includes extra emails passed though the script call
-
 #
 #--- a list of processes that we don't mind to kill without checking 
 #
@@ -72,36 +67,29 @@ def check_staled_process():
 #--- check mta first then cus
 #
         if chk == 0:
-            cmd = 'ps aux | grep python | grep mta | grep ' + date + ' >' + zspace
+            cmd = 'ps aux | grep python | grep -v -e grep -e ps | grep mta | grep ' + date + ' >' + zspace
             chk = 1
         else:
-            cmd = 'ps aux | grep python | grep mta | grep ' + date + ' >>' + zspace
+            cmd = 'ps aux | grep python | grep -v -e grep -e ps | grep mta | grep ' + date + ' >>' + zspace
         x = check_output(cmd, shell=True)
 
-        cmd = 'ps aux | grep python | grep cus | grep ' + date + ' >>' + zspace
+        cmd = 'ps aux | grep python | grep -v -e grep -e ps | grep cus | grep ' + date + ' >>' + zspace
         x = check_output(cmd, shell=True)
-#
-#--- ps aux... command always appear in the output; so remove them
-#
+
     with open(zspace, 'r') as f:
             data = [line.strip() for line in f.readlines()]
     os.system(f"rm -rf {zspace}")
-    save = []
-    for ent in data:
-        mc = re.search('grep', ent)
-        if mc is None:
-            save.append(ent)
 #
 #--- if nothing is left, terminate the process
 #
-    if len(save) == 0:
+    if len(data) == 0:
         exit(1)
 #
 #--- check whether the processes running are in kill list. if so, just kill them
 #
     s_list  = []
     temp_list  = ''                     #---- REMVOE!!
-    for ent in save:
+    for ent in data:
         chk = 0
         for s_name in kill_list:
             mc = re.search(s_name, ent)
@@ -151,7 +139,7 @@ def check_staled_process():
         os.system(cmd)
 
 #--------------------------------------------------------------------------
-#-- change_month_format: cnvert month format between digit and three letter month 
+#-- change_month_format: convert month format between digit and three letter month 
 #--------------------------------------------------------------------------
 
 def change_month_format(month):
