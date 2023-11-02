@@ -173,6 +173,11 @@ def run_dea_perl(dlist):
         cmd = dea_dir + 'out2in.pl deahk_temp.tmp deahk_temp_in.tmp ' + year
         os.system(cmd)
         
+        #Temporary change to provide config_mon/dumps mon the deahk_temp_in.tmp file.
+        #if directory of running script no longer exists then can safely remove this code block
+        #Will (11/02/23)
+        if os.path.isdir("/data/mta4/Script/Dumps/Dumps_mon/IN"):
+            os.system("cp deahk_temp_in.tmp /data/mta4/Script/Dumps/Dumps_mon/IN/deahk_temp_in.tmp")
 
         cmd = dea_dir + 'out2in.pl deahk_elec.tmp deahk_elec_in.tmp ' + year
         os.system(cmd)
