@@ -78,24 +78,6 @@ def run_filter_script():
         if not os.path.isfile(f"./{category_file}"):
             os.system(f"cp -f {house_keeping}/{category_file} .")
         filters_cat(category_file,unprocessed_data)
-    """
-#
-#--- prep for the filtering processes
-#
-    if not os.path.isfile('./msids.list'):
-        cmd = 'cp -f ' + house_keeping + 'msids.list .'
-        os.system(cmd)
-
-    if not os.path.isfile('./otg-msids.list'):
-        cmd = 'cp -f ' + house_keeping + 'otg-msids.list .'
-        os.system(cmd)
-#
-#--- main processings
-#
-    filters_otg(unprocessed_data)
-    filters_ccdm(unprocessed_data)
-    filters_sim(unprocessed_data)
-    """
 #
 #--- remove the local copy of dump files
 #
@@ -106,6 +88,10 @@ def run_filter_script():
 #
     mv_files()
 
+#-----------------------------------------------------------------------------------
+#-- filters_cat: run acorn for filter determined by category files               ---
+#-----------------------------------------------------------------------------------
+
 def filters_cat(category_file,unprocessed_data):
     """
     run acorn for category filter
@@ -114,60 +100,6 @@ def filters_cat(category_file,unprocessed_data):
     """
     for ent in unprocessed_data:
         cmd = f"/usr/bin/env PERL5LIB='' /home/ascds/DS.release/bin/acorn -nOC {category_file} -f {ent}"
-        try:
-            bash(cmd, env=ascdsenv)
-        except:
-            pass
-
-#-----------------------------------------------------------------------------------
-#-- filters_otg: run acorn for otg filter                                        ---
-#-----------------------------------------------------------------------------------
-
-def filters_otg(unprocessed_data):
-    """
-    run acorn for otg filter
-    input:  unprocessed_data    --- list of data
-    output: various *.tl files
-    """
-    for ent in unprocessed_data:
-        cmd = "/usr/bin/env PERL5LIB='' "
-        cmd = cmd + '/home/ascds/DS.release/bin/acorn -nOC otg-msids.list -f ' + ent
-        try:
-            bash(cmd, env=ascdsenv)
-        except:
-            pass
-
-#-----------------------------------------------------------------------------------
-#-- filters_ccdm: run acorn for ccdm filter                                      ---
-#-----------------------------------------------------------------------------------
-
-def filters_ccdm(unprocessed_data):
-    """
-    run acorn for ccdm filter
-    input: unprocessed_data    --- list of data
-    output: various *.tl files
-    """
-    for ent in unprocessed_data:
-        cmd = "/usr/bin/env PERL5LIB='' "
-        cmd = cmd + '/home/ascds/DS.release/bin/acorn -nOC msids.list -f ' + ent
-        try:
-            bash(cmd, env=ascdsenv)
-        except:
-            pass
-
-#-----------------------------------------------------------------------------------
-#-- filters_sim: run acorn for sim filter                                         --
-#-----------------------------------------------------------------------------------
-
-def filters_sim(unprocessed_data):
-    """
-    run acorn for sim filter
-    input: unprocessed_data    --- list of data
-    output: various *.tl files
-    """
-    for ent in unprocessed_data:
-        cmd = "/usr/bin/env PERL5LIB='' "
-        cmd = cmd + '/home/ascds/DS.release/bin/acorn -nOC msids_sim.list -f ' + ent
         try:
             bash(cmd, env=ascdsenv)
         except:
