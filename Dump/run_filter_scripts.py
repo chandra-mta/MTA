@@ -229,13 +229,9 @@ def copy_unprocessed_dump_em_files():
             if ctime < cut_time:
                 continue
 
-            cmd = 'cp ' + ent + ' . '
-            os.system(cmd)
-            cmd = f'gzip -d {ent}.gz'
-            os.system(cmd)
-
             atemp = re.split('\/', ent)
             fname = atemp[-1]
+            os.system(f"cp {ent} . ; gzip -d {fname}")
             fname = fname.replace('.gz','')
             unprocessed_data.append(fname)
         except:
