@@ -206,7 +206,7 @@ def copy_unprocessed_dump_em_files():
 
             cmd = 'cp ' + ent + ' . '
             os.system(cmd)
-            cmd = 'gzip -d *.gz'
+            cmd = f'gzip -d {ent}.gz'
             os.system(cmd)
 
             atemp = re.split('\/', ent)
