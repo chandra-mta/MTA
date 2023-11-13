@@ -321,7 +321,8 @@ def find_moves(d_dict, st_list):
 #--- if no move return 'NA'
 #
     if chk == 0:
-        return 'NA'
+        line = "No L,H moves found in st_list recording move actions"
+        return ['NA', line]
 #
 #--- there are some movements, analyze farther
 #
