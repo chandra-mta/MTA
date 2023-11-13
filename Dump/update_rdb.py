@@ -6,7 +6,7 @@
 #                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                               #
-#           last update: Mar 04, 2021                                           #
+#           last update: Oct 06, 2021                                           #
 #                                                                               #
 #################################################################################
 
@@ -162,7 +162,28 @@ def make_select_list(f, line, word):
         return False 
 
 #---------------------------------------------------------------------------
+#-- check_process_running: check whether the previous scripts are still runinng 
+#---------------------------------------------------------------------------
+
+def check_process_running():
+    """
+    check whether the previous scripts are still runinng and if so, exit
+    the process
+    input:  none
+    output: none
+    """
+    
+    cmd = 'ps aux | grep mta | grep python|grep update_rdb.py > ' + zspace
+    os.system(cmd)
+    
+    out = mcf.read_data_file(zspace, remove=1)
+    if len(out) > 0:
+        print("The previous script is still running; stopping the process\n")
+        exit(1)
+
+#---------------------------------------------------------------------------
 
 if __name__ == "__main__":
 
+    check_process_running()
     run_rdb_updates()
