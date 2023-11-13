@@ -48,6 +48,12 @@ import mta_common_functions as mcf
 rtail  = int(time.time()* random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
+PROCESS_SELECT = ['otg-msids.list','msids.list']
+#otg-msids.list is the OTG category
+#msids.list is the CCDM category
+#msids_sim.list is the SIM category
+
+
 #-----------------------------------------------------------------------------------
 #-- run_filter_script: collect data and run otg and ccdm filter scripts          ---
 #-----------------------------------------------------------------------------------
@@ -66,6 +72,14 @@ def run_filter_script():
     if len(unprocessed_data) < 1:
         exit(1)
 #
+#--- prep and run filtering process
+#
+    for category_file in PROCESS_SELECT:
+        if not os.path.isfile(f"./{category_file}"):
+            os.system(f"cp -f {house_keeping}/{category_file} .")
+        filters_cat(category_file,unprocessed_data)
+    """
+#
 #--- prep for the filtering processes
 #
     if not os.path.isfile('./msids.list'):
@@ -81,6 +95,7 @@ def run_filter_script():
     filters_otg(unprocessed_data)
     filters_ccdm(unprocessed_data)
     filters_sim(unprocessed_data)
+    """
 #
 #--- remove the local copy of dump files
 #
@@ -90,6 +105,19 @@ def run_filter_script():
 #--- move *.tl files to working dir
 #
     mv_files()
+
+def filters_cat(category_file,unprocessed_data):
+    """
+    run acorn for category filter
+    input:  unprocessed_data    --- list of data
+    output: various *.tl files
+    """
+    for ent in unprocessed_data:
+        cmd = f"/usr/bin/env PERL5LIB='' /home/ascds/DS.release/bin/acorn -nOC {category_file} -f {ent}"
+        try:
+            bash(cmd, env=ascdsenv)
+        except:
+            pass
 
 #-----------------------------------------------------------------------------------
 #-- filters_otg: run acorn for otg filter                                        ---
