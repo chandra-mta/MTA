@@ -48,7 +48,7 @@ import mta_common_functions as mcf
 rtail  = int(time.time()* random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
-PROCESS_SELECT = ['otg-msids.list','msids.list']
+PROCESS_SELECT = ['otg-msids.list', 'msids.list']
 #otg-msids.list is the OTG category
 #msids.list is the CCDM category
 #msids_sim.list is the SIM category
@@ -77,7 +77,7 @@ def run_filter_script():
     for category_file in PROCESS_SELECT:
         if not os.path.isfile(f"./{category_file}"):
             os.system(f"cp -f {house_keeping}/{category_file} .")
-        filters_cat(category_file,unprocessed_data)
+        filters_cat(category_file, unprocessed_data)
 #
 #--- remove the local copy of dump files
 #
@@ -92,7 +92,7 @@ def run_filter_script():
 #-- filters_cat: run acorn for filter determined by category files               ---
 #-----------------------------------------------------------------------------------
 
-def filters_cat(category_file,unprocessed_data):
+def filters_cat(category_file, unprocessed_data):
     """
     run acorn for category filter
     input:  unprocessed_data    --- list of data
@@ -164,7 +164,7 @@ def copy_unprocessed_dump_em_files():
             atemp = re.split('\/', ent)
             fname = atemp[-1]
             os.system(f"cp {ent} . ; gzip -d {fname}")
-            fname = fname.replace('.gz','')
+            fname = fname.replace('.gz', '')
             unprocessed_data.append(fname)
         except:
             pass

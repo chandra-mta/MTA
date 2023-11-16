@@ -68,12 +68,12 @@ def run_otg_proc():
 #--- set temp file 
 #
     tmp_file = work_dir + 'gratstat.in.tl'
-    fmt6     = 0
+    fmt     = 0
 #
 #--- if gratstat.in.tl already exists, append. otherwise create it.
 #
     if os.path.isfile(tmp_file):
-        fmt6 = 1
+        fmt = 1
 #
 #--- open each data file and read data
 #
@@ -101,19 +101,19 @@ def run_otg_proc():
                 ntime = convert_time_format(atime)
                 ent   = ent.replace(atime.strip(), ntime)
 
-                if fmt6 > 0:
+                if fmt > 0:
                     with  open(tmp_file, 'a') as fo:
                         fo.write(ent + '\n')
                 else:
                     with  open(tmp_file, 'w') as fo:
                         fo.write(header + '\n')
                         fo.write(seline + '\n')
-                fmt6 = 1
+                fmt = 1
             else:
 #
 #--- move finished create a summary file
 #
-                if fmt6 > 0:
+                if fmt > 0:
                     cmd = 'head -1 ' + tmp_file + '>' + tmp_file + '.tmp'
                     os.system(cmd)
 
@@ -127,7 +127,7 @@ def run_otg_proc():
                     gratstat()
                     cmd = 'rm -f ' + tmp_file
                     os.system(cmd)
-                    fmt6 = 0
+                    fmt = 0
 
     cmd = 'rm -f ' + tmp_file
     os.system(cmd)
