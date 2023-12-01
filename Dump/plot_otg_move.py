@@ -115,6 +115,7 @@ def find_existing_plots():
     """
 
     cmd = 'ls ' + arc_dir + 'OTG_Plots/*.png > ' + zspace
+    cmd = cmd + '; ls ' + arc_dir + 'OTG_Plots/Ind_Plots/*.png > ' + zspace
     os.system(cmd)
 
     data = mcf.read_data_file(zspace, remove=1)
