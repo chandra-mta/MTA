@@ -181,6 +181,7 @@ def create_full_focal_plane_data(rfile=''):
 #
         if os.path.isfile(outfile):
             wind = 'a'
+            os.system(f"cp {outfile} {outfile}~")
         else:
             wind = 'w'
 
