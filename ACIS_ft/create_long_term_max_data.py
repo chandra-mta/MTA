@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #####################@###############################################################################
 #                                                                                                   #
@@ -12,41 +12,18 @@
 
 import sys
 import os
-import string
-import re
 import numpy
-import getopt
 import time
-import random
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
-import unittest
+import getpass
+import re
 #
-#--- reading directory list
+#--- Directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+DATA_DIR = '/data/mta/Script/ACIS/Focal/Data/'
+OUT_DATA_DIR = DATA_DIR
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append(mta_dir)
-sys.path.append(bin_dir)
-
-import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-#
 step  = 86400   #---- one day step
 hstep = 0.5 * step
 
@@ -54,7 +31,7 @@ hstep = 0.5 * step
 #-- create_long_term_max_data: create data file contains daily max value of focal plane temp 
 #-------------------------------------------------------------------------------
 
-def create_long_term_max_data(iall=0):
+def create_long_term_max_data(year=''):
     """
     create data file contains daily max value of focal plane temp 
     input:  all --- default: 0 extract data only this year. otherwise start from year 2000 to current
@@ -68,24 +45,29 @@ def create_long_term_max_data(iall=0):
 #
 #--- find the current year
 #
-    atemp = re.split(':', stday)
+    atemp = stday.split(':')
     tyear = int(atemp[0])
 
-    ofile =  data_dir + 'long_term_max_data'
+    ofile =  OUT_DATA_DIR + 'long_term_max_data'
 #
-#--- if all != 0 recompute from beginning
+#--- if year == '' then compute from the last time entry
 #
-    if iall == 0:
-        y_list = [tyear,]
-        cut    = find_last_entry_date()
-        if os.path.isfile(ofile):
-            wind = 'a'
-        else:
-            wind = 'w'
+    if year == '':
+        ifile = f"{DATA_DIR}long_term_max_data"
+        try:
+            with open(ifile,'r') as f:
+                data = [line.strip() for line in f.readlines()]
+            cut = set_start(data, pos=-1, add=hstep)
+        except:
+            cut = 0
+        syear = int(Chandra.Time.DateTime(cut).date.split(":")[0])
+        y_list = [x for x in range(syear,tyear)]
+        y_list = list(set(y_list)-set([1997,1998,1999]))
+        wind = 'a'
     else:
-        y_list = range(2000, tyear+1)
+        y_list = [int(year)]
         cut    = 0.0
-        wind   = 'w'
+        wind = 'w'
 
     sline = ''
     for year in y_list:
@@ -93,8 +75,9 @@ def create_long_term_max_data(iall=0):
 #
 #--- read data of each year
 #
-        dfile = data_dir + '/full_focal_plane_data_' + str(year)
-        data  = mcf.read_data_file(dfile)
+        dfile = f"{DATA_DIR}full_focal_plane_data_{year}"
+        with open(dfile,'r') as f:
+            data = [line.strip() for line in f.readlines()]
 #
 #--- set starting interval; the day after the last entry date
 #
@@ -150,23 +133,6 @@ def create_long_term_max_data(iall=0):
         fo.write(sline)
 
 #-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-
-def find_last_entry_date():
-
-    ifile = data_dir + 'long_term_max_data'
-
-    try:
-        data  = mcf.read_data_file(ifile)
-        start = set_start(data, pos=-1, add=hstep)
-
-    except:
-        start = 0
-
-    return start
-
-#-------------------------------------------------------------------------------
 #-- set_start: find the fist day of the data and set to start from hour 00:00:00
 #-------------------------------------------------------------------------------
 
@@ -187,25 +153,22 @@ def set_start(data, pos=0, add=0.0):
     start  = Chandra.Time.DateTime(start).secs
 
     return start
-
-#-------------------------------------------------------------------------------
-#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
-#-------------------------------------------------------------------------------
-
-class TestFunctions(unittest.TestCase):
-    """
-    testing functions
-    """
-
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-
-    if len(sys.argv) > 1:
-        iall = 1
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
     else:
-        iall = 0
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
-    create_long_term_max_data(iall)
+    create_long_term_max_data()
 
-    #unittest.main()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

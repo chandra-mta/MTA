@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -12,27 +12,14 @@
 
 import sys
 import os
-import string
-import re
 import time
-import unittest
+import getpass
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+WEB_DIR = '/data/mta/www/mta_fp/'
+HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping/'
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append(bin_dir)
 
 #-------------------------------------------------------------------------------
 #-- run_html_page_script: check whether it is the beginning of the year and update all html pages
@@ -42,7 +29,7 @@ def run_html_page_script(all):
     """
     check whether it is the beginning of the year and update all html pages
     input:  all --- if not "", update all html pages even not at the beginning of the year
-    output: <web_dir>/*html
+    output: <WEB_DIR>/*html
     """
     tyear = int(time.strftime("%Y", time.gmtime()))
     yday  = int(time.strftime("%j", time.gmtime()))
@@ -56,12 +43,12 @@ def run_html_page_script(all):
 #
 #--- symbolic link to index.html is also changed
 #
-        cmd = 'rm -f  ' + web_dir + 'index.html ' + web_dir + 'main_fp_temp.html'
+        cmd = 'rm -f  ' + WEB_DIR + 'index.html ' + WEB_DIR + 'main_fp_temp.html'
         os.system(cmd)
 
-        cmd = 'cd ' + web_dir + '; ln -s ./ft_main_year' + str(year) + '.html index.html'
+        cmd = 'cd ' + WEB_DIR + '; ln -s ./ft_main_year' + str(year) + '.html index.html'
         os.system(cmd)
-        cmd = 'cd ' + web_dir + '; ln -s ./ft_main_year' + str(year) + '.html main_fp_temp.html'
+        cmd = 'cd ' + WEB_DIR + '; ln -s ./ft_main_year' + str(year) + '.html main_fp_temp.html'
         os.system(cmd)
 
     else:
@@ -78,7 +65,7 @@ def create_html_pages(uyear):
     """
     create acis focal plane temperature html pages
     input:  uyear   --- year of which a html page is created/updated
-    output: <web_dir>/ft_slide_year<uyear>.html
+    output: <WEB_DIR>/ft_slide_year<uyear>.html
     """
 #
 #--- if year is not given, find current time
@@ -89,11 +76,11 @@ def create_html_pages(uyear):
 
     uyear = str(uyear)
 
-    ifile = house_keeping + 'ft_main_template'
+    ifile = HOUSE_KEEPING + 'ft_main_template'
     with open(ifile, 'r') as f:
         main  = f.read()
 
-    ifile = house_keeping + 'ft_slide_template'
+    ifile = HOUSE_KEEPING + 'ft_slide_template'
     with open(ifile, 'r') as f:
         slide = f.read()
 
@@ -128,7 +115,7 @@ def create_html_pages(uyear):
     else:
         main = main.replace("#NOTE#",'')
 
-    out  = web_dir + 'ft_main_year' + uyear + '.html'
+    out  = WEB_DIR + 'ft_main_year' + uyear + '.html'
     fo   = open(out, 'w')
     fo.write(main)
     fo.close()
@@ -136,7 +123,7 @@ def create_html_pages(uyear):
     slide = slide.replace("#YEAR#", uyear)
     slide = slide.replace("#PLINTBL#", create_plintbl(uyear))
 
-    out  = web_dir + 'ft_slide_year' + uyear + '.html'
+    out  = WEB_DIR + 'ft_slide_year' + uyear + '.html'
     with open(out, 'w') as fo:
         fo.write(slide)
 
@@ -166,6 +153,15 @@ def create_plintbl(year):
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     if len(sys.argv) > 1:
         all = 1
@@ -173,3 +169,7 @@ if __name__ == "__main__":
         all = 0
 
     run_html_page_script(all)
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")

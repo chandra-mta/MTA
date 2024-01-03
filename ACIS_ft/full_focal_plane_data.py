@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -12,46 +12,26 @@
 
 import sys
 import os
-import string
-import re
-import numpy
-import getopt
-import time
-import random
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
-import unittest
+import getpass
 #
-#--- reading directory list
+#--- Directory list
 #
-path = '/data/mta/Script/ACIS/Focal/Script/house_keeping/dir_list'
+BIN_DIR = '/data/mta/Script/ACIS/Focal/Script/'
+DATA_DIR = '/data/mta/Script/ACIS/Focal/Data/'
+HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping/'
+SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term/'
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
 #
 #--- append path to a private folder
 #
-sys.path.append(mta_dir)
-sys.path.append(bin_dir)
-
-import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-
+sys.path.append(BIN_DIR)
 #-------------------------------------------------------------------------------
 #-- create_full_focal_plane_data: create/update full resolution focal plane data
 #-------------------------------------------------------------------------------
 
-def create_full_focal_plane_data():
+def create_full_focal_plane_data(rfile=''):
     """
     create/update full resolution focal plane data
     input:   none, but read from <short_term>/data_*
@@ -60,53 +40,66 @@ def create_full_focal_plane_data():
 #
 #--- read already processed data file names
 #
-    rfile = house_keeping + 'prev_short_files'
-    try:
-        rlist = mcf.read_data_file(rfile)
-        cmd   = 'mv ' +  rfile + ' ' + rfile + '~'
-        os.system(cmd)
+    if rfile == '':
+        rfile = HOUSE_KEEPING + 'prev_short_files'
+    
+        try:
+            with open(rfile,'r') as f:
+                rlist = [line.strip() for line in f.readlines()]
+            cmd   = 'mv ' +  rfile + ' ' + rfile + '~'
+            os.system(cmd)
 
-    except:
-        rlist = []
+        except:
+            rlist = []
 #
 #--- read currently available data file names
 #
-    cmd = 'ls ' + short_term + 'data_* > ' + rfile
-    os.system(cmd)
-
-    flist = mcf.read_data_file(rfile)
+        cmd = 'ls ' + SHORT_TERM + 'data_* > ' + rfile
+        os.system(cmd)
+        with open(rfile,'r') as f:
+            flist = [line.strip() for line in f.readlines()]
 #
 #--- find un-processed data file names
 #
-    flist = list(numpy.setdiff1d(flist, rlist))
+        flist = list(set(flist).difference(set(rlist)))
 #
 #--- quite often crat and crbt data are not processed on time; so repeat the last
 #--- three data sets to make sure that missing data part is covered
 #
-    if len(rlist) > 3:
-        repeat_part = rlist[-3:]
+        if len(rlist) > 3:
+            repeat_part = rlist[-3:]
+        else:
+            repeat_part = rlist
+
+        flist = repeat_part + flist
+
+        schk   = 0
     else:
-        repeat_part = rlist
+#
+#--- define parameters in terms of test
+#
+        flist = [f"{SHORT_TERM}{rfile}"]
+        schk = 1
+        start = 0
 
-    flist = repeat_part + flist
-
-    schk   = 0
     for ifile in flist:
         print("INPUT: " + ifile)
 #
-#---- checking whether the year change occues in this file
+#---- checking whether the year change occurs in this file
 #
         [year, chg] = find_year_change(ifile)
-        data        = mcf.read_data_file(ifile)
+        with open(ifile,'r') as f:
+            data = [line.strip() for line in f.readlines()]
 #
 #---- find the last entry time
 #
-        outfile = data_dir + 'full_focal_plane_data_' + str(year)
+        outfile = DATA_DIR + 'full_focal_plane_data_' + str(year)
         if schk == 0:
             try:
-                ldata   = mcf.read_data_file(outfile)
-                ltemp   = re.split('\s+', ldata[-1])
-                start   = int(float(ltemp[0]))
+                with open(outfile,'r') as f:
+                    ldata = [line.strip() for line in f.readlines()]
+                ltemp = ldata[-1].split()
+                start = int(float(ltemp[0]))
             except:
                 start   = 0
             schk = 1
@@ -115,7 +108,7 @@ def create_full_focal_plane_data():
 #
         tdict       = {}
         for ent in data:
-            atemp = re.split('\s+', ent)
+            atemp = ent.split()
             if len(atemp) < 4:
                 continue
 
@@ -182,13 +175,13 @@ def create_full_focal_plane_data():
 
         if sline == '':
             continue
+
 #
 #--- write the data out
 #
         if os.path.isfile(outfile):
             wind = 'a'
-            cmd = 'cp ' +  outfile + ' ' +outfile + '~'
-            os.system(cmd)
+            os.system(f"cp {outfile} {outfile}~")
         else:
             wind = 'w'
 
@@ -278,8 +271,7 @@ def find_year_change(ifile):
     output: year    --- year of the data
             chk     --- whether the year change occures in this file; 1: yes/ 0: no
     """
-    atemp = re.split('\/', ifile)
-    btemp = re.split('_', atemp[-1])
+    btemp = ifile.split('/')[-1].split('_')
     year  = int(float(btemp[1]))
 
     day1  = int(float(btemp[2]))
@@ -303,7 +295,7 @@ def ptime_to_ctime(year, atime, chg):
             chg     --- indicator that telling that year is changed (if 1)
     output: ctime   --- time in seconds from 1998.1.1
     """
-    btemp = re.split(':', atime)
+    btemp = atime.split(':')
     day   = int(float(btemp[0]))
 #
 #--- the year changed during this data; so change the year to the next year
@@ -324,12 +316,13 @@ def ptime_to_ctime(year, atime, chg):
 #
 #--- add leading zeros
 #
-    day   = add_leading_zero(day, 3)
-    hh    = add_leading_zero(hh,  2)
-    mm    = add_leading_zero(mm,  2)
-    ss    = add_leading_zero(ss,  2)
-    
-    yday  = str(year) + ':' + str(day) + ':' + str(hh) + ':' + str(mm) + ':' + str(ss)
+
+    day = str(day).zfill(3)
+    hh = str(hh).zfill(2)
+    mm = str(mm).zfill(2)
+    ss = str(ss).zfill(2)
+
+    yday = f'{year}:{day}:{hh}:{mm}:{ss}'
     try:
         ctime = Chandra.Time.DateTime(yday).secs
     except:
@@ -337,88 +330,22 @@ def ptime_to_ctime(year, atime, chg):
     
     return ctime
 
-#-------------------------------------------------------------------------------
-#-- add_leading_zero: add leading zero if needed                              --
-#-------------------------------------------------------------------------------
-
-def add_leading_zero(val, num):
-    """
-    add leading zero if needed
-    input:  val --- value to modified
-    num --- how many digit we need
-    output: sval--- adjust val in string
-    """
-#
-#--- how many digit the "val" already has
-#
-    tval = str(int(val))
-    bst  = len(tval)
-#
-#--- add the leading zero as needed
-#
-    sval = str(val)
-    for k in range(bst, num):
-        sval = '0' + sval
-
-    return sval
-
-#-------------------------------------------------------------------------------
-#-- TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST   TEST -
-#-------------------------------------------------------------------------------
-
-class TestFunctions(unittest.TestCase):
-    """
-    testing functions
-    """
-#-------------------------------------------------------------------------------
-
-    def test_find_cold_plates(self):
-        t_list = [638025960, 638243227, 637326500, 638572802]
-
-        testa = [-123.14513244628904, -125.53862609863279, 999.0, -125.53862609863279]
-        testb = [-123.14513244628904, -125.53862609863279, 999.0, -123.14513244628904]
-
-        [crat, crbt] = find_cold_plates(t_list)
-
-        self.assertEquals(testa, crat)
-        self.assertEquals(testb, crbt)
-
-#        print str(crat)
-#        print str(crbt)
-#
-#        out   = fetch.MSID('1crat', '2018:001:00:00:00', '2018:001:00:10:00')
-#        fo    = open('ztest', 'w')
-#        data  = out.vals
-#        tt    = out.times
-#        for k in range(0, len(data)):
-#            line = str(tt[k]) + '<-->' + str(data[k]) + '\n'
-#            fo.write(line)
-#        fo.close()
-
-#-------------------------------------------------------------------------------
-
-    def test_find_year_change(self):
-
-        ifile = '/data/mta/Script/ACIS/Focal/Short_term/data_2017_365_2059_001_0241'
-
-        [year, chg] = find_year_change(ifile)
-
-        self.assertEquals(2017, year)
-        self.assertEquals(1,    chg)
-
-#-------------------------------------------------------------------------------
-
-#    def test_add_leading_zero(self):
-#
-#        out = add_leading_zero(10.121, 2)
-#        print out
-
-
-
 
 #-------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+    name = os.path.basename(__file__).split(".")[0]
+    user = getpass.getuser()
+    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    else:
+        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
     create_full_focal_plane_data()
-    #unittest.main()
+#
+#--- Remove lock file once process is completed
+#
+    os.system(f"rm /tmp/{user}/{name}.lock")
