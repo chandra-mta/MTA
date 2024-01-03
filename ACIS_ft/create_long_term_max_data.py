@@ -17,6 +17,7 @@ import time
 import Chandra.Time
 import Ska.engarchive.fetch as fetch
 import getpass
+import re
 #
 #--- Directory list
 #

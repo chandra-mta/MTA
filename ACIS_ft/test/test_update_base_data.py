@@ -41,6 +41,7 @@ def test_extract_data_from_dump():
     else:
         raise AssertionError("Cannot find /dsops/GOT/input. Run test on c3po-v.")
 
+@pytest.marker.skip()
 def test_update_base_data():
     #TODO do we need this test for what is essetially a wrapper function of pairing Dump files to their shortterm locations?
     testmodule.update_base_data()

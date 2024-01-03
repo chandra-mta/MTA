@@ -28,4 +28,4 @@ def test_create_5min_avg_data():
     with open(f"{testmodule.OUT_DATA_DIR}focal_plane_data_5min_avg_2022",'r') as f:
         data = f.readlines()
     assert data[0] == '757383369\t-118.900\t-125.539\t-125.539\n'
-    assert data[1] == '788919369\t-115.145\t-121.313\t-120.749\n'
+    assert data[-1] == '788919369\t-115.145\t-121.313\t-120.749\n'
