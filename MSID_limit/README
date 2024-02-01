@@ -36,6 +36,8 @@ This script compares the current mta limit data base to glimmon and update the f
     ./Past_data/op_limits.db_<time stamp>       ---- the past op_limits.db
     ./Past_data/glimmondb.sqlite3_<time stamp>  ---- the past sql database
 
+    email --- if there are some problems, email is sent out to  the admin person
+    emails passed through sys arg by 'email=<address>' or 'email={<address1>,<address2>}' for multiple email addresses, replacing <address> with the string email address
 
 clean_table.py
 --------------
@@ -46,7 +48,8 @@ input:
 output:
     ./op_limits.db    --- updated mta limit database locally saved
     /data/mta4/MTA/data/op_limits/op_limits.db  ---- the database to be actually used
-    email --- if there are some problems, email is sent out to  the admin perosn
+    email --- if there are some problems, email is sent out to  the admin person
+    emails passed through sys arg by 'email=<address>' or 'email={<address1>,<address2>}' for multiple email addresses, replacing <address> with the string email address
 
 validate_op_limits.py
 ---------------------
