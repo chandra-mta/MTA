@@ -7,7 +7,7 @@
 #                                                                                   #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                               #
 #                                                                                   #
-#           last update: Sep 27, 2021                                               #
+#           last update: Oct 11, 2022                                               #
 #                                                                                   #
 #####################################################################################
 
@@ -21,10 +21,21 @@ import sqlite3
 import unittest
 import time
 import Chandra.Time
+from pathlib import Path
+from kadi.occweb import get_auth
+import requests
 
 #--- reading directory list
 #
 path = '/data/mta/Script/MSID_limit/Scripts/house_keeping/dir_list'
+
+#
+#--- Defining Admin email list and passing email sys args
+#
+ADMIN = ['mtadude@cfa.harvard.edu']
+for i in range(1,len(sys.argv)):
+    if sys.argv[i][:6] == 'email=':
+        ADMIN.append(sys.argv[i][6:])
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -47,7 +58,6 @@ zspace = '/tmp/zspace' + str(rtail)
 #
 mta_op_limit = '/data/mta4/MTA/data/op_limits/op_limits.db'
 glimmon      = main_dir + 'glimmondb.sqlite3'
-admin        = 'msobolewska@cfa.harvard.edu'
 temp_opfile  = main_dir + 'op_limits_new'
 
 #-----------------------------------------------------------------------------------
@@ -361,16 +371,15 @@ def download_glimmon():
     cmd = 'mv -f  ' + glimmon + ' ' + glimmon + '~'
     os.system(cmd)
 
-    with open('/home/isobe/.occpass' , 'r') as f:
-        out = f.read().strip()
 #
 #--- download the database
 #
-    cmd = 'curl -u tisobe:' + out 
-    cmd = cmd + ' https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/'
-    cmd = cmd + 'AXAFAUTO_RSYNC/G_LIMMON_Archive/glimmondb.sqlite3 > ' +  glimmon
 
-    os.system(cmd)
+    url = 'https://occweb.cfa.harvard.edu/occweb/FOT/engineering/thermal/AXAFAUTO_RSYNC/G_LIMMON_Archive/glimmondb.sqlite3'
+    # get_auth() will look for occweb credentials in $HOME/.netrc
+    response = requests.get(url, auth=get_auth(), timeout=30)
+    Path('glimmondb.sqlite3').write_bytes(response.content)
+
 
 #-----------------------------------------------------------------------------------------
 #-- test_and_save: save a copy of op_limit.db and glimon to Past_data directory         --
@@ -401,20 +410,20 @@ def test_and_save():
 #--- update the main mta limit database
 #
     if len(data) < 1:
-        cmd = 'rm '  + temp_opfile
+        cmd = f'rm {temp_opfile}'
         os.system(cmd)
     else:
-        cmd  = 'mv ' + temp_opfile + ' ' + main_dir +'op_limits.db'
+        cmd  = f'mv {temp_opfile} {main_dir}/op_limits.db'
         os.system(cmd)
 
         tail = time.strftime("%m%d%y", time.gmtime())
-        cmd  = 'cp ' + main_dir + 'op_limits.db ' + main_dir + 'Past_data/op_limits.db_' + tail
+        cmd  = f'cp {main_dir}/op_limits.db {main_dir}/Past_data/op_limits.db_{tail}'
         os.system(cmd)
 
-        cmd = 'cp -f ' + main_dir + glimmon  + '/data/mta4/MTA/data/op_limits/.'
+        cmd = f'cp -f {glimmon} /data/mta4/MTA/data/op_limits/.'
         os.system(cmd)
 
-        cmd = 'cp ' + main_dir  +  glimmon + ' ' + main_dir + 'Past_data/' + glimmon + '_' + tail
+        cmd = f'cp {glimmon} {main_dir}/Past_data/glimmondb.sqlite3_{tail}'
         os.system(cmd)
 #
 #--- notify the changes to admin person
@@ -426,7 +435,7 @@ def test_and_save():
         with  open(zspace, 'w') as fo:
             fo.write(line)
 
-        cmd = 'cat ' + zspace + '| mailx -s "Subject: MTA limit database updated  " ' + admin
+        cmd = 'cat ' + zspace + '| mailx -s "Subject: MTA limit database updated  " ' + ' '.join(ADMIN)
         os.system(cmd)
 
         mcf.rm_files(zspace)
@@ -500,14 +509,40 @@ if __name__ == "__main__":
 #--- if you want to test the script, add "test" after
 #--- compare_database_and_update.py
 #
+#    test = 0
+#    if len(sys.argv) == 2:
+#        if sys.argv[1] == 'test':
+#            test = 1
+#            del sys.argv[1:]
+
+    
+#    if test == 0:
+#        compare_database_and_update()
+#    else:
+#        unittest.main()
+#Removed above verison Oct 11 2022
+    
+#    test = 0
+#    if len(sys.argv) >= 2: #if greater or equal to two, then we have either the test phrase passed or email list passed or both.
+#        if sys.argv[1] == 'test':
+#            test = 1
+#            ADMIN.extend(sys.argv[2:]) # by convention, if testing, that keyword will be passed first and rest of sys args will be alert emails
+#        else:
+#            ADMIN.extend(sys.argv[1:])
+
+    
+#    if test == 0:
+#        compare_database_and_update()
+#    else:
+#        unittest.main()
+#Removed above version Oct 11 2022
     test = 0
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 'test':
-            test = 1
-            del sys.argv[1:]
+    if len(sys.argv) >= 2:
+        for j in range(1,len(sys.argv)):
+            if sys.argv[j] == 'test':
+                test = 1
 
     if test == 0:
         compare_database_and_update()
     else:
         unittest.main()
-

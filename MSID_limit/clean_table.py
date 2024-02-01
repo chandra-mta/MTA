@@ -6,7 +6,7 @@
 #                                                                               #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                               #
-#               last update: Sep 27, 2021                                       #
+#               last update: Oct 11, 2022                                       #
 #                                                                               #
 #################################################################################
 
@@ -22,6 +22,14 @@ import math
 #--- reading directory list
 #
 path = '/data/mta/Script/MSID_limit/Scripts/house_keeping/dir_list'
+
+#
+#--- Defining admin email list and passing sys args
+#
+ADMIN = ['mtadude@cfa.harvard.edu']
+for i in range(1,len(sys.argv)):
+    if sys.argv[i][:6] == 'email=':
+        ADMIN.append(sys.argv[i][6:])
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -220,7 +228,7 @@ def check_entry():
         with open(zspace, 'w') as fo:
             fo.write(line)
 
-        cmd = 'cat ' + zspace + ' |mailx -s "Subject: Possible op_limit Problems" msobolewska@cfa.harvard.edu'
+        cmd = 'cat ' + zspace + ' |mailx -s "Subject: Possible op_limit Problems" ' + ' '.join(ADMIN) #joins list of emails as space separate string characters
         os.system(cmd)
 
         mcf.rm_files(zspace)
@@ -228,6 +236,5 @@ def check_entry():
 #------------------------------------------------------------------------
 
 if __name__ == "__main__":
-
     clean_table()
     check_entry()
