@@ -26,9 +26,6 @@ import unittest
 #
 from Ska.Shell import getenv, bash
 ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param', shell='tcsh')
-ascdsenv['IPCL_DIR'] = "/home/ascds/DS.release/config/tp_template/P011/"
-ascdsenv['ACORN_GUI'] = "/home/ascds/DS.release/config/mta/acorn/scripts/"
-ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
 #
 #--- read directory path
 #
@@ -51,6 +48,12 @@ import mta_common_functions as mcf
 rtail  = int(time.time()* random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
+PROCESS_SELECT = ['otg-msids.list', 'msids.list']
+#otg-msids.list is the OTG category
+#msids.list is the CCDM category
+#msids_sim.list is the SIM category
+
+
 #-----------------------------------------------------------------------------------
 #-- run_filter_script: collect data and run otg and ccdm filter scripts          ---
 #-----------------------------------------------------------------------------------
@@ -69,21 +72,12 @@ def run_filter_script():
     if len(unprocessed_data) < 1:
         exit(1)
 #
-#--- prep for the filtering processes
+#--- prep and run filtering process
 #
-    if not os.path.isfile('./msids.list'):
-        cmd = 'cp -f ' + house_keeping + 'msids.list .'
-        os.system(cmd)
-
-    if not os.path.isfile('./otg-msids.list'):
-        cmd = 'cp -f ' + house_keeping + 'otg-msids.list .'
-        os.system(cmd)
-#
-#--- main processings
-#
-    filters_otg(unprocessed_data)
-    filters_ccdm(unprocessed_data)
-    filters_sim(unprocessed_data)
+    for category_file in PROCESS_SELECT:
+        if not os.path.isfile(f"./{category_file}"):
+            os.system(f"cp -f {house_keeping}/{category_file} .")
+        filters_cat(category_file, unprocessed_data)
 #
 #--- remove the local copy of dump files
 #
@@ -95,54 +89,17 @@ def run_filter_script():
     mv_files()
 
 #-----------------------------------------------------------------------------------
-#-- filters_otg: run acorn for otg filter                                        ---
+#-- filters_cat: run acorn for filter determined by category files               ---
 #-----------------------------------------------------------------------------------
 
-def filters_otg(unprocessed_data):
+def filters_cat(category_file, unprocessed_data):
     """
-    run acorn for otg filter
+    run acorn for category filter
     input:  unprocessed_data    --- list of data
     output: various *.tl files
     """
     for ent in unprocessed_data:
-        cmd = "/usr/bin/env PERL5LIB='' "
-        cmd = cmd + '/home/ascds/DS.release/bin/acorn -nOC otg-msids.list -f ' + ent
-        try:
-            bash(cmd, env=ascdsenv)
-        except:
-            pass
-
-#-----------------------------------------------------------------------------------
-#-- filters_ccdm: run acorn for ccdm filter                                      ---
-#-----------------------------------------------------------------------------------
-
-def filters_ccdm(unprocessed_data):
-    """
-    run acorn for ccdm filter
-    input: unprocessed_data    --- list of data
-    output: various *.tl files
-    """
-    for ent in unprocessed_data:
-        cmd = "/usr/bin/env PERL5LIB='' "
-        cmd = cmd + '/home/ascds/DS.release/bin/acorn -nOC msids.list -f ' + ent
-        try:
-            bash(cmd, env=ascdsenv)
-        except:
-            pass
-
-#-----------------------------------------------------------------------------------
-#-- filters_sim: run acorn for sim filter                                         --
-#-----------------------------------------------------------------------------------
-
-def filters_sim(unprocessed_data):
-    """
-    run acorn for sim filter
-    input: unprocessed_data    --- list of data
-    output: various *.tl files
-    """
-    for ent in unprocessed_data:
-        cmd = "/usr/bin/env PERL5LIB='' "
-        cmd = cmd + '/home/ascds/DS.release/bin/acorn -nOC msids_sim.list -f ' + ent
+        cmd = f"/usr/bin/env PERL5LIB='' /home/ascds/DS.release/bin/acorn -nOC {category_file} -f {ent}"
         try:
             bash(cmd, env=ascdsenv)
         except:
@@ -204,14 +161,10 @@ def copy_unprocessed_dump_em_files():
             if ctime < cut_time:
                 continue
 
-            cmd = 'cp ' + ent + ' . '
-            os.system(cmd)
-            cmd = 'gzip -d *.gz'
-            os.system(cmd)
-
             atemp = re.split('\/', ent)
             fname = atemp[-1]
-            fname = fname.replace('.gz','')
+            os.system(f"cp {ent} . ; gzip -d {fname}")
+            fname = fname.replace('.gz', '')
             unprocessed_data.append(fname)
         except:
             pass

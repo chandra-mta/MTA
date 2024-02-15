@@ -46,6 +46,8 @@ p_dict   = {'H':ph_list, 'L':pl_list}
 
 ovc      = "OFLVCDCT"
 cvc      = "CCSDSVCD"
+#Pre 09/25/22 is FMT4, post is FMT6
+FORMAT_FIND = 'FMT6'
 #
 #--- temp writing file name
 #
@@ -66,12 +68,12 @@ def run_otg_proc():
 #--- set temp file 
 #
     tmp_file = work_dir + 'gratstat.in.tl'
-    fmt4     = 0
+    fmt     = 0
 #
 #--- if gratstat.in.tl already exists, append. otherwise create it.
 #
     if os.path.isfile(tmp_file):
-        fmt4 = 1
+        fmt = 1
 #
 #--- open each data file and read data
 #
@@ -89,29 +91,29 @@ def run_otg_proc():
         seline = tdata[1]
         for ent in tdata[2:]:
 #
-#--- use only FMT4 data
+#--- use only FORMAT_FIND data
 #
-            mc = re.search('FMT4', ent)
+            mc = re.search(FORMAT_FIND, ent)
             if mc is not None:
                 schk = 1
-                atemp = re.split('FMT4', ent)
+                atemp = re.split(FORMAT_FIND, ent)
                 atime = atemp[0]
                 ntime = convert_time_format(atime)
                 ent   = ent.replace(atime.strip(), ntime)
 
-                if fmt4 > 0:
+                if fmt > 0:
                     with  open(tmp_file, 'a') as fo:
                         fo.write(ent + '\n')
                 else:
                     with  open(tmp_file, 'w') as fo:
                         fo.write(header + '\n')
                         fo.write(seline + '\n')
-                fmt4 = 1
+                fmt = 1
             else:
 #
 #--- move finished create a summary file
 #
-                if fmt4 > 0:
+                if fmt > 0:
                     cmd = 'head -1 ' + tmp_file + '>' + tmp_file + '.tmp'
                     os.system(cmd)
 
@@ -125,7 +127,7 @@ def run_otg_proc():
                     gratstat()
                     cmd = 'rm -f ' + tmp_file
                     os.system(cmd)
-                    fmt4 = 0
+                    fmt = 0
 
     cmd = 'rm -f ' + tmp_file
     os.system(cmd)
@@ -319,7 +321,8 @@ def find_moves(d_dict, st_list):
 #--- if no move return 'NA'
 #
     if chk == 0:
-        return 'NA'
+        line = "No L,H moves found in st_list recording move actions"
+        return ['NA', line]
 #
 #--- there are some movements, analyze farther
 #

@@ -13,6 +13,16 @@
         msgWindow.document.close();
         msgWindow.focus();
     }
+function WindowOpener2(imgname) {
+            msgWindow = open("","displayname","toolbar=no,directories=no,menubar=no,location=no,scrollbars=no,status=no,width=900,height=500,resize=no");
+            msgWindow.document.clear();
+            msgWindow.document.write("<html><title>Trend plot:   "+imgname+"</TITLE>");
+            msgWindow.document.write("<body>");
+            msgWindow.document.write("<img src='./OTG_Plots/"+imgname+"' border =0 style='width:95%;'><p></p></body></hvtml>")
+            msgWindow.document.close();
+            msgWindow.focus();
+    }
+
 </script>
 
 </head>
@@ -35,6 +45,7 @@ movements and the "All Data" will show all data since year 2000.
 <td>STOP_TIME</td>
 <td>STOP_VCDU</td>
 <td>SUMMARY</td>
+<td>PLOT</td>
 #TABLE#
 </table>
 </div>
@@ -92,10 +103,10 @@ movements and the "All Data" will show all data since year 2000.
 <div style='padding-top:20px; padding-bottom:10px;'>
 <hr />
 <p>
-Last Update: Feb 16, 2018
+Last Update: Sept 17, 2021
 </p>
 <p>
-If you have any questions about this page, please contact <a href='mailto:tisobe@cfa.harvard.edu'>tisobe@cfa.harvard.edu.
+If you have any questions about this page, please contact <a href='mailto:swolk@cfa.harvard.edu'>swolk@cfa.harvard.edu.
 </p>
 
 
