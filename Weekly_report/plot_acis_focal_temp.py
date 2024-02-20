@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Apr 02, 2020                                                   #
+#               last update: Mar 15, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -43,7 +43,7 @@ import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
 
 base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.6/MTA/'
+mta_dir  = '/data/mta/Script/Python3.8/MTA/'
 sys.path.append(base_dir)
 sys.path.append(mta_dir)
 #
@@ -200,7 +200,7 @@ def select_data_by_date(x, y, tstart, tstop):
     """
     x   = numpy.array(x)
     y   = numpy.array(y)
-    ind = [(x > tstart) & (x < tstop)]
+    ind = (x > tstart) & (x < tstop)
     x   = list(x[ind])
     y   = list(y[ind])
 

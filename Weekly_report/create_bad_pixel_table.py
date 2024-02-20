@@ -1,11 +1,12 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+
 #############################################################################
 #                                                                           #
 #   create_bad_pixel_table.py: create bad pixel table for the weekly report #
 #                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                           #
-#           Last Update: Apr 01, 2020                                       #
+#           Last Update: Mar 15, 2021                                       #
 #                                                                           #
 #############################################################################
 
@@ -19,7 +20,7 @@ import random
 #--- append path to a private folders
 #
 base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.6/MTA/'
+mta_dir  = '/data/mta/Script/Python3.8/MTA/'
 sys.path.append(base_dir)
 sys.path.append(mta_dir)
 

@@ -21,6 +21,8 @@ input:  date    ---- date in <mm>/<dd> format
 
 output: <html_dir>/<year>/<mm><dd>.html
         <html_dir>/<year>/<mm><dd>_fptemp,png
+	Notification Email
+	---Extra Emails can be passed through sys args 'email=<address>' or 'email={<address1>,<address2>}' for multiple emails
 
 find_focal_temp_peaks.py
 ---------------------------
@@ -79,12 +81,13 @@ input: none, but read from:
 output: a text of html table displaying the bad pixel information
 
 
-
-
+NOTE:
+        * you need to manually edit out extra focal plane temp entry
+        * you also need to link to the main table
 
 cron job:
 =========
 
-as mta on luke-v
-15 6 * * 5 cd /data/mta/Script/Weekly/Scripts; /data/mta/Script/Weekly/Scripts/weekly_wrap_script >> $HOME/Logs/weekly_report.cron 
+as mta on c3po-v
+15 7 * * 5 cd /data/mta/Script/Weekly/Scripts; /data/mta/Script/Weekly/Scripts/weekly_wrap_script >> $HOME/Logs/weekly_report.cron 
 
