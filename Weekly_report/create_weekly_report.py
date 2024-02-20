@@ -42,9 +42,6 @@ import mta_common_functions     as mcf
 #--- admin email addresses (list) including those passed through sys args
 #
 ADMIN  = ['mtadude@cfa.harvard.edu']
-for i in range(1,len(sys.argv)):
-    if sys.argv[i][:6] == 'email=':
-        ADMIN.append(sys.argv[i][6:])
 #
 #--- ephin linst
 #
