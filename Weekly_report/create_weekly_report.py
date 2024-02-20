@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################
 #                                                                           #
@@ -6,7 +6,7 @@
 #                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                           #
-#           Last Update: Mar 12, 2021                                       #
+#           Last Update: Oct 12, 2022                                       #
 #                                                                           #
 #############################################################################
 
@@ -20,12 +20,11 @@ import unittest
 import time
 import datetime
 import Chandra.Time
-import random
 #
 #--- append path to a private folders
 #
 base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.6/MTA/'
+mta_dir  = '/data/mta/Script/Python3.8/MTA/'
 sys.path.append(base_dir)
 sys.path.append(mta_dir)
 
@@ -36,20 +35,18 @@ import create_bad_pixel_table   as cbpt
 import find_recent_observations as frobs
 import mta_common_functions     as mcf
 #
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-#
 #--- set directory paths
 #
 d_dir  = '/data/mta4/www/DAILY/mta_deriv/'
 wdir   = '/data/mta/Script/Weekly/'
 tdir   = wdir + 'Scripts/Templates/'
 #
-#--- admin email address
+#--- admin email addresses (list) including those passed through sys args
 #
-admin  = 'tisobe@cfa.harvard.edu'
+ADMIN  = ['mtadude@cfa.harvard.edu']
+for i in range(1,len(sys.argv)):
+    if sys.argv[i][:6] == 'email=':
+        ADMIN.append(sys.argv[i][6:])
 #
 #--- ephin linst
 #
@@ -715,12 +712,8 @@ def send_email_to_admin(date, year):
     line = line + 'https://cxc.cfa.harvard.edu/mta/REPORTS/' + str(year) + '/' + str(date) + '.html\n\n'
     line = line + "Don't forget to edit index file: /data/mta4/www/REPORTS/index.html.\n"
 
-    with open(zspace, 'w') as fo:
-        fo.write(line)
-
-    cmd = 'cat ' + zspace + ' | mailx -s "Subject: Weekly Report for ' + str(date) + ' Created" ' + admin
+    cmd = f'echo "{line}" | mailx -s "Subject: Weekly Report for {str(date)} Created" {" ".join(ADMIN)}'
     os.system(cmd)
-    mcf.rm_files(zspace)
 
 #----------------------------------------------------------------------------------
 #-- find_date_and_year_for_report: find nearest Thursday date                    --
@@ -1027,6 +1020,7 @@ if __name__ == "__main__":
 #
     debug = 0
 #    debug = 1
+#    print(f'debug = {debug}')
 #
 #--- if the date (in format of mmdd, e.g. 0910) and year are given
 #

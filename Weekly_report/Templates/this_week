@@ -175,7 +175,7 @@ Altitude varies from 34 kkm to 128 kkm.
 <tr>
 <th style='text-align:left'>weekly average time/step</th><td>  #WMOVE# s </td> 				<!-- ### update ### -->
 </tr><tr> 
-<th style='text-align:left'>mission average time/step</th><td> 0.00136 s </td>				<!-- ### update ### -->
+<th style='text-align:left'>mission average time/step</th><td> #TMOVE# s </td>				<!-- ### update ### -->
 
 </tr>
 </table>
@@ -202,7 +202,7 @@ TELEM_TABLE
  
 <!-- ###  IRU REPORT ### -->
 
-<H2><a href="/mta_days/mta_pcad/IRU/iru_bias_trend.html"> IRUs</a></H2>
+<H2><a href="/mta/DAILY/mta_pcad/IRU/iru_bias_trend.html"> IRUs</a></H2>
 <!--
 <H2><a href="/mta_days/mta_pcad/IRU/bias.html"> IRUs</a></H2>
 <ul>
@@ -217,10 +217,10 @@ TELEM_TABLE
     </tr>
     <tr>
         <td style='width:45%;'>
-            <img src='/mta_days/mta_pcad/IRU/Plots_new/#IRUSPAN1#_bias.png' style='width:90%;text-align:center;'>
+            <img src='/mta/DAILY/mta_pcad/IRU/Plots_new/#IRUSPAN1#_bias.png' style='width:90%;text-align:center;'>
         </td>
         <td style='width:45%;'>
-            <img src='/mta_days/mta_pcad/IRU/Plots_new/#IRUSPAN2#_hist.png' style='width:90%;text-align:center;'>
+            <img src='/mta/DAILY/mta_pcad/IRU/Plots_new/#IRUSPAN2#_hist.png' style='width:90%;text-align:center;'>
         </td>
     </tr>
 </table>

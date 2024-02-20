@@ -1,11 +1,12 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+
 #############################################################################
 #                                                                           #
 #   find_recent_observations.py: create a data analysis link table          #   
 #                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                           #
-#           Last Update: Jan 22, 2021                                       #
+#           Last Update: Mar 15, 2021                                       #
 #                                                                           #
 #############################################################################
 
@@ -21,7 +22,7 @@ import random
 #--- append path to a private folders
 #
 base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.6/MTA/'
+mta_dir  = '/data/mta/Script/Python3.8/MTA/'
 sys.path.append(base_dir)
 sys.path.append(mta_dir)
 
@@ -265,7 +266,7 @@ def find_recently_created_file(path, fname, days, etime):
         if stime < cut:
             continue
         elif stime > etime:
-            break
+            continue
         else:
             t_save.append(stime)
             d_dict[stime]  = ent

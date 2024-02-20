@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Mar 25, 2021                                                   #
+#               last update: Oct 08, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -19,7 +19,7 @@ import time
 import operator
 import math
 import numpy
-import astropy.io.fits  as pyfits
+#import astropy.io.fits  as pyfits
 from datetime import datetime
 import Chandra.Time
 import unittest
@@ -64,7 +64,7 @@ def find_focal_temp_peaks(year='', month='', mday='', tdiff=''):
 #
 #--- find time spans that the data will be collected (Thu - Thu period)
 #
-    [tstart, tstop]      = find_time_span(year, month, mday)
+    [tstart, tstop, dstart, dstop] = find_time_span(year, month, mday)
 #
 #--- extract data for the period. the temperature values are smoothed
 #
@@ -73,7 +73,6 @@ def find_focal_temp_peaks(year='', month='', mday='', tdiff=''):
     tyear = int(atemp[0])
     yday  = int(atemp[1])
     [time_set, temp_set] = read_focal_temp(tyear, yday, tstart, tstop)
-
 #
 #--- find peak position, temperature and width of the peak
 #
@@ -83,16 +82,27 @@ def find_focal_temp_peaks(year='', month='', mday='', tdiff=''):
 #
 #--- if the top of the peak from the last period is in the plotting range, keep it; otherwise drop
 #
+    stime  = Chandra.Time.DateTime(tstop).secs
+    yb_cut = stime - 8 * 86400
     line = ''
     yb_cut = yday - 8
     for ent in peak_list:
         vtime = float(ent[0])
         if vtime < yb_cut:
             continue
+        if vtime >= stime:
+            continue
 
         ltime  = adjust_digit_format(vtime)
+        comp   = float(ltime)
         ltemp  = adjust_digit_format(float(ent[1]))
         lwidth = adjust_digit_format(float(ent[2]), top =1)
+        if dstart < dstop:
+            if comp < dstart or comp > dstop:
+                continue
+        else:
+            if comp < dstart and comp > dstop:
+                continue
 
         line = line + '<tr align=center><td>' + str(ltime) + '</td>'
         line = line + '<td>'           + str(ltemp) + '</td>'
@@ -141,7 +151,10 @@ def adjust_digit_format(val, top=3):
 
     sval = p1 + '.' + p2
     if sign == '-':
-        sval = '-' + sval
+        if float(sval) < 0.0:
+            sval = ' ' + sval
+        else:
+            sval = '-' + sval
 
     return sval
 
@@ -157,7 +170,7 @@ def find_time_span(year = '', month = '', mday = ''):
             mday    --- month date.     default: today's date
     """
 #
-#--- if date is given, fine week day and year date
+#--- if date is given, find week day and year date
 #
     if year != '':    
         input_time = str(year) +':' + str(month) + ':' + str(mday)
@@ -178,7 +191,7 @@ def find_time_span(year = '', month = '', mday = ''):
         yday  = tlist[7]
         chk   = 1
 #
-#--- find the differnce to Wednesday (Thursday). wday starts on Monday (0)
+#--- find the differnce to Thursday. wday starts on Monday (0)
 #--- and set data collect date span
 #
         diff  = 4 - wday
@@ -190,13 +203,18 @@ def find_time_span(year = '', month = '', mday = ''):
                 base = find_base_data(year)
                 yday = base - yday
 
-    syear = year
-    syday = yday - 7
+    syear  = year
+    dstart = yday - 8
+    syday  = yday - 7
+    base   = find_base_data(year)
 
     if syday < 0:
         syear -= 1
-        base = find_base_data(year)
-        syday += base
+        syday  += base
+
+    if dstart < 0:
+        syear -= 1
+        dstart += base
 #
 #--- convert time into seconds from 1998.1.1
 #--- put extra 24 hrs before and 24 hrs after to cover the border line peak 
@@ -206,9 +224,12 @@ def find_time_span(year = '', month = '', mday = ''):
     else:
         start = convertto1998sec(syear, syday) - 2* 86400.0
 
-    stop  =  start + 86400.0 * 9
+    stop  =  start + 86400.0 * 8
+    dstop = dstart + 7
+    if dstop > base:
+        dstop -= base
 
-    return [start, stop] 
+    return [start, stop, dstart, dstop] 
 
 #-----------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------
@@ -726,7 +747,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_find_time_span(self):
 
-        [start, stop] = find_time_span()
+        [start, stop, dstart, dstop] = find_time_span()
 
         print('TIME START/STOP: ' + str(start) + '<--->' + str(stop))
 
@@ -739,7 +760,7 @@ class TestFunctions(unittest.TestCase):
         year = 2016
         month = 1
         mday  = 29
-        [start, stop]        = find_time_span(year, month, mday)
+        [start, stop, dstart, dstop]        = find_time_span(year, month, mday)
         #[time_set, temp_set] = find_focal_temp_list(start, stop)
         [time_set, temp_set] = find_focal_temp_peaks(start, stop)
 
