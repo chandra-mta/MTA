@@ -21,12 +21,15 @@ import time
 import datetime
 import Chandra.Time
 #
-#--- append path to a private folders
+#--- Define directory pathing
 #
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(base_dir)
-sys.path.append(mta_dir)
+BIN_DIR = '/data/mta/Script/Weekly/Scripts'
+MTA_DIR  = '/data/mta/Script/Python3.10/MTA'
+TEMPLATE_DIR = f"{BIN_DIR}/Templates"
+DATA_DIR = "/data/mta/Script/Weekly/Data"
+WEB_DIR = "/data/mta4/www/REPORTS"
+sys.path.append(BIN_DIR)
+sys.path.append(MTA_DIR)
 
 import find_focal_temp_peaks    as fftp
 import plot_acis_focal_temp     as paft
@@ -34,12 +37,7 @@ import create_telem_table       as ctt
 import create_bad_pixel_table   as cbpt
 import find_recent_observations as frobs
 import mta_common_functions     as mcf
-#
-#--- set directory paths
-#
-d_dir  = '/data/mta4/www/DAILY/mta_deriv/'
-wdir   = '/data/mta/Script/Weekly/'
-tdir   = wdir + 'Scripts/Templates/'
+
 #
 #--- admin email addresses (list) including those passed through sys args
 #
@@ -235,13 +233,13 @@ def create_weekly_report(date, year, debug = 0):
 #
 #--- create a work directory
 #
-    outdir = wdir + 'Data/' +  ldate + '/'
+    outdir = f"{DATA_DIR}/{ldate}/"
     cmd = 'mkdir -p ' + outdir
     os.system(cmd)
 #
 #--- read the template for the weekly, and start replacing dates etc
 #
-    tfile = tdir + 'this_week'
+    tfile = f"{TEMPLATE_DIR}/this_week"
     linput = read_template(tfile)
 
     linput = linput.replace('#DDATE#',   file_date)
@@ -523,7 +521,7 @@ def read_focal_temp_data(fptemp, outdir):
 #
 #--- read the html table entries
 #
-    ifile = wdir + '/Data/Focal/focal_temp_list'
+    ifile = f"{DATA_DIR}/Focal/focal_temp_list"
     data = mcf.read_data_file(ifile)
 
     fcnt  = len(data)
@@ -533,8 +531,7 @@ def read_focal_temp_data(fptemp, outdir):
 #
 #--- move the plot to an appropriate place
 #
-    cmd = 'cp ' + wdir + 'Data/Focal/acis_focal_temp.png ' + outdir + fptemp
-    os.system(cmd)
+    os.system(f"cp {DATA_DIR}/Focal/acis_focal_temp.png {outdir}/{fptemp}")
 
     return [fcnt, fdata]
 
@@ -602,17 +599,17 @@ def set_trend_data_input(title):
     title  = title.replace(' ', '_')
     ltitle = title.lower()
 
-    ifile = tdir + 'Headers/Dsave/' +  str(ltitle)
+    ifile = f"{TEMPLATE_DIR}/Headers/Dsave/{ltitle}"
     data  = mcf.read_data_file(ifile)
 #
 #--- read header file
 #
-    ifile = tdir + '/Headers/' +  str(title)
+    ifile = f"{TEMPLATE_DIR}/Headers/{title}"
     hdata = mcf.read_data_file(ifile)
 #
 #--- read group display name
 #
-    ifile = tdir + '/Headers/group_name'
+    ifile = f"{TEMPLATE_DIR}/Headers/group_name"
     out   = mcf.read_data_file(ifile)
 
     g_dict = {}
