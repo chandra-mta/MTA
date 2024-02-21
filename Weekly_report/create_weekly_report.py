@@ -16,6 +16,7 @@ import re
 import time
 import datetime
 import Chandra.Time
+import argparse
 #
 #--- Define directory pathing
 #
@@ -1005,29 +1006,51 @@ def convert_stime_to_trend_date(stime):
 #------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
+    parser.add_argument("-d", "--date", required = False, help = "Date of thursday (format yyyy/mm/dd) of weekly report.")
+    args = parser.parse_args()
+
 #
-#--- set whether this is debuggin mode (anything larger than 0) or not (normal mode: 0)
+#--- Determine Date Information
 #
-    debug = 0
-#    debug = 1
-#    print(f'debug = {debug}')
-#
-#--- if the date (in format of mmdd, e.g. 0910) and year are given
-#
-    if len(sys.argv) >= 2:
-        date = sys.argv[1]
-        year = sys.argv[2]
-        create_weekly_report(date, year, debug = debug)
-#
-#--- if the date is not given, find the nearest Thu date
-#
+
+    if args.date:
+        date_info = args.date.split("/")
+        if len(date_info) != 3:
+            parser.error(f"Provided date: {args.date} must be in yyyy/mm/dd format")
+        year = date_info[0]
+        date = date_info[1] + date_info[2]
     else:
+
+
+#
+#--- If date is not provided, find the nearest thursday
+#
         [date, year] = find_date_and_year_for_report()
-        print("Weekly Report Date: " + str(year) + ' / ' + str(date))
-        create_weekly_report(date, year, debug = debug)
+        print(f"Weekly Report Date: {year}/{date}")
 
+    if args.mode == "test":
+#
+#--- Redefine Directory Pathing for Test Output
+#
+        create_weekly_report(date, year)
 
-
-
-
-
+    else:
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+        import getpass
+        name = os.path.basename(__file__).split(".")[0]
+        user = getpass.getuser()
+        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+            sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+        else:
+            os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
+        
+        create_weekly_report(date, year)
+#
+#--- Remove lock file once process is completed
+#
+        os.system(f"rm /tmp/{user}/{name}.lock")
