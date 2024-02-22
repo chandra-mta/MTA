@@ -11,25 +11,22 @@
 #############################################################################
 
 import sys
-import os
-import string
 import re
 import time
 import random
 #
+#--- Define directory pathing
+#
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
+BAD_PIX_DIR = "/data/mta/Script/ACIS/Bad_pixels/Data"
+sys.path.append(BIN_DIR)
+sys.path.append(MTA_DIR)
+#
 #--- append path to a private folders
 #
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(base_dir)
-sys.path.append(mta_dir)
 
 import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 
 #---------------------------------------------------------------------------------------
 #-- create_bad_pixel_table: create bad pixel table for the weekly report              --
@@ -91,7 +88,7 @@ def create_table_section(ctype, btype, title):
     """
     line = '<tr style="text-align:center"><td>' + title + '</td>\n'
     for ccd in range(0, 10):
-        ifile = "/data/mta/Script/ACIS/Bad_pixels/Data/" + ctype +  str(ccd) + "_information"
+        ifile = f"{BAD_PIX_DIR}/{ctype}{ccd}_information"
         data  = mcf.read_data_file(ifile)
         save  = []
         for out in data:
