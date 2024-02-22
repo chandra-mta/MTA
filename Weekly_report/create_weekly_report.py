@@ -1024,8 +1024,6 @@ if __name__ == "__main__":
         year = date_info[0]
         date = date_info[1] + date_info[2]
     else:
-
-
 #
 #--- If date is not provided, find the nearest thursday
 #
@@ -1033,6 +1031,13 @@ if __name__ == "__main__":
         print(f"Weekly Report Date: {year}/{date}")
 
     if args.mode == "test":
+#
+#--- Check that the machine running this test can view all network directories before running
+#
+        import platform
+        machine = platform.node()
+        if machine not in ['r2d2-v.cfa.harvard.edu', 'c3po-v.cfa.harvard.edu']:
+            parser.error(f"Need r2d2-v or c3po-v to view /data/mta/www. Current machine: {machine}")
 #
 #--- Redefine Admin for sedning notification email in test mode
 #       
