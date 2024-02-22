@@ -13,13 +13,10 @@
 import os
 import sys
 import re
-import string
 import random
 import time
-import math
 import numpy
 import astropy.io.fits  as pyfits
-import Ska.engarchive.fetch as fetch
 from datetime import datetime
 import Chandra.Time
 import unittest
@@ -42,10 +39,18 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
 
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(base_dir)
-sys.path.append(mta_dir)
+
+#
+#--- Define directory pathing
+#
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
+DATA_DIR = "/data/mta/Script/Weekly/Data"
+FOCAL_DIR = "/data/mta/Script/ACIS/Focal/Data"
+
+sys.path.append(BIN_DIR)
+sys.path.append(MTA_DIR)
+
 #
 #--- import several functions
 #
@@ -61,7 +66,7 @@ zspace = '/tmp/zspace' + str(rtail)
 #
 orb_col_list  = ['time', 'x', 'y', 'z']
 ang_col_list  = ['time','point_suncentang']
-lfile         = base_dir + 'Scripts/house_keeping/loginfile'
+lfile = f"{BIN_DIR}/house_keeping/loginfile"
 
 #-----------------------------------------------------------------------------------------------
 #-- plot_acis_focal_temp: plot acis focal temperature                                        ---
@@ -125,7 +130,7 @@ def read_focal_temp(tyear, yday, tstart, tstop):
 #--- if y daay is less than 8, read the data from the last year
 #
     if yday < 8:
-        ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear-1)
+        ifile = f"{FOCAL_DIR}/focal_plane_data_5min_avg_{tyear-1}"
         data   = read_data_file(ifile, sep='\s+', c_len=2)
         ftime  = data[0]
         focal  = data[1]
@@ -135,7 +140,7 @@ def read_focal_temp(tyear, yday, tstart, tstop):
 #
 #--- otherwise, just read this year
 #
-    ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear)
+    ifile = f"{FOCAL_DIR}/focal_plane_data_5min_avg_{tyear}"
     data   = read_data_file(ifile, sep='\s+', c_len=2)
     ftime  = ftime + data[0]
     focal  = focal + data[1]
@@ -190,7 +195,7 @@ def read_orbit_data(tstart, tstop):
 
 def select_data_by_date(x, y, tstart, tstop):
     """
-    selet out the potion of the data by time
+    select out the potion of the data by time
     input:  x       --- a list of time data
             y       --- a list of data
             tstart  --- a starting time in seconds from 1998.1.1
@@ -392,7 +397,7 @@ def plot_data(ftime, ftemp, stime, alt, sang, xmin, xmax, xlabel):
 #
 #--- save the plot
 #
-    outfile = base_dir + 'Data/Focal/acis_focal_temp.png'
+    outfile = f"{DATA_DIR}/Focal/acis_focal_temp.png"
     fig     = matplotlib.pyplot.gcf()
     fig.set_size_inches(width, height)
     plt.tight_layout()
