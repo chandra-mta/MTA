@@ -1010,6 +1010,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
     parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
     parser.add_argument("-d", "--date", required = False, help = "Date of thursday (format yyyy/mm/dd) of weekly report.")
+    parser.add_argument("-e", '--email', nargs = '+', required = False, help = "list of emails to recieve notifications")
     args = parser.parse_args()
 
 #
@@ -1032,6 +1033,14 @@ if __name__ == "__main__":
         print(f"Weekly Report Date: {year}/{date}")
 
     if args.mode == "test":
+#
+#--- Redefine Admin for sedning notification email in test mode
+#       
+        if args.email:
+            ADMIN = args.email
+        else:
+            ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()} ").read().split(":")[1].strip()]
+
 #
 #--- Redefine Directory Pathing for Test Output
 #
