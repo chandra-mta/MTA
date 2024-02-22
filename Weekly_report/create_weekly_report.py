@@ -20,8 +20,8 @@ import argparse
 #
 #--- Define directory pathing
 #
-BIN_DIR = '/data/mta/Script/Weekly/Scripts'
-MTA_DIR  = '/data/mta/Script/Python3.10/MTA'
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 TEMPLATE_DIR = f"{BIN_DIR}/Templates"
 DATA_DIR = "/data/mta/Script/Weekly/Data"
 WEB_DIR = "/data/mta4/www/REPORTS"
