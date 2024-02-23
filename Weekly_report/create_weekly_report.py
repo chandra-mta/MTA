@@ -65,14 +65,6 @@ def create_weekly_report(date, year, debug = 0):
             it also creates local copies in <data_dir>
     """
 #
-#--- if the test is requested, create Test directory
-#
-    if debug != 0:
-        os.system('mkdir -p  /data/mta/Script/Weekly/TEST/')
-        hodir = '/data/mta/Script/Weekly/TEST/'
-    else:
-        hodir = '/data/mta4/www/REPORTS/'
-#
 #--- one day in seconds
 #
     oned  = 86400
@@ -309,7 +301,7 @@ def create_weekly_report(date, year, debug = 0):
 #
 #--- move files
 #
-    move_files(date, year, outdir, file_name, fptemp, hodir)
+    move_files(date, year, outdir, file_name, fptemp, WEB_DIR)
 #
 #--- send out email to admin; notify the job complete
 #
@@ -664,17 +656,12 @@ def move_files(date, year, out_dir, file_name, fptemp, hodir):
             hodir       --- output directory
     output: /data/mta4/www/REPORTS/yyyy/mmdd.html and focal temp plot
     """
-    mc = re.search('TEST', hodir)
-    if mc is not None:
-        html_dir = hodir
-    else:
-        html_dir = hodir + str(year)
+    html_dir = f"{hodir}/{year}"
 #
 #--- when year changes, you need to create a new output directory
 #
     if os.path.isdir(html_dir) == False:
-        cmd = 'mkdir -p ' + html_dir
-        os.system(cmd)
+        os.system(f"mkdir -p {html_dir}")
 
     ofile    = out_dir + file_name
     pngfile  = out_dir + fptemp
