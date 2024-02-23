@@ -392,7 +392,7 @@ def plot_data(ftime, ftemp, stime, alt, sang, xmin, xmax, xlabel):
 #--- save the plot
 #
     outfile = f"{DATA_DIR}/Focal/acis_focal_temp.png"
-    fig     = matplotlib.pyplot.gcf()
+    fig     = plt.gcf()
     fig.set_size_inches(width, height)
     plt.tight_layout()
     plt.savefig(outfile, format='png', dpi=resolution)

@@ -23,7 +23,7 @@ import glob
 BIN_DIR = "/data/mta/Script/Weekly/Scripts"
 MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 AP_DIR = "/data/mta/www/ap_report"
-MP_DIR = "/data/mta/www/mp_report"
+MP_DIR = "/data/mta/www/mp_reports"
 AP_EVENTS_WEB = "/mta_days/ap_report/events"
 MP_EVENTS_WEB = "/mta_days/mp_report/events"
 GRATING_WEB = "/data/mta/www/mta_grat/Grating_Data"
@@ -176,7 +176,7 @@ def extract_telem_data(etime):
 #
         fdata = glob.glob(f"{MP_DIR}/events/{inst}/{obsid}/*.fits")
         if len(fdata) == 0:
-            print("Problem getting ifo on obsid: " + obsid + '\n')
+            print("Problem getting info on obsid: " + obsid + '\n')
             continue
 
         obs_list.append(obsid)
@@ -245,7 +245,7 @@ def find_recently_created_file(path, fname, days, etime):
     """
 
     cut   = etime - days * 86400
-    data = glob.glob({path}/{fname})
+    data = glob.glob(f"{path}/{fname}")
 
     t_save = []
     d_dict = {}

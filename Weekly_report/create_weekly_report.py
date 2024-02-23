@@ -17,6 +17,7 @@ import time
 import datetime
 import Chandra.Time
 import argparse
+import getpass
 #
 #--- Define directory pathing
 #
@@ -307,7 +308,8 @@ def create_weekly_report(date, year, debug = 0):
 #
 #--- send out email to admin; notify the job complete
 #
-    send_email_to_admin(date, year)
+    if len(ADMIN) > 0:
+        send_email_to_admin(date, year)
 
 
 #----------------------------------------------------------------------------------
@@ -999,7 +1001,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
     parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
     parser.add_argument("-d", "--date", required = False, help = "Date of thursday (format yyyy/mm/dd) of weekly report.")
-    parser.add_argument("-e", '--email', nargs = '+', required = False, help = "list of emails to recieve notifications")
+    parser.add_argument("-e", '--email', nargs = '*', required = False, help = "list of emails to recieve notifications")
     args = parser.parse_args()
 
 #
@@ -1030,7 +1032,7 @@ if __name__ == "__main__":
 #
 #--- Redefine Admin for sending notification email in test mode
 #       
-        if args.email:
+        if args.email != None:
             ADMIN = args.email
         else:
             ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()} ").read().split(":")[1].strip()]
@@ -1044,28 +1046,27 @@ if __name__ == "__main__":
         if args.path:
             OUT_DIR = args.path
         DATA_DIR = f"{OUT_DIR}/Data"
-        WEB_DIR = f"{OUT_DIR}/Data"
+        WEB_DIR = f"{OUT_DIR}/REPORTS"
         os.makedirs(DATA_DIR, exist_ok = True)
+        os.makedirs(f"{DATA_DIR}/Focal", exist_ok = True)
         os.makedirs(WEB_DIR, exist_ok = True)
 #
 #--- Cycle thorugh imported modules, changing their global pathing
 #
         mod_group = [fftp, paft, ctt, cbpt, frobs]
         for mod in mod_group:
-            if hasattr(mod, BIN_DIR):
-                mod.DATA_DIR = BIN_DIR
-            if hasattr(mod, DATA_DIR):
+            if hasattr(mod, 'BIN_DIR'):
+                mod.BIN_DIR = BIN_DIR
+            if hasattr(mod, 'DATA_DIR'):
                 mod.DATA_DIR = DATA_DIR
-            if hasattr(mod, WEB_DIR):
-                mod.DATA_DIR = WEB_DIR
-
+            if hasattr(mod, 'WEB_DIR'):
+                mod.WEB_DIR = WEB_DIR
         create_weekly_report(date, year)
 
     else:
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
-        import getpass
         name = os.path.basename(__file__).split(".")[0]
         user = getpass.getuser()
         if os.path.isfile(f"/tmp/{user}/{name}.lock"):
