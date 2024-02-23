@@ -56,12 +56,6 @@ sys.path.append(MTA_DIR)
 #
 import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
 #
-#--- temp writing file name
-#
-import random
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-#
 #--- set column names and header
 #
 orb_col_list  = ['time', 'x', 'y', 'z']
