@@ -1038,7 +1038,9 @@ if __name__ == "__main__":
 #
 #--- Path output to same location as unit pytest
 #
-        OUT_DIR = f"{os.getcwd()}/test/outTest"
+        BIN_DIR = f"{os.getcwd()}"
+        TEMPLATE_DIR = f"{BIN_DIR}/Templates"
+        OUT_DIR = f"{BIN_DIR}/test/outTest"
         if args.path:
             OUT_DIR = args.path
         DATA_DIR = f"{OUT_DIR}/Data"
@@ -1050,6 +1052,8 @@ if __name__ == "__main__":
 #
         mod_group = [fftp, paft, ctt, cbpt, frobs]
         for mod in mod_group:
+            if hasattr(mod, BIN_DIR):
+                mod.DATA_DIR = BIN_DIR
             if hasattr(mod, DATA_DIR):
                 mod.DATA_DIR = DATA_DIR
             if hasattr(mod, WEB_DIR):
