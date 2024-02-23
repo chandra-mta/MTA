@@ -25,6 +25,8 @@ MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 TEMPLATE_DIR = f"{BIN_DIR}/Templates"
 DATA_DIR = "/data/mta/Script/Weekly/Data"
 WEB_DIR = "/data/mta4/www/REPORTS"
+CTI_DIR = "/data/mta_www/mta_cti"
+SIM_DATA_DIR = "/data/mta/Script/SIM_move/Data"
 sys.path.append(BIN_DIR)
 sys.path.append(MTA_DIR)
 
@@ -393,11 +395,11 @@ def read_cti_values():
             ftemp4  --- Detrended cti in CTI/day
     """
 
-    ifile = '/data/mta_www/mta_cti/Plot_adjust/fitting_result'
+    ifile = f'{CTI_DIR}/Plot_adjust/fitting_result'
 
     [ftemp1, ftemp2, ftemp3, ftemp4] = read_cti(ifile)
 
-    ifile = '/data/mta_www/mta_cti/Det_Plot_adjust/fitting_result'
+    ifile = f'{CTI_DIR}/Det_Plot_adjust/fitting_result'
 
     [ftemp5, ftemp6, ftemp7, ftemp8] = read_cti(ifile)
 
@@ -483,7 +485,7 @@ def read_sim():
             val     --- mission total average time/step
     """
 
-    data = mcf.read_data_file('/data/mta/Script/SIM_move/Data/weekly_report_stat')
+    data = mcf.read_data_file(f'{SIM_DATA_DIR}/weekly_report_stat')
     atemp = re.split('\s+', data[0])
     tval  = '%1.5f' % float(atemp[1])
     step  = atemp[2]
@@ -1026,7 +1028,7 @@ if __name__ == "__main__":
         if machine not in ['r2d2-v.cfa.harvard.edu', 'c3po-v.cfa.harvard.edu']:
             parser.error(f"Need r2d2-v or c3po-v to view /data/mta/www. Current machine: {machine}")
 #
-#--- Redefine Admin for sedning notification email in test mode
+#--- Redefine Admin for sending notification email in test mode
 #       
         if args.email:
             ADMIN = args.email
@@ -1034,8 +1036,25 @@ if __name__ == "__main__":
             ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()} ").read().split(":")[1].strip()]
 
 #
-#--- Redefine Directory Pathing for Test Output
+#--- Path output to same location as unit pytest
 #
+        OUT_DIR = f"{os.getcwd()}/test/outTest"
+        if args.path:
+            OUT_DIR = args.path
+        DATA_DIR = f"{OUT_DIR}/Data"
+        WEB_DIR = f"{OUT_DIR}/Data"
+        os.makedirs(DATA_DIR, exist_ok = True)
+        os.makedirs(WEB_DIR, exist_ok = True)
+#
+#--- Cycle thorugh imported modules, changing their global pathing
+#
+        mod_group = [fftp, paft, ctt, cbpt, frobs]
+        for mod in mod_group:
+            if hasattr(mod, DATA_DIR):
+                mod.DATA_DIR = DATA_DIR
+            if hasattr(mod, WEB_DIR):
+                mod.DATA_DIR = WEB_DIR
+
         create_weekly_report(date, year)
 
     else:
