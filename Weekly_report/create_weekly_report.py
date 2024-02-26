@@ -160,7 +160,6 @@ def create_weekly_report(date, year, debug = 0):
     titledate     = lday0 + ' - ' + lday6
 
     ldate         = sdate_to_ldate(lday6)
-    ldate_sp      = sdate_to_ldate_with_space(lday6)
 
 #
 #--- focal temp file name
@@ -331,22 +330,6 @@ def stime_to_ddate(stime):
     return dtime
 
 #----------------------------------------------------------------------------------
-#-- stime_to_ddate2: change data in second from 1998.1.1 to yyyymmdd format      --
-#----------------------------------------------------------------------------------
-
-def stime_to_ddate2(stime):
-    """
-    change data in second from 1998.1.1 to yyyymmdd format
-    input:  stime   --- time in seconds from 1998.1.1
-    output: dtime   --- date in the form of yyyymmdd (e.g. 20150819)
-    """
-    tlist       = Chandra.Time.DateTime(stime).date
-    atemp       = re.split('\.', tlist)
-    dtime       = time.strftime('%Y%m%d', time.strptime(atemp[0], '%Y:%j:%H%:%M:%S'))
-
-    return dtime
-
-#----------------------------------------------------------------------------------
 #-- sdate_to_ldate: change date in second from 1998.1.1 to MMMdd                 --
 #----------------------------------------------------------------------------------
 
@@ -364,26 +347,6 @@ def sdate_to_ldate(sdate):
     ldate = lmon + atemp[1]
 
     return ldate
-
-#----------------------------------------------------------------------------------
-#-- sdate_to_ldate_with_space: change date in second from 1998.1.1 to MMM dd     --
-#----------------------------------------------------------------------------------
-
-def sdate_to_ldate_with_space(sdate):
-    """
-    change date in second from 1998.1.1 to MMM dd
-    input:  stime   --- time in seconds from 1998.1.1
-    output: ldate   --- date in form of MMM dd (e.g. Aug 19)
-    """
-
-    atemp = re.split('\/', sdate)
-    mon   = int(float(atemp[0]))
-    lmon  = mcf.change_month_format(mon)
-
-    ldate = lmon + ' ' +  atemp[1]
-
-    return ldate
-
 
 #----------------------------------------------------------------------------------
 #-- read_cti_values: read cti values from the fitting result files               --
