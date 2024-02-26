@@ -230,7 +230,8 @@ def create_weekly_report(date, year, debug = 0):
 #--- read the template for the weekly, and start replacing dates etc
 #
     tfile = f"{TEMPLATE_DIR}/this_week"
-    linput = read_template(tfile)
+    with open(tfile, 'r') as f:
+        linput = f.read()
 
     linput = linput.replace('#DDATE#',   file_date)
     linput = linput.replace('#IRUSPAN1#', irudate)
@@ -898,17 +899,6 @@ def create_html_table(group, disp, msid_list):
         hline = hline + '</tr>\n'
 
     return hline
-
-#------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------
-
-def read_template(ifile):
-
-    with open(ifile, 'r') as f:
-        data = f.read()
-
-    return data
 
 
 #--------------------------------------------------------------------------------
