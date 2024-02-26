@@ -18,6 +18,7 @@ import datetime
 import Chandra.Time
 import argparse
 import getpass
+import traceback
 #
 #--- Define directory pathing
 #
@@ -698,6 +699,24 @@ def send_email_to_admin(date, year):
     os.system(cmd)
 
 #----------------------------------------------------------------------------------
+#-- send_error_to_admin: send out a error email to admin                         --
+#----------------------------------------------------------------------------------
+
+def send_error_to_admin(e):
+    """
+    send out a notification email to admin
+    input:  e        --- sys.exception() error tracestack
+    output: email to admin
+    """
+    et = time.localtime()
+    dt_string = f"{et.tm_year}/{et.tm_mon}/{et.tm_mday} {et.tm_hour}:{et.tm_min}"
+    line = f"Failure to generate weekly report at {dt_string}. Please check generating script at {__file__}.\n\n"
+    line = line + f"{e}"
+
+    cmd = f'echo "{line}" | mailx -s "Error in Weekly Report Script: {dt_string}" {" ".join(ADMIN)}'
+    os.system(cmd)
+
+#----------------------------------------------------------------------------------
 #-- find_date_and_year_for_report: find nearest Thursday date                    --
 #----------------------------------------------------------------------------------
 
@@ -997,85 +1016,93 @@ def convert_stime_to_trend_date(stime):
 #------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
-    parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
-    parser.add_argument("-d", "--date", required = False, help = "Date of thursday (format yyyy/mm/dd) of weekly report.")
-    parser.add_argument("-e", '--email', nargs = '*', required = False, help = "list of emails to recieve notifications")
-    args = parser.parse_args()
+#
+#--- Send notification email if script fails to run
+#
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+        parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
+        parser.add_argument("-d", "--date", required = False, help = "Date of thursday (format yyyy/mm/dd) of weekly report.")
+        parser.add_argument("-e", '--email', nargs = '*', required = False, help = "list of emails to recieve notifications")
+        args = parser.parse_args()
 
-#
-#--- Determine Date Information
-#
+    #
+    #--- Determine Date Information
+    #
 
-    if args.date:
-        date_info = args.date.split("/")
-        if len(date_info) != 3:
-            parser.error(f"Provided date: {args.date} must be in yyyy/mm/dd format")
-        year = date_info[0]
-        date = date_info[1] + date_info[2]
-    else:
-#
-#--- If date is not provided, find the nearest thursday
-#
-        [date, year] = find_date_and_year_for_report()
-        print(f"Weekly Report Date: {year}/{date}")
-
-    if args.mode == "test":
-#
-#--- Check that the machine running this test can view all network directories before running
-#
-        import platform
-        machine = platform.node()
-        if machine not in ['r2d2-v.cfa.harvard.edu', 'c3po-v.cfa.harvard.edu']:
-            parser.error(f"Need r2d2-v or c3po-v to view /data/mta/www. Current machine: {machine}")
-#
-#--- Redefine Admin for sending notification email in test mode
-#       
-        if args.email != None:
-            ADMIN = args.email
+        if args.date:
+            date_info = args.date.split("/")
+            if len(date_info) != 3:
+                parser.error(f"Provided date: {args.date} must be in yyyy/mm/dd format")
+            year = date_info[0]
+            date = date_info[1] + date_info[2]
         else:
-            ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()} ").read().split(":")[1].strip()]
+    #
+    #--- If date is not provided, find the nearest thursday
+    #
+            [date, year] = find_date_and_year_for_report()
+            print(f"Weekly Report Date: {year}/{date}")
 
-#
-#--- Path output to same location as unit pytest
-#
-        BIN_DIR = f"{os.getcwd()}"
-        TEMPLATE_DIR = f"{BIN_DIR}/Templates"
-        OUT_DIR = f"{BIN_DIR}/test/outTest"
-        if args.path:
-            OUT_DIR = args.path
-        DATA_DIR = f"{OUT_DIR}/Data"
-        WEB_DIR = f"{OUT_DIR}/REPORTS"
-        os.makedirs(DATA_DIR, exist_ok = True)
-        os.makedirs(f"{DATA_DIR}/Focal", exist_ok = True)
-        os.makedirs(WEB_DIR, exist_ok = True)
-#
-#--- Cycle thorugh imported modules, changing their global pathing
-#
-        mod_group = [fftp, paft, ctt, cbpt, frobs]
-        for mod in mod_group:
-            if hasattr(mod, 'BIN_DIR'):
-                mod.BIN_DIR = BIN_DIR
-            if hasattr(mod, 'DATA_DIR'):
-                mod.DATA_DIR = DATA_DIR
-            if hasattr(mod, 'WEB_DIR'):
-                mod.WEB_DIR = WEB_DIR
-        create_weekly_report(date, year)
+        if args.mode == "test":
+    #
+    #--- Check that the machine running this test can view all network directories before running
+    #
+            import platform
+            machine = platform.node()
+            if machine not in ['r2d2-v.cfa.harvard.edu', 'c3po-v.cfa.harvard.edu']:
+                parser.error(f"Need r2d2-v or c3po-v to view /data/mta/www. Current machine: {machine}")
+    #
+    #--- Redefine Admin for sending notification email in test mode
+    #       
+            if args.email != None:
+                ADMIN = args.email
+            else:
+                ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()} ").read().split(":")[1].strip()]
 
-    else:
-#
-#--- Create a lock file and exit strategy in case of race conditions
-#
-        name = os.path.basename(__file__).split(".")[0]
-        user = getpass.getuser()
-        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-            sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+    #
+    #--- Path output to same location as unit pytest
+    #
+            BIN_DIR = f"{os.getcwd()}"
+            TEMPLATE_DIR = f"{BIN_DIR}/Templates"
+            OUT_DIR = f"{BIN_DIR}/test/outTest"
+            if args.path:
+                OUT_DIR = args.path
+            DATA_DIR = f"{OUT_DIR}/Data"
+            WEB_DIR = f"{OUT_DIR}/REPORTS"
+            os.makedirs(DATA_DIR, exist_ok = True)
+            os.makedirs(f"{DATA_DIR}/Focal", exist_ok = True)
+            os.makedirs(WEB_DIR, exist_ok = True)
+    #
+    #--- Cycle thorugh imported modules, changing their global pathing
+    #
+            mod_group = [fftp, paft, ctt, cbpt, frobs]
+            for mod in mod_group:
+                if hasattr(mod, 'BIN_DIR'):
+                    mod.BIN_DIR = BIN_DIR
+                if hasattr(mod, 'DATA_DIR'):
+                    mod.DATA_DIR = DATA_DIR
+                if hasattr(mod, 'WEB_DIR'):
+                    mod.WEB_DIR = WEB_DIR
+            create_weekly_report(date, year)
+
         else:
-            os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
-        
-        create_weekly_report(date, year)
-#
-#--- Remove lock file once process is completed
-#
-        os.system(f"rm /tmp/{user}/{name}.lock")
+    #
+    #--- Create a lock file and exit strategy in case of race conditions
+    #
+            name = os.path.basename(__file__).split(".")[0]
+            user = getpass.getuser()
+            if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+                sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+            else:
+                os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
+            
+            create_weekly_report(date, year)
+    #
+    #--- Remove lock file once process is completed
+    #
+            os.system(f"rm /tmp/{user}/{name}.lock")
+    except:
+        e = sys.exception()
+        send_error_to_admin(e)
+        traceback.print_exc()
