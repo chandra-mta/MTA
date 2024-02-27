@@ -17,6 +17,7 @@ import time
 import Chandra.Time
 import argparse
 import traceback
+from calendar import isleap
 #
 #--- from ska
 #
@@ -24,6 +25,12 @@ from Ska.Shell import getenv, bash
 
 ascdsenv = getenv('source /home/ascds/.ascrc -r release', shell='tcsh')
 
+BIN_DIR = "/data/mta/Script/Month"
+CTI_DIR = f"{BIN_DIR}/CTI"
+FOCAL_DIR = f"{BIN_DIR}/FOCAL"
+SIB_DIR = f"{BIN_DIR}/SIB"
+SIM_DIR = f"{BIN_DIR}/SIM"
+MONTH_WEB_DIR = "/data/mta4/www/REPORTS/MONTHLY"
 MTA_DIR = "/data/mta/Script/Python3.10/MTA"
 sys.path.append(MTA_DIR)
 #
@@ -52,18 +59,15 @@ def create_monthly(year, mon):
     lmon   = mcf.change_month_format(mon) #--- e.g. Mar or Nov
     lmonyr = f"{lmon.lower()}{lyear[2]}{lyear[3]}"     #--- e.g. jan16
 #
-#--- set output directory
+#--- set/create output directory
 #
-    odir  = '/data/mta4/www/REPORTS/MONTHLY/' + str(year) + lmon.upper()
-
-    cmd = 'mkdir ' + odir
-    os.system(cmd)
-
+    odir = f"{MONTH_WEB_DIR}/{year}{lmon.upper()}"
+    os.makedir(odir, exist_ok = True)
     odir  =  odir + '/'
 #
 #--- set month interval depending on leap year or not
 #
-    if mcf.is_leapyear(year):
+    if isleap(year):
         sdate = ['001', '032', '060', '091', '121', '152', '182', '213', '244', '274', '305', '335']
         edate = ['032', '060', '091', '121', '152', '182', '213', '244', '274', '305', '335', '001']
     else:
@@ -994,7 +998,7 @@ def send_email_to_admin():
     line = 'Monthly Report is created. Please create exposure maps and copy solar cycle plots.\n '
     line = line + 'https://cxc.harvard.edu/mta/REPORTS/MONTHLY/'
     line = line + str(year) + str(mon) + '/MONTHLY.html\n\n'
-    line = line + "Don't forget to edit index file: /data/mta4/www/REPORTS/MONTHLY/index.html.\n"
+    line = line + f"Don't forget to edit index file: {MONTH_WEB_DIR}/index.html.\n"
     
     cmd = f'echo "{line}" | mailx -s "Subject: Monthly Report for {str(mon)} Created" {" ".join(ADMIN)}'
     os.system(cmd)
