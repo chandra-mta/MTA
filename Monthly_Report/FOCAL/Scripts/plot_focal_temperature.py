@@ -1,4 +1,4 @@
-#!/usr/bin/env /proj/sot/ska/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -6,7 +6,7 @@
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                       #
-#           last updated: Feb 04, 2014                                                  #
+#           last updated: Mar 10, 2021                                                  #
 #                                                                                       #
 #########################################################################################
 
@@ -27,12 +27,11 @@ if __name__ == '__main__':
 #
 #--- append a path to a private folder to python directory
 #
-mta_dir = '/data/mta/Script/Python_script2.7/'
+mta_dir = '/data/mta/Script/Python3.8/MTA/'
 sys.path.append(mta_dir)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
-import convertTimeFormat    as tcnv
 import mta_common_functions as mcf
 
 dat_dir = '/data/mta/Script/Month/FOCAL/Data/'
@@ -54,9 +53,7 @@ def plot_data():
 #
 #--- read data
 #
-    f    = open(fdata, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
+    data  = mcf.read_data_file(fdata)
 
     time  = []
     focal = []
@@ -69,7 +66,7 @@ def plot_data():
             year  = float(atemp[0])
             ydate = float(atemp[1])
 
-            if tcnv.isLeapYear(year) == 1:
+            if mcf.is_leapyear(year):
                 base = 366
             else:
                 base = 365
@@ -227,9 +224,7 @@ def find_average():
     output: mean and sd of peak height and width
     """
 
-    f    = open(tdata, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
+    data  = mcf.read_data_file(tdata)
 
     focal = []
     width = []
@@ -249,9 +244,8 @@ def find_average():
     line = line +  "This month's average peak width: " + str(round(wavg,4)) + ' +/- ' + str(round(wsig,4)) + '\n'
 
     out  = '/data/mta/Script/Month/FOCAL/Plots/month_avg'
-    fo   = open(out, 'w')
-    fo.write(line)
-    fo.close()
+    with open(out, 'w') as fo:
+        fo.write(line)
 
 
 #--------------------------------------------------------------------

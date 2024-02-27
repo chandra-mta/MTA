@@ -74,4 +74,3 @@ Scripts:            this directory containing all scripts
 Scripts/Templates:  containing several template files used by create_monthly_erand_plot.py
 Data:               holds data used by the scripts: this_month_data, focal_temp_data
 Plots:              output directory to hold plots and a fitting result
-Old:                out of date scripts, data etc

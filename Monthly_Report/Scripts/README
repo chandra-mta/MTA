@@ -22,6 +22,9 @@ create_monthly.py uses other python scripts saved in:
 
 All have their own REAME files (usually in Scripts dir); please refer it for more details.
 
+create_monthly.py sends an alert email to admin when the report is completed
+---Extra Emails can be passed through sys.argv 'email=<address>' or 'email={<address1>,<address2>}' for multiple emails
+
 ============================
 How to Create Monthly Report
 ============================

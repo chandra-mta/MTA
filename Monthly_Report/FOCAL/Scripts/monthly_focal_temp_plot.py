@@ -1,4 +1,4 @@
-#!/usr/bin/env /proj/sot/ska/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Aug 06, 2018                                                   #
+#               last update: Mar 10, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -41,28 +41,13 @@ from pylab import *
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/Python_script2.7/house_keeping/dir_list'
-
-f= open(path, 'r')
-data = [line.strip() for line in f.readlines()]
-f.close()
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec "%s = %s" %(var, line)
+mta_dir = '/data/mta/Script/Python3.8/MTA/'
 
 sys.path.append(mta_dir)
-sys.path.append(bin_dir)
 #
 #--- import several functions
 #
-import convertTimeFormat          as tcnv       #---- contains MTA time conversion routines
-import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
+import mta_common_functions       as mcf 
 #
 #--- temp writing file name
 #
@@ -73,7 +58,7 @@ zspace = '/tmp/zspace' + str(rtail)
 #
 orb_col_list  = ['time', 'x', 'y', 'z']
 ang_col_list  = ['time','point_suncentang']
-lfile         = '/data/mta/Script/Weekly/Focal/house_keeping/loginfile'
+lfile         = '/data/mta/Script/Weekly/Scripts/house_keeping/loginfile'
 
 #-----------------------------------------------------------------------------------------------
 #-- monthly_focal_temp_plot: plot acis focal temperature  for monthly                        ---
@@ -206,8 +191,8 @@ def read_orbit_data(tstart, tstop):
 #
 #--- clean up
 #
-    mcf.rm_file(fits)
-    mcf.rm_file('test')
+    mcf.rm_files(fits)
+    mcf.rm_files('test')
 
     return data
 
@@ -282,7 +267,7 @@ def convert_time_format(otime):
         if prev == 0:
             prev = year
             save.append(yday)
-            if tcnv.isLeapYear(year) == 1:
+            if mcf.is_leapyear(year):
                 base = 366
             else:
                 base = 365
@@ -308,12 +293,10 @@ def read_data_file(ifile, sep='', remove=0, c_len=0):
     output: data    --- a list of lines or a list of lists
     """
 
-    f    = open(ifile, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
+    data = mcf.read_data_file(ifile)
 
     if remove > 0:
-        mcf.rm_file(ifile)
+        mcf.rm_files(ifile)
 
     if sep != '':
         atemp = re.split(sep, data[0])
@@ -498,7 +481,7 @@ class TestFunctions(unittest.TestCase):
 
         [x, y] = read_focal_temp(year, yday, cstart, cdate)
 
-        print 'Focal: ' + str(len(x)) + '<-->' + str(x[:10]) + '<-->' +  str(y[:10])
+        print('Focal: ' + str(len(x)) + '<-->' + str(x[:10]) + '<-->' +  str(y[:10]))
 
 
 #------------------------------------------------------------
@@ -512,7 +495,7 @@ class TestFunctions(unittest.TestCase):
 
         [x, y, y2] = read_orbit_data(cstart, cdate)
 
-        print 'Alt: ' + str(len(x)) + '<-->' + str(x[:10]) + '<-->' +  str(y[:10])
+        print('Alt: ' + str(len(x)) + '<-->' + str(x[:10]) + '<-->' +  str(y[:10]))
 
 
 #------------------------------------------------------------
@@ -526,7 +509,7 @@ class TestFunctions(unittest.TestCase):
 
         [x, y] = read_sunangle(cstart, cdate)
 
-        print 'Sun Angle: ' + str(len(x)) + '<-->' + str(x[:10]) + '<-->' +  str(y[:10])
+        print('Sun Angle: ' + str(len(x)) + '<-->' + str(x[:10]) + '<-->' +  str(y[:10]))
 
 
 
