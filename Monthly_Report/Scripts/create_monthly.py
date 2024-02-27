@@ -18,6 +18,7 @@ import Chandra.Time
 import argparse
 import traceback
 from calendar import isleap
+import getpass
 #
 #--- from ska
 #
@@ -277,8 +278,8 @@ def create_monthly(year, mon):
 #--- create clean acis and hrc exposure maps using ds9
 #
     #run_exposure_maps(lyear, cmon)
-
-    send_email_to_admin()
+    if len(ADMIN) > 0:
+        send_email_to_admin()
 
 #--------------------------------------------------
 #--- read the template and substitute the contents 
@@ -1000,7 +1001,7 @@ def send_email_to_admin():
     line = line + str(year) + str(mon) + '/MONTHLY.html\n\n'
     line = line + f"Don't forget to edit index file: {MONTH_WEB_DIR}/index.html.\n"
     
-    cmd = f'echo "{line}" | mailx -s "Subject: Monthly Report for {str(mon)} Created" {" ".join(ADMIN)}'
+    cmd = f'echo "{line}" | mailx -s "Subject: Monthly Report for {mon} Created" {" ".join(ADMIN)}'
     os.system(cmd)
 
 #----------------------------------------------------------------------------------
@@ -1049,5 +1050,35 @@ if __name__ == "__main__":
             send_error_to_admin(e)
             traceback.print_exc()
 
-    create_monthly(year, mon)
-
+    if args.mode == 'test':
+#
+ #--- Redefine Admin for sending notification email in test mode
+ #       
+        if args.email != None:
+            ADMIN = args.email
+        else:
+            ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()}").read().split(":")[1].strip()]
+        #TODO define different directory pathing
+        create_monthly(year, mon)
+             
+    else:
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+        try:
+            name = os.path.basename(__file__).split(".")[0]
+            user = getpass.getuser()
+            if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+                sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+            else:
+                os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
+            
+            create_monthly(year, mon)
+#
+#--- Remove lock file once process is completed
+#
+            os.system(f"rm /tmp/{user}/{name}.lock")
+        except Exception as exc:
+             e = ''.join(traceback.format_exception(exc))
+             send_error_to_admin(e)
+             traceback.print_exc()
