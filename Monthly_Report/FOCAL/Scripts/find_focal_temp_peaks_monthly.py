@@ -1,4 +1,4 @@
-#!/usr/bin/env /proj/sot/ska/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -7,7 +7,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: Mar 03, 2016                                                   #
+#               last update: Mar 10, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -22,34 +22,14 @@ import math
 import numpy
 import astropy.io.fits  as pyfits
 from datetime import datetime
+import Chandra.Time
 import unittest
 
-#
-#--- from ska
-#
-from Ska.Shell import getenv, bash
-ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param', shell='tcsh')
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/Python_script2.7/house_keeping/dir_list'
-
-f= open(path, 'r')
-data = [line.strip() for line in f.readlines()]
-f.close()
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec "%s = %s" %(var, line)
-
+mta_dir = '/data/mta/Script/Python3.8/MTA/'
 sys.path.append(mta_dir)
-sys.path.append(bin_dir)
 #
 #--- import several functions
 #
-import convertTimeFormat          as tcnv       #---- contains MTA time conversion routines
 import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
 #
 #--- temp writing file name
@@ -215,10 +195,7 @@ def find_focal_temp_list(start, stop):
     cmd = 'ls /data/mta/Script/ACIS/Focal/Short_term/data_* > ' + zspace
     os.system(cmd)
 
-    f    = open(zspace, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
-    mcf.rm_file(zspace)
+    data  = mcf.read_data_file(zspace, remove=1)
 #
 #--- reverse the list so that we can start from the latest
 #
@@ -234,9 +211,7 @@ def find_focal_temp_list(start, stop):
 #--- collect data line which date follows between start and stop
 #
         if stime >= start and stime <= stop:
-            f   = open(ent, 'r')
-            dinput = [line.strip() for line in f.readlines()]
-            f.close()
+            dinput = mcf.read_data_file(ent)
             for line in dinput:
                 ctemp = re.split('\s+', line)
                 dtemp = re.split(':', ctemp[1])
@@ -579,7 +554,7 @@ def sec1998tofracday(stime):
     output: lday    --- fractional year date. igore year
     """
 
-    ptime = tcnv.axTimeMTA(stime)
+    ptime = Chandra.Time.DateTime(stime).date
     atemp = re.split(':', ptime)
     day   = float(atemp[1])
     hh    = float(atemp[2])
@@ -605,7 +580,7 @@ class TestFunctions(unittest.TestCase):
 
         [start, stop] = find_time_span()
 
-        print 'TIME START/STOP: ' + str(start) + '<--->' + str(stop)
+        print('TIME START/STOP: ' + str(start) + '<--->' + str(stop))
 
 #-----------------------------------------------------------------------------------------
 
@@ -626,7 +601,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEquals(peak_list, comp)
 
         for ent in peak_list:
-            print str(ent)
+            print(str(ent))
 
 #-----------------------------------------------------------------------------------------------
  
