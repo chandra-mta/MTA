@@ -15,6 +15,7 @@ import os
 import re
 import time
 import Chandra.Time
+import argparse
 #
 #--- from ska
 #
@@ -29,13 +30,7 @@ sys.path.append(MTA_DIR)
 #
 import mta_common_functions as mcf
 
-#
-#--- Recieve Admin email list from sys args
-#
 ADMIN = ['mtadude@cfa.harvard.edu']
-for i in range(1,len(sys.argv)):
-    if sys.argv[i][:6] == 'email=':
-        ADMIN.append(sys.argv[i][6:])
 
 #-----------------------------------------------------------------------------------
 #-- create_monthly: create monthly report                                         --
@@ -1026,15 +1021,12 @@ def send_error_to_admin(e):
 #-----------------------------------------------------------------
 
 if __name__ == "__main__":
-
-    if (len(sys.argv) >= 3 and sys.argv[1][:6] != 'email=' and sys.argv[2][:6] != 'email='):
-        year = sys.argv[1]
-        year = int(float(year))
-        mon  = sys.argv[2]
-        mon  = int(float(mon))
-    else:
-        year = ''
-        mon  = ''
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
+    parser.add_argument("-d", "--date", required = False, help = "Date of month (format yyyy/mm) for monthly report.")
+    parser.add_argument("-e", '--email', nargs = '*', required = False, help = "list of emails to recieve notifications")
+    args = parser.parse_args()
 
     create_monthly(year, mon)
 
