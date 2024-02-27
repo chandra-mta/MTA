@@ -16,6 +16,7 @@ import re
 import time
 import Chandra.Time
 import argparse
+import traceback
 #
 #--- from ska
 #
@@ -970,6 +971,25 @@ def create_exposure_map(fits):
         pass
 
 #----------------------------------------------------------------------------------
+#-- find_previous_month: determine the previous month                            --
+#----------------------------------------------------------------------------------
+def find_previous_month():
+#
+#--- find today's date
+#
+    out   = time.strftime("%Y:%m:%d", time.gmtime())
+    ltime = re.split(':', out)
+    year  = int(float(ltime[0]))
+#
+#--- set the last month's month and year
+#
+    mon   = int(float(ltime[1])) - 1
+    if mon < 1:
+        mon   = 12
+        year -= 1
+
+    return [year, mon]
+#----------------------------------------------------------------------------------
 #-- send_email_to_admin: send out a notification email to admin                  --
 #----------------------------------------------------------------------------------
 
@@ -1027,6 +1047,25 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--date", required = False, help = "Date of month (format yyyy/mm) for monthly report.")
     parser.add_argument("-e", '--email', nargs = '*', required = False, help = "list of emails to recieve notifications")
     args = parser.parse_args()
+
+
+    if args.date:
+        date_info = args.date.split("/")
+        if len(date_info) != 2:
+            parser.error(f"Provided data: {args.date} must be in yyyy/mm format")
+        year = date_info[0]
+        mon = date_info[1]
+    else:
+#
+#--- If date is not provided, find the previous month.
+#
+        try:
+             [year, mon] = find_previous_month()
+             print(f"Monthly Report Date: {year}/{mon}")
+        except Exception as exc:
+            e = ''.join(traceback.format_exception(exc))
+            send_error_to_admin(e)
+            traceback.print_exc()
 
     create_monthly(year, mon)
 
