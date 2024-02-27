@@ -1,1 +1,1 @@
-TERM=dummy; export TERM; /bin/tcsh  < /data/mta/Script/Month/Scripts/monthly_main_script
+/proj/sot/ska3/flight/bin/skare /bin/tcsh  < /data/mta/Script/Month/Scripts/monthly_main_script
