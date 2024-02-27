@@ -37,42 +37,20 @@ ADMIN = ['mtadude@cfa.harvard.edu']
 #-- create_monthly: create monthly report                                         --
 #-----------------------------------------------------------------------------------
 
-def create_monthly(year='', mon=''):
+def create_monthly(year, mon):
     """
     create monthly report
-    input:  year    --- year; if it is "", the year of the last month will be used
-            mon     --- month;if it is "", the month value of the last month is used
+    input:  year    --- year of report
+            mon     --- month of report
     output: monthly report in /data/mta4/www/REPORTS/MONTLHY/<yyyy><MMM>/
     """
 #
-#--- if year and month are not given, use the last month's month and year value
+#--- Format specific strings for date data
 #
-    if year == '':
-#
-#--- find today's date
-#
-        out   = time.strftime("%Y:%m:%d", time.gmtime())
-        ltime = re.split(':', out)
-        year  = int(float(ltime[0]))
-        lyear = str(year)                           #--- '2016'
-#
-#--- set the last month's month and year
-#
-        mon   = int(float(ltime[1])) -1 
-
-        if mon < 1:
-            mon   = 12
-            year -= 1
-            lyear = str(year)                           #--- '2016'
-
-    cmon   = str(mon)
-    if mon < 10:
-        cmon = '0' + cmon                           #--- e.g. 03 or 11
-
-    lmon   = mcf.change_month_format(mon)           #--- e.g. Mar or Nov
-
-    lmonyr = lmon.lower() + lyear[2] + lyear[3]     #--- e.g. jan16
-    lm_y   = cmon + '_' + lyear                     #--- e.g. 03_2016
+    lyear = str(year) #--- e.g. '2016'
+    cmon = str(mon).zfill(2) #--- e.g. 03 or 11
+    lmon   = mcf.change_month_format(mon) #--- e.g. Mar or Nov
+    lmonyr = f"{lmon.lower()}{lyear[2]}{lyear[3]}"     #--- e.g. jan16
 #
 #--- set output directory
 #
