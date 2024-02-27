@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -12,14 +12,9 @@
 
 import sys
 import os
-import string
 import re
-import getpass
-import fnmatch
-import math
 import time
 import Chandra.Time
-import numpy
 #
 #--- from ska
 #
@@ -27,21 +22,8 @@ from Ska.Shell import getenv, bash
 
 ascdsenv = getenv('source /home/ascds/.ascrc -r release', shell='tcsh')
 
-#path = '/data/mta/Script/Python_script2.7/house_keeping/dir_list'
-#f    = open(path, 'r')
-#data = [line.strip() for line in f.readlines()]
-#f.close()
-#
-#for ent in data:
-#    atemp = re.split(':', ent)
-#    var  = atemp[1].strip()
-#    line = atemp[0].strip()
-#    exec "%s = %s" %(var, line)
-#
-#--- append path to a private folder
-#
-mta_dir = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(mta_dir)
+MTA_DIR = "/data/mta/Script/Python3.10/MTA"
+sys.path.append(MTA_DIR)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
