@@ -1006,6 +1006,23 @@ def send_email_to_admin():
     cmd = f'echo "{line}" | mailx -s "Subject: Monthly Report for {str(mon)} Created" {" ".join(ADMIN)}'
     os.system(cmd)
 
+#----------------------------------------------------------------------------------
+ #-- send_error_to_admin: send out a error email to admin                         --
+ #----------------------------------------------------------------------------------
+
+def send_error_to_admin(e):
+    """
+    send out a notification email to admin
+    input:  e        --- sys.exception() error tracestack
+    output: email to admin
+    """
+    et = time.localtime()
+    dt_string = f"{et.tm_year}/{et.tm_mon}/{et.tm_mday} {et.tm_hour}:{et.tm_min}"
+    line = f"Failure to generate monthly report at {dt_string}. Please check generating script at {__file__}.\n\n"
+    line = line + f"{e}"
+
+    os.system(f'echo "{line}" | mailx -s "Error in Monthly Report Script: {dt_string}" {" ".join(ADMIN)}')
+
 #-----------------------------------------------------------------
 
 if __name__ == "__main__":
