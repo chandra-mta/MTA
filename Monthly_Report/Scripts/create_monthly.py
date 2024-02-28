@@ -17,7 +17,7 @@ import time
 import Chandra.Time
 import argparse
 import traceback
-from calendar import isleap
+from calendar import isleap, month_abbr,month_name
 import getpass
 #
 #--- from ska
@@ -57,7 +57,8 @@ def create_monthly(year, mon):
 #
     lyear = str(year) #--- e.g. '2016'
     cmon = str(mon).zfill(2) #--- e.g. 03 or 11
-    lmon   = mcf.change_month_format(mon) #--- e.g. Mar or Nov
+    lmon = month_abbr[mon] #--- e.g. Mar or Nov
+    fmon = month_name[mon] #--- e.g. March or November
     lmonyr = f"{lmon.lower()}{lyear[2]}{lyear[3]}"     #--- e.g. jan16
 #
 #--- set/create output directory
@@ -289,10 +290,7 @@ def create_monthly(year, mon):
         text = fx.read()
 #
 #--- substitute values
-#
-    fmonth_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-    fmon = fmonth_list[mon-1]             
+#             
     text = text.replace('#Month#', fmon)        #--- full month name e.g. May
     text = text.replace('#YEAR#',  lyear)       #--- full year nane  e.g. 2016
 
@@ -410,7 +408,7 @@ def create_monthly(year, mon):
     with open(ofile, 'w') as fo:
         fo.write(text)
 #
-#--- chnage permission and owners
+#--- change permission and owners
 #
     cmd = 'chmod 755 ' + odir + '/*'
     os.system(cmd)
