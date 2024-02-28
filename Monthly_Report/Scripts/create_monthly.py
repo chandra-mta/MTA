@@ -231,17 +231,12 @@ def create_monthly(year, mon):
         ifile = '/data/mta/Script/Month/Scripts/Templates/MONTHLY3.html'
 
     elif mon == 4 or mon == 10:
-        #cmd = "cp /data/mta_www/mta_grat/EdE/heg_all.gif  " + odir
-        #os.system(cmd)
-        #cmd = "cp /data/mta_www/mta_grat/EdE/meg_all.gif  " + odir
-        #os.system(cmd)
-        #cmd = "cp /data/mta_www/mta_grat/EdE/leg_all.gif  " + odir
-        #os.system(cmd)
-#
-#--- this part should be rewritten after year 2019
-#
-        cmd = "cp /data/mta_www/mta_grat/EdE/Plots/*_2019.png " + odir
-        os.system(cmd)
+        low = 1999
+        high = 2004
+        while not (low <= year <= high):
+            low += 5
+            high += 5
+        os.system(f"cp /data/mta_www/mta_grat/EdE/Plots/*_{low}_{high} {odir}")
         cmd = "cp /data/mta_www/mta_sim_twist/Plots/twist_plot.png " + odir
         os.system(cmd)
 
