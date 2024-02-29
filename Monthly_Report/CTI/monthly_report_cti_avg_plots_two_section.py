@@ -503,6 +503,7 @@ if __name__ == '__main__':
         OUT_PLOT_DIR = f"{OUT_DIR}/Plots"
         OUT_HTML_DIR = f"{OUT_DIR}/Web"
         os.makedirs(OUT_DATA_DIR, exist_ok=True)
+        os.makedirs(f"{OUT_DATA_DIR}/cti_data", exist_ok=True)
         os.makedirs(OUT_PLOT_DIR, exist_ok=True)
         os.makedirs(OUT_HTML_DIR, exist_ok=True)
         monthly_report_cti_avg_plots(year, mon)
