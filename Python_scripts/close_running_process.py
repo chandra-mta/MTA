@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 import os
 import sys
@@ -36,10 +36,6 @@ def close_running_process(process, usr='mta'):
 #--- if the process is running, kill it
 #
     for ent in data:
-        mc = re.search('grep' , ent)
-        if mc is not None:
-            continue
-
         atemp = re.split('\s+', ent)
         pid   = atemp[1]
         cmd   = 'kill -9 ' + pid

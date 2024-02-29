@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -7,7 +7,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           Last update:     Mar 14, 2019                                                   #
+#           Last update:     Mar 15, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
