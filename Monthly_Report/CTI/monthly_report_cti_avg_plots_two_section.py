@@ -15,10 +15,9 @@
 import os
 import sys
 import re
-import string
-import operator
 import time
 import numpy
+import argparse
 
 import matplotlib as mpl
 if __name__ == '__main__':
@@ -471,12 +470,48 @@ def plotPanel(xmin, xmax, yMinSets, yMaxSets, xSets, ySets, eSets, xname, yname,
 #
     plt.savefig('out.png', format='png', dpi=100)
 
+#----------------------------------------------------------------------------------
+#-- find_previous_month: determine the previous month                            --
+#----------------------------------------------------------------------------------
+def find_previous_month():
+#
+#--- find today's date
+#
+    out   = time.strftime("%Y:%m:%d", time.gmtime())
+    ltime = re.split(':', out)
+    year  = int(float(ltime[0]))
+#
+#--- set the last month's month and year
+#
+    mon   = int(float(ltime[1])) - 1
+    if mon < 1:
+        mon   = 12
+        year -= 1
+
+    return [year, mon]
+
 #--------------------------------------------------------------------
-
-#
-#--- pylab plotting routine related modules
-#
 if __name__ == '__main__':
-    monthly_report_cti_avg_plots()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
+    parser.add_argument("-d", "--date", required = False, help = "Date of month (format yyyy/mm) for monthly report.")
+    args = parser.parse_args()
 
+    if args.date:
+        date_info = args.date.split("/")
+        if len(date_info) != 2:
+            parser.error(f"Provided data: {args.date} must be in yyyy/mm format")
+        year = int(date_info[0])
+        mon = int(date_info[1])
+    else:
+        [year, mon] = find_previous_month()
 
+    if args.mode == 'test':
+#
+#--- TODO Redefine Directory Pathing
+#
+        monthly_report_cti_avg_plots(year, mon)
+    else:
+        
+        monthly_report_cti_avg_plots(year, mon)

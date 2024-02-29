@@ -34,6 +34,13 @@ SIM_DIR = f"{BIN_DIR}/SIM"
 MONTH_WEB_DIR = "/data/mta4/www/REPORTS/MONTHLY"
 MTA_DIR = "/data/mta/Script/Python3.10/MTA"
 sys.path.append(MTA_DIR)
+sys.path.append(CTI_DIR)
+
+#
+#--- import subscripts from subdirectories.
+#
+import monthly_report_cti_avg_plots_two_section as cti
+
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
@@ -87,7 +94,7 @@ def create_monthly(year, mon):
 #
 #--- create CTI plots
 #
-    os.system("cd /data/mta/Script/Month/CTI/;    monthly_report_cti_avg_plots_two_section.py")
+    cti.monthly_report_cti_avg_plots(year, mon)
 #
 #--- create Focal Plane temperature plots
 #
@@ -1029,8 +1036,8 @@ if __name__ == "__main__":
         date_info = args.date.split("/")
         if len(date_info) != 2:
             parser.error(f"Provided data: {args.date} must be in yyyy/mm format")
-        year = date_info[0]
-        mon = date_info[1]
+        year = int(date_info[0])
+        mon = int(date_info[1])
     else:
 #
 #--- If date is not provided, find the previous month.
@@ -1045,8 +1052,8 @@ if __name__ == "__main__":
 
     if args.mode == 'test':
 #
- #--- Redefine Admin for sending notification email in test mode
- #       
+#--- Redefine Admin for sending notification email in test mode
+#       
         if args.email != None:
             ADMIN = args.email
         else:
