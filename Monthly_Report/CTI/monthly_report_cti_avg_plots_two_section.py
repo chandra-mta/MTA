@@ -206,6 +206,9 @@ def get_data(ccd_list, out, year, mon):
             for ent in data:
                 atemp = re.split('\s+', ent)
                 btemp = re.split('-', atemp[0])
+                if (int(btemp[0]) * 100 + int(btemp[1])) > (year*100 + mon):
+                    #Break loop if data entry is past our cutoff date
+                    break
 #
 #--- find the row that you want to add this data 
 #
