@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #################################################################################################
 #                                                                                               #
@@ -20,7 +20,7 @@
 #                                                                                               #
 #       author: t. isobe (tisobe@cfa.harvard.edu)                                               #
 #                                                                                               #
-#       last update: Mar 14, 2019                                                               #
+#       last update: Mar 15, 2021                                                               #
 #                                                                                               #
 #################################################################################################
 
@@ -44,7 +44,7 @@ import matplotlib.lines        as lines
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/Python3.6/MTA/dir_list'
+path = '/data/mta4/Script/Python3.10/MTA/dir_list'
 
 f    = open(path, 'r')
 data = [line.strip() for line in f.readlines()]

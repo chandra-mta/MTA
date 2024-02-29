@@ -2,7 +2,8 @@
 
 #########################################################################################
 #                                                                                       #
-#   find_moving_average.py: find moving average and envelops on the given data set      #
+#   find_moving_average_bk.py: find moving average and envelops on the given data set   #
+#                              this version fit moving average from the end             #
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                       #
@@ -25,7 +26,6 @@ import numpy.polynomial.polynomial as poly
 #---------------------------------------------------------------------------------------
 
 def run_moving_average():
-
     """
     moving average calling function. Read data and run the function
 
@@ -57,7 +57,6 @@ def run_moving_average():
                      9. n-th degree of polynomial fit for standard deviation
                
     Read find_moving_average help for more information
-
     """                                         
 #
 #---- read input values; nodrop is an option
@@ -84,7 +83,7 @@ def run_moving_average():
 #
 #-- calling the maion function
 #
-    [xcent, movavg, sigma, min_sv, max_sv, y_avg, y_min, y_max, y_sig]\
+    [xcent, movavg, sigma, min_sv, max_sv, y_avg, y_min, y_max, y_sig] \
                         = find_moving_average(x, y, arange, nterms, nodrop)
 #
 #--- print out the results
@@ -109,7 +108,6 @@ def run_moving_average():
             fo.write('\t')
             fo.write(str(y_sig[i]))
             fo.write('\n')
-
 
 #---------------------------------------------------------------------------------------
 #-- find_moving_average: compute moving average and lower and upper envelop of the data-
@@ -151,7 +149,6 @@ def find_moving_average(xorg, yorg, arange, nterms, nodrop = 0):
            nodrop = 2: only 0.5% of both end will be dropped         
            nodrop = 3:  both mechanisms are not used              
        If there is no option, it will use both to exclude outlyers      
-
     """
 #
 #--- fit a straight line
@@ -229,6 +226,7 @@ def readData(file):
            by either space (\t+, \s+), ",", ":", or ";".
      The values are converted into float.
     """
+
     with open(file, 'r') as f:
         data = [line.strip() for line in f.readlines()]
 #
@@ -348,34 +346,38 @@ def findMovingAvg(xdata, ydata, arange):
     asy   = ay[aind[::1]]
     xdata = list(asx)
     ydata = list(asy)
-    start = xdata[0]
-    end   = start + arange
+    dlen  = len(xdata)
+    start = xdata[dlen-1]
+    end   = start - arange
     sum1  = 0.0
     sum2  = 0.0
+    ysave = []
     smax  = -1.0e5
     smin  =  1.0e5
     mcnt  = 0
 
-    for i in range(0, len(xdata)):
+    for k in range(1, dlen):
+        i = dlen - k
 #
 #--- if the data value is in the range, just accumulate
 #
-        if xdata[i] >= start and xdata[i] < end:
+        if xdata[i] <= start and xdata[i] > end:
             sum1 += ydata[i]
             sum2 += ydata[i] * ydata[i]
+            ysave.append(ydata[i])
             if ydata[i] > smax:
                 smax = ydata[i]
             if ydata[i] < smin:
                 smin = ydata[i]
             mcnt += 1
 
-        elif xdata[i] <= start:
+        elif xdata[i] > start:
 #
 #--- if the data value has not reached to the beginning value, skip
 #    
             continue
 
-        elif xdata[i] >= end:
+        elif xdata[i] <= end:
 #
 #--- if the data value is beyond the upper range, compute average
 #
@@ -383,9 +385,9 @@ def findMovingAvg(xdata, ydata, arange):
 #
 #--- if there is no data, skip
 #
-                while(xdata[i] >= end):
+                while(xdata[i] <= end):
                     start = end
-                    end   = start + arange
+                    end   = start - arange
 
                 sum1 += ydata[i]
                 sum2 += ydata[i] * ydata[i]
@@ -400,6 +402,23 @@ def findMovingAvg(xdata, ydata, arange):
                     std = math.sqrt(float(sum2) /float(mcnt) - avg * avg)
                 except:
                     std = 0.0
+#
+#--- remove outlyers
+#
+                low = avg - 2.0 * std
+                top = avg + 2.0 * std
+                ssum  = 0
+                ssum2 = 0
+                scnt  = 0
+                for m in range(0, len(ysave)):
+                    if (ysave[m] >= low) and (ysave[m] <= top):
+                        ssum  += ysave[m]
+                        ssum2 += ysave[m] * ysave[m]
+                        scnt  += 1
+                if scnt > 0:
+                    avg = ssum  / float(scnt)
+                    std = ssum2 / float(scnt)
+
                 movavg.append(avg)
                 sigma.append(std)
                 max_sv.append(smax)
@@ -408,16 +427,21 @@ def findMovingAvg(xdata, ydata, arange):
 #--- take the mid point of the range to x value
 #
                 midx = 0.5 * float(start + end)
-                xcent.append(midx)
+                xcent.append(start)
     
                 start = end
-                end   = start + arange
+                end   = start - arange
                 sum1  = 0.0
                 sum2  = 0.0
                 smax  = -1.0e5
                 smin  =  1.0e5
                 mcnt  = 0
 
+    xcent.reverse()
+    movavg.reverse()
+    sigma.reverse()
+    min_sv.reverse()
+    max_sv.reverse()
     return (xcent, movavg, sigma, min_sv, max_sv) 
 
 #---------------------------------------------------------------------------------------
@@ -453,7 +477,7 @@ def fit_poly(x, y, nterms):
     Input:      x      --- independent variable (array)
                 y      --- dependent variable (array)
                 nterms --- degree of polynomial fit
-    Output:     plist  --- array of polynomial fit coefficient
+    Output:     f_list --- array of polynomial fit coefficient
     """
 #
 #--- make sure that the arrays are numpyed
@@ -472,6 +496,7 @@ def fit_poly(x, y, nterms):
 #---------------------------------------------------------------------------------------
 
 def residuals(p, data):
+
     """
     compute residuals
     Input:  p    --- parameter array
@@ -492,7 +517,7 @@ def model(p, x):
             x   --- independent value (array --- numpyed)
     """
     plen = len(p)
-    yest = [arg[0] for i in range(0, len(x))]
+    yest = [p[0] for i in range(0, len(x))]
     for i in range(1, plen):
         yest += p[i] * x**i
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################
 #                                                                           #
@@ -6,7 +6,7 @@
 #                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                           #
-#           last update: Mar 16, 2021                                       #
+#           last update: Oct 21, 2021                                       #
 #                                                                           #
 #############################################################################
 
@@ -33,7 +33,7 @@ ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/re
 tail = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(tail)
 
-house_keeping = '/data/mta/Script/Python3.8/MTA/'
+house_keeping = '/data/mta/Script/Python3.10/MTA/'
 
 #--------------------------------------------------------------------------
 #-- read_data_file: read a data file and create a data list              --
@@ -656,15 +656,15 @@ def run_arc5gl_process(cline):
         fo.write(cline)
     
     try:
-        cmd = ' /proj/sot/ska/bin/arc5gl -user isobe -script ' + zspace + ' > ./zout'
+        cmd = ' /proj/sot/ska/bin/arc5gl -user swolk -script ' + zspace + ' > ./zout'
         os.system(cmd)
     except:
         try:
-            cmd  = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace + ' > ./zout'
+            cmd  = ' /proj/axaf/simul/bin/arc5gl -user swolk -script ' + zspace + ' > ./zout'
             os.system(cmd)
         except:
             cmd1 = "/usr/bin/env PERL5LIB= "
-            cmd2 = ' /proj/axaf/simul/bin/arc5gl -user isobe -script ' + zspace + ' > ./zout'
+            cmd2 = ' /proj/axaf/simul/bin/arc5gl -user swolk -script ' + zspace + ' > ./zout'
             cmd  = cmd1 + cmd2
             bash(cmd,  env=ascdsenv)
     
