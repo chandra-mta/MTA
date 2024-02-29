@@ -45,10 +45,9 @@ sys.path.append(MTA_DIR)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
-import mta_common_functions as mcf
 import robust_linear        as robust
 
-yupper = 4.0
+YUPPER = 4.0
 
 #---------------------------------------------------------------------------------------------------
 #-- monthly_report_cti_avg_plots: a control function to create plots and data for monthly report ---
@@ -169,12 +168,12 @@ def get_data(ccd_list, out, year, mon):
 #--- for none backside CCDs, we use detrended data sets
 #
     if out == 'back':
-        idir = f'{ACIS_CTI_DATA_DIR}/Data_adjust/'
+        idir = f'{ACIS_CTI_DATA_DIR}/Data_adjust'
 #
 #--- vadd to adjust the mean position of CTI
 #
     else:
-        idir = f'{ACIS_CTI_DATA_DIR}/Det_Data_adjust/'
+        idir = f'{ACIS_CTI_DATA_DIR}/Det_Data_adjust'
 
     xSets = []
     ySets = []
@@ -200,8 +199,9 @@ def get_data(ccd_list, out, year, mon):
                 vadd += corrections[k][ccd]
             vadd /= 4.0
 
-            ifile = idir + 'mn_ccd' + str(ccd)
-            data  = mcf.read_data_file(ifile)
+            ifile = f"{idir}/{elm}_ccd{ccd}"
+            with open(ifile, 'r') as f:
+                data = [line.strip() for line in f.readlines()]
 
             for ent in data:
                 atemp = re.split('\s+', ent)
@@ -217,7 +217,7 @@ def get_data(ccd_list, out, year, mon):
                 for k in range(1, 5):
                     ctemp = re.split('\+\-', atemp[k])
                     val  = float(ctemp[0])
-                    if val > 0 and val < yupper:
+                    if val > 0 and val < YUPPER:
 #
 #--- correct the value so that all data points have about the same base line
 #
@@ -298,7 +298,9 @@ def read_correction_factor(elm):
     save = numpy.zeros((4,10))
 
     ifile = f"{CTI_DIR}/house_keeping/{elm}_intc"
-    data  = mcf.read_data_file(ifile)
+    with open(ifile, 'r') as f:
+        data = [line.strip() for line in f.readlines()]
+    
 
     for i in range(0, len(data)):
         temp = re.split('\s+', data[i])
