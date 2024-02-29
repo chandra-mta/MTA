@@ -36,7 +36,7 @@ ACIS_CTI_DATA_DIR = "/data/mta/Script/ACIS/CTI/Data"
 CTI_DIR = "/data/mta/Script/Month/CTI"
 OUT_DATA_DIR = f"{CTI_DIR}/Data"
 OUT_PLOT_DIR = f"{CTI_DIR}/Plots"
-HTML_CTI_DIR = "/data/mta_www/mta_cti"
+OUT_HTML_DIR = "/data/mta_www/mta_cti"
 
 #
 #--- append a path to a private folder to python directory
@@ -131,8 +131,8 @@ def monthly_report_cti_avg_plots(year, mon):
 #
 #--- copy the plots to CTI main page
 #
-    os.system(f"rm -rf {HTML_CTI_DIR}/Main_Plot/*png")
-    os.system(f"cp {OUT_PLOT_DIR}/*.png {HTML_CTI_DIR}/Main_Plot/")
+    os.system(f"rm -rf {OUT_HTML_DIR}/Main_Plot/*png")
+    os.system(f"mkdir -p {OUT_HTML_DIR}/Main_Plot ; cp {OUT_PLOT_DIR}/*.png {OUT_HTML_DIR}/Main_Plot/")
 
     
 #---------------------------------------------------------------------------------------------------
@@ -493,8 +493,18 @@ if __name__ == '__main__':
 
     if args.mode == 'test':
 #
-#--- TODO Redefine Directory Pathing
+#---Path output to same location as unit pytest
 #
+        CTI_DIR = f"{os.getcwd()}"
+        OUT_DIR = f"{CTI_DIR}/test/outTest"
+        if args.path:
+            OUT_DIR = args.path
+        OUT_DATA_DIR = f"{OUT_DIR}/Data"
+        OUT_PLOT_DIR = f"{OUT_DIR}/Plots"
+        OUT_HTML_DIR = f"{OUT_DIR}/Web"
+        os.makedirs(OUT_DATA_DIR, exist_ok=True)
+        os.makedirs(OUT_PLOT_DIR, exist_ok=True)
+        os.makedirs(OUT_HTML_DIR, exist_ok=True)
         monthly_report_cti_avg_plots(year, mon)
     else:
         
