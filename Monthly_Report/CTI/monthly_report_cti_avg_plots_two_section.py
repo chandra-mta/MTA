@@ -18,6 +18,7 @@ import re
 import time
 import numpy
 import argparse
+import math
 
 import matplotlib as mpl
 if __name__ == '__main__':
@@ -61,7 +62,7 @@ yupper = 4.0
 #-- monthly_report_cti_avg_plots: a control function to create plots and data for monthly report ---
 #---------------------------------------------------------------------------------------------------
 
-def monthly_report_cti_avg_plots():
+def monthly_report_cti_avg_plots(year, mon):
 
     """
     a control function to create plots and data for monthly report cti trends
@@ -83,7 +84,7 @@ def monthly_report_cti_avg_plots():
 #
 #--- extract data for imaging
 #
-    [xSets, ySets, eSets] = get_data(image_ccds, 'image')
+    [xSets, ySets, eSets] = get_data(image_ccds, 'image', year, mon)
 
     xmin = int(min(xSets[0])) -1
     xmax = int(max(xSets[0])) +1
@@ -115,7 +116,7 @@ def monthly_report_cti_avg_plots():
 
         yMinSets.append(ymin)
         yMaxSets.append(ymax)
-    [xSets, ySets, eSets] = get_data(spec_ccds,   'spec')
+    [xSets, ySets, eSets] = get_data(spec_ccds, 'spec', year, mon)
     entLabels = ['CCD4', 'CCD6', 'CCD8', 'CCD9']
     plotPanel(xmin, xmax, yMinSets, yMaxSets, xSets, ySets, eSets, xname, yname, entLabels, 2012.5)
     cmd = 'mv out.png ./Plots/cti_avg_acis_s.png'
@@ -133,7 +134,7 @@ def monthly_report_cti_avg_plots():
         yMinSets.append(ymin)
         yMaxSets.append(ymax)
 
-    [xSets, ySets, eSets] = get_data(back_ccds,  'back')
+    [xSets, ySets, eSets] = get_data(back_ccds, 'back', year, mon)
     entLabels = ['CCD5', 'CCD7']
     plotPanel(xmin, xmax, yMinSets, yMaxSets, xSets, ySets, eSets, xname, yname, entLabels, 2014.5)
     cmd = 'mv out.png ./Plots/cti_avg_acis_bi.png'
@@ -151,12 +152,14 @@ def monthly_report_cti_avg_plots():
 #-- get_data: read out data from the full cti data table and creates monthly report data table  ----
 #---------------------------------------------------------------------------------------------------
 
-def get_data(ccd_list, out):
+def get_data(ccd_list, out, year, mon):
 
     """
     read out data from the full cti data table and creates monthly report data table
     Input: ccd_list     --- a list of ccds which you want to read the data
            out          --- a type of the data, "image", "spec", or "back"
+           year         --- year of data fetch
+           mon          --- month of data fetch
            data are read from "/data/mta/Script/ACIS/CTI/DATA/..."
     Output: xSets       --- a list of lists of x values of each ccd
             ySets       --- a list of lists of y values of each ccd
@@ -169,17 +172,11 @@ def get_data(ccd_list, out):
     al_factors = read_correction_factor('al')
     mn_factors = read_correction_factor('mn')
     ti_factors = read_correction_factor('ti')
-#
-#--- find today's date; ctime[0] is year and ctime[1] is month
-#
-    ltime = time.strftime("%Y:%m", time.gmtime())
-    ctime = re.split(':', ltime)
-    lyear = int(float(ctime[0]))
-    lmonth= int(float(ctime[1]))
+
 #
 #--- set dimension of the array
 #
-    c_cnt = 12 * (int(ctime[0]) - 2000) + int(ctime[1])
+    c_cnt = 12 * (year - 2000) + mon
     d_cnt = len(ccd_list)
 #
 #--- for none backside CCDs, we use detrended data sets
@@ -250,9 +247,9 @@ def get_data(ccd_list, out):
         xvals = []
         yvals = []
         evals = []
-        for k in range(2000, lyear+1):
+        for k in range(2000, year+1):
             for m in range(0, 13):
-                if (k == lyear) and (m > lmonth):
+                if (k == year) and (m > mon):
                     chk = 1
                     break
 
