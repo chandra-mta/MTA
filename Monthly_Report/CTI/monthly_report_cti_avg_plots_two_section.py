@@ -28,33 +28,25 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
 
-
-path = '/data/mta/Script/ACIS/CTI/house_keeping/dir_list_py'
-
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
+#
+#--- Define directory pathing
+#
+MTA_DIR = "/data/mta/Script/Python3.10/MTA"
+ACIS_CTI_DATA_DIR = "/data/mta/Script/ACIS/CTI/Data"
+CTI_DIR = "/data/mta/Script/Month/CTI"
+OUT_DATA_DIR = f"{CTI_DIR}/Data"
+OUT_PLOT_DIR = f"{CTI_DIR}/Plots"
+HTML_CTI_DIR = "/data/mta_www/mta_cti"
 
 #
 #--- append a path to a private folder to python directory
 #
-sys.path.append(mta_dir)
+sys.path.append(MTA_DIR)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
 import mta_common_functions as mcf
 import robust_linear        as robust
-#
-#--- temp writing file name
-#
-import random
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 
 yupper = 4.0
 
@@ -102,8 +94,7 @@ def monthly_report_cti_avg_plots(year, mon):
 #
     entLabels = ['CCD0', 'CCD1', 'CCD2', 'CCD3']
     plotPanel(xmin, xmax, yMinSets, yMaxSets, xSets, ySets, eSets, xname, yname, entLabels, 2012.5)
-    cmd = 'mv out.png ./Plots/cti_avg_acis_i.png'
-    os.system(cmd)
+    os.system(f"mv out.png {OUT_PLOT_DIR}/cti_avg_acis_i.png")
 #
 #--- spectral
 #
@@ -119,8 +110,7 @@ def monthly_report_cti_avg_plots(year, mon):
     [xSets, ySets, eSets] = get_data(spec_ccds, 'spec', year, mon)
     entLabels = ['CCD4', 'CCD6', 'CCD8', 'CCD9']
     plotPanel(xmin, xmax, yMinSets, yMaxSets, xSets, ySets, eSets, xname, yname, entLabels, 2012.5)
-    cmd = 'mv out.png ./Plots/cti_avg_acis_s.png'
-    os.system(cmd)
+    os.system(f"mv out.png {OUT_PLOT_DIR}/cti_avg_acis_s.png")
 #
 #--- back side
 #
@@ -137,15 +127,12 @@ def monthly_report_cti_avg_plots(year, mon):
     [xSets, ySets, eSets] = get_data(back_ccds, 'back', year, mon)
     entLabels = ['CCD5', 'CCD7']
     plotPanel(xmin, xmax, yMinSets, yMaxSets, xSets, ySets, eSets, xname, yname, entLabels, 2014.5)
-    cmd = 'mv out.png ./Plots/cti_avg_acis_bi.png'
-    os.system(cmd)
+    os.system(f"mv out.png {OUT_PLOT_DIR}/cti_avg_acis_bi.png")
 #
-#--- copy the plots to CTI magin page
+#--- copy the plots to CTI main page
 #
-    cmd = 'rm -rf /data/mta_www/mta_cti/Main_Plot/*png'
-    os.system(cmd)
-    cmd = 'cp ./Plots/*.png /data/mta_www/mta_cti/Main_Plot/.'
-    os.system(cmd)
+    os.system(f"rm -rf {HTML_CTI_DIR}/Main_Plot/*png")
+    os.system(f"cp {OUT_PLOT_DIR}/*.png {HTML_CTI_DIR}/Main_Plot/")
 
     
 #---------------------------------------------------------------------------------------------------
@@ -182,12 +169,12 @@ def get_data(ccd_list, out, year, mon):
 #--- for none backside CCDs, we use detrended data sets
 #
     if out == 'back':
-        idir = '/data/mta/Script/ACIS/CTI/Data/Data_adjust/'
+        idir = f'{ACIS_CTI_DATA_DIR}/Data_adjust/'
 #
 #--- vadd to adjust the mean position of CTI
 #
     else:
-        idir = '/data/mta/Script/ACIS/CTI/Data/Det_Data_adjust/'
+        idir = f'{ACIS_CTI_DATA_DIR}/Det_Data_adjust/'
 
     xSets = []
     ySets = []
@@ -281,7 +268,7 @@ def get_data(ccd_list, out, year, mon):
             if chk  > 0:
                 break
 
-        ifile = './Data/cti_data/ccd' + str(ccd) + '_data'
+        ifile = f"{OUT_DATA_DIR}/cti_data/ccd{ccd}_data"
         with  open(ifile, 'w') as fo:
             fo.write(line)
 #
@@ -307,7 +294,7 @@ def read_correction_factor(elm):
     """
     save = numpy.zeros((4,10))
 
-    ifile = './house_keeping/' + elm + '_intc'
+    ifile = f"{CTI_DIR}/house_keeping/{elm}_intc"
     data  = mcf.read_data_file(ifile)
 
     for i in range(0, len(data)):
