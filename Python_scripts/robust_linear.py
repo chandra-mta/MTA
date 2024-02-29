@@ -7,18 +7,12 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           Last update:     Mar 15, 2021                                                   #
+#           Last update:     Feb 29, 2024                                                   #
 #                                                                                           #
 #############################################################################################
 
-import os
-import sys
-import re
-import string
 import random
-import operator
 import math
-import numpy
 
 #-------------------------------------------------------------------------------------------
 #-- robust_fit: compute a linear fit parameters using rubst fit                          ---
@@ -116,10 +110,10 @@ def medfit(xval, yval):
 #
     (aa, bb, delta) = least_sq(xval, yval)
 #
-#--- save the values for the case the values did not converse
+#--- save the values for the case the values did not converge
 #
     asave = aa
-    basve = bb
+    bsave = bb
 
     chisq = 0.0
     for j in range(0, tot):
