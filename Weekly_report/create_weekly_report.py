@@ -690,55 +690,12 @@ def find_date_and_year_for_report():
     output: date    --- date of the nearest Thu in the format of mmdd (e.g. 0910)
             year    --- year of the nearest Thu
     """
-#
-#--- find today's date information (in local time)
-#
-    tlist = time.localtime()
-
-    year  = tlist[0]
-    mon   = tlist[1]
-    day   = tlist[2]
-    wday  = tlist[6]
-    yday  = tlist[7]
-#
-#--- find the differnce to Thursday. wday starts on Monday (0)
-#
-    diff  = 3 - wday
-
-    if diff != 0:
-        yday += diff
-        if yday < 1:
-            year -= 1
-            if mcf.is_leapyear(year):
-                base = 366
-            else:
-                base = 365
-
-            yday = base - yday
-#
-#--- converting the year and ydate into the standard date output
-#
-        tline = str(year) + ' ' +str(yday)
-        tlist = time.strptime(tline, "%Y %j")
-
-        year  = tlist[0]
-        mon   = tlist[1]
-        day   = tlist[2]
-#
-#--- change the date foramt to mmdd (e.g. 0910)
-#
-    smon = str(mon)
-    if mon < 10:
-        smon = '0' + smon
-    sday = str(day)
-    if day < 10:
-        sday = '0' + sday
-
-    date = smon + sday
-
-    year = str(year)
-
-    return [date, year]
+    now = datetime.datetime.now()
+    thurs = diff = (3 - now.weekday()) % 7
+    if diff > 0:
+        diff -= 7
+    thurs = now + datetime.timedelta(days = diff)
+    return [f"{thurs.month:02}{thurs.day:02}", f"{thurs.year}"]
 
 #-------------------------------------------------------------------------------
 #- create_html_table: create table msid entries of the group                 ---
