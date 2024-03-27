@@ -21,16 +21,12 @@ import glob
 #--- Define directory pathing
 #
 BIN_DIR = "/data/mta/Script/Weekly/Scripts"
-MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 AP_DIR = "/data/mta/www/ap_report"
 MP_DIR = "/data/mta/www/mp_reports"
 AP_EVENTS_WEB = "/mta_days/ap_report/events"
 MP_EVENTS_WEB = "/mta_days/mp_report/events"
 GRATING_WEB = "/data/mta/www/mta_grat/Grating_Data"
 sys.path.append(BIN_DIR)
-sys.path.append(MTA_DIR)
-
-import mta_common_functions as mcf
 
 #---------------------------------------------------------------------------------------
 #-- find_recent_observations: create a data analysis link table of recent observations for the weekly

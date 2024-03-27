@@ -18,15 +18,8 @@ import random
 #--- Define directory pathing
 #
 BIN_DIR = "/data/mta/Script/Weekly/Scripts"
-MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 BAD_PIX_DIR = "/data/mta/Script/ACIS/Bad_pixels/Data"
 sys.path.append(BIN_DIR)
-sys.path.append(MTA_DIR)
-#
-#--- append path to a private folders
-#
-
-import mta_common_functions as mcf
 
 #---------------------------------------------------------------------------------------
 #-- create_bad_pixel_table: create bad pixel table for the weekly report              --
@@ -89,7 +82,8 @@ def create_table_section(ctype, btype, title):
     line = '<tr style="text-align:center"><td>' + title + '</td>\n'
     for ccd in range(0, 10):
         ifile = f"{BAD_PIX_DIR}/{ctype}{ccd}_information"
-        data  = mcf.read_data_file(ifile)
+        with open(ifile) as f:
+            data = [line.strip() for line in f.readlines()]
         save  = []
         for out in data:
             mc    = re.search(btype, out)
