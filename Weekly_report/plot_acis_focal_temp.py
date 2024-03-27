@@ -152,11 +152,11 @@ def read_orbit_data(tstart, tstop):
 #--- set up the input for dataseeker and extract the data
 #
     fits = 'dataseek_avg.fits'
-    cmd  = 'touch test'
+    cmd  = 'touch infile'
     os.system(cmd)
 
     cmd1 = '/usr/bin/env PERL5LIB=  '
-    cmd2 = " dataseeker.pl infile=test outfile=" + fits + " "
+    cmd2 = " dataseeker.pl infile=infile outfile=" + fits + " "
     cmd2 = cmd2 + "search_crit='columns=pt_suncent_ang,sc_altitude timestart=" + str(tstart)
     cmd2 = cmd2 + " timestop=" + str(tstop) + "' loginFile=" + lfile
 
@@ -171,7 +171,7 @@ def read_orbit_data(tstart, tstop):
 #--- clean up
 #
     os.remove(fits)
-    os.remove('test')
+    os.remove('infile')
 
     return data
 
