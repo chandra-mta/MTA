@@ -331,6 +331,7 @@ def clean_up_msid_list(o_list):
             pass
 
         o_list.append(msid)
+        o_list.sort()
 
     return o_list
 
