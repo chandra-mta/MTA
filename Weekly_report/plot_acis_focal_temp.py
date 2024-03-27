@@ -13,13 +13,12 @@
 import os
 import sys
 import re
-import random
 import time
 import numpy
 import astropy.io.fits  as pyfits
-from datetime import datetime
 import Chandra.Time
 import unittest
+from calendar import isleap
 #
 #--- from ska
 #
@@ -44,17 +43,10 @@ import matplotlib.lines as lines
 #--- Define directory pathing
 #
 BIN_DIR = "/data/mta/Script/Weekly/Scripts"
-MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 DATA_DIR = "/data/mta/Script/Weekly/Data"
 FOCAL_DIR = "/data/mta/Script/ACIS/Focal/Data"
 
 sys.path.append(BIN_DIR)
-sys.path.append(MTA_DIR)
-
-#
-#--- import several functions
-#
-import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
 #
 #--- set column names and header
 #
@@ -77,7 +69,7 @@ def plot_acis_focal_temp(tyear='', yday=''):
         yday   = int(float(time.strftime('%j', time.gmtime())))
         today  = time.strftime('%Y:%j:00:00:00', time.gmtime())
     else:
-        today  = str(tyear) + ':' + mcf.add_leading_zero(yday, 3) + ':00:00:00'
+        today = f"{tyear}:{yday:03}:00:00:00"
 
     cdate  = Chandra.Time.DateTime(today).secs
     cstart = cdate - 86400.0 * 7.0
@@ -178,8 +170,8 @@ def read_orbit_data(tstart, tstop):
 #
 #--- clean up
 #
-    mcf.rm_file(fits)
-    mcf.rm_file('test')
+    os.remove(fits)
+    os.remove('test')
 
     return data
 
@@ -253,10 +245,7 @@ def convert_time_format(otime):
         if prev == 0:
             prev = year
             save.append(yday)
-            if mcf.is_leapyear(year):
-                base = 366
-            else:
-                base = 365
+            base = 365 + isleap(year)
         else:
             if year != prev:
                 save.append(yday + base)
@@ -278,11 +267,11 @@ def read_data_file(ifile, sep='', remove=0, c_len=0):
             c_len   --- numbers of columns to be read. col=0 to col= c_len. default: 0 --- read all
     output: data    --- a list of lines or a list of lists
     """
-
-    data = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     if remove > 0:
-        mcf.rm_file(ifile)
+        os.remove(ifile)
 
     if sep != '':
         atemp = re.split(sep, data[0])
