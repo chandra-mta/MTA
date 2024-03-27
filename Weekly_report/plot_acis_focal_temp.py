@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -13,16 +13,12 @@
 import os
 import sys
 import re
-import string
-import random
 import time
-import math
 import numpy
 import astropy.io.fits  as pyfits
-import Ska.engarchive.fetch as fetch
-from datetime import datetime
 import Chandra.Time
 import unittest
+from calendar import isleap
 #
 #--- from ska
 #
@@ -42,26 +38,21 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines as lines
 
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(base_dir)
-sys.path.append(mta_dir)
+
 #
-#--- import several functions
+#--- Define directory pathing
 #
-import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
-#
-#--- temp writing file name
-#
-import random
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+DATA_DIR = "/data/mta/Script/Weekly/Data"
+FOCAL_DIR = "/data/mta/Script/ACIS/Focal/Data"
+
+sys.path.append(BIN_DIR)
 #
 #--- set column names and header
 #
 orb_col_list  = ['time', 'x', 'y', 'z']
 ang_col_list  = ['time','point_suncentang']
-lfile         = base_dir + 'Scripts/house_keeping/loginfile'
+lfile = f"{BIN_DIR}/house_keeping/loginfile"
 
 #-----------------------------------------------------------------------------------------------
 #-- plot_acis_focal_temp: plot acis focal temperature                                        ---
@@ -78,7 +69,7 @@ def plot_acis_focal_temp(tyear='', yday=''):
         yday   = int(float(time.strftime('%j', time.gmtime())))
         today  = time.strftime('%Y:%j:00:00:00', time.gmtime())
     else:
-        today  = str(tyear) + ':' + mcf.add_leading_zero(yday, 3) + ':00:00:00'
+        today = f"{tyear}:{yday:03}:00:00:00"
 
     cdate  = Chandra.Time.DateTime(today).secs
     cstart = cdate - 86400.0 * 7.0
@@ -125,7 +116,7 @@ def read_focal_temp(tyear, yday, tstart, tstop):
 #--- if y daay is less than 8, read the data from the last year
 #
     if yday < 8:
-        ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear-1)
+        ifile = f"{FOCAL_DIR}/focal_plane_data_5min_avg_{tyear-1}"
         data   = read_data_file(ifile, sep='\s+', c_len=2)
         ftime  = data[0]
         focal  = data[1]
@@ -135,7 +126,7 @@ def read_focal_temp(tyear, yday, tstart, tstop):
 #
 #--- otherwise, just read this year
 #
-    ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear)
+    ifile = f"{FOCAL_DIR}/focal_plane_data_5min_avg_{tyear}"
     data   = read_data_file(ifile, sep='\s+', c_len=2)
     ftime  = ftime + data[0]
     focal  = focal + data[1]
@@ -161,11 +152,11 @@ def read_orbit_data(tstart, tstop):
 #--- set up the input for dataseeker and extract the data
 #
     fits = 'dataseek_avg.fits'
-    cmd  = 'touch test'
+    cmd  = 'touch infile'
     os.system(cmd)
 
     cmd1 = '/usr/bin/env PERL5LIB=  '
-    cmd2 = " dataseeker.pl infile=test outfile=" + fits + " "
+    cmd2 = " dataseeker.pl infile=infile outfile=" + fits + " "
     cmd2 = cmd2 + "search_crit='columns=pt_suncent_ang,sc_altitude timestart=" + str(tstart)
     cmd2 = cmd2 + " timestop=" + str(tstop) + "' loginFile=" + lfile
 
@@ -179,8 +170,8 @@ def read_orbit_data(tstart, tstop):
 #
 #--- clean up
 #
-    mcf.rm_file(fits)
-    mcf.rm_file('test')
+    os.remove(fits)
+    os.remove('infile')
 
     return data
 
@@ -190,7 +181,7 @@ def read_orbit_data(tstart, tstop):
 
 def select_data_by_date(x, y, tstart, tstop):
     """
-    selet out the potion of the data by time
+    select out the potion of the data by time
     input:  x       --- a list of time data
             y       --- a list of data
             tstart  --- a starting time in seconds from 1998.1.1
@@ -254,10 +245,7 @@ def convert_time_format(otime):
         if prev == 0:
             prev = year
             save.append(yday)
-            if mcf.is_leapyear(year):
-                base = 366
-            else:
-                base = 365
+            base = 365 + isleap(year)
         else:
             if year != prev:
                 save.append(yday + base)
@@ -279,11 +267,11 @@ def read_data_file(ifile, sep='', remove=0, c_len=0):
             c_len   --- numbers of columns to be read. col=0 to col= c_len. default: 0 --- read all
     output: data    --- a list of lines or a list of lists
     """
-
-    data = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     if remove > 0:
-        mcf.rm_file(ifile)
+        os.remove(ifile)
 
     if sep != '':
         atemp = re.split(sep, data[0])
@@ -392,8 +380,8 @@ def plot_data(ftime, ftemp, stime, alt, sang, xmin, xmax, xlabel):
 #
 #--- save the plot
 #
-    outfile = base_dir + 'Data/Focal/acis_focal_temp.png'
-    fig     = matplotlib.pyplot.gcf()
+    outfile = f"{DATA_DIR}/Focal/acis_focal_temp.png"
+    fig     = plt.gcf()
     fig.set_size_inches(width, height)
     plt.tight_layout()
     plt.savefig(outfile, format='png', dpi=resolution)

@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -13,16 +13,12 @@
 import os
 import sys
 import re
-import string
-import random
 import time
-import operator
-import math
 import numpy
-#import astropy.io.fits  as pyfits
 from datetime import datetime
 import Chandra.Time
 import unittest
+from calendar import isleap
 
 #
 #--- from ska
@@ -30,20 +26,14 @@ import unittest
 from Ska.Shell import getenv, bash
 ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param', shell='tcsh')
 
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
+#
+#--- Define directory pathing
+#
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+DATA_DIR = "/data/mta/Script/Weekly/Data"
+FOCAL_DIR = "/data/mta/Script/ACIS/Focal/Data"
 
-sys.path.append(mta_dir)
-sys.path.append(base_dir)
-#
-#--- import several functions
-#
-import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random()) 
-zspace = '/tmp/zspace' + str(rtail)
+sys.path.append(BIN_DIR)
 
 BTFMT    = '%m/%d/%y,%H:%M:%S'
 basetime = datetime.strptime('01/01/98,00:00:00', BTFMT)
@@ -110,7 +100,7 @@ def find_focal_temp_peaks(year='', month='', mday='', tdiff=''):
 #
 #--- print out the data
 #
-    outfile = base_dir + 'Data/Focal/focal_temp_list'
+    outfile = f"{DATA_DIR}/Focal/focal_temp_list"
     with  open(outfile, 'w') as fo:
         fo.write(line)
     
@@ -122,7 +112,7 @@ def adjust_digit_format(val, top=3):
     """
     adjust print out digit format
     input:  val --- value
-            top --- how many digit we need; defalut:3
+            top --- how many digit we need; default:3
     output: sval    --- format adjusted sting value
     """
     if val > 0:
@@ -191,7 +181,7 @@ def find_time_span(year = '', month = '', mday = ''):
         yday  = tlist[7]
         chk   = 1
 #
-#--- find the differnce to Thursday. wday starts on Monday (0)
+#--- find the difference to Thursday. wday starts on Monday (0)
 #--- and set data collect date span
 #
         diff  = 4 - wday
@@ -200,13 +190,13 @@ def find_time_span(year = '', month = '', mday = ''):
             yday += diff
             if yday < 1:
                 year -= 1
-                base = find_base_data(year)
+                base = 365 + isleap(int(year))
                 yday = base - yday
 
     syear  = year
     dstart = yday - 8
     syday  = yday - 7
-    base   = find_base_data(year)
+    base = 365 + isleap(int(year))
 
     if syday < 0:
         syear -= 1
@@ -232,19 +222,6 @@ def find_time_span(year = '', month = '', mday = ''):
     return [start, stop, dstart, dstop] 
 
 #-----------------------------------------------------------------------------------------------
-#-----------------------------------------------------------------------------------------------
-#-----------------------------------------------------------------------------------------------
-
-def find_base_data(year):
-
-    if mcf.is_leapyear(year):
-        base = 366
-    else:
-        base = 365
-
-    return base
-
-#-----------------------------------------------------------------------------------------------
 #-- convertto1998sec: convert time format from mm/dd/yy,hh:mm:ss to seconds from 1998.1.1    ---
 #-----------------------------------------------------------------------------------------------
 
@@ -254,7 +231,7 @@ def convertto1998sec(year, yday):
     input:  ftime      --- time in mm/dd/yy,hh:mm:ss or yyyy-mm-dd,hh:mm:ss
     output  stime      --- time in seconds from 1998.1.1
     """
-    ftime   = str(year) + ':' + mcf.add_leading_zero(yday, 3) + ':00:00:00'
+    ftime = f"{year}:{yday:03}:00:00:00"
     sec1998 = Chandra.Time.DateTime(ftime).secs
 
     return sec1998
@@ -278,7 +255,7 @@ def read_focal_temp(tyear, yday, tstart, tstop):
 #--- if y day is less than 8, read the data from the last year
 #
     if yday < 8:
-        ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear-1)
+        ifile = f"{FOCAL_DIR}/focal_plane_data_5min_avg_{tyear-1}"
         data   = read_data_file_col(ifile, sep='\s+', c_len=2)
         if data[0] != 0:
             ftime  = data[0]
@@ -293,7 +270,7 @@ def read_focal_temp(tyear, yday, tstart, tstop):
 #--- otherwise, just read this year
 #
     try:
-        ifile  = '/data/mta/Script/ACIS/Focal/Data/focal_plane_data_5min_avg_' + str(tyear)
+        ifile = f"{FOCAL_DIR}/focal_plane_data_5min_avg_{tyear}"
         data   = read_data_file_col(ifile, sep='\s+', c_len=2)
         if data[0] != 0:
             ftime  = ftime + data[0]
@@ -471,7 +448,7 @@ def find_turning_point(time_set, temp_set):
 
 def select_peak(time_set,temp_set,tdiff=0.3):
     """
-    find a peak and valleys srrounding the peak
+    find a peak and valleys surrounding the peak
     input:  time_set    --- a list of time in seconds from 1998.1.1
             temp_set    --- a list of temperatures
             tdiff       --- a criteria difference between peak and valley
@@ -495,7 +472,7 @@ def select_peak(time_set,temp_set,tdiff=0.3):
                 line = line + '\nPEAK:' + str(Chandra.Time.DateTime(time_set[m]).date) + "<--->" 
                 line = line + str(sec1998tofracday(time_set[m])) +"<--->" + str(temp_set[m]) + '\n\n'
 
-    outfile = base_dir + 'Data/Focal/focal_peak_ref'
+    outfile = f"{DATA_DIR}/Focal/focal_peak_ref"
     with open(outfile, 'w') as fo:
         fo.write(line)
 
@@ -704,10 +681,11 @@ def read_data_file_col(ifile, sep='', remove=0, c_len=0):
             c_len   --- numbers of columns to be read. col=0 to col= c_len. default: 0 --- read all
     output: data    --- a list of lines or a list of lists
     """
-    data = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
     
     if remove > 0:
-        mcf.rm_file(ifile)
+        os.remove(ifile)
     
     if len(data) == 0:
         return [0, 0]

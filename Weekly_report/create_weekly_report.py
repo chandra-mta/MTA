@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################
 #                                                                           #
@@ -12,41 +12,35 @@
 
 import sys
 import os
-import string
 import re
-import copy
-import math
-import unittest
 import time
 import datetime
 import Chandra.Time
+import argparse
+import getpass
+import traceback
 #
-#--- append path to a private folders
+#--- Define directory pathing
 #
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(base_dir)
-sys.path.append(mta_dir)
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+TEMPLATE_DIR = f"{BIN_DIR}/Templates"
+DATA_DIR = "/data/mta/Script/Weekly/Data"
+WEB_DIR = "/data/mta4/www/REPORTS"
+CTI_DIR = "/data/mta_www/mta_cti"
+SIM_DATA_DIR = "/data/mta/Script/SIM_move/Data"
+sys.path.append(BIN_DIR)
 
 import find_focal_temp_peaks    as fftp
 import plot_acis_focal_temp     as paft
 import create_telem_table       as ctt
 import create_bad_pixel_table   as cbpt
 import find_recent_observations as frobs
-import mta_common_functions     as mcf
-#
-#--- set directory paths
-#
-d_dir  = '/data/mta4/www/DAILY/mta_deriv/'
-wdir   = '/data/mta/Script/Weekly/'
-tdir   = wdir + 'Scripts/Templates/'
+from calendar import month_abbr
+
 #
 #--- admin email addresses (list) including those passed through sys args
 #
 ADMIN  = ['mtadude@cfa.harvard.edu']
-for i in range(1,len(sys.argv)):
-    if sys.argv[i][:6] == 'email=':
-        ADMIN.append(sys.argv[i][6:])
 #
 #--- ephin linst
 #
@@ -73,14 +67,6 @@ def create_weekly_report(date, year, debug = 0):
             it also creates local copies in <data_dir>
     """
 #
-#--- if the test is requested, create Test directory
-#
-    if debug != 0:
-        os.system('mkdir -p  /data/mta/Script/Weekly/TEST/')
-        hodir = '/data/mta/Script/Weekly/TEST/'
-    else:
-        hodir = '/data/mta4/www/REPORTS/'
-#
 #--- one day in seconds
 #
     oned  = 86400
@@ -95,7 +81,7 @@ def create_weekly_report(date, year, debug = 0):
 
     smon  = date[0] + date[1]               #--- two digit month
     mon   = int(float(smon))                #--- integer month
-    lmon  = mcf.change_month_format(mon)    #--- month in letter (e.g.Mar)
+    lmon = month_abbr[mon]                  #--- month in letter (e.g.Mar)
 
     sday  = date[2] + date[3]               #--- two digit mday
     day   = int(float(sday))                #--- integer mday
@@ -172,7 +158,6 @@ def create_weekly_report(date, year, debug = 0):
     titledate     = lday0 + ' - ' + lday6
 
     ldate         = sdate_to_ldate(lday6)
-    ldate_sp      = sdate_to_ldate_with_space(lday6)
 
 #
 #--- focal temp file name
@@ -235,14 +220,15 @@ def create_weekly_report(date, year, debug = 0):
 #
 #--- create a work directory
 #
-    outdir = wdir + 'Data/' +  ldate + '/'
+    outdir = f"{DATA_DIR}/{ldate}/"
     cmd = 'mkdir -p ' + outdir
     os.system(cmd)
 #
 #--- read the template for the weekly, and start replacing dates etc
 #
-    tfile = tdir + 'this_week'
-    linput = read_template(tfile)
+    tfile = f"{TEMPLATE_DIR}/this_week"
+    with open(tfile, 'r') as f:
+        linput = f.read()
 
     linput = linput.replace('#DDATE#',   file_date)
     linput = linput.replace('#IRUSPAN1#', irudate)
@@ -256,7 +242,7 @@ def create_weekly_report(date, year, debug = 0):
 
     atemp  = re.split('/', last_trend_date)
     pmon   = int(float(atemp[0]))
-    lmon   = mcf.change_month_format(pmon)
+    lmon = month_abbr[pmon]
     line   = lmon + ' ' + atemp[1]
 #
 #--- the previous report could be from the last year
@@ -317,11 +303,12 @@ def create_weekly_report(date, year, debug = 0):
 #
 #--- move files
 #
-    move_files(date, year, outdir, file_name, fptemp, hodir)
+    move_files(date, year, outdir, file_name, fptemp, WEB_DIR)
 #
 #--- send out email to admin; notify the job complete
 #
-    send_email_to_admin(date, year)
+    if len(ADMIN) > 0:
+        send_email_to_admin(date, year)
 
 
 #----------------------------------------------------------------------------------
@@ -341,22 +328,6 @@ def stime_to_ddate(stime):
     return dtime
 
 #----------------------------------------------------------------------------------
-#-- stime_to_ddate2: change data in second from 1998.1.1 to yyyymmdd format      --
-#----------------------------------------------------------------------------------
-
-def stime_to_ddate2(stime):
-    """
-    change data in second from 1998.1.1 to yyyymmdd format
-    input:  stime   --- time in seconds from 1998.1.1
-    output: dtime   --- date in the form of yyyymmdd (e.g. 20150819)
-    """
-    tlist       = Chandra.Time.DateTime(stime).date
-    atemp       = re.split('\.', tlist)
-    dtime       = time.strftime('%Y%m%d', time.strptime(atemp[0], '%Y:%j:%H%:%M:%S'))
-
-    return dtime
-
-#----------------------------------------------------------------------------------
 #-- sdate_to_ldate: change date in second from 1998.1.1 to MMMdd                 --
 #----------------------------------------------------------------------------------
 
@@ -369,31 +340,11 @@ def sdate_to_ldate(sdate):
 
     atemp = re.split('\/', sdate)
     mon   = int(float(atemp[0]))
-    lmon  = mcf.change_month_format(mon)
+    lmon = month_abbr[mon]
 
     ldate = lmon + atemp[1]
 
     return ldate
-
-#----------------------------------------------------------------------------------
-#-- sdate_to_ldate_with_space: change date in second from 1998.1.1 to MMM dd     --
-#----------------------------------------------------------------------------------
-
-def sdate_to_ldate_with_space(sdate):
-    """
-    change date in second from 1998.1.1 to MMM dd
-    input:  stime   --- time in seconds from 1998.1.1
-    output: ldate   --- date in form of MMM dd (e.g. Aug 19)
-    """
-
-    atemp = re.split('\/', sdate)
-    mon   = int(float(atemp[0]))
-    lmon  = mcf.change_month_format(mon)
-
-    ldate = lmon + ' ' +  atemp[1]
-
-    return ldate
-
 
 #----------------------------------------------------------------------------------
 #-- read_cti_values: read cti values from the fitting result files               --
@@ -409,11 +360,11 @@ def read_cti_values():
             ftemp4  --- Detrended cti in CTI/day
     """
 
-    ifile = '/data/mta_www/mta_cti/Plot_adjust/fitting_result'
+    ifile = f'{CTI_DIR}/Plot_adjust/fitting_result'
 
     [ftemp1, ftemp2, ftemp3, ftemp4] = read_cti(ifile)
 
-    ifile = '/data/mta_www/mta_cti/Det_Plot_adjust/fitting_result'
+    ifile = f'{CTI_DIR}/Det_Plot_adjust/fitting_result'
 
     [ftemp5, ftemp6, ftemp7, ftemp8] = read_cti(ifile)
 
@@ -433,7 +384,8 @@ def read_cti(ifile):
             ftemp3  ---- cti in CTI/year
             ftemp4  ---- cti in CTI/day
     """
-    data = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     chk = 0
     for ent in data:
@@ -498,8 +450,8 @@ def read_sim():
             step    --- weekly counts of TSC moves
             val     --- mission total average time/step
     """
-
-    data = mcf.read_data_file('/data/mta/Script/SIM_move/Data/weekly_report_stat')
+    with open(f'{SIM_DATA_DIR}/weekly_report_stat') as f:
+        data = [line.strip() for line in f.readlines()]
     atemp = re.split('\s+', data[0])
     tval  = '%1.5f' % float(atemp[1])
     step  = atemp[2]
@@ -523,8 +475,8 @@ def read_focal_temp_data(fptemp, outdir):
 #
 #--- read the html table entries
 #
-    ifile = wdir + '/Data/Focal/focal_temp_list'
-    data = mcf.read_data_file(ifile)
+    with open(f"{DATA_DIR}/Focal/focal_temp_list") as f:
+        data = [line.strip() for line in f.readlines()]
 
     fcnt  = len(data)
     fdata = ''
@@ -533,8 +485,7 @@ def read_focal_temp_data(fptemp, outdir):
 #
 #--- move the plot to an appropriate place
 #
-    cmd = 'cp ' + wdir + 'Data/Focal/acis_focal_temp.png ' + outdir + fptemp
-    os.system(cmd)
+    os.system(f"cp {DATA_DIR}/Focal/acis_focal_temp.png {outdir}/{fptemp}")
 
     return [fcnt, fdata]
 
@@ -549,8 +500,8 @@ def read_focal_temp_output():
     output: fcnt    --- number of peaks
             out     --- adjucted table
     """
-
-    data = mcf.read_data_file('./out')
+    with open("./out") as f:
+        data = [line.strip() for line in f.readlines()]
 
     rows = []
     chk  = 0
@@ -602,18 +553,18 @@ def set_trend_data_input(title):
     title  = title.replace(' ', '_')
     ltitle = title.lower()
 
-    ifile = tdir + 'Headers/Dsave/' +  str(ltitle)
-    data  = mcf.read_data_file(ifile)
+    with open(f"{TEMPLATE_DIR}/Headers/Dsave/{ltitle}") as f:
+        data = [line.strip() for line in f.readlines()]
 #
 #--- read header file
 #
-    ifile = tdir + '/Headers/' +  str(title)
-    hdata = mcf.read_data_file(ifile)
+    with open(f"{TEMPLATE_DIR}/Headers/{title}") as f:
+        hdata = [line.strip() for line in f.readlines()]
 #
 #--- read group display name
 #
-    ifile = tdir + '/Headers/group_name'
-    out   = mcf.read_data_file(ifile)
+    with open(f"{TEMPLATE_DIR}/Headers/group_name") as f:
+        out = [line.strip() for line in f.readlines()]
 
     g_dict = {}
     for ent in out:
@@ -673,17 +624,12 @@ def move_files(date, year, out_dir, file_name, fptemp, hodir):
             hodir       --- output directory
     output: /data/mta4/www/REPORTS/yyyy/mmdd.html and focal temp plot
     """
-    mc = re.search('TEST', hodir)
-    if mc is not None:
-        html_dir = hodir
-    else:
-        html_dir = hodir + str(year)
+    html_dir = f"{hodir}/{year}"
 #
 #--- when year changes, you need to create a new output directory
 #
     if os.path.isdir(html_dir) == False:
-        cmd = 'mkdir -p ' + html_dir
-        os.system(cmd)
+        os.system(f"mkdir -p {html_dir}")
 
     ofile    = out_dir + file_name
     pngfile  = out_dir + fptemp
@@ -716,6 +662,23 @@ def send_email_to_admin(date, year):
     os.system(cmd)
 
 #----------------------------------------------------------------------------------
+#-- send_error_to_admin: send out a error email to admin                         --
+#----------------------------------------------------------------------------------
+
+def send_error_to_admin(e):
+    """
+    send out a notification email to admin
+    input:  e        --- sys.exception() error tracestack
+    output: email to admin
+    """
+    et = time.localtime()
+    dt_string = f"{et.tm_year}/{et.tm_mon}/{et.tm_mday} {et.tm_hour}:{et.tm_min}"
+    line = f"Failure to generate weekly report at {dt_string}. Please check generating script at {__file__}.\n\n"
+    line = line + f"{e}"
+
+    os.system(f'echo "{line}" | mailx -s "Error in Weekly Report Script: {dt_string}" {" ".join(ADMIN)}')
+
+#----------------------------------------------------------------------------------
 #-- find_date_and_year_for_report: find nearest Thursday date                    --
 #----------------------------------------------------------------------------------
 
@@ -726,55 +689,12 @@ def find_date_and_year_for_report():
     output: date    --- date of the nearest Thu in the format of mmdd (e.g. 0910)
             year    --- year of the nearest Thu
     """
-#
-#--- find today's date information (in local time)
-#
-    tlist = time.localtime()
-
-    year  = tlist[0]
-    mon   = tlist[1]
-    day   = tlist[2]
-    wday  = tlist[6]
-    yday  = tlist[7]
-#
-#--- find the differnce to Thursday. wday starts on Monday (0)
-#
-    diff  = 3 - wday
-
-    if diff != 0:
-        yday += diff
-        if yday < 1:
-            year -= 1
-            if mcf.is_leapyear(year):
-                base = 366
-            else:
-                base = 365
-
-            yday = base - yday
-#
-#--- converting the year and ydate into the standard date output
-#
-        tline = str(year) + ' ' +str(yday)
-        tlist = time.strptime(tline, "%Y %j")
-
-        year  = tlist[0]
-        mon   = tlist[1]
-        day   = tlist[2]
-#
-#--- change the date foramt to mmdd (e.g. 0910)
-#
-    smon = str(mon)
-    if mon < 10:
-        smon = '0' + smon
-    sday = str(day)
-    if day < 10:
-        sday = '0' + sday
-
-    date = smon + sday
-
-    year = str(year)
-
-    return [date, year]
+    now = datetime.datetime.now()
+    thurs = diff = (3 - now.weekday()) % 7
+    if diff > 0:
+        diff -= 7
+    thurs = now + datetime.timedelta(days = diff)
+    return [f"{thurs.month:02}{thurs.day:02}", f"{thurs.year}"]
 
 #-------------------------------------------------------------------------------
 #- create_html_table: create table msid entries of the group                 ---
@@ -822,7 +742,8 @@ def create_html_table(group, disp, msid_list):
     else:
         hline = hline + '<tr><th colspan=10>Select msid to open the Sun Angle Page</th></tr>\n'
 
-    data  = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     ccnt = 0
     for msid in msid_list:
@@ -897,17 +818,6 @@ def create_html_table(group, disp, msid_list):
         hline = hline + '</tr>\n'
 
     return hline
-
-#------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------
-
-def read_template(ifile):
-
-    with open(ifile, 'r') as f:
-        data = f.read()
-
-    return data
 
 
 #--------------------------------------------------------------------------------
@@ -1016,28 +926,97 @@ def convert_stime_to_trend_date(stime):
 
 if __name__ == "__main__":
 #
-#--- set whether this is debuggin mode (anything larger than 0) or not (normal mode: 0)
+#--- Send notification email if script fails to run
 #
-    debug = 0
-#    debug = 1
-#    print(f'debug = {debug}')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location of report.")
+    parser.add_argument("-d", "--date", required = False, help = "Date of thursday (format yyyy/mm/dd) of weekly report.")
+    parser.add_argument("-e", '--email', nargs = '*', required = False, help = "list of emails to recieve notifications")
+    args = parser.parse_args()
+
 #
-#--- if the date (in format of mmdd, e.g. 0910) and year are given
+#--- Determine Date Information
 #
-    if len(sys.argv) >= 2:
-        date = sys.argv[1]
-        year = sys.argv[2]
-        create_weekly_report(date, year, debug = debug)
-#
-#--- if the date is not given, find the nearest Thu date
-#
+
+    if args.date:
+        date_info = args.date.split("/")
+        if len(date_info) != 3:
+            parser.error(f"Provided date: {args.date} must be in yyyy/mm/dd format")
+        year = date_info[0]
+        date = date_info[1] + date_info[2]
     else:
-        [date, year] = find_date_and_year_for_report()
-        print("Weekly Report Date: " + str(year) + ' / ' + str(date))
-        create_weekly_report(date, year, debug = debug)
+#
+#--- If date is not provided, find the nearest thursday
+#
+        try:
+            [date, year] = find_date_and_year_for_report()
+            print(f"Weekly Report Date: {year}/{date}")
+        except Exception as exc:
+            e = ''.join(traceback.format_exception(exc))
+            send_error_to_admin(e)
+            traceback.print_exc()
 
+    if args.mode == "test":
+#
+#--- Check that the machine running this test can view all network directories before running
+#
+        import platform
+        machine = platform.node()
+        if machine not in ['r2d2-v.cfa.harvard.edu', 'c3po-v.cfa.harvard.edu']:
+            parser.error(f"Need r2d2-v or c3po-v to view /data/mta/www. Current machine: {machine}")
+#
+#--- Redefine Admin for sending notification email in test mode
+#       
+        if args.email != None:
+            ADMIN = args.email
+        else:
+            ADMIN = [os.popen(f"getent aliases | grep {getpass.getuser()} ").read().split(":")[1].strip()]
 
+#
+#--- Path output to same location as unit pytest
+#
+        BIN_DIR = f"{os.getcwd()}"
+        TEMPLATE_DIR = f"{BIN_DIR}/Templates"
+        OUT_DIR = f"{BIN_DIR}/test/outTest"
+        if args.path:
+            OUT_DIR = args.path
+        DATA_DIR = f"{OUT_DIR}/Data"
+        WEB_DIR = f"{OUT_DIR}/REPORTS"
+        os.makedirs(DATA_DIR, exist_ok = True)
+        os.makedirs(f"{DATA_DIR}/Focal", exist_ok = True)
+        os.makedirs(WEB_DIR, exist_ok = True)
+#
+#--- Cycle thorugh imported modules, changing their global pathing
+#
+        mod_group = [fftp, paft, ctt, cbpt, frobs]
+        for mod in mod_group:
+            if hasattr(mod, 'BIN_DIR'):
+                mod.BIN_DIR = BIN_DIR
+            if hasattr(mod, 'DATA_DIR'):
+                mod.DATA_DIR = DATA_DIR
+            if hasattr(mod, 'WEB_DIR'):
+                mod.WEB_DIR = WEB_DIR
+        create_weekly_report(date, year)
 
-
-
-
+    else:
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+        try:
+            name = os.path.basename(__file__).split(".")[0]
+            user = getpass.getuser()
+            if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+                sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+            else:
+                os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
+            
+            create_weekly_report(date, year)
+#
+#--- Remove lock file once process is completed
+#
+            os.system(f"rm /tmp/{user}/{name}.lock")
+        except Exception as exc:
+            e = ''.join(traceback.format_exception(exc))
+            send_error_to_admin(e)
+            traceback.print_exc()

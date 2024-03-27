@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #############################################################################
 #                                                                           #
@@ -12,26 +12,21 @@
 
 import sys
 import os
-import string
 import re
 import astropy.io.fits  as pyfits
 import time
 import Chandra.Time
-import random
+import glob
 #
-#--- append path to a private folders
+#--- Define directory pathing
 #
-base_dir = '/data/mta/Script/Weekly/'
-mta_dir  = '/data/mta/Script/Python3.8/MTA/'
-sys.path.append(base_dir)
-sys.path.append(mta_dir)
-
-import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
+BIN_DIR = "/data/mta/Script/Weekly/Scripts"
+AP_DIR = "/data/mta/www/ap_report"
+MP_DIR = "/data/mta/www/mp_reports"
+AP_EVENTS_WEB = "/mta_days/ap_report/events"
+MP_EVENTS_WEB = "/mta_days/mp_report/events"
+GRATING_WEB = "/data/mta/www/mta_grat/Grating_Data"
+sys.path.append(BIN_DIR)
 
 #---------------------------------------------------------------------------------------
 #-- find_recent_observations: create a data analysis link table of recent observations for the weekly
@@ -89,15 +84,13 @@ def find_recent_observations(etime=0):
         else:
             inst = 'hrc'
 
-        afile = '/data/mta/www/ap_report/events/' + inst + '/' + str(obsid) + '/event.html'
-        mfile = '/data/mta/www/mp_report/events/' + inst + '/' + str(obsid) + '/event.html'
+        afile = f"{AP_DIR}/events/{inst}/{obsid}/event.html"
+        mfile = f"{MP_DIR}/events/{inst}/{obsid}/event.html"
         if os.path.isfile(afile):
-            line = line + '<td>\n<a href="/mta_days/ap_report/events/' + inst + '/' + str(obsid) 
-            line = line + '/event.html">' + type_dict[obsid] + '</a>'
+            line = line + f'<td>\n<a href="{AP_EVENTS_WEB}/{inst}/{obsid}/event.html">{type_dict[obsid]}</a>'
 
         elif os.path.isfile(mfile):
-            line = line + '<td>\n<a href="/mta_days/mp_report/events/' + inst + '/' + str(obsid) 
-            line = line + '/event.html">' + type_dict[obsid] + '</a>'
+            line = line + f'<td>\n<a href="{MP_EVENTS_WEB}/{inst}/{obsid}/event.html">{type_dict[obsid]}</a>'
 
         else:
             line = line + '<td>Missing'
@@ -108,15 +101,13 @@ def find_recent_observations(etime=0):
 #
 #--- aca links
 #
-        afile = '/data/mta/www/ap_report/events/aca/' + str(obsid) + '/aca.html'
-        mfile = '/data/mta/www/mp_report/events/aca/' + str(obsid) + '/aca.html'
+        afile = f"{AP_DIR}/events/aca/{obsid}/aca.html"
+        mfile = f"{MP_DIR}/events/aca/{obsid}/aca.html"
         if os.path.isfile(afile):
-            line = line + '<td><a href="/mta_days/ap_report/events/aca/' + str(obsid)
-            line = line + '/aca.html">OK</a></td>\n'
+            line = line + f'<td><a href="{AP_EVENTS_WEB}/aca/{obsid}/aca.html">OK</a></td>\n'
 
         elif os.path.isfile(mfile):
-            line = line + '<td><a href="/mta_days/mp_report/events/aca/' + str(obsid)
-            line = line + '/aca.html">OK</a></td>\n'
+            line = line +f'<td><a href="{MP_EVENTS_WEB}/aca/{obsid}/aca.html">OK</a></td>\n'
 
         else:
             line = line + '<td>Missing</td>\n'
@@ -149,7 +140,7 @@ def extract_telem_data(etime):
 #
 #--- find the data files
 #
-    path  = '/data/mta/www/mp_reports/events/*/*/'
+    path  = f'{MP_DIR}/events/*/*/'
     fname = 'event.html'
     days  = 8
     data  = find_recently_created_file(path, fname, days, etime)
@@ -179,11 +170,9 @@ def extract_telem_data(etime):
 #
 #--- find whether fits file related to this observation exists
 #
-        cmd   = 'find /data/mta/www/mp_reports/events/' + inst + '/' + obsid + '/*.fits > ' + zspace
-        os.system(cmd)
-        fdata = mcf.read_data_file(zspace, remove=1)
+        fdata = glob.glob(f"{MP_DIR}/events/{inst}/{obsid}/*.fits")
         if len(fdata) == 0:
-            print("Problem getting ifo on obsid: " + obsid + '\n')
+            print("Problem getting info on obsid: " + obsid + '\n')
             continue
 
         obs_list.append(obsid)
@@ -220,10 +209,9 @@ def extract_telem_data(etime):
 #--- if the grating is used, find the path to the data file
 #
         else:
-            obs =  mcf.add_leading_zero(obsid, 5)
-            cmd = 'ls -dt /data/mta/www/mta_grat/Grating_Data/*/' + obs + '> ' + zspace
-            os.system(cmd)
-            data = mcf.read_data_file(zspace, remove=1)
+            obs = obsid.zfill(5)
+            data = glob.glob(f"{GRATING_WEB}/*/{obs}")
+            data.sort(key=os.path.getmtime)
             if len(data) > 0:
                 gline = data[0]
                 gline = gline + '/obsid_' + obs + '_Sky_summary.html'
@@ -253,10 +241,7 @@ def find_recently_created_file(path, fname, days, etime):
     """
 
     cut   = etime - days * 86400
-
-    cmd  = 'ls ' + path + '/' + fname + '> ' + zspace
-    os.system(cmd)
-    data = mcf.read_data_file(zspace, remove=1)
+    data = glob.glob(f"{path}/{fname}")
 
     t_save = []
     d_dict = {}

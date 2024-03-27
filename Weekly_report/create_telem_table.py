@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #################################################################################
 #                                                                               #
@@ -12,23 +12,17 @@
 
 import sys
 import os
-import string
 import re
-import getpass
-import fnmatch
-import numpy
-import getopt
 import os.path
 import time
 import Chandra.Time
-import random
 import astropy.io.fits  as pyfits
+import glob
 #
+#--- Directory Pathing
 #
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
+AP_DIR = "/data/mta/www/ap_report"
+LIMIT_DIR = "/data/mta4/MTA/data/op_limits"
 
 #-------------------------------------------------------------------------------
 #-- get_telem_data: create telemetry table for weekly report                  --
@@ -57,10 +51,7 @@ def get_telem_data(start, stop):
 #
     for date in date_list:
         print("DATE: " + str(date))
-        cmd =  'ls /data/mta/www/ap_report/' + date + '/*/data/*_summ.fits* >' + zspace
-        os.system(cmd)
-
-        f_list = read_data_file(zspace, remove=1)
+        f_list = glob.glob(f"{AP_DIR}/{date}/*/data/*_summ.fits*")
 #
 #--- read each fits data file
 #
@@ -208,8 +199,9 @@ def get_limit_values():
             d_dict  --- a dictionary of <msid> <---> description
             u_dict  --- a dictionary of <msid> <---> unit
     """
-    infile = '/data/mta4/MTA/data/op_limits/op_limits.db'
-    data   = read_data_file(infile)
+    infile = f"{LIMIT_DIR}/op_limits.db"
+    with open(infile, 'r') as f:
+        data = [line.strip() for line in f.readlines()]
     l_dict = {}
     d_dict = {}
     u_dict = {}
@@ -276,26 +268,6 @@ def make_time_stamp_list(start, stop):
     return tlist
 
 #-------------------------------------------------------------------------------
-#-- read_data_file: read data file                                           ---
-#-------------------------------------------------------------------------------
-
-def read_data_file(ifile, remove=0):
-    """
-    read data file
-    input:  ifile   --- input file name
-            remove  --- if 1 remove the file after reading
-    output: data    --- data
-    """
-    with open(ifile, 'r') as f:
-        data = [line.strip() for line in f.readlines()];
-
-    if remove > 0:
-        cmd = 'rm -rf ' + ifile
-        os.system(cmd)
-
-    return data
-
-#-------------------------------------------------------------------------------
 #-- convert_date_format: convert date format from <yyyy><mm><dd> to <mm>/<dd>/<yy>
 #-------------------------------------------------------------------------------
 
@@ -359,6 +331,7 @@ def clean_up_msid_list(o_list):
             pass
 
         o_list.append(msid)
+        o_list.sort()
 
     return o_list
 
