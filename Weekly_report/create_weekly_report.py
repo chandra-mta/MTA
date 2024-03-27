@@ -23,21 +23,19 @@ import traceback
 #--- Define directory pathing
 #
 BIN_DIR = "/data/mta/Script/Weekly/Scripts"
-MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 TEMPLATE_DIR = f"{BIN_DIR}/Templates"
 DATA_DIR = "/data/mta/Script/Weekly/Data"
 WEB_DIR = "/data/mta4/www/REPORTS"
 CTI_DIR = "/data/mta_www/mta_cti"
 SIM_DATA_DIR = "/data/mta/Script/SIM_move/Data"
 sys.path.append(BIN_DIR)
-sys.path.append(MTA_DIR)
 
 import find_focal_temp_peaks    as fftp
 import plot_acis_focal_temp     as paft
 import create_telem_table       as ctt
 import create_bad_pixel_table   as cbpt
 import find_recent_observations as frobs
-import mta_common_functions     as mcf
+from calendar import month_abbr
 
 #
 #--- admin email addresses (list) including those passed through sys args
@@ -83,7 +81,7 @@ def create_weekly_report(date, year, debug = 0):
 
     smon  = date[0] + date[1]               #--- two digit month
     mon   = int(float(smon))                #--- integer month
-    lmon  = mcf.change_month_format(mon)    #--- month in letter (e.g.Mar)
+    lmon = month_abbr[mon]                  #--- month in letter (e.g.Mar)
 
     sday  = date[2] + date[3]               #--- two digit mday
     day   = int(float(sday))                #--- integer mday
@@ -244,7 +242,7 @@ def create_weekly_report(date, year, debug = 0):
 
     atemp  = re.split('/', last_trend_date)
     pmon   = int(float(atemp[0]))
-    lmon   = mcf.change_month_format(pmon)
+    lmon = month_abbr[pmon]
     line   = lmon + ' ' + atemp[1]
 #
 #--- the previous report could be from the last year
@@ -342,7 +340,7 @@ def sdate_to_ldate(sdate):
 
     atemp = re.split('\/', sdate)
     mon   = int(float(atemp[0]))
-    lmon  = mcf.change_month_format(mon)
+    lmon = month_abbr[mon]
 
     ldate = lmon + atemp[1]
 
@@ -386,7 +384,8 @@ def read_cti(ifile):
             ftemp3  ---- cti in CTI/year
             ftemp4  ---- cti in CTI/day
     """
-    data = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     chk = 0
     for ent in data:
@@ -451,8 +450,8 @@ def read_sim():
             step    --- weekly counts of TSC moves
             val     --- mission total average time/step
     """
-
-    data = mcf.read_data_file(f'{SIM_DATA_DIR}/weekly_report_stat')
+    with open(f'{SIM_DATA_DIR}/weekly_report_stat') as f:
+        data = [line.strip() for line in f.readlines()]
     atemp = re.split('\s+', data[0])
     tval  = '%1.5f' % float(atemp[1])
     step  = atemp[2]
@@ -476,8 +475,8 @@ def read_focal_temp_data(fptemp, outdir):
 #
 #--- read the html table entries
 #
-    ifile = f"{DATA_DIR}/Focal/focal_temp_list"
-    data = mcf.read_data_file(ifile)
+    with open(f"{DATA_DIR}/Focal/focal_temp_list") as f:
+        data = [line.strip() for line in f.readlines()]
 
     fcnt  = len(data)
     fdata = ''
@@ -501,8 +500,8 @@ def read_focal_temp_output():
     output: fcnt    --- number of peaks
             out     --- adjucted table
     """
-
-    data = mcf.read_data_file('./out')
+    with open("./out") as f:
+        data = [line.strip() for line in f.readlines()]
 
     rows = []
     chk  = 0
@@ -554,18 +553,18 @@ def set_trend_data_input(title):
     title  = title.replace(' ', '_')
     ltitle = title.lower()
 
-    ifile = f"{TEMPLATE_DIR}/Headers/Dsave/{ltitle}"
-    data  = mcf.read_data_file(ifile)
+    with open(f"{TEMPLATE_DIR}/Headers/Dsave/{ltitle}") as f:
+        data = [line.strip() for line in f.readlines()]
 #
 #--- read header file
 #
-    ifile = f"{TEMPLATE_DIR}/Headers/{title}"
-    hdata = mcf.read_data_file(ifile)
+    with open(f"{TEMPLATE_DIR}/Headers/{title}") as f:
+        hdata = [line.strip() for line in f.readlines()]
 #
 #--- read group display name
 #
-    ifile = f"{TEMPLATE_DIR}/Headers/group_name"
-    out   = mcf.read_data_file(ifile)
+    with open(f"{TEMPLATE_DIR}/Headers/group_name") as f:
+        out = [line.strip() for line in f.readlines()]
 
     g_dict = {}
     for ent in out:
@@ -743,7 +742,8 @@ def create_html_table(group, disp, msid_list):
     else:
         hline = hline + '<tr><th colspan=10>Select msid to open the Sun Angle Page</th></tr>\n'
 
-    data  = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     ccnt = 0
     for msid in msid_list:
