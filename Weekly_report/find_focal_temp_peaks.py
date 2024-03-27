@@ -18,6 +18,7 @@ import numpy
 from datetime import datetime
 import Chandra.Time
 import unittest
+from calendar import isleap
 
 #
 #--- from ska
@@ -29,17 +30,10 @@ ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/re
 #--- Define directory pathing
 #
 BIN_DIR = "/data/mta/Script/Weekly/Scripts"
-MTA_DIR  = "/data/mta/Script/Python3.10/MTA"
 DATA_DIR = "/data/mta/Script/Weekly/Data"
 FOCAL_DIR = "/data/mta/Script/ACIS/Focal/Data"
 
 sys.path.append(BIN_DIR)
-sys.path.append(MTA_DIR)
-
-#
-#--- import several functions
-#
-import mta_common_functions       as mcf        #---- contains other functions commonly used in MTA scripts
 
 BTFMT    = '%m/%d/%y,%H:%M:%S'
 basetime = datetime.strptime('01/01/98,00:00:00', BTFMT)
@@ -196,13 +190,13 @@ def find_time_span(year = '', month = '', mday = ''):
             yday += diff
             if yday < 1:
                 year -= 1
-                base = find_base_data(year)
+                base = 365 + isleap(int(year))
                 yday = base - yday
 
     syear  = year
     dstart = yday - 8
     syday  = yday - 7
-    base   = find_base_data(year)
+    base = 365 + isleap(int(year))
 
     if syday < 0:
         syear -= 1
@@ -228,19 +222,6 @@ def find_time_span(year = '', month = '', mday = ''):
     return [start, stop, dstart, dstop] 
 
 #-----------------------------------------------------------------------------------------------
-#-----------------------------------------------------------------------------------------------
-#-----------------------------------------------------------------------------------------------
-
-def find_base_data(year):
-
-    if mcf.is_leapyear(year):
-        base = 366
-    else:
-        base = 365
-
-    return base
-
-#-----------------------------------------------------------------------------------------------
 #-- convertto1998sec: convert time format from mm/dd/yy,hh:mm:ss to seconds from 1998.1.1    ---
 #-----------------------------------------------------------------------------------------------
 
@@ -250,7 +231,7 @@ def convertto1998sec(year, yday):
     input:  ftime      --- time in mm/dd/yy,hh:mm:ss or yyyy-mm-dd,hh:mm:ss
     output  stime      --- time in seconds from 1998.1.1
     """
-    ftime   = str(year) + ':' + mcf.add_leading_zero(yday, 3) + ':00:00:00'
+    ftime = f"{year}:{yday:03}:00:00:00"
     sec1998 = Chandra.Time.DateTime(ftime).secs
 
     return sec1998
@@ -700,10 +681,11 @@ def read_data_file_col(ifile, sep='', remove=0, c_len=0):
             c_len   --- numbers of columns to be read. col=0 to col= c_len. default: 0 --- read all
     output: data    --- a list of lines or a list of lists
     """
-    data = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
     
     if remove > 0:
-        mcf.rm_file(ifile)
+        os.remove(ifile)
     
     if len(data) == 0:
         return [0, 0]
