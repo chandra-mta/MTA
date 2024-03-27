@@ -324,10 +324,14 @@ def plot_panel(ax, dofy, ydata,  start, stop, xmin, xmax, ymin, ymax,  rad_zone)
 #
 #--- set text position
 #
+
     xdiff = xmax - xmin
     ydiff = ymax - ymin
-    xtext = start + 0.01 * xdiff
-    ytext = ymax  - 0.2  * xdiff
+    if start == 'NA':
+        xtext = 0.01 * xdiff
+    else:
+	    xtext = start + 0.01 * xdiff
+    ytext = ymax - 0.2 * xdiff
 #
 #--- set plotting range
 #
