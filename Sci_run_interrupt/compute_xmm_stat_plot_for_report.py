@@ -32,7 +32,7 @@ import matplotlib.pyplot       as plt
 import matplotlib.font_manager as font_manager
 import matplotlib.lines        as lines
 
-path = '/data/mta/Script/Interrupt_p/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/Interrupt/Scripts/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
