@@ -14,16 +14,22 @@ import re
 import sys
 import os
 import numpy as np
-import Chandra.Time
 from Chandra.Time import DateTime
 from kadi import events
 from datetime import datetime
 import argparse
+import getpass
 
 #
 #--- Define Directory Pathing
 #
 BIN_DIR = '/data/mta/Script/Interrupt/Scripts'
+PLOT_DIR = '/data/mta_www/mta_interrupt/Main_plot'
+EPHIN_DIR = '/data/mta_www/mta_interrupt/Ephin_plot'
+GOES_DIR = '/data/mta_www/mta_interrupt/GOES_plot'
+XMM_DIR = '/data/mta_www/mta_interrupt/XMM_plot'
+HTML_DIR = '/data/mta_www/mta_interrupt/Html_dir'
+WEB_DIR = '/data/mta_www/mta_interrupt'
 
 #Time formats for stat / stop arguments
 TIME_FORMATS = ["%Y:%j:%H:%M:%S", "%Y:%j:%H:%M", "%Y:%m:%d:%H:%M:%S", "%Y:%m:%d:%H:%M"]
@@ -58,9 +64,6 @@ import compute_xmm_stat_plot_for_report as xmm
 #
 import sci_run_print_html               as srphtml
 
-#Collect imported modules for ease of pathing changes.
-MOD_GROUP = [edata, ephin, goes, ace, xmm, srphtml]
-
 #-------------------------------------------------------------------------------------
 #-- compute_gap: process stat / stop time arguments                                 --
 #-------------------------------------------------------------------------------------
@@ -81,16 +84,16 @@ def compute_gap(start, stop, name = None):
     if name == None:
         name = tstart.strftime("%Y%m%d")
     
-    chandra_start = DateTime(tstart.strftime("%Y:%j:%M:%H:%S"))
-    chandra_stop = DateTime(tstop.strftime("%Y:%j:%M:%H:%S"))
+    chandra_start = DateTime(tstart.strftime("%Y:%j:%M:%H:%S"), format='date')
+    chandra_stop = DateTime(tstop.strftime("%Y:%j:%M:%H:%S"), format='date')
     
     rad_zones = events.rad_zones.filter(start = chandra_start, stop = chandra_stop).table
     rad_zones_duration_secs = np.sum(rad_zones['dur'])
     science_time_lost_secs = chandra_stop.secs - chandra_start.secs - rad_zones_duration_secs
     
     out = {'name': name,
-           'tstart': tstart,
-           'tstop': tstart,
+           'tstart': tstart.strftime("%Y:%j:%M:%H:%S"),
+           'tstop': tstart.strftime("%Y:%j:%M:%H:%S"),
            'tlost': f'{(science_time_lost_secs / 1000.):.2f}'} # ksec
     return out
 
@@ -170,4 +173,62 @@ if __name__ == '__main__':
     parser.add_argument("-r","--run", choices = ['auto','manual'], required = True, help = "Determine SCS-107 run version.")
     args = parser.parse_args()
 
-    run_interrupt()
+    out = compute_gap(args.start, args.stop, name = args.name)
+    out['mode':args.run]
+
+    if args.mode == "test":
+#
+#--- Send warning if not running test on machine with mta_www access
+#
+        import platform
+        machine = platform.node()
+        if machine not in ['boba-v.cfa.harvard.edu', 'luke-v.cfa.harvard.edu', 'r2d2-v.cfa.harvard.edu', 'c3po-v.cfa.harvard.edu']:
+            parser.error(f"Need virtual machine (boba, luke, r2d2, c3po) to view /data/mta_www. Current machine: {machine}")
+#
+#--- Collect imported modules for ease of pathing changes.
+#
+        MOD_GROUP = {}
+        for name, mod in sys.modules.items():
+            try:
+                if BIN_DIR in mod.__file__:
+                    MOD_GROUP[name] = mod
+            except:
+                pass
+#
+#--- Iterate over all imported modules and change their pathing
+#
+        for mod in MOD_GROUP.values():
+            if hasattr(mod,'BIN_DIR'):
+                mod.BIN_DIR = BIN_DIR
+            if hasattr(mod,'PLOT_DIR'):
+                mod.PLOT_DIR = PLOT_DIR
+            if hasattr(mod,'EPHIN_DIR'):
+                mod.EPHIN_DIR = EPHIN_DIR
+            if hasattr(mod,'GOES_DIR'):
+                mod.GOES_DIR = GOES_DIR
+            if hasattr(mod,'XMM_DIR'):
+                mod.XMM_DIR = XMM_DIR
+            if hasattr(mod,'HTML_DIR'):
+                mod.HTML_DIR = HTML_DIR
+            if hasattr(mod,'WEB_DIR'):
+                mod.WEB_DIR = WEB_DIR
+
+
+        run_interrupt(out)
+
+    elif args.mode == 'flight':
+#
+#--- Create a lock file and exit strategy in case of race conditions
+#
+        name = os.path.basename(__file__).split(".")[0]
+        user = getpass.getuser()
+        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+            sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+        else:
+            os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
+
+        run_interrupt(out)
+#
+#--- Remove lock file once process is completed
+#
+        os.system(f"rm /tmp/{user}/{name}.lock")
