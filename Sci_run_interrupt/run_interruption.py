@@ -101,7 +101,7 @@ def compute_gap(start, stop, name = None):
 #-- run_interrupt: run all sci run plot routines                                    --
 #-------------------------------------------------------------------------------------
 
-def run_interrupt(ifile):
+def run_interrupt(event_data):
     
     """
     run all sci run plot routines
@@ -117,45 +117,34 @@ def run_interrupt(ifile):
 #--- extract data
 #
     print( "Extracting Data")
-    edata.extract_data(ifile)
+    edata.extract_data(event_data)
 
-    with open(ifile,'r') as f:
-        data = [line.strip() for line in f.readlines()]
-
-    for ent in data:
-        atemp = re.split('\s+|\t+', ent)
-        event = atemp[0]
-        start = atemp[1]
-        stop  = atemp[2]
-        gap   = atemp[3]
-        itype = atemp[4]
-
-        print("PLOTING: " + str(event))
+    print(f"Plotting: {event_data['name']}")
 #
 #--- plot Ephin data
 #
-        print("EPHIN/HRC")
-        ephin.plot_ephin_main(event, start, stop)
+    print("EPHIN/HRC")
+    ephin.plot_ephin_main(event_data)
 #
 #---- plot GOES data
 #
-        print("GOES")
-        goes.plot_goes_main(event, start, stop)
+    print("GOES")
+    goes.plot_goes_main(event_data)
 #
 #---- plot other radiation data (from NOAA)
 #
-        print("NOAA")
-        ace.start_ace_plot(event, start, stop)
+    print("NOAA")
+    ace.start_ace_plot(event_data)
 #
 #---- extract and plot XMM data
 #
-        print("XMM")
-        xmm.read_xmm_and_process(event)
+    print("XMM")
+    xmm.read_xmm_and_process(event_data)
 #
 #---- create individual html page
 #
     print("HTML UPDATE")
-    srphtml.print_each_html_control(ifile)
+    srphtml.print_each_html_control(event_data)
 #
 #---- update main html page
 #
@@ -173,8 +162,8 @@ if __name__ == '__main__':
     parser.add_argument("-r","--run", choices = ['auto','manual'], required = True, help = "Determine SCS-107 run version.")
     args = parser.parse_args()
 
-    out = compute_gap(args.start, args.stop, name = args.name)
-    out['mode':args.run]
+    event_data = compute_gap(args.start, args.stop, name = args.name)
+    event_data['mode'] = args.run
 
     if args.mode == "test":
 #
@@ -214,7 +203,7 @@ if __name__ == '__main__':
                 mod.WEB_DIR = WEB_DIR
 
 
-        run_interrupt(out)
+        run_interrupt(event_data)
 
     elif args.mode == 'flight':
 #
@@ -227,7 +216,7 @@ if __name__ == '__main__':
         else:
             os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
-        run_interrupt(out)
+        run_interrupt(event_data)
 #
 #--- Remove lock file once process is completed
 #
