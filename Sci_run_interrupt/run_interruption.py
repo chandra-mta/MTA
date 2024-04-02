@@ -18,12 +18,12 @@ import Chandra.Time
 from Chandra.Time import DateTime
 from kadi import events
 from datetime import datetime
+import argparse
 
 #
 #--- Define Directory Pathing
 #
 BIN_DIR = '/data/mta/Script/Interrupt/Scripts'
-EXC_DIR = '/data/mta/Script/Interrupt/Exc'
 
 #Time formats for stat / stop arguments
 TIME_FORMATS = ["%Y:%j:%H:%M:%S", "%Y:%j:%H:%M", "%Y:%m:%d:%H:%M:%S", "%Y:%m:%d:%H:%M"]
@@ -64,7 +64,7 @@ MOD_GROUP = [edata, ephin, goes, ace, xmm, srphtml]
 #-------------------------------------------------------------------------------------
 #-- compute_gap: process stat / stop time arguments                                 --
 #-------------------------------------------------------------------------------------
-def compute_gap(start, stop, name = ''):
+def compute_gap(start, stop, name = None):
     """
     Intake string-formatted time and output interruption data
     """
@@ -78,7 +78,7 @@ def compute_gap(start, stop, name = ''):
             tstop = datetime.strptime(stop, form)
         except:
             pass
-    if name == '':
+    if name == None:
         name = tstart.strftime("%Y%m%d")
     
     chandra_start = DateTime(tstart.strftime("%Y:%j:%M:%H:%S"))
@@ -110,12 +110,6 @@ def run_interrupt(ifile):
             <html_dir>/*.html   --- html page for that interruption
             <web_dir>/rad_interrupt.html    --- main page
     """
-#
-#--- check input file exist, if not ask
-#
-    test = EXC_DIR + ifile
-    if not os.path.isfile(test):
-        ifile = input('Please put the intrrupt timing list: ')
 #
 #--- extract data
 #
@@ -167,11 +161,13 @@ def run_interrupt(ifile):
 #-------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", required = False, help = "Directory path to determine output location.")
+    parser.add_argument("--start", required = True, help = "Start time of radiation shutdown.")
+    parser.add_argument("--stop", required = True, help = "Stop time of radiation shutdown.")
+    parser.add_argument("-n","--name", required = False, help = "Custom name for event (defaults to start date in <YYYY><MM><DD> format).")
+    parser.add_argument("-r","--run", choices = ['auto','manual'], required = True, help = "Determine SCS-107 run version.")
+    args = parser.parse_args()
 
-    if len(sys.argv) == 2:
-        ifile = sys.argv[1]
-    else:
-        ifile = 'interruption_time_list'
-
-    run_interrupt(ifile)
-
+    run_interrupt()
