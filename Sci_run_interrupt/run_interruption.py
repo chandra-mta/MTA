@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #################################################################################
 #                                                                               #
@@ -6,51 +6,33 @@
 #                                                                               #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                               #
-#               last update: Mar 09, 2021                                       #
+#               last update: Apr 02, 2024                                       #
 #                                                                               #
 #################################################################################
 
-import math
 import re
 import sys
 import os
-import string
 import numpy as np
-import time
 import Chandra.Time
-#
-#--- pylab plotting routine related modules
-#
-import matplotlib as mpl
+from Chandra.Time import DateTime
+from kadi import events
+from datetime import datetime
 
-if __name__ == '__main__':
-
-    mpl.use('Agg')
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/Interrupt/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+BIN_DIR = '/data/mta/Script/Interrupt/Scripts'
+EXC_DIR = '/data/mta/Script/Interrupt/Exc'
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
+#Time formats for stat / stop arguments
+TIME_FORMATS = ["%Y:%j:%H:%M:%S", "%Y:%j:%H:%M", "%Y:%m:%d:%H:%M:%S", "%Y:%m:%d:%H:%M"]
+
 #
 #--- append a path to a privte folder to python directory
 #
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
-#
-#--- MTA common functions 
-#
-import mta_common_functions             as mcf
-#
-#--- Science Run Interrupt related funcions shared
-#
-import interrupt_suppl_functions        as itrf
+sys.path.append(BIN_DIR)
+
 #
 #--- extracting data
 #
@@ -76,6 +58,42 @@ import compute_xmm_stat_plot_for_report as xmm
 #
 import sci_run_print_html               as srphtml
 
+#Collect imported modules for ease of pathing changes.
+MOD_GROUP = [edata, ephin, goes, ace, xmm, srphtml]
+
+#-------------------------------------------------------------------------------------
+#-- compute_gap: process stat / stop time arguments                                 --
+#-------------------------------------------------------------------------------------
+def compute_gap(start, stop, name = ''):
+    """
+    Intake string-formatted time and output interruption data
+    """
+    for form in TIME_FORMATS:
+        try:
+            tstart = datetime.strptime(start, form)
+        except:
+            pass
+    for form in TIME_FORMATS:
+        try:
+            tstop = datetime.strptime(stop, form)
+        except:
+            pass
+    if name == '':
+        name = tstart.strftime("%Y%m%d")
+    
+    chandra_start = DateTime(tstart.strftime("%Y:%j:%M:%H:%S"))
+    chandra_stop = DateTime(tstop.strftime("%Y:%j:%M:%H:%S"))
+    
+    rad_zones = events.rad_zones.filter(start = chandra_start, stop = chandra_stop).table
+    rad_zones_duration_secs = np.sum(rad_zones['dur'])
+    science_time_lost_secs = chandra_stop.secs - chandra_start.secs - rad_zones_duration_secs
+    
+    out = {'name': name,
+           'tstart': tstart,
+           'tstop': tstart,
+           'tlost': f'{(science_time_lost_secs / 1000.):.2f}'} # ksec
+    return out
+
 #-------------------------------------------------------------------------------------
 #-- run_interrupt: run all sci run plot routines                                    --
 #-------------------------------------------------------------------------------------
@@ -95,7 +113,7 @@ def run_interrupt(ifile):
 #
 #--- check input file exist, if not ask
 #
-    test = exc_dir + ifile
+    test = EXC_DIR + ifile
     if not os.path.isfile(test):
         ifile = input('Please put the intrrupt timing list: ')
 #
@@ -104,7 +122,8 @@ def run_interrupt(ifile):
     print( "Extracting Data")
     edata.extract_data(ifile)
 
-    data  = mcf.read_data_file(ifile)
+    with open(ifile,'r') as f:
+        data = [line.strip() for line in f.readlines()]
 
     for ent in data:
         atemp = re.split('\s+|\t+', ent)
@@ -135,9 +154,8 @@ def run_interrupt(ifile):
 #
         print("XMM")
         xmm.read_xmm_and_process(event)
-
 #
-#---- create indivisual html page
+#---- create individual html page
 #
     print("HTML UPDATE")
     srphtml.print_each_html_control(ifile)
