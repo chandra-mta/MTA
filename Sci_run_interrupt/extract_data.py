@@ -73,19 +73,19 @@ def extract_data(event_data):
 #
 #--- compute ephin/hrc statistics
 #
-    ephin.compute_ephin_stat(event, start)
+    ephin.compute_ephin_stat(event_data['name'], event_data['tstart'][:-3])
 #
 #---- extract GOES data
 #
     try:
-        goes.extract_goes_data(event, start, stop)
+        goes.extract_goes_data(event_data['name'], event_data['tstart'][:-3], event_data['tstop'][:-3])
     except:
         pass
 #
 #---- compute GOES statistics
 #
     try:
-        goes.compute_goes_stat(event, start)
+        goes.compute_goes_stat(event_data['name'], event_data['tstart'][:-3])
     except:
         pass
 #

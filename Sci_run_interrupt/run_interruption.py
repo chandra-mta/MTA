@@ -30,6 +30,7 @@ GOES_DIR = '/data/mta_www/mta_interrupt/GOES_plot'
 XMM_DIR = '/data/mta_www/mta_interrupt/XMM_plot'
 HTML_DIR = '/data/mta_www/mta_interrupt/Html_dir'
 WEB_DIR = '/data/mta_www/mta_interrupt'
+OUT_WEB_DIR = '/data/mta_www/mta_interrupt'
 
 #For data extraction
 #Out versions for testing

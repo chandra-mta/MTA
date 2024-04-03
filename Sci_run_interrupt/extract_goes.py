@@ -22,27 +22,19 @@ import math
 import re
 import sys
 import os
-import string
+import calendar
 import time
 import Chandra.Time
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/Interrupt/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path
-#
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
-import mta_common_functions     as mcf
+WEB_DIR = '/data/mta_www/mta_interrupt'
+OUT_WEB_DIR = '/data/mta_www/mta_interrupt'
+
+WDATA_DIR = '/data/mta_www/mta_interrupt/Data_dir'
+OUT_WDATA_DIR = '/data/mta_www/mta_interrupt/Data_dir'
+
+STAT_DIR = '/data/mta_www/mta_interrupt/Stat_dir'
+OUT_STAT_DIR = '/data/mta_www/mta_interrupt/Stat_dir'
+
 #
 #--- original data location
 #
@@ -92,7 +84,8 @@ def extract_goes_data(event, start, stop):
 #--- original data has the following columns
 #--- Time  P1  P2A  P2B  P3  P4  P5  P6   P7  P8A   P8B  P8C  P9  P10  HRC Proxy
 #
-    data   = mcf.read_data_file(goes_r)
+    with open(goes_r) as f:
+        data = [line.strip() for line in f.readlines()]
     hline  = 'Science Run Interruption: ' + event + '\n'
     hline  = hline + 'dofy        p1          p2          p5           hrc prox\n'
     hline  = hline + '-' * 65 + '\n'
@@ -151,12 +144,12 @@ def extract_goes_data(event, start, stop):
 #
 #--- print out the data
 #
-    ofile = web_dir + 'GOES_data/' + event + '_goes.txt'
+    ofile = f"{OUT_WEB_DIR}/GOES_data/{event}_goes.txt"
 
     with open(ofile, 'w') as fo:
         fo.write(line)
 
-    ofile = wdata_dir  + event + '_goes.txt'
+    ofile = f"{OUT_WDATA_DIR}/{event}_goes.txt"
 
     with open(ofile, 'w') as fo:
         fo.write(hline)
@@ -184,10 +177,7 @@ def chandra_time_to_yday(stime, syear):
 #--- if the date is over two years, keep counting from the first year
 #
     if year > syear:
-        if mcf.is_leapyear(syear):
-            base = 366
-        else:
-            base = 365
+        base = 365 + calendar.isleap(syear)
 
         ydate += base
 
@@ -222,8 +212,9 @@ def compute_goes_stat(event, start):
 #
 #--- read the data file
 #
-    ifile  = wdata_dir + event + '_goes.txt'
-    data   = mcf.read_data_file(ifile)
+    ifile = f"{OUT_WDATA_DIR}/{event}_goes.txt"
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 #
 #--- initialize
 #
@@ -281,7 +272,7 @@ def compute_goes_stat(event, start):
     if nind > 0:
         line = line + create_stat_line(hp_list, 'hrc prox', hp_int_val)
 
-    ofile = stat_dir + event + '_goes_stat'
+    ofile = f"{OUT_STAT_DIR}/{event}_goes_stat"
     with open(ofile, 'w') as fo:
         fo.write(line)
 
