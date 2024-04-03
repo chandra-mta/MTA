@@ -12,31 +12,17 @@
 
 import math
 import re
-import sys
 import os
-import string
+import calendar
 import time
 import Chandra.Time
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/Interrupt/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append a path to a privte folder to python directory
-#
-sys.path.append(bin_dir)
-#
-#--- converTimeFormat contains MTA time conversion routines
-#
-import mta_common_functions         as mcf
+WDATA_DIR = '/data/mta_www/mta_interrupt/Data_dir'
+OUT_WDATA_DIR = '/data/mta_www/mta_interrupt/Data_dir'
+
+STAT_DIR = '/data/mta_www/mta_interrupt/Stat_dir'
+OUT_STAT_DIR = '/data/mta_www/mta_interrupt/Stat_dir'
+
 #
 #--- Science Run Interrupt related funcions shared
 #
@@ -108,7 +94,7 @@ def ephin_data_extract(event, start, stop):
             line = line + '%4.3f\t\t%4.3e\n' % (float(stime[m]), float(veto[m]))
 
 
-    ofile = wdata_dir + event + '_eph.txt'
+    ofile = f"{OUT_WDATA_DIR}/{event}_eph.txt"
 
     with open(ofile, 'w') as fo:
         fo.write(line)
@@ -159,7 +145,7 @@ def get_ephin_data(start, stop, syear):
 
         e1300 = e1300 + list(tbdata.field('sce1300'))
 
-        mcf.rm_files(fits)
+        os.remove(fits)
 
     ecnt = len(e1300)
 
@@ -214,10 +200,7 @@ def match_hrc_to_ephin(ltime, veto, hcnt, xdate, syear):
     j    = 0
     k    = 0
 
-    if mcf.is_leapyear(syear):
-        base = 366
-    else:
-        base = 365
+    base = 365 + calendar.isleap(syear)
 #
 #--- find the begining
 #
@@ -275,10 +258,7 @@ def convert_to_ydate(ltime, syear):
             syear   --- the year of the first data point
     output: xdate   --- a value or a list of day of year
     """
-    if mcf.is_leapyear(syear):
-        base = 366
-    else:
-        base = 365
+    base = 365 + calendar.isleap(syear)
 
 
     if isinstance(ltime, list):
@@ -322,8 +302,10 @@ def compute_ephin_stat(event, start):
     start = convert_to_ydate(start, syear)
 
 
-    ifile = wdata_dir + event + '_eph.txt'
-    data  = mcf.read_data_file(ifile)
+    ifile = f"{OUT_WDATA_DIR}/{event}_eph.txt"
+
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     d0_list = [0.0, 0.0, 0.0, 1.0e10, 0.0, 0.0, 0.0]
     d1_list = [0.0, 0.0, 0.0, 1.0e10, 0.0, 0.0, 0.0]
@@ -387,7 +369,7 @@ def compute_ephin_stat(event, start):
     else:
         line = line + create_stat_line(d0_list, 'hrc',   d0_int)
 
-    ofile = stat_dir + event + '_ephin_stat'
+    ofile = f"{OUT_STAT_DIR}/{event}_ephin_stat"
 
     with open(ofile, 'w') as fo:
         fo.write(line)

@@ -31,6 +31,19 @@ XMM_DIR = '/data/mta_www/mta_interrupt/XMM_plot'
 HTML_DIR = '/data/mta_www/mta_interrupt/Html_dir'
 WEB_DIR = '/data/mta_www/mta_interrupt'
 
+#For data extraction
+#Out versions for testing
+DATA_DIR = '/data/mta/Script/Interrupt/Data'
+OUT_DATA_DIR = '/data/mta/Script/Interrupt/Data'
+
+WDATA_DIR = '/data/mta_www/mta_interrupt/Data_dir'
+OUT_WDATA_DIR = '/data/mta_www/mta_interrupt/Data_dir'
+
+WDATA_DIR2 = '/data/mta4/www/RADIATION_new/mta_interrupt/Data_dir'
+
+STAT_DIR = '/data/mta_www/mta_interrupt/Stat_dir'
+OUT_STAT_DIR = '/data/mta_www/mta_interrupt/Stat_dir'
+
 #Time formats for stat / stop arguments
 TIME_FORMATS = ["%Y:%j:%H:%M:%S", "%Y:%j:%H:%M", "%Y:%m:%d:%H:%M:%S", "%Y:%m:%d:%H:%M"]
 

@@ -69,7 +69,7 @@ def extract_data(event_data):
 #
 #--- extract ephin/hrc data
 #
-    ephin.ephin_data_extract(event, start, stop)
+    ephin.ephin_data_extract(event_data['name'], event_data['tstart'][:-3], event_data['tstop'][:-3])
 #
 #--- compute ephin/hrc statistics
 #
