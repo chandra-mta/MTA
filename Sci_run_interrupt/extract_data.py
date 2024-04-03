@@ -64,7 +64,7 @@ def extract_data(event_data):
     output: all data files and stat data file for the event(s)
     """
 
-    rzl.sci_run_add_to_rad_zone_list(ifile)
+    rzl.sci_run_add_to_rad_zone_list(event_data)
 #event = name
 #
 #--- extract ephin/hrc data

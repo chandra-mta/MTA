@@ -18,38 +18,21 @@ import time
 import Chandra.Time
 import numpy
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-
-path = '/data/mta/Script/Interrupt/Scripts/house_keeping/dir_list'
-with  open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
+BIN_DIR = '/data/mta/Script/Interrupt/Scripts'
+DATA_DIR = '/data/mta/Script/Interrupt/Data'
+OUT_DATA_DIR = '/data/mta/Script/Interrupt/Data'
 #
 #--- append a path to a privte folder to python directory
 #
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
-#--- import several functions
-#
-import mta_common_functions as mcf
-#
-#--- temp writing file name
-#
-import random
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
+sys.path.append(BIN_DIR)
 
 #----------------------------------------------------------------------------------------------
 #--- sci_run_add_to_rad_zone_list: adding radiation zone list to rad_zone_list              ---
 #----------------------------------------------------------------------------------------------
 
-def sci_run_add_to_rad_zone_list(ifile='NA'):
+def sci_run_add_to_rad_zone_list(event_data):
     """
     adding radiation zone list to rad_zone_list. 
     input: file name containing: 
@@ -57,23 +40,14 @@ def sci_run_add_to_rad_zone_list(ifile='NA'):
     output: updated <data_dir>/rad_zone_list
     """
 #
-#--- if file is not given (if it is NA), ask the file input
-#
-
-    if ifile == 'NA':
-        ifile = input('Please put the intrrupt timing list: ')
-
-    data  = mcf.read_data_file(ifile)
-    data.reverse()
-#
 #--- read radiation zone infornation
 #
-    infile = data_dir + '/rad_zone_info'
-    rdata  = mcf.read_data_file(infile)
+    infile = DATA_DIR + '/rad_zone_info'
+    with open(infile) as f:
+        rdata = [line.strip() for line in f.readlines()]
     
     t_list = []
     r_dict = {}
-    for ent in data:
 
 #
 #--- a starting date of the interruption in yyyy:mm:dd:hh:mm (e.g., 2006:03:20:10:30)
@@ -81,65 +55,62 @@ def sci_run_add_to_rad_zone_list(ifile='NA'):
 #--- to each date
 #
 
-        etemp = re.split('\s+', ent)
-    
-        atemp = re.split(':', etemp[1])
-        year  = atemp[0]
-        month = atemp[1]
-        date  = atemp[2]
+
+    atemp = re.split(':', event_data['tstart'])
+    year  = atemp[0]
+    month = atemp[1]
+    date  = atemp[2]
 #
 #--- convert to dom/sec1998
 #
-        ltime = etemp[1] + ':00'
-        ltime = time.strftime('%Y:%j:%H:%M:%S', time.strptime(ltime, '%Y:%m:%d:%H:%M:%S'))
-        csec  = int(Chandra.Time.DateTime(ltime).secs)
+    ltime = time.strftime('%Y:%j:%H:%M:%S', time.strptime(event_data['tstart'], '%Y:%m:%d:%H:%M:%S'))
+    csec  = int(Chandra.Time.DateTime(ltime).secs)
 #
 #--- end date
 #
-        ltime = etemp[2] + ':00'
-        ltime = time.strftime('%Y:%j:%H:%M:%S', time.strptime(ltime, '%Y:%m:%d:%H:%M:%S'))
-        csec2 = int(Chandra.Time.DateTime(ltime).secs)
+    ltime = time.strftime('%Y:%j:%H:%M:%S', time.strptime(event_data['tstart'], '%Y:%m:%d:%H:%M:%S'))
+    csec2 = int(Chandra.Time.DateTime(ltime).secs)
 #
 #--- date stamp for the list
 #
-        list_date = str(year) + str(month) + str(date)
+    list_date = str(year) + str(month) + str(date)
 
 #
 #--- check radiation zones for 3 days before to 5 days after from the interruptiondate
 #
 
-        begin = csec  - 3 * 86400.0
-        end   = csec2 + 5 * 86400.0
+    begin = csec  - 3 * 86400.0
+    end   = csec2 + 5 * 86400.0
 
-        status = []
-        rdate  = []
-        chk    = 0
-        last_st= ''
-        cnt    = 0
-    
-        for line in rdata:
-            atemp = re.split('\s+', line)
-    
-            dtime = float(atemp[1]) 
-    
-            if chk  == 0 and atemp[0] == 'ENTRY' and dtime >= begin:
-                status.append(atemp[0])
-                rdate.append(dtime)
-                chk += 1
-                last_st = atemp[0]
-                cnt += 1
-            elif chk > 0 and dtime >= begin and dtime <= end:
-                status.append(atemp[0])
-                rdate.append(dtime)
-                last_st = atemp[0]
-                cnt += 1
-            elif float(atemp[1]) > end and last_st == 'EXIT':
-                break
-            elif float(atemp[1]) > end and last_st == 'ENTRY':
-                status.append(atemp[0])
-                rdate.append(dtime)
-                cnt += 1
-                break
+    status = []
+    rdate  = []
+    chk    = 0
+    last_st= ''
+    cnt    = 0
+
+    for line in rdata:
+        atemp = re.split('\s+', line)
+
+        dtime = float(atemp[1]) 
+
+        if chk  == 0 and atemp[0] == 'ENTRY' and dtime >= begin:
+            status.append(atemp[0])
+            rdate.append(dtime)
+            chk += 1
+            last_st = atemp[0]
+            cnt += 1
+        elif chk > 0 and dtime >= begin and dtime <= end:
+            status.append(atemp[0])
+            rdate.append(dtime)
+            last_st = atemp[0]
+            cnt += 1
+        elif float(atemp[1]) > end and last_st == 'EXIT':
+            break
+        elif float(atemp[1]) > end and last_st == 'ENTRY':
+            status.append(atemp[0])
+            rdate.append(dtime)
+            cnt += 1
+            break
             
 
 #
@@ -163,8 +134,9 @@ def sci_run_add_to_rad_zone_list(ifile='NA'):
 #
 #--- print out the result
 #
-    ifile  = data_dir + 'rad_zone_list'
-    data   = mcf.read_data_file(ifile)
+    ifile  = DATA_DIR + '/rad_zone_list'
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
     c_list = []
     for ent in data:
         atemp = re.split('\s+', ent)
@@ -177,7 +149,7 @@ def sci_run_add_to_rad_zone_list(ifile='NA'):
         for ent in out:
             line = line + r_dict[ent] + '\n'
 
-        with  open(ifile, 'a') as fo:
+        with  open(f"{OUT_DATA_DIR}/rad_zone_list", 'a') as fo:
             fo.write(line)
 
 #---------------------------------------------------------
