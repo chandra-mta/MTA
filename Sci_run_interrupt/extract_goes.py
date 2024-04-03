@@ -177,7 +177,7 @@ def chandra_time_to_yday(stime, syear):
 #--- if the date is over two years, keep counting from the first year
 #
     if year > syear:
-        base = 365 + calendar.isleap(syear)
+        base = 365 + calendar.isleap(int(syear))
 
         ydate += base
 

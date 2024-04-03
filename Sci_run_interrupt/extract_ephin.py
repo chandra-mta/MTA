@@ -200,7 +200,7 @@ def match_hrc_to_ephin(ltime, veto, hcnt, xdate, syear):
     j    = 0
     k    = 0
 
-    base = 365 + calendar.isleap(syear)
+    base = 365 + calendar.isleap(int(syear))
 #
 #--- find the begining
 #
@@ -258,7 +258,7 @@ def convert_to_ydate(ltime, syear):
             syear   --- the year of the first data point
     output: xdate   --- a value or a list of day of year
     """
-    base = 365 + calendar.isleap(syear)
+    base = 365 + calendar.isleap(int(syear))
 
 
     if isinstance(ltime, list):
