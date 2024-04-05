@@ -13,7 +13,6 @@
 import os
 import sys
 import re
-import string
 import time
 import numpy
 import argparse
@@ -22,35 +21,27 @@ import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
 import Chandra.Time
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
+#
+#--- Define Directory Pathing
+#
+BIN_DIR = "/data/mta/Script/MTA_limit_trends/Scripts"
+LIMIT_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data"
+OUT_DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
+HOUSE_KEEPING = "/data/mta/Script/MTA_limit_trends/Scripts/house_keeping"
 #
 #--- append path to a private folder
 #
-sys.path.append(bin_dir)
+sys.path.append(BIN_DIR)
 sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #
 #--- import several functions
-#
+#  
 import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
-#
-#--- other path setting
-#
-#limit_dir = '/data/mta/Script/MSID_limit/Trend_limit_data/'
-limit_dir = '/data/mta/Script/MSID_limit/Trend_limit_data/'
+
 #
 #--- fits generation related lists
 #
@@ -97,11 +88,7 @@ def run_data_update(mtype, catg_dict):
     """
     [lim_dict, cnd_dict] = rlt.get_limit_table()
 
-#    if mtype == 'm':
-#        ifile = limit_dir + 'Limit_data/multi_switch_limit'
-#    else:
-#        ifile = limit_dir + 'Limit_data/trend_limit'
-    ifile = limit_dir + 'Limit_data/op_limits_new.db'
+    ifile = f"{LIMIT_DIR}/Limit_data/op_limits_new.db"
 #
 #--- first find which msids are in that category, and extract data
 #
@@ -115,8 +102,7 @@ def run_data_update(mtype, catg_dict):
 #
 #--- just in a case the data category directory does not exist
 #
-        cmd = 'mkdir -p ' + data_dir + atemp[1]
-        os.system(cmd)
+        os.makedir(f"{OUT_DATA_DIR}/{atemp[1]}", exist_ok = True)
 
         print("MSID: " + catg + '/' + msid)
 #
@@ -152,7 +138,7 @@ def run_for_msid_list(msid_list, dtype):
     """
     [lim_dict, cnd_dict] = rlt.get_limit_table()
 
-    ifile = house_keeping + msid_list
+    ifile = f"{HOUSE_KEEPING}/{msid_list}"
     data  = mcf.read_data_file(ifile)
 
     for ent in data:
@@ -169,8 +155,7 @@ def run_for_msid_list(msid_list, dtype):
 #
 #--- just in a case the data category directory does not exist
 #
-        cmd = 'mkdir -p ' + data_dir + atemp[1]
-        os.system(cmd)
+        os.makedir(f"{OUT_DATA_DIR}/{atemp[1]}", exist_ok = True)
 #
 #--- set data period
 #
@@ -241,17 +226,17 @@ def find_data_collection_period(msid, catg, dtype):
 #--- week data are always extracted from two weeks ago up to today
 #
     if dtype == 'week':
-        dfile = data_dir +  catg + '/' + msid + '_week_data.fits'
+        dfile = f"{OUT_DATA_DIR}/{catg}/{msid}_week_data.fits"
         stime = etime  - 86400 * 14
 #
 #--- for others, find the last entry time from the exisiting fits data file
 #
     elif dtype == 'short':
-        dfile = data_dir +  catg + '/' + msid + '_short_data.fits'
+        dfile = f"{OUT_DATA_DIR}/{catg}/{msid}_short_data.fits"
         stime = find_last_entry_time(dfile, dtype, etime)
 
     else:
-        dfile = data_dir +  catg + '/' + msid + '_data.fits'
+        dfile = f"{OUT_DATA_DIR}/{catg}/{msid}_data.fits"
         stime = find_last_entry_time(dfile, dtype, etime)
 
 
@@ -738,7 +723,7 @@ def create_category_dict():
     input:  none but read from <house_keeping>/msid_list
     output: catg_dict
     """
-    ifile = limit_dir + 'house_keeping/msid_list'
+    ifile = f"{LIMIT_DIR}/house_keeping/msid_list"
     data  = mcf.read_data_file(ifile)
     catg_dict = {}
     for ent in data:
