@@ -33,10 +33,10 @@ HOUSE_KEEPING = "/data/mta/Script/MTA_limit_trends/Scripts/house_keeping"
 #--- append path to a private folder
 #
 sys.path.append(BIN_DIR)
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append("/data/mta4/Script/Python3.11/MTA")
 #
 #--- import several functions
-#  
+#
 import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
@@ -92,7 +92,8 @@ def run_data_update(mtype, catg_dict):
 #
 #--- first find which msids are in that category, and extract data
 #
-    data  = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
     for ent in data:
         if ent[0] == '#':
             continue
@@ -139,7 +140,8 @@ def run_for_msid_list(msid_list, dtype):
     [lim_dict, cnd_dict] = rlt.get_limit_table()
 
     ifile = f"{HOUSE_KEEPING}/{msid_list}"
-    data  = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
 
     for ent in data:
         if ent[0] == '#':
@@ -175,8 +177,8 @@ def run_for_msid_list(msid_list, dtype):
                 for m in range(0, mcnt):
                     mstart = start + a_month * m
                     mstop  = mstart + a_month
-                    lstart = "%4.2f" % mcf.chandratime_to_fraq_year(mstart)
-                    lstop  = "%4.2f" % mcf.chandratime_to_fraq_year(mstop)
+                    lstart = f"{mcf.chandratime_to_fraq_year(mstart):4.2f}"
+                    lstop = f"{mcf.chandratime_to_fraq_year(mstop):4.2f}"
                     print("Computing: " + str(lstart) + '<-->' + str(lstop))
 #
 #--- extract data and make a local fits file
@@ -330,14 +332,12 @@ def update_data_file(dfile, msid, dtype):
 #--- week data is just replaced, but others are appended if the past data exists
 #
     if (dtype != 'week') and os.path.isfile(dfile):
-        mcf.rm_files('./ztemp.fits')
+        os.remove('./ztemp./fits')
         mfo.appendFitsTable(dfile, lfile, './ztemp.fits')
-        cmd = 'mv -f ./ztemp.fits ' + dfile
-        os.system(cmd)
-        mcf.rm_files(lfile)
+        os.system(f"mv -f ./ztemp.fits {dfile}")
+        os.remove(lfile)
     else:
-        cmd = 'mv ' + lfile + ' ' + dfile
-        os.system(cmd)
+        os.system(f"mv {lfile} {dfile}")
 
 #--------------------------------------------------------------------------------
 #-- extract_data_from_ska: extract data from ska database and created data fits file 
@@ -664,7 +664,7 @@ def create_fits_file(msid, data, dtype):
     else:
         ofits = msid + '_data.fits'
     
-    mcf.rm_files(ofits)
+    os.remove(ofits)
 
     tbhdu.writeto(ofits)
 
@@ -708,7 +708,7 @@ def remove_old_data_from_fits(fits, cut):
     os.system(cmd)
     try:
         ecf.create_fits_file(fits, cols, udata)
-        mcf.rm_file(sfits)
+        os.remove(sfits)
     except:
         cmd = 'mv ' + sfits + ' ' + fits
         os.system(cmd)
@@ -724,7 +724,8 @@ def create_category_dict():
     output: catg_dict
     """
     ifile = f"{LIMIT_DIR}/house_keeping/msid_list"
-    data  = mcf.read_data_file(ifile)
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
     catg_dict = {}
     for ent in data:
         atemp = re.split('\s+', ent)
