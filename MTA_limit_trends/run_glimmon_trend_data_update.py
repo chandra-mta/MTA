@@ -21,6 +21,7 @@ import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
 import Chandra.Time
+import traceback
 
 #
 #--- Define Directory Pathing
@@ -29,6 +30,7 @@ BIN_DIR = "/data/mta/Script/MTA_limit_trends/Scripts"
 LIMIT_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data"
 OUT_DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
 HOUSE_KEEPING = "/data/mta/Script/MTA_limit_trends/Scripts/house_keeping"
+EXC_DIR = "/data/mta/Script/MTA_limit_trends/Exc"
 #
 #--- append path to a private folder
 #
@@ -103,7 +105,7 @@ def run_data_update(mtype, catg_dict):
 #
 #--- just in a case the data category directory does not exist
 #
-        os.makedir(f"{OUT_DATA_DIR}/{atemp[1]}", exist_ok = True)
+        os.makedirs(f"{OUT_DATA_DIR}/{atemp[1]}", exist_ok = True)
 
         print("MSID: " + catg + '/' + msid)
 #
@@ -157,7 +159,7 @@ def run_for_msid_list(msid_list, dtype):
 #
 #--- just in a case the data category directory does not exist
 #
-        os.makedir(f"{OUT_DATA_DIR}/{atemp[1]}", exist_ok = True)
+        os.makedirs(f"{OUT_DATA_DIR}/{atemp[1]}", exist_ok = True)
 #
 #--- set data period
 #
@@ -201,8 +203,8 @@ def run_for_msid_list(msid_list, dtype):
                 if out == True:
                     update_data_file(dfile, msid, dtype)
         except:
-            #print(msid + ' is not in glimmon database')
-            print(msid + ' is not in ska fetch database')
+            print(f"Error finding {msid}")
+            traceback.print_exc()
             continue
 
 
@@ -328,13 +330,15 @@ def update_data_file(dfile, msid, dtype):
             remove_old_data_from_fits(dfile, cut)
     else:
         lfile = msid + '_data.fits'
+    lfile = f"{EXC_DIR}/{lfile}"
 #
 #--- week data is just replaced, but others are appended if the past data exists
 #
     if (dtype != 'week') and os.path.isfile(dfile):
-        os.remove('./ztemp./fits')
-        mfo.appendFitsTable(dfile, lfile, './ztemp.fits')
-        os.system(f"mv -f ./ztemp.fits {dfile}")
+        if os.path.isfile(f"{EXC_DIR}/ztemp.fits"):
+            os.remove(f"{EXC_DIR}/ztemp.fits")
+        mfo.appendFitsTable(dfile, lfile, f"{EXC_DIR}/ztemp.fits")
+        os.system(f"mv -f {EXC_DIR}/ztemp.fits {dfile}")
         os.remove(lfile)
     else:
         os.system(f"mv {lfile} {dfile}")
@@ -467,6 +471,7 @@ def run_condtion_msid(msid, start, stop, period, alimit, cnd_msid):
             limit_table = find_limits(begin, mkey, alimit)
             [y_low, y_top, r_low, r_top] = limit_table
         except:
+            traceback.print_exc()
             limit_table = [-9999998.0, 9999998.0, -9999999.0, 9999999.0]
             [y_low, y_top, r_low, r_top] = [-9999998.0, 9999998.0, -9999999.0, 9999999.0]
 #
@@ -663,10 +668,9 @@ def create_fits_file(msid, data, dtype):
         ofits = msid + '_short_data.fits'
     else:
         ofits = msid + '_data.fits'
-    
-    os.remove(ofits)
+    ofits = f"{EXC_DIR}/{ofits}"
 
-    tbhdu.writeto(ofits)
+    tbhdu.writeto(ofits, overwrite = True)
 
 #--------------------------------------------------------------------------------
 #-- remove_old_data_from_fits: remove old part of the data from fits file      --
@@ -749,13 +753,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.mode == 'test':
-        pass
         BIN_DIR = f"{os.getcwd()}"
+        HOUSE_KEEPING = f"{BIN_DIR}/house_keeping"
+        EXC_DIR = f"{BIN_DIR}/test/outTest/Exc"
+        os.makedirs(EXC_DIR, exist_ok = True)
         if args.directory:
             OUT_DATA_DIR = args.directory
         else:
-            OUT_DATA_DIR = f"{os.getcwd()}/test/outTest"
-        os.makedir(OUT_DATA_DIR, exists_ok = True)
+            OUT_DATA_DIR = f"{BIN_DIR}/test/outTest/Data"
+        os.makedirs(OUT_DATA_DIR, exist_ok = True)
         if args.msid is not None:
             [lim_dict, cnd_dict] = rlt.get_limit_table()
             alimit   = lim_dict[args.msid]
