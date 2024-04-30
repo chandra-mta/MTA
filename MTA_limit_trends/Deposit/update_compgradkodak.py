@@ -346,7 +346,7 @@ def compute_hrmaavg(ohrthr, pos):
             pos     --- the position of the data in the ohrthr[*]
     output: hrmaavg --- hrma temp average
     """
-    olist    = list(range(2,14)) + list(range(21,31)) + [33, 36, 37, 42] 
+    olist    = list(range(2,14)) + list(range(21,28)) + [29, 30, 33, 36, 37, 42] 
     olist    = olist + list(range(44,48)) + list(range(49,54)) + [55, 56]
     hrmaavg  = take_sum(olist, ohrthr, pos, achk=1)
 
