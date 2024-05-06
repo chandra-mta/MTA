@@ -710,10 +710,19 @@ def remove_old_data_from_fits(fits, cut):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
-    parser.add_argument("-p", "--path", help = "Determine data output file path")
+    parser.add_argument("-d", "--data", help = "Determine Data output file path")
+    parser.add_argument("--deposit", help = "Determine Deposit input file path")
     args = parser.parse_args()
     
     if args.mode == 'test':
+
+        if args.data:
+            DATA_DIR = args.data
+        else:
+            DATA_DIR = f"{os.getcwd()}/test/outTest"
+            os.makedirs(DATA_DIR, exist_ok=True)
+        if args.deposit:
+            DEPOSIT_DIR = args.deposit
 
         run_comp_grad_data_update()
 
