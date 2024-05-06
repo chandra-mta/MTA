@@ -45,14 +45,17 @@ import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
 
 #
+#--- Define globals
+#
+FULL_GEN = False #Used for determining whether to generate the fill fits files or build off the last time entry
+#
 #--- fits generation related lists
 #
-col_names  = ['time', 'msid', 'med', 'std', 'min', 'max', 
+COL_NAMES  = ['time', 'msid', 'med', 'std', 'min', 'max', 
               'ylower', 'yupper', 'rlower', 'rupper', 'dcount', 
               'ylimlower', 'ylimupper', 'rlimlower', 'rlimupper', 'state']
-col_format = ['D', '20A', 'D', 'D','D','D','D','D','D','D', 'I', 'D', 'D', 'D', 'D', '10A']
+COL_FORMAT = ['D', '20A', 'D', 'D','D','D','D','D','D','D', 'I', 'D', 'D', 'D', 'D', '10A']
 
-a_month = 86400 * 30
 #
 #--- create msid <---> category dict
 #
@@ -116,17 +119,29 @@ gradtfte      = ['htftegrd1', 'htftegrd2', 'htftegrd3', 'htftegrd4', \
                  'htftegrd5', 'htftegrd6', 'htftegrd7', 'htftegrd8', \
                  'htftegrd9', 'htftegrd10', 'htftegrd11', 'htftegrd12']
 #
-#--- set them in the lists
+#--- set them in the dictionary
 #
-group_name  = ['Compgradkodak', 'Compacispwr', 'Compsimoffset',\
-               'Gradablk', 'Gradahet', 'Gradaincyl', 'Gradcap', 'Gradfap', \
-               'Gradfblk', 'Gradhcone', 'Gradhhflex', 'Gradhpflex', 'Gradhstrut',\
-               'Gradocyl', 'Gradpcolb', 'Gradperi', 'Gradsstrut', 'Gradtfte']
 
-g_msid_list = [compgradkodak,    compacispwr,   compsimoffset, \
-               gradablk, gradahet, gradaincyl, gradcap, gradfap, \
-               gradfblk, gradhcone, gradhhflex, gradhpflex, gradhstrut,\
-               gradocyl, gradpcolb, gradperi, gradsstrut, gradtfte]
+GROUP_MSID_DICT = {
+    'Compgradkodak': compgradkodak,
+    'Compacispwr': compacispwr,
+    'Compsimoffset': compsimoffset,
+    'Gradablk': gradablk,
+    'Gradahet': gradahet,
+    'Gradaincyl': gradaincyl,
+    'Gradcap': gradcap,
+    'Gradfap': gradfap,
+    'Gradfblk': gradfblk,
+    'Gradhcone': gradhcone,
+    'Gradhhflex': gradhhflex,
+    'Gradhpflex': gradhpflex,
+    'Gradhstrut': gradhstrut,
+    'Gradocyl': gradocyl,
+    'Gradpcolb': gradpcolb,
+    'Gradperi': gradperi,
+    'Gradsstrut': gradsstrut,
+    'Gradtfte': gradtfte,
+}
 
 #--------------------------------------------------------------------------------
 #-- run_comp_grad_data_update: a control function to update comp/grad related msid data
@@ -149,10 +164,10 @@ def run_comp_grad_data_update():
 #
 #--- go through all groups and their msid to update the data
 #
-    for k in range(0, len(g_msid_list)):
-        print("Processing: " + group_name[k])
+    for group, msid_list in GROUP_MSID_DICT.items():
+        print(f"Processing: {group}")
         try:
-            update_comp_data(group_name[k], g_msid_list[k], eyear, etime)
+            update_comp_data(group, msid_list, eyear, etime)
         except:
             traceback.print_exc()
 #
@@ -174,6 +189,8 @@ def update_comp_data(gname, msid_list, eyear, etime):
             etime       --- today's date in seconds from 1998.1.1
     output: <data_dir>/<gname>/<msid>_<dtye>_data.fits
     """
+    #make the group suibdirectory in case it doesn't exist
+    os.makedirs(f"{DATA_DIR}/{gname}", exist_ok=True)
     for msid in msid_list:
 #
 #--- set sub-directory depending on msids
@@ -301,7 +318,7 @@ def find_last_entry_time(dfile, dtype, today):
 #
 #--- check the previous fits data file exists. if it does, find the last entry time
 #
-    if os.path.isfile(dfile):
+    if os.path.isfile(dfile) and not FULL_GEN:
         hdout = pyfits.open(dfile)
         data  = hdout[1].data
         dtime = data['time']
@@ -620,25 +637,25 @@ def create_fits_file(msid, data, dtype):
             dtype   --- data type (week, short, or others)
     output: ./<msid>_<dtype>_data.fits
     """
-    cols    = col_names
+    cols    = COL_NAMES
     cols[1] = msid
 
-    c1  = Column(name=cols[0],  format=col_format[0],  array = data[0])
-    c2  = Column(name=cols[1],  format=col_format[1],  array = data[1])
-    c3  = Column(name=cols[2],  format=col_format[2],  array = data[2])
-    c4  = Column(name=cols[3],  format=col_format[3],  array = data[3])
-    c5  = Column(name=cols[4],  format=col_format[4],  array = data[4])
-    c6  = Column(name=cols[5],  format=col_format[5],  array = data[5])
-    c7  = Column(name=cols[6],  format=col_format[6],  array = data[6])
-    c8  = Column(name=cols[7],  format=col_format[7],  array = data[7])
-    c9  = Column(name=cols[8],  format=col_format[8],  array = data[8])
-    c10 = Column(name=cols[9],  format=col_format[9],  array = data[9])
-    c11 = Column(name=cols[10], format=col_format[10], array = data[10])
-    c12 = Column(name=cols[11], format=col_format[11], array = data[11])
-    c13 = Column(name=cols[12], format=col_format[12], array = data[12])
-    c14 = Column(name=cols[13], format=col_format[13], array = data[13])
-    c15 = Column(name=cols[14], format=col_format[14], array = data[14])
-    c16 = Column(name=cols[15], format=col_format[15], array = data[15])
+    c1  = Column(name=cols[0],  format=COL_FORMAT[0],  array = data[0])
+    c2  = Column(name=cols[1],  format=COL_FORMAT[1],  array = data[1])
+    c3  = Column(name=cols[2],  format=COL_FORMAT[2],  array = data[2])
+    c4  = Column(name=cols[3],  format=COL_FORMAT[3],  array = data[3])
+    c5  = Column(name=cols[4],  format=COL_FORMAT[4],  array = data[4])
+    c6  = Column(name=cols[5],  format=COL_FORMAT[5],  array = data[5])
+    c7  = Column(name=cols[6],  format=COL_FORMAT[6],  array = data[6])
+    c8  = Column(name=cols[7],  format=COL_FORMAT[7],  array = data[7])
+    c9  = Column(name=cols[8],  format=COL_FORMAT[8],  array = data[8])
+    c10 = Column(name=cols[9],  format=COL_FORMAT[9],  array = data[9])
+    c11 = Column(name=cols[10], format=COL_FORMAT[10], array = data[10])
+    c12 = Column(name=cols[11], format=COL_FORMAT[11], array = data[11])
+    c13 = Column(name=cols[12], format=COL_FORMAT[12], array = data[12])
+    c14 = Column(name=cols[13], format=COL_FORMAT[13], array = data[13])
+    c15 = Column(name=cols[14], format=COL_FORMAT[14], array = data[14])
+    c16 = Column(name=cols[15], format=COL_FORMAT[15], array = data[15])
         
     coldefs = pyfits.ColDefs([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16])
     tbhdu   = pyfits.BinTableHDU.from_columns(coldefs)
@@ -710,11 +727,19 @@ def remove_old_data_from_fits(fits, cut):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
-    parser.add_argument("-d", "--data", help = "Determine Data output file path")
-    parser.add_argument("--deposit", help = "Determine Deposit input file path")
+    parser.add_argument("-d", "--data", help = "Determine Data output file path.")
+    parser.add_argument("--deposit", help = "Determine Deposit input file path.")
+    parser.add_argument('--full',help = "Determine whether to full regenerate fits, or use the last recorded time entry.", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     
     if args.mode == 'test':
+        #Smaller test subset
+        GROUP_MSID_DICT = {
+            'Compgradkodak': ['hrmaavg']
+        }
+
+        if args.full is not None:
+            FULL_GEN = args.full
 
         if args.data:
             DATA_DIR = args.data
