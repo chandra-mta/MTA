@@ -20,6 +20,7 @@ from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
 import Chandra.Time
 import traceback
+import signal
 import argparse
 import getpass
 #
@@ -707,18 +708,42 @@ def remove_old_data_from_fits(fits, cut):
 #--------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", help = "Determine data output file path")
+    args = parser.parse_args()
+    
+    if args.mode == 'test':
+
+        run_comp_grad_data_update()
+
+    elif args.mode == "flight":
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
-    name = os.path.basename(__file__).split(".")[0]
-    user = getpass.getuser()
-    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
-    else:
-        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
-    run_comp_grad_data_update()
+        name = os.path.basename(__file__).split(".")[0]
+        user = getpass.getuser()
+        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+            notification = f"Lock file exists as /tmp/{user}/{name}.lock at {time.strftime('%Y:%j:%H:%M:%S',time.localtime())}\n"
+            notification += "Process already running/errored out. Check calling scripts/cronjob/cronlog. Killing old process."
+            print(notification)
+            with open(f"/tmp/{user}/{name}.lock") as f:
+                pid = int(f.readlines()[-1].strip())
+            #Kill old stalling process and remove corresponding lock file.
+            os.remove(f"/tmp/{user}/{name}.lock")
+            os.kill(pid,signal.SIGTERM)
+            #Generate lock file for the current corresponding process
+            os.system(f"mkdir -p /tmp/{user}; echo '{os.getpid()}' > /tmp/{user}/{name}.lock")
+        else:
+            #Previous script run must have completed successfully. Prepare lock file for this script run.
+            os.system(f"mkdir -p /tmp/{user}; echo '{os.getpid()}' > /tmp/{user}/{name}.lock")
+        
+        try:
+            run_comp_grad_data_update()
+        except:
+            traceback.print_exc()
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/{user}/{name}.lock")
+        os.system(f"rm /tmp/{user}/{name}.lock")
