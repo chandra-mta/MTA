@@ -40,7 +40,6 @@ sys.path.append(MTA_DIR)
 #
 #--- import several functions
 #
-import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
 
@@ -154,7 +153,7 @@ def run_comp_grad_data_update():
         try:
             update_comp_data(group_name[k], g_msid_list[k], eyear, etime)
         except:
-            print("Something went wrong while analyzing: " + g_msid_list[k])
+            traceback.print_exc()
 #
 #--- compress the last year's fits file
 #
@@ -241,7 +240,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
                             cmd = 'mv ./temp.fits ' +  dfile
                             os.system(cmd)
                         except:
-                            pass
+                            traceback.print_exc()
 #
 #--- check the file is actually updated. if not put back the old one 
 #
@@ -451,6 +450,7 @@ def run_condtion_msid(msid, fits, start, stop, period, alimit, cnd_msid):
             limit_table = find_limits(begin, mkey, alimit)
             [y_low, y_top, r_low, r_top] = limit_table
         except:
+            traceback.print_exc()
             limit_table = [-9999998.0, 9999998.0, -9999999.0, 9999999.0]
             [y_low, y_top, r_low, r_top] = [-9999998.0, 9999998.0, -9999999.0, 9999999.0]
 #
@@ -598,6 +598,7 @@ def find_limits(stime, mkey, alimit):
             try:
                 ltable = alimit[k][3][mkey]
             except:
+                traceback.print_exc()
                 ltable = alimit[k][3]['none']
             break 
 
@@ -700,6 +701,8 @@ def remove_old_data_from_fits(fits, cut):
     except:
         cmd = 'mv ' + sfits + ' ' + fits
         os.system(cmd)
+        print(f'Error making :{fits}, moving back.')
+        traceback.print_exc()
 
 #--------------------------------------------------------------------------------
 
