@@ -6,38 +6,37 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Feb 02, 2021                                                       #
+#           last update: May 06, 2024                                                       #
 #                                                                                           #
 #############################################################################################
 
 import os
 import sys
 import re
-import string
 import time
 import numpy
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
 import Chandra.Time
+import traceback
+import argparse
 import getpass
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+BIN_DIR = "/data/mta/Script/MTA_limit_trends/Scripts"
+MTA_DIR = "/data/mta4/Script/Python3.11/MTA"
+DEPOSIT_DIR = "/data/mta/Script/MTA_limit_trends/Deposit"
+COMP_DIR = f"{DEPOSIT_DIR}/Comp_Save"
+GRAD_DIR = f"{DEPOSIT_DIR}/Grad_Save"
+DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
 #
 #--- append path to a private folder
 #
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
+sys.path.append(BIN_DIR)
+sys.path.append(MTA_DIR)
 #
 #--- import several functions
 #
@@ -45,11 +44,7 @@ import mta_common_functions     as mcf  #---- contains other functions commonly 
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
-#
-#--- other path setting
-#
-comp_dir  = deposit_dir + 'Comp_save/'
-grad_dir  = deposit_dir + 'Grad_save/'
+
 #
 #--- fits generation related lists
 #
@@ -190,11 +185,11 @@ def update_comp_data(gname, msid_list, eyear, etime):
         mc2 = re.search('comp', gname.lower())
         if mc is not None:
             if mc2 is not None:
-                sub_dir = comp_dir
+                sub_dir = COMP_DIR
             else:
-                sub_dir = grad_dir
+                sub_dir = GRAD_DIR
         else:
-            sub_dir = comp_dir
+            sub_dir = COMP_DIR
 #
 #--- set limit data (a list of lists of limit values)
 #
@@ -208,7 +203,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
 #--- database file name
 #
-            dfile  = data_dir + gname + '/' + ofile
+            dfile = f"{DATA_DIR}/{gname}/{ofile}"
 #
 #--- find the last entry time
 #
@@ -224,9 +219,9 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
 #--- set the input fits file name
 #
-                fits = sub_dir + gname + '/' + msid + '_full_data_' + str(year) + '.fits'
+                fits = f"{sub_dir}/{gname}/{msid}_full_data_{year}.fits"
                 if not os.path.isfile(fits):
-                    fits = sub_dir +  gname + '/' + msid + '_full_data_' + str(year) + '.fits.gz'
+                    fits = f"{sub_dir}/{gname}/{msid}_full_data_{year}.fits.gz"
                     if not os.path.isfile(fits):
                         continue
 #
