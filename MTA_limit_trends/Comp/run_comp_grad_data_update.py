@@ -40,7 +40,6 @@ sys.path.append(MTA_DIR)
 #
 #--- import several functions
 #
-import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
@@ -160,9 +159,7 @@ def run_comp_grad_data_update():
 #--- compress the last year's fits file
 #
     if yday >= 3 and yday < 5:
-        lyear = year - 1
-        cmd =  'gzip -fq ' + deposit_dir + '*/*/*_full_data_' + str(lyear) + '.fits'
-        os.system(cmd)
+        os.system(f"gzip -fq {DEPOSIT_DIR}/*/*/*_full_data_{eyear - 1}.fits")
 
 #--------------------------------------------------------------------------------
 #-- update_comp_data: update comp/grad related msid data                       --
@@ -650,8 +647,9 @@ def create_fits_file(msid, data, dtype):
         ofits = msid + '_short_data.fits'
     else:
         ofits = msid + '_data.fits'
-    
-    mcf.rm_files(ofits)
+
+    if os.path.isfile(ofits):
+        os.remove(ofits)
 
     tbhdu.writeto(ofits)
 
@@ -697,7 +695,8 @@ def remove_old_data_from_fits(fits, cut):
     os.system(cmd)
     try:
         create_fits_file(fits, cols, udata)
-        mcf.rm_file(sfits)
+        if os.path.isfile(sfits):
+            os.remove(sfits)
     except:
         cmd = 'mv ' + sfits + ' ' + fits
         os.system(cmd)
