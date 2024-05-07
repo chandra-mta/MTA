@@ -29,8 +29,8 @@ import getpass
 BIN_DIR = "/data/mta/Script/MTA_limit_trends/Scripts"
 MTA_DIR = "/data/mta4/Script/Python3.11/MTA"
 DEPOSIT_DIR = "/data/mta/Script/MTA_limit_trends/Deposit"
-COMP_DIR = f"{DEPOSIT_DIR}/Comp_Save"
-GRAD_DIR = f"{DEPOSIT_DIR}/Grad_Save"
+COMP_DIR = f"{DEPOSIT_DIR}/Comp_save"
+GRAD_DIR = f"{DEPOSIT_DIR}/Grad_save"
 DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
 
 #
@@ -48,6 +48,7 @@ import read_limit_table         as rlt  #---- read limit table and create msid<-
 #--- Define globals
 #
 FULL_GEN = False #Used for determining whether to generate the fill fits files or build off the last time entry
+DTYPE = ['long', 'short', 'week']
 #
 #--- fits generation related lists
 #
@@ -209,7 +210,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
         alimit   = lim_dict[msid]
 
-        for dtype in ['long', 'short', 'week']:
+        for dtype in DTYPE:
             if dtype == 'long':
                 ofile = msid + '_data.fits'
             else:
@@ -235,8 +236,9 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
                 fits = f"{sub_dir}/{gname}/{msid}_full_data_{year}.fits"
                 if not os.path.isfile(fits):
-                    fits = f"{sub_dir}/{gname}/{msid}_full_data_{year}.fits.gz"
+                    fits = f"{fits}.gz"
                     if not os.path.isfile(fits):
+                        print(f"Could not find {fits[:-3]} or gz.")
                         continue
 #
 #--- extract the data part needed and save in a fits file 
@@ -729,9 +731,13 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
     parser.add_argument("-d", "--data", help = "Determine Data output file path.")
     parser.add_argument("--deposit", help = "Determine Deposit input file path.")
+    parser.add_argument("-t",'--dtype', nargs = '*', required = False, choices = ['long', 'short', 'week'], help = "List of data types to generate.")
     parser.add_argument('--full',help = "Determine whether to full regenerate fits, or use the last recorded time entry.", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     
+    if args.dtype:
+        DTYPE = args.dtype
+
     if args.mode == 'test':
         #Smaller test subset
         GROUP_MSID_DICT = {
