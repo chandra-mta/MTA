@@ -190,7 +190,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
             etime       --- today's date in seconds from 1998.1.1
     output: <data_dir>/<gname>/<msid>_<dtye>_data.fits
     """
-    #make the group suibdirectory in case it doesn't exist
+    #make the group subdirectory in case it doesn't exist
     os.makedirs(f"{DATA_DIR}/{gname}", exist_ok=True)
     for msid in msid_list:
 #
