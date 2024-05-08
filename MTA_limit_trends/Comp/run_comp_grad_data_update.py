@@ -278,11 +278,11 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
                         if dtype == 'short':
                             cut   = etime - 86400 * 548
-                            remove_old_data_from_fits(dfile, cut)
+                            remove_old_data_from_fits(dfile, cut, dtype)
 
                         elif dtype == 'week':
                             cut   = etime - 86400 * 7
-                            remove_old_data_from_fits(dfile, cut)
+                            remove_old_data_from_fits(dfile, cut, dtype)
                     else:
                         cmd = 'mv ' + out + ' ' +  dfile
                         os.system(cmd)
@@ -680,11 +680,12 @@ def create_fits_file(msid, data, dtype):
 #-- remove_old_data_from_fits: remove old part of the data from fits file      --
 #--------------------------------------------------------------------------------
 
-def remove_old_data_from_fits(fits, cut):
+def remove_old_data_from_fits(fits, cut, dtype):
     """
     remove old part of the data from fits file
     input:  fits    --- fits file name
             cut     --- cut date in seconds from 1998.1.1
+            dtype   --- data file type
     output: fits    --- updated fits file
     """
 #
@@ -715,7 +716,7 @@ def remove_old_data_from_fits(fits, cut):
     cmd   = 'mv ' + fits + ' ' + sfits
     os.system(cmd)
     try:
-        create_fits_file(fits, cols, udata)
+        create_fits_file(col_list[1], udata, dtype)
         if os.path.isfile(sfits):
             os.remove(sfits)
     except:
