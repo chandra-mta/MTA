@@ -6,5 +6,5 @@ cd /data/mta/Script/MTA_limit_trends/Exc2
 /data/mta/Script/MTA_limit_trends/Scripts/Deposit/update_sim_flex.py
 /data/mta/Script/MTA_limit_trends/Scripts/Deposit/process_dea_data_full.py
 
-/data/mta/Script/MTA_limit_trends/Scripts/Comp/run_comp_grad_data_update.py
+/data/mta/Script/MTA_limit_trends/Scripts/Comp/run_comp_grad_data_update.py -m flight
 
