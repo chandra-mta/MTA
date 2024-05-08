@@ -220,6 +220,11 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
             dfile = f"{DATA_DIR}/{gname}/{ofile}"
 #
+#--- If the FULL_GEN option is set to true, then remove this file to fully regenerate it
+#
+            if os.path.isfile(dfile) and FULL_GEN:
+                os.remove(dfile)
+#
 #--- find the last entry time
 #
             tstart = find_last_entry_time(dfile, dtype, etime)
@@ -320,7 +325,7 @@ def find_last_entry_time(dfile, dtype, today):
 #
 #--- check the previous fits data file exists. if it does, find the last entry time
 #
-    if os.path.isfile(dfile) and not FULL_GEN:
+    if os.path.isfile(dfile):
         hdout = pyfits.open(dfile)
         data  = hdout[1].data
         dtime = data['time']
@@ -747,7 +752,6 @@ if __name__ == "__main__":
 
         if args.full is not None:
             FULL_GEN = args.full
-
         if args.data:
             DATA_DIR = args.data
         else:
