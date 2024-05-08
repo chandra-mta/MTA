@@ -248,17 +248,21 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
 #--- extract the data part needed and save in a fits file 
 #
-                out = extract_data_from_deposit(msid, fits, tstart, etime, dtype, alimit)
-                if out == False:
+                tbhdu = extract_data_from_deposit(msid, fits, tstart, etime, dtype, alimit)
+                if tbhdu == False:
                     print("Something went wrong for " + msid + ' in year: ' + str(year))
                     continue
 
                 else:
+                    #If not false, then managed to create the table HDU,
+                    #save to a fits file and append to original table
+                    appendfile = f"{DATA_DIR}/{gname}/{msid}_{dtype}_append.fits"
+                    tbhdu.writeto(appendfile)
 #
 #--- append the new data part to the database
 #
                     if os.path.isfile(dfile):
-                        mfo.appendFitsTable(dfile, out,'./temp.fits' ) 
+                        mfo.appendFitsTable(dfile, appendfile,'./temp.fits' ) 
                         cmd = 'mv -f ' + dfile + ' ' + dfile + '~'
                         os.system(cmd)
                         try:
@@ -276,7 +280,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
                             cmd = 'mv -f ' + dfile + '~ ' + dfile
                             os.system(cmd)
 
-                        os.system('rm -rf ' + out)
+                        os.system('rm -rf ' + appendfile)
 #
 #--- for the short time data, remove data older than 1.5 years
 #--- for the week data, remove data older than 7 days
@@ -289,7 +293,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
                             cut   = etime - 86400 * 7
                             remove_old_data_from_fits(dfile, cut, dtype)
                     else:
-                        cmd = 'mv ' + out + ' ' +  dfile
+                        cmd = 'mv ' + appendfile + ' ' +  dfile
                         os.system(cmd)
 
 #--------------------------------------------------------------------------------
@@ -359,14 +363,14 @@ def extract_data_from_deposit(msid, fits, start, stop, dtype, alimit):
             stop    --- period ending time  in seconds from 1998.1.1
             dtype   --- data type:  week, short or  long (blank is fine)
             alimit  --- a list of lists of limit data table
-    output: <msid>_<dtye>_data.fits
+    output: <msid>_<dtye>_data table HDU
     """
     period = dtype_to_period(dtype)
     fdata  = run_condtion_msid(msid, fits, start, stop, period, alimit, 'none')
 
     if fdata != []:
-        out = create_fits_file(msid, fdata, dtype)
-        return out 
+        tbhdu = create_fits_table(msid, fdata)
+        return tbhdu
     else:
         return False
 
@@ -636,13 +640,12 @@ def find_limits(stime, mkey, alimit):
 #-- create_fits_file: create a fits file                                       --
 #--------------------------------------------------------------------------------
 
-def create_fits_file(msid, data, dtype):
+def create_fits_table(msid, data):
     """
     create a fits file
     input:  msid    --- msid
             data    --- a list of list of data
-            dtype   --- data type (week, short, or others)
-    output: ./<msid>_<dtype>_data.fits
+    output: ./<msid>_<dtype>_data table HDU
     """
     cols    = COL_NAMES
     cols[1] = msid
@@ -667,19 +670,7 @@ def create_fits_file(msid, data, dtype):
     coldefs = pyfits.ColDefs([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16])
     tbhdu   = pyfits.BinTableHDU.from_columns(coldefs)
 
-    if dtype == 'week':
-        ofits = msid + '_week_data.fits'
-    elif dtype == 'short':
-        ofits = msid + '_short_data.fits'
-    else:
-        ofits = msid + '_data.fits'
-
-    if os.path.isfile(ofits):
-        os.remove(ofits)
-
-    tbhdu.writeto(ofits)
-
-    return ofits
+    return tbhdu
 
 #--------------------------------------------------------------------------------
 #-- remove_old_data_from_fits: remove old part of the data from fits file      --
@@ -721,10 +712,13 @@ def remove_old_data_from_fits(fits, cut, dtype):
     cmd   = 'mv ' + fits + ' ' + sfits
     os.system(cmd)
     try:
-        create_fits_file(col_list[1], udata, dtype)
+        tbhdu = create_fits_table(col_list[1], udata)
+        tbhdu.writeto(fits)
         if os.path.isfile(sfits):
             os.remove(sfits)
     except:
+        #If the try block fails to write a new fits file,
+        #then move the saved ~ file back into place instead
         cmd = 'mv ' + sfits + ' ' + fits
         os.system(cmd)
         print(f'Error making :{fits}, moving back.')
