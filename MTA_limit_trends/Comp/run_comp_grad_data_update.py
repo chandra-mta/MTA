@@ -6,59 +6,57 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Feb 02, 2021                                                       #
+#           last update: May 06, 2024                                                       #
 #                                                                                           #
 #############################################################################################
 
 import os
 import sys
 import re
-import string
 import time
 import numpy
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
 import Chandra.Time
+import traceback
+import signal
+import argparse
 import getpass
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+BIN_DIR = "/data/mta/Script/MTA_limit_trends/Scripts"
+MTA_DIR = "/data/mta4/Script/Python3.11/MTA"
+DEPOSIT_DIR = "/data/mta/Script/MTA_limit_trends/Deposit"
+COMP_DIR = f"{DEPOSIT_DIR}/Comp_save"
+GRAD_DIR = f"{DEPOSIT_DIR}/Grad_save"
+DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
 #
 #--- append path to a private folder
 #
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
+sys.path.append(BIN_DIR)
+sys.path.append(MTA_DIR)
 #
 #--- import several functions
 #
-import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
-import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
+
 #
-#--- other path setting
+#--- Define globals
 #
-comp_dir  = deposit_dir + 'Comp_save/'
-grad_dir  = deposit_dir + 'Grad_save/'
+FULL_GEN = False #Used for determining whether to generate the fill fits files or build off the last time entry
+DTYPE = ['long', 'short', 'week']
 #
 #--- fits generation related lists
 #
-col_names  = ['time', 'msid', 'med', 'std', 'min', 'max', 
+COL_NAMES  = ['time', 'msid', 'med', 'std', 'min', 'max', 
               'ylower', 'yupper', 'rlower', 'rupper', 'dcount', 
               'ylimlower', 'ylimupper', 'rlimlower', 'rlimupper', 'state']
-col_format = ['D', '20A', 'D', 'D','D','D','D','D','D','D', 'I', 'D', 'D', 'D', 'D', '10A']
+COL_FORMAT = ['D', '20A', 'D', 'D','D','D','D','D','D','D', 'I', 'D', 'D', 'D', 'D', '10A']
 
-a_month = 86400 * 30
 #
 #--- create msid <---> category dict
 #
@@ -122,17 +120,29 @@ gradtfte      = ['htftegrd1', 'htftegrd2', 'htftegrd3', 'htftegrd4', \
                  'htftegrd5', 'htftegrd6', 'htftegrd7', 'htftegrd8', \
                  'htftegrd9', 'htftegrd10', 'htftegrd11', 'htftegrd12']
 #
-#--- set them in the lists
+#--- set them in the dictionary
 #
-group_name  = ['Compgradkodak', 'Compacispwr', 'Compsimoffset',\
-               'Gradablk', 'Gradahet', 'Gradaincyl', 'Gradcap', 'Gradfap', \
-               'Gradfblk', 'Gradhcone', 'Gradhhflex', 'Gradhpflex', 'Gradhstrut',\
-               'Gradocyl', 'Gradpcolb', 'Gradperi', 'Gradsstrut', 'Gradtfte']
 
-g_msid_list = [compgradkodak,    compacispwr,   compsimoffset, \
-               gradablk, gradahet, gradaincyl, gradcap, gradfap, \
-               gradfblk, gradhcone, gradhhflex, gradhpflex, gradhstrut,\
-               gradocyl, gradpcolb, gradperi, gradsstrut, gradtfte]
+GROUP_MSID_DICT = {
+    'Compgradkodak': compgradkodak,
+    'Compacispwr': compacispwr,
+    'Compsimoffset': compsimoffset,
+    'Gradablk': gradablk,
+    'Gradahet': gradahet,
+    'Gradaincyl': gradaincyl,
+    'Gradcap': gradcap,
+    'Gradfap': gradfap,
+    'Gradfblk': gradfblk,
+    'Gradhcone': gradhcone,
+    'Gradhhflex': gradhhflex,
+    'Gradhpflex': gradhpflex,
+    'Gradhstrut': gradhstrut,
+    'Gradocyl': gradocyl,
+    'Gradpcolb': gradpcolb,
+    'Gradperi': gradperi,
+    'Gradsstrut': gradsstrut,
+    'Gradtfte': gradtfte,
+}
 
 #--------------------------------------------------------------------------------
 #-- run_comp_grad_data_update: a control function to update comp/grad related msid data
@@ -155,19 +165,17 @@ def run_comp_grad_data_update():
 #
 #--- go through all groups and their msid to update the data
 #
-    for k in range(0, len(g_msid_list)):
-        print("Processing: " + group_name[k])
+    for group, msid_list in GROUP_MSID_DICT.items():
+        print(f"Processing: {group}")
         try:
-            update_comp_data(group_name[k], g_msid_list[k], eyear, etime)
+            update_comp_data(group, msid_list, eyear, etime)
         except:
-            print("Something went wrong while analyzing: " + g_msid_list[k])
+            traceback.print_exc()
 #
 #--- compress the last year's fits file
 #
     if yday >= 3 and yday < 5:
-        lyear = year - 1
-        cmd =  'gzip -fq ' + deposit_dir + '*/*/*_full_data_' + str(lyear) + '.fits'
-        os.system(cmd)
+        os.system(f"gzip -fq {DEPOSIT_DIR}/*/*/*_full_data_{eyear - 1}.fits")
 
 #--------------------------------------------------------------------------------
 #-- update_comp_data: update comp/grad related msid data                       --
@@ -182,6 +190,8 @@ def update_comp_data(gname, msid_list, eyear, etime):
             etime       --- today's date in seconds from 1998.1.1
     output: <data_dir>/<gname>/<msid>_<dtye>_data.fits
     """
+    #make the group subdirectory in case it doesn't exist
+    os.makedirs(f"{DATA_DIR}/{gname}", exist_ok=True)
     for msid in msid_list:
 #
 #--- set sub-directory depending on msids
@@ -190,17 +200,17 @@ def update_comp_data(gname, msid_list, eyear, etime):
         mc2 = re.search('comp', gname.lower())
         if mc is not None:
             if mc2 is not None:
-                sub_dir = comp_dir
+                sub_dir = COMP_DIR
             else:
-                sub_dir = grad_dir
+                sub_dir = GRAD_DIR
         else:
-            sub_dir = comp_dir
+            sub_dir = COMP_DIR
 #
 #--- set limit data (a list of lists of limit values)
 #
         alimit   = lim_dict[msid]
 
-        for dtype in ['long', 'short', 'week']:
+        for dtype in DTYPE:
             if dtype == 'long':
                 ofile = msid + '_data.fits'
             else:
@@ -208,7 +218,12 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
 #--- database file name
 #
-            dfile  = data_dir + gname + '/' + ofile
+            dfile = f"{DATA_DIR}/{gname}/{ofile}"
+#
+#--- If the FULL_GEN option is set to true, then remove this file to fully regenerate it
+#
+            if os.path.isfile(dfile) and FULL_GEN:
+                os.remove(dfile)
 #
 #--- find the last entry time
 #
@@ -224,32 +239,37 @@ def update_comp_data(gname, msid_list, eyear, etime):
 #
 #--- set the input fits file name
 #
-                fits = sub_dir + gname + '/' + msid + '_full_data_' + str(year) + '.fits'
+                fits = f"{sub_dir}/{gname}/{msid}_full_data_{year}.fits"
                 if not os.path.isfile(fits):
-                    fits = sub_dir +  gname + '/' + msid + '_full_data_' + str(year) + '.fits.gz'
+                    fits = f"{fits}.gz"
                     if not os.path.isfile(fits):
+                        print(f"Could not find {fits[:-3]} or gz.")
                         continue
 #
 #--- extract the data part needed and save in a fits file 
 #
-                out = extract_data_from_deposit(msid, fits, tstart, etime, dtype, alimit)
-                if out == False:
+                tbhdu = extract_data_from_deposit(msid, fits, tstart, etime, dtype, alimit)
+                if tbhdu == False:
                     print("Something went wrong for " + msid + ' in year: ' + str(year))
                     continue
 
                 else:
+                    #If not false, then managed to create the table HDU,
+                    #save to a fits file and append to original table
+                    appendfile = f"{DATA_DIR}/{gname}/{msid}_{dtype}_append.fits"
+                    tbhdu.writeto(appendfile)
 #
 #--- append the new data part to the database
 #
                     if os.path.isfile(dfile):
-                        mfo.appendFitsTable(dfile, out,'./temp.fits' ) 
+                        mfo.appendFitsTable(dfile, appendfile,'./temp.fits' ) 
                         cmd = 'mv -f ' + dfile + ' ' + dfile + '~'
                         os.system(cmd)
                         try:
                             cmd = 'mv ./temp.fits ' +  dfile
                             os.system(cmd)
                         except:
-                            pass
+                            traceback.print_exc()
 #
 #--- check the file is actually updated. if not put back the old one 
 #
@@ -260,7 +280,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
                             cmd = 'mv -f ' + dfile + '~ ' + dfile
                             os.system(cmd)
 
-                        os.system('rm -rf ' + out)
+                        os.system('rm -rf ' + appendfile)
 #
 #--- for the short time data, remove data older than 1.5 years
 #--- for the week data, remove data older than 7 days
@@ -273,7 +293,7 @@ def update_comp_data(gname, msid_list, eyear, etime):
                             cut   = etime - 86400 * 7
                             remove_old_data_from_fits(dfile, cut)
                     else:
-                        cmd = 'mv ' + out + ' ' +  dfile
+                        cmd = 'mv ' + appendfile + ' ' +  dfile
                         os.system(cmd)
 
 #--------------------------------------------------------------------------------
@@ -343,14 +363,14 @@ def extract_data_from_deposit(msid, fits, start, stop, dtype, alimit):
             stop    --- period ending time  in seconds from 1998.1.1
             dtype   --- data type:  week, short or  long (blank is fine)
             alimit  --- a list of lists of limit data table
-    output: <msid>_<dtye>_data.fits
+    output: <msid>_<dtye>_data table HDU
     """
     period = dtype_to_period(dtype)
     fdata  = run_condtion_msid(msid, fits, start, stop, period, alimit, 'none')
 
     if fdata != []:
-        out = create_fits_file(msid, fdata, dtype)
-        return out 
+        tbhdu = create_fits_table(msid, fdata)
+        return tbhdu
     else:
         return False
 
@@ -459,6 +479,7 @@ def run_condtion_msid(msid, fits, start, stop, period, alimit, cnd_msid):
             limit_table = find_limits(begin, mkey, alimit)
             [y_low, y_top, r_low, r_top] = limit_table
         except:
+            traceback.print_exc()
             limit_table = [-9999998.0, 9999998.0, -9999999.0, 9999999.0]
             [y_low, y_top, r_low, r_top] = [-9999998.0, 9999998.0, -9999999.0, 9999999.0]
 #
@@ -606,6 +627,7 @@ def find_limits(stime, mkey, alimit):
             try:
                 ltable = alimit[k][3][mkey]
             except:
+                traceback.print_exc()
                 ltable = alimit[k][3]['none']
             break 
 
@@ -618,49 +640,37 @@ def find_limits(stime, mkey, alimit):
 #-- create_fits_file: create a fits file                                       --
 #--------------------------------------------------------------------------------
 
-def create_fits_file(msid, data, dtype):
+def create_fits_table(msid, data):
     """
     create a fits file
     input:  msid    --- msid
             data    --- a list of list of data
-            dtype   --- data type (week, short, or others)
-    output: ./<msid>_<dtype>_data.fits
+    output: ./<msid>_<dtype>_data table HDU
     """
-    cols    = col_names
+    cols    = COL_NAMES
     cols[1] = msid
 
-    c1  = Column(name=cols[0],  format=col_format[0],  array = data[0])
-    c2  = Column(name=cols[1],  format=col_format[1],  array = data[1])
-    c3  = Column(name=cols[2],  format=col_format[2],  array = data[2])
-    c4  = Column(name=cols[3],  format=col_format[3],  array = data[3])
-    c5  = Column(name=cols[4],  format=col_format[4],  array = data[4])
-    c6  = Column(name=cols[5],  format=col_format[5],  array = data[5])
-    c7  = Column(name=cols[6],  format=col_format[6],  array = data[6])
-    c8  = Column(name=cols[7],  format=col_format[7],  array = data[7])
-    c9  = Column(name=cols[8],  format=col_format[8],  array = data[8])
-    c10 = Column(name=cols[9],  format=col_format[9],  array = data[9])
-    c11 = Column(name=cols[10], format=col_format[10], array = data[10])
-    c12 = Column(name=cols[11], format=col_format[11], array = data[11])
-    c13 = Column(name=cols[12], format=col_format[12], array = data[12])
-    c14 = Column(name=cols[13], format=col_format[13], array = data[13])
-    c15 = Column(name=cols[14], format=col_format[14], array = data[14])
-    c16 = Column(name=cols[15], format=col_format[15], array = data[15])
+    c1  = Column(name=cols[0],  format=COL_FORMAT[0],  array = data[0])
+    c2  = Column(name=cols[1],  format=COL_FORMAT[1],  array = data[1])
+    c3  = Column(name=cols[2],  format=COL_FORMAT[2],  array = data[2])
+    c4  = Column(name=cols[3],  format=COL_FORMAT[3],  array = data[3])
+    c5  = Column(name=cols[4],  format=COL_FORMAT[4],  array = data[4])
+    c6  = Column(name=cols[5],  format=COL_FORMAT[5],  array = data[5])
+    c7  = Column(name=cols[6],  format=COL_FORMAT[6],  array = data[6])
+    c8  = Column(name=cols[7],  format=COL_FORMAT[7],  array = data[7])
+    c9  = Column(name=cols[8],  format=COL_FORMAT[8],  array = data[8])
+    c10 = Column(name=cols[9],  format=COL_FORMAT[9],  array = data[9])
+    c11 = Column(name=cols[10], format=COL_FORMAT[10], array = data[10])
+    c12 = Column(name=cols[11], format=COL_FORMAT[11], array = data[11])
+    c13 = Column(name=cols[12], format=COL_FORMAT[12], array = data[12])
+    c14 = Column(name=cols[13], format=COL_FORMAT[13], array = data[13])
+    c15 = Column(name=cols[14], format=COL_FORMAT[14], array = data[14])
+    c16 = Column(name=cols[15], format=COL_FORMAT[15], array = data[15])
         
     coldefs = pyfits.ColDefs([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16])
     tbhdu   = pyfits.BinTableHDU.from_columns(coldefs)
 
-    if dtype == 'week':
-        ofits = msid + '_week_data.fits'
-    elif dtype == 'short':
-        ofits = msid + '_short_data.fits'
-    else:
-        ofits = msid + '_data.fits'
-    
-    mcf.rm_files(ofits)
-
-    tbhdu.writeto(ofits)
-
-    return ofits
+    return tbhdu
 
 #--------------------------------------------------------------------------------
 #-- remove_old_data_from_fits: remove old part of the data from fits file      --
@@ -701,27 +711,77 @@ def remove_old_data_from_fits(fits, cut):
     cmd   = 'mv ' + fits + ' ' + sfits
     os.system(cmd)
     try:
-        create_fits_file(fits, cols, udata)
-        mcf.rm_file(sfits)
+        tbhdu = create_fits_table(col_list[1], udata)
+        tbhdu.writeto(fits)
+        if os.path.isfile(sfits):
+            os.remove(sfits)
     except:
+        #If the try block fails to write a new fits file,
+        #then move the saved ~ file back into place instead
         cmd = 'mv ' + sfits + ' ' + fits
         os.system(cmd)
+        print(f'Error making :{fits}, moving back.')
+        traceback.print_exc()
 
 #--------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-d", "--data", help = "Determine Data output file path.")
+    parser.add_argument("--deposit", help = "Determine Deposit input file path.")
+    parser.add_argument("-t",'--dtype', nargs = '*', required = False, choices = ['long', 'short', 'week'], help = "List of data types to generate.")
+    parser.add_argument('--full',help = "Determine whether to full regenerate fits, or use the last recorded time entry.", action=argparse.BooleanOptionalAction)
+    args = parser.parse_args()
+    
+    if args.dtype:
+        DTYPE = args.dtype
+
+    if args.mode == 'test':
+        #Smaller test subset
+        GROUP_MSID_DICT = {
+            'Compgradkodak': ['hrmaavg']
+        }
+
+        if args.full is not None:
+            FULL_GEN = args.full
+        if args.data:
+            DATA_DIR = args.data
+        else:
+            DATA_DIR = f"{os.getcwd()}/test/outTest"
+            os.makedirs(DATA_DIR, exist_ok=True)
+        if args.deposit:
+            DEPOSIT_DIR = args.deposit
+
+        run_comp_grad_data_update()
+
+    elif args.mode == "flight":
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
-    name = os.path.basename(__file__).split(".")[0]
-    user = getpass.getuser()
-    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
-    else:
-        os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
-    run_comp_grad_data_update()
+        name = os.path.basename(__file__).split(".")[0]
+        user = getpass.getuser()
+        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+            notification = f"Lock file exists as /tmp/{user}/{name}.lock at {time.strftime('%Y:%j:%H:%M:%S',time.localtime())}\n"
+            notification += "Process already running/errored out. Check calling scripts/cronjob/cronlog. Killing old process."
+            print(notification)
+            with open(f"/tmp/{user}/{name}.lock") as f:
+                pid = int(f.readlines()[-1].strip())
+            #Kill old stalling process and remove corresponding lock file.
+            os.remove(f"/tmp/{user}/{name}.lock")
+            os.kill(pid,signal.SIGTERM)
+            #Generate lock file for the current corresponding process
+            os.system(f"mkdir -p /tmp/{user}; echo '{os.getpid()}' > /tmp/{user}/{name}.lock")
+        else:
+            #Previous script run must have completed successfully. Prepare lock file for this script run.
+            os.system(f"mkdir -p /tmp/{user}; echo '{os.getpid()}' > /tmp/{user}/{name}.lock")
+        
+        try:
+            run_comp_grad_data_update()
+        except:
+            traceback.print_exc()
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/{user}/{name}.lock")
+        os.system(f"rm /tmp/{user}/{name}.lock")
