@@ -33,7 +33,7 @@ ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/re
 tail = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(tail)
 
-house_keeping = '/data/mta/Script/Python3.10/MTA/'
+house_keeping = '/data/mta/Script/Python3.11/MTA/'
 
 #--------------------------------------------------------------------------
 #-- read_data_file: read a data file and create a data list              --

@@ -24,9 +24,8 @@ ascdsenv = getenv('source /home/ascds/.ascrc -r release', shell='tcsh')
 #
 #--- add mta common function
 #
-mta_dir = '/data/mta4/Script/Python3.10/MTA/'
+mta_dir = '/data/mta4/Script/Python3.11/MTA/'
 sys.path.append(mta_dir)
-import mta_common_functions as mcf
 #
 rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
@@ -65,7 +64,8 @@ def mta_convert_fits_to_image(infile, outfile, scale = 'log', \
 #
     cmd  = 'ls /home/ascds/DS.release/data/*.lut > ' + zspace
     os.system(cmd)
-    data = mcf.read_data_file(zspace)
+    with open(zspace) as f:
+        data = [line.strip() for line in f.readlines()]
 
     color_list = []
     for ent in data:

@@ -20,9 +20,8 @@ import math
 import numpy
 import astropy.io.fits  as pyfits
 
-sys.path.append('/data/mta4/Script/Python3.10/MTA')
+sys.path.append('/data/mta4/Script/Python3.11/MTA')
 #
-import mta_common_functions    as mcf        #---- contains other functions commonly used in MTA scripts
 
 #-------------------------------------------------------------------------------------------------------
 #-- findKeyWords: for a given fits file name, return a list of keyword lists and their values         --
@@ -205,7 +204,8 @@ def selectTableData(ifile, colname, condition, outname, extension = 1, clobber='
     m2 = re.search('Y', clobber)
 
     if (m1 is not None) or (m2 is not None):
-        mcf.rm_files(outname)
+        if os.path.isfile(outname):
+            os.remove(outname)
 
     t     = pyfits.open(ifile)
     tdata = t[extension].data
@@ -325,7 +325,13 @@ def set_format_for_col(name, cdata):
 #
 #--- check whether the value is numeric
 #
-    if mcf.is_neumeric(test):
+    try:
+        var = float(test)
+        var = True
+    except:
+        var = False
+    
+    if var:
         ft = 'E'
 #
 #--- check whether the value is logical
@@ -464,7 +470,8 @@ def fitsImgSection(ifile, x1, x2, y1, y2, outname, extension=0, clobber='no'):
     m1 = re.search('y', clobber)
     m2 = re.search('Y', clobber)
     if (m1 is not None) or (m2 is not None):
-        mcf.rm_files(outname)
+        if os.path.isfile(outname):
+            os.remove(outname)
 
     t    = pyfits.open(ifile)
     data = t[extension].data

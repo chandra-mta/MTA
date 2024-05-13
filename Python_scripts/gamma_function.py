@@ -32,7 +32,7 @@ import matplotlib.lines as lines
 #
 #--- reading directory list
 #
-path = '/data/mta/Script/Python3.10/MTA/house_keeping/dir_list'
+path = '/data/mta/Script/Python3.11/MTA/house_keeping/dir_list'
 
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
@@ -47,10 +47,6 @@ for ent in data:
 #
 sys.path.append(bin_dir)
 sys.path.append(mta_dir)
-#
-#--- import several functions
-#
-import mta_common_functions as mcf  #---- contains other functions commonly used in MTA scripts
 #
 #--- temp writing file name
 #
@@ -208,7 +204,8 @@ def gamma_fit(x, y, a0, b0, m0):
 
 def read_data(dfile):
 
-    data  = mcf.read_data_file(dfile)
+    with open(dfile) as f:
+        data = [line.strip() for line in f.readlines()]
     fdata = []
     for ent in data:
         fdata.append(int(float(ent)))
