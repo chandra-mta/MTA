@@ -48,10 +48,6 @@ for ent in data:
 sys.path.append(bin_dir)
 sys.path.append(mta_dir)
 #
-#--- import several functions
-#
-import mta_common_functions as mcf  #---- contains other functions commonly used in MTA scripts
-#
 #--- temp writing file name
 #
 import random
@@ -208,7 +204,8 @@ def gamma_fit(x, y, a0, b0, m0):
 
 def read_data(dfile):
 
-    data  = mcf.read_data_file(dfile)
+    with open(dfile) as f:
+        data = [line.strip() for line in f.readlines()]
     fdata = []
     for ent in data:
         fdata.append(int(float(ent)))
