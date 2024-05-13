@@ -24,7 +24,7 @@ ascdsenv = getenv('source /home/ascds/.ascrc -r release', shell='tcsh')
 #
 #--- add mta common function
 #
-mta_dir = '/data/mta4/Script/Python3.10/MTA/'
+mta_dir = '/data/mta4/Script/Python3.11/MTA/'
 sys.path.append(mta_dir)
 import mta_common_functions as mcf
 #
