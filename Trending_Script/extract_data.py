@@ -6,14 +6,13 @@
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                       #
-#           last update: Mar 12, 2021                                                   #
+#           last update: Jun 04, 2024                                                   #
 #                                                                                       #
 #########################################################################################
 
 import os
 import re
-import random
-import time
+from datetime import datetime
 import glob
 from astropy.io import fits  as pyfits
 
@@ -23,11 +22,6 @@ from astropy.io import fits  as pyfits
 BIN_DIR = '/data/mta/Script/Trending/Scripts'
 MP_DIR = '/data/mta/www/mp_reports'
 DATA_DIR = '/data/mta/Script/Trending/Trend'
-
-#
-#--- import several functions
-#
-import mta_common_functions       as mcf
 
 #
 #--- the name of data set that we want to extract
@@ -120,10 +114,7 @@ def find_dom_from_mp_file(ent):
     year  = int(float(year))
     month = int(float(month))
     day   = int(float(day))
- 
-    line  = str(year) + ':' + mcf.add_leading_zero(month) + ':' +  mcf.add_leading_zero(day)
-    ydate = int(time.strftime('%j', time.strptime(line, '%Y:%m:%d')))
-    dom   = mcf.ydate_to_dom(year, ydate)
+    dom = ((datetime(year,month,day) - datetime(1999, 7, 22)) / 86400).seconds # day of mission
 
     return dom
 
@@ -175,7 +166,8 @@ def append_data(orig_fits, cdict):
 #
 #--- write out the data
 #
-    mcf.rm_files('./ztemp,fits')
+    if os.path.isfile("ztemp.fits"):
+        os.remove("ztemp.fits")
     hdu.writeto('./ztemp.fits')
 #
 #--- check whether data are added correctly, before move 
@@ -189,7 +181,8 @@ def append_data(orig_fits, cdict):
         cmd = 'mv -f ztemp.fits ' + orig_fits
         os.system(cmd)
     else:
-        mcf.rm_file('./ztemp,fits')
+        if os.path.isfile("ztemp.fits"):
+            os.remove("ztemp.fits")
 
 
 #-----------------------------------------------------------------------
