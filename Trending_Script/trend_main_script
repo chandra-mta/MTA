@@ -1,10 +1,3 @@
-cd /data/mta/Script/Trending/Exc
+cd /data/mta/Script/Trending/Scripts
 
-rm -rf /data/mta/Script/Trending/Exc/param
-mkdir /data/mta/Script/Trending/Exc/param 
-
-setenv SKA /proj/sot/ska
-setenv PYTHONPATH "/data/mta/Script/Python3.8/envs/ska3-shiny/lib/python3.8/site-packages:/data/mta/Script/Python3.8/lib/python3.8/site-packages/"
-
-/data/mta/Script/Trending/Scripts/extract_data.py
-
+/data/mta/Script/Trending/Scripts/extract_data.py -m flight
