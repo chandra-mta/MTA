@@ -11,10 +11,10 @@
 #########################################################################################
 
 import os
-import sys
 import re
 import random
 import time
+import glob
 from astropy.io import fits  as pyfits
 
 #
@@ -28,11 +28,7 @@ DATA_DIR = '/data/mta/Script/Trending/Trend'
 #--- import several functions
 #
 import mta_common_functions       as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
+
 #
 #--- the name of data set that we want to extract
 #--- (compephinkey removed Oct 9, 2018)
@@ -73,9 +69,7 @@ def extract_data(name_list):
 #
 #--- find available fits data from <mp_dir>
 #
-        os.system(f"ls {MP_DIR}/*/{idir}/data/*_summ.fits > {zspace}")
-
-        mp_data = mcf.read_data_file(zspace, remove=1)
+        mp_data = glob.glob(f"{MP_DIR}/*/{idir}/data/*_summ.fits")
     
         for ent in mp_data:
 #
