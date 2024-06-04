@@ -1,4 +1,4 @@
-#!/proj/sotska3/flight/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -15,6 +15,8 @@ import re
 from datetime import datetime
 import glob
 from astropy.io import fits  as pyfits
+import argparse
+import platform
 
 #
 #--- Define Directory Pathing
@@ -27,7 +29,7 @@ DATA_DIR = '/data/mta/Script/Trending/Trend'
 #--- the name of data set that we want to extract
 #--- (compephinkey removed Oct 9, 2018)
 #
-name_list = ['compaciscent', 'compacispwr', 'compgradkodak', \
+NAME_LIST = ['compaciscent', 'compacispwr', 'compgradkodak', \
              'compsimoffset', 'gradablk', 'gradahet', 'gradaincyl', 'gradcap',    \
              'gradfap', 'gradfblk', 'gradhcone', 'gradhhflex', 'gradhpflex',      \
              'gradhstrut', 'gradocyl', 'gradpcolb', 'gradperi', 'gradsstrut',     \
@@ -37,7 +39,7 @@ name_list = ['compaciscent', 'compacispwr', 'compgradkodak', \
 #-- extract_data: extract the new data and update the data sets                --
 #--------------------------------------------------------------------------------
 
-def extract_data(name_list):
+def extract_data(name_list = NAME_LIST):
     """
     extract the new data and update the data sets.
     Input:  name_list   --- a list of the name of dataset that we want to extract/update
@@ -96,12 +98,12 @@ def extract_data(name_list):
 
 
 #--------------------------------------------------------------------------------
-#-- find_dom_from_mp_file: find dom date from the direoctry path name         ---
+#-- find_dom_from_mp_file: find dom date from the directory path name         ---
 #--------------------------------------------------------------------------------
 
 def find_dom_from_mp_file(ent):
     """
-    find dom date from the direoctry path name
+    find dom date from the directory path name
     input:  ent --- full path to the file <mp_dir>/<date>/...
     output: dom --- day of mission
     """
@@ -176,10 +178,9 @@ def append_data(orig_fits, cdict):
     chk  = pyfits.open('ztemp.fits')
     cnt  = chk[1].data.shape[0]
     if cnt >= nrow:
-        cmd = 'mv -f ' +  orig_fits + ' ' + orig_fits +'~'
-        os.system(cmd)
-        cmd = 'mv -f ztemp.fits ' + orig_fits
-        os.system(cmd)
+        if os.path.isfile(orig_fits):
+            os.system(f"mv -f {orig_fits} {orig_fits}~")
+        os.system(f"mv -f ztemp.fits {orig_fits}")
     else:
         if os.path.isfile("ztemp.fits"):
             os.remove("ztemp.fits")
@@ -188,7 +189,39 @@ def append_data(orig_fits, cdict):
 #-----------------------------------------------------------------------
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", help = "Change output pathing.")
+    parser.add_argument("-l", "--list", nargs = "+", help = "List of categories.")
+    args = parser.parse_args()
 
-    extract_data(name_list)
 
+    if args.mode == "test":
+#
+#--- Check that the running machine can view all neessary network directories
+#
+        machine = platform.node().split('.')[0]
+        if machine not in ['r2d2-v', 'c3po-v', 'boba-v', 'luke-v']:
+            parser.error(f"Need mta machine to view /data/mta/www. Current machine: {machine}")
+#
+#--- Repath directories
+#
+        BIN_DIR = f"{os.getcwd()}"
+        OLD_DATA_DIR = DATA_DIR
+        if args.path:
+            DATA_DIR = args.path
+        else:
+            DATA_DIR = f"{BIN_DIR}/test/outTest"
+        os.makedirs(DATA_DIR, exist_ok = True)
+
+        os.system(f"cp {OLD_DATA_DIR}/*.fits {DATA_DIR}")
+
+        if args.list:
+            extract_data(args.list)
+        else:
+            extract_data()
+
+    elif args.mode == "flight":
+
+        extract_data()
 
