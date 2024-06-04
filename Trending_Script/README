@@ -58,5 +58,5 @@ Cron Job:
 ---------
 on c3po-v as mta
 
-0 7  * * * cd /data/mta/Script/Trending; /data/mta/Script/Trending/Scripts/trend_wrap_script >> $HOME/Logs//trending.perl.cron 2>&1
+0 7  * * * cd /data/mta/Script/Trending; /data/mta/Script/Trending/Scripts/trend_wrap_script >> $HOME/Logs/trending.py.cron 2>&1
 
