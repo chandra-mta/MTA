@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sot/ska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -6,52 +6,30 @@
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                       #
-#           last update: Mar 12, 2021                                                   #
+#           last update: Jun 04, 2024                                                   #
 #                                                                                       #
 #########################################################################################
 
 import os
-import sys
 import re
-import string
-import random
-import operator
-import math
-import time
-import numpy
+from datetime import datetime
+import glob
 from astropy.io import fits  as pyfits
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/Trending/house_keeping/dir_list_py'
+import argparse
+import platform
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+#
+#--- Define Directory Pathing
+#
+BIN_DIR = '/data/mta/Script/Trending/Scripts'
+MP_DIR = '/data/mta/www/mp_reports'
+DATA_DIR = '/data/mta/Script/Trending/Trend'
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append  pathes to private folders to a python directory
-#
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
-#
-#--- import several functions
-#
-import mta_common_functions       as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 #
 #--- the name of data set that we want to extract
 #--- (compephinkey removed Oct 9, 2018)
 #
-name_list = ['compaciscent', 'compacispwr', 'compgradkodak', \
+NAME_LIST = ['compaciscent', 'compacispwr', 'compgradkodak', \
              'compsimoffset', 'gradablk', 'gradahet', 'gradaincyl', 'gradcap',    \
              'gradfap', 'gradfblk', 'gradhcone', 'gradhhflex', 'gradhpflex',      \
              'gradhstrut', 'gradocyl', 'gradpcolb', 'gradperi', 'gradsstrut',     \
@@ -61,7 +39,7 @@ name_list = ['compaciscent', 'compacispwr', 'compgradkodak', \
 #-- extract_data: extract the new data and update the data sets                --
 #--------------------------------------------------------------------------------
 
-def extract_data(name_list):
+def extract_data(name_list = NAME_LIST):
     """
     extract the new data and update the data sets.
     Input:  name_list   --- a list of the name of dataset that we want to extract/update
@@ -70,7 +48,7 @@ def extract_data(name_list):
 
     for idir in name_list:
 
-        fits_name = data_dir + 'avg_' + idir + '.fits'
+        fits_name = f"{DATA_DIR}/avg_{idir}.fits"
 #
 #--- find the last logged dom date
 #
@@ -87,10 +65,7 @@ def extract_data(name_list):
 #
 #--- find available fits data from <mp_dir>
 #
-        cmd  = 'ls ' + mp_dir + '/*/' + idir + '/data/*_summ.fits > ' +  zspace
-        os.system(cmd)
-
-        mp_data = mcf.read_data_file(zspace, remove=1)
+        mp_data = glob.glob(f"{MP_DIR}/*/{idir}/data/*_summ.fits")
     
         for ent in mp_data:
 #
@@ -123,17 +98,17 @@ def extract_data(name_list):
 
 
 #--------------------------------------------------------------------------------
-#-- find_dom_from_mp_file: find dom date from the direoctry path name         ---
+#-- find_dom_from_mp_file: find dom date from the directory path name         ---
 #--------------------------------------------------------------------------------
 
 def find_dom_from_mp_file(ent):
     """
-    find dom date from the direoctry path name
+    find dom date from the directory path name
     input:  ent --- full path to the file <mp_dir>/<date>/...
     output: dom --- day of mission
     """
 
-    atemp = re.split(mp_dir, ent)
+    atemp = re.split(MP_DIR, ent)
     btemp = atemp[1].replace('/', '')
     year  = btemp[0] + btemp[1] + btemp[2] + btemp[3]
     month = btemp[4] + btemp[5]
@@ -141,10 +116,7 @@ def find_dom_from_mp_file(ent):
     year  = int(float(year))
     month = int(float(month))
     day   = int(float(day))
- 
-    line  = str(year) + ':' + mcf.add_leading_zero(month) + ':' +  mcf.add_leading_zero(day)
-    ydate = int(time.strftime('%j', time.strptime(line, '%Y:%m:%d')))
-    dom   = mcf.ydate_to_dom(year, ydate)
+    dom = ((datetime(year,month,day) - datetime(1999, 7, 22)) / 86400).seconds # day of mission
 
     return dom
 
@@ -196,7 +168,8 @@ def append_data(orig_fits, cdict):
 #
 #--- write out the data
 #
-    mcf.rm_files('./ztemp,fits')
+    if os.path.isfile("ztemp.fits"):
+        os.remove("ztemp.fits")
     hdu.writeto('./ztemp.fits')
 #
 #--- check whether data are added correctly, before move 
@@ -205,18 +178,50 @@ def append_data(orig_fits, cdict):
     chk  = pyfits.open('ztemp.fits')
     cnt  = chk[1].data.shape[0]
     if cnt >= nrow:
-        cmd = 'mv -f ' +  orig_fits + ' ' + orig_fits +'~'
-        os.system(cmd)
-        cmd = 'mv -f ztemp.fits ' + orig_fits
-        os.system(cmd)
+        if os.path.isfile(orig_fits):
+            os.system(f"mv -f {orig_fits} {orig_fits}~")
+        os.system(f"mv -f ztemp.fits {orig_fits}")
     else:
-        mcf.rm_file('./ztemp,fits')
+        if os.path.isfile("ztemp.fits"):
+            os.remove("ztemp.fits")
 
 
 #-----------------------------------------------------------------------
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument("-p", "--path", help = "Change output pathing.")
+    parser.add_argument("-l", "--list", nargs = "+", help = "List of categories.")
+    args = parser.parse_args()
 
-    extract_data(name_list)
 
+    if args.mode == "test":
+#
+#--- Check that the running machine can view all neessary network directories
+#
+        machine = platform.node().split('.')[0]
+        if machine not in ['r2d2-v', 'c3po-v', 'boba-v', 'luke-v']:
+            parser.error(f"Need mta machine to view /data/mta/www. Current machine: {machine}")
+#
+#--- Repath directories
+#
+        BIN_DIR = f"{os.getcwd()}"
+        OLD_DATA_DIR = DATA_DIR
+        if args.path:
+            DATA_DIR = args.path
+        else:
+            DATA_DIR = f"{BIN_DIR}/test/outTest"
+        os.makedirs(DATA_DIR, exist_ok = True)
+
+        os.system(f"cp {OLD_DATA_DIR}/*.fits {DATA_DIR}")
+
+        if args.list:
+            extract_data(args.list)
+        else:
+            extract_data()
+
+    elif args.mode == "flight":
+
+        extract_data()
 

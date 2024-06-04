@@ -74,5 +74,5 @@ SIM_extract     --- update ..../sim_data.out
 SIM_twist       --- update sim twist and fid light trending
 Sol_panel       --- create solar panel/spacecraft electric power a and fine sensor temperature evolution along the time
 State_trends    --- extracts and plots SIM and other state conditions
-Trending_Script --- extract needed information from /data/mta/www/mp_reports/ and update mta databas
+Trending_Script --- extract needed information from /data/mta/www/mp_reports/ and update mta database
 Weekly_report   --- create weekly report
