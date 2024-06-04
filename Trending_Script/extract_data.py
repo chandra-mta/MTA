@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
+#!/proj/sotska3/flight/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -13,31 +13,17 @@
 import os
 import sys
 import re
-import string
 import random
-import operator
-import math
 import time
-import numpy
 from astropy.io import fits  as pyfits
-#
-#--- reading directory list
-#
-path = '/data/mta/Script/Trending/house_keeping/dir_list_py'
 
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+#
+#--- Define Directory Pathing
+#
+BIN_DIR = '/data/mta/Script/Trending/Scripts'
+MP_DIR = '/data/mta/www/mp_reports'
+DATA_DIR = '/data/mta/Script/Trending/Trend'
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append  pathes to private folders to a python directory
-#
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
 #
 #--- import several functions
 #
@@ -70,7 +56,7 @@ def extract_data(name_list):
 
     for idir in name_list:
 
-        fits_name = data_dir + 'avg_' + idir + '.fits'
+        fits_name = f"{DATA_DIR}/avg_{idir}.fits"
 #
 #--- find the last logged dom date
 #
@@ -87,8 +73,7 @@ def extract_data(name_list):
 #
 #--- find available fits data from <mp_dir>
 #
-        cmd  = 'ls ' + mp_dir + '/*/' + idir + '/data/*_summ.fits > ' +  zspace
-        os.system(cmd)
+        os.system(f"ls {MP_DIR}/*/{idir}/data/*_summ.fits > {zspace}")
 
         mp_data = mcf.read_data_file(zspace, remove=1)
     
@@ -133,7 +118,7 @@ def find_dom_from_mp_file(ent):
     output: dom --- day of mission
     """
 
-    atemp = re.split(mp_dir, ent)
+    atemp = re.split(MP_DIR, ent)
     btemp = atemp[1].replace('/', '')
     year  = btemp[0] + btemp[1] + btemp[2] + btemp[3]
     month = btemp[4] + btemp[5]
