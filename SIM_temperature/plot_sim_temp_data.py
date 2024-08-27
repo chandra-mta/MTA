@@ -655,3 +655,4 @@ if __name__ == "__main__":
 #--- Remove lock file once process is completed
 #
     os.system(f"rm /tmp/{user}/{name}.lock")
+    sys.exit()
