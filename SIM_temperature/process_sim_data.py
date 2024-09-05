@@ -14,12 +14,11 @@ import os
 import sys
 import re
 import math
-import string
-import random
 import time
 import Chandra.Time
 import glob
 import getpass
+import traceback
 
 #
 #--- from ska
@@ -31,37 +30,21 @@ ascdsenv['ACORN_GUI'] = "/home/ascds/DS.release/config/mta/acorn/scripts/"
 ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
 
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
+EXC_DIR = "/data/mta/Script/SIM/Exc"
+DATA_DIR = "/data/mta/Script/SIM/Data"
+HOUSE_KEEPING = "/data/mta/Script/SIM/Scripts/house_keeping"
 
-
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
 #--- import several functions
 #
 import mta_common_functions   as mcf
-#
-#--- temp writing file name
-#
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
 
 #
 #--- Record of Processed Files
 #
 DUMP_EM_PROCESSED = set()
 TL_PROCESSED = set()
-
-tl_dir = exc_dir
 
 simt   = [23336, 92905, 75620, -50505, -99612]
 tscloc = ["SAFE", "ACIS-I", "ACIS-S", "HRC-I", "HRC-S"]
@@ -165,19 +148,17 @@ def filters_sim(unprocessed_data):
     """
 
     for ent in unprocessed_data:
-        cmd1 = '/usr/bin/env PERL5LIB="" '
-        cmd2 = ' /home/ascds/DS.release/bin/acorn -nOC '
-        cmd2 = cmd2 + house_keeping + 'msids_sim.list -f ' + ent
-        cmd  = cmd1 + cmd2
+        cmd = f'/usr/bin/env PERL5LIB="" /home/ascds/DS.release/bin/acorn -nOC \
+                {HOUSE_KEEPING}/msid_sim.list -f {ent}'
         try:
-            #print('Data: ' + ent)
             bash(cmd, env=ascdsenv)
         except:
+            traceback.print_exc()
             pass
 #
 #--- Identify which recently added *tl files need to be analyzed and store them
 #
-    tmp = glob.glob(tl_dir+'*.tl')
+    tmp = glob.glob(f"{EXC_DIR}/*.tl")
     global TL_PROCESSED
     data = list(set(tmp) - TL_PROCESSED)
     data.sort()
@@ -209,8 +190,7 @@ def get_dump_em_files(start, stop):
         mc   = re.search('sto', ' '.join(out))
     
         if mc is not None:
-            cmd = 'gzip -qd ' + exc_dir + '*.sto.gz'
-            os.system(cmd)
+            os.system(f'gzip -qd {EXC_DIR}/*.sto.gz')
 #
 #--- Select only the most recently aquired data files which have yet to be processed into tl files
 #
@@ -284,8 +264,8 @@ def set_data_period(year, sdate, edate):
 #--- find the last date of the data entry
 #--- entry format: 2015365.21252170    16.4531   27.0   33.0     10   174040    0    0   28.4
 #
-        ifile = data_dir + 'tsc_temps.txt'
-        data  = mcf.read_data_file(ifile)
+        with open(f"{DATA_DIR}/tsc_temps.txt") as f:
+            data = [line.strip() for line in f.readlines()]
         lent  = data[-1]
         atemp = re.split('\s+', lent)
         btemp = re.split('\.',  atemp[0])
@@ -714,8 +694,7 @@ def analyze_sim_data(unanalyzed_data):
     f_list = ['w','w','w','w','w','w','w','w','a','a']
 
     for k in range(0, len(o_list)):
-        out = data_dir + o_list[k]
-        with open(out, f_list[k]) as fo:
+        with open(f"{DATA_DIR}/{o_list[k]}", f_list[k]) as fo:
             fo.write(l_list[k])
 
 #---------------------------------------------------------------------------------------
@@ -1050,8 +1029,8 @@ def clean_tsc_data():
     input:  none, but read from data file tsc_temps.txt
     output: cleaned tsc_temps.txt
     """
-    ifile  = data_dir + 'tsc_temps.txt'
-    data   = mcf.read_data_file(ifile)
+    with open(f"{DATA_DIR}/tsc_temps.txt") as f:
+        data = [line.strip() for line in f.readlines()]
 #
 #--- the first line is the header
 #
@@ -1137,14 +1116,12 @@ if __name__ == "__main__":
 
         if count == rm_len:
             count = 0
-            cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
-            os.system(cmd)
+            os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}*tl')
             DUMP_EM_PROCESSED = set()
             TL_PROCESSED = set()
         else:
             count +=1
-    cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
-    os.system(cmd)
+    os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}/*tl')
 
 #
 #--- Remove lock file once process is completed
