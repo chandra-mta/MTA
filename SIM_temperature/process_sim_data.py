@@ -15,7 +15,9 @@ import sys
 import re
 import math
 import time
+from datetime import datetime
 import Chandra.Time
+from calendar import isleap
 import glob
 import getpass
 import traceback
@@ -35,11 +37,10 @@ ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release
 EXC_DIR = "/data/mta/Script/SIM/Exc"
 DATA_DIR = "/data/mta/Script/SIM/Data"
 HOUSE_KEEPING = "/data/mta/Script/SIM/Scripts/house_keeping"
-
-#--- import several functions
 #
-import mta_common_functions   as mcf
-
+#--- Other Globals
+#
+START_OF_MISSION = datetime(1999,7,23)
 #
 #--- Record of Processed Files
 #
@@ -97,7 +98,7 @@ def start_stop_period(year, yday):
             yday    --- yday
     output: [start, stop]   --- in the format of mm/dd/yy, 00:00:00 
     """
-    today = str(year) + ':' + mcf.add_leading_zero(yday, 3)
+    today = f"{year}:{yday:>03}"
     start = today + ':00:00:00'
     stop  = today + ':23:59:59'
 
@@ -275,13 +276,7 @@ def set_data_period(year, sdate, edate):
         dyear = int(float(dyear))
         dyday = ldate[4] + ldate[5] + ldate[6]
         dyday = int(float(dyday))
-#
-#--- check whether it is a leap year
-#
-        if mcf.is_leapyear(dyear):
-            base = 366
-        else:
-            base = 365
+        base = 365 + isleap(dyear)
 #
 #--- now start filling the data period (a pair of [year, ydate])
 #
@@ -799,7 +794,8 @@ def read_tl_file(file_list):
             os.system(cmd)
             ifile = ifile.replace('.gz','')
 
-        data = mcf.read_data_file(ifile)
+        with open(ifile) as f:
+            data = [line.strip() for line in f.readlines()]
 #
 #--- skip none data part
 #
@@ -994,11 +990,11 @@ def convert_time_format(tline):
     atemp = re.split(':', tline)
     btemp = re.split('\s+', atemp[0])
     year  = btemp[0]
-    yday  = mcf.add_leading_zero(btemp[1], 3)
-    hh    = mcf.add_leading_zero(btemp[2])
-    mm    = mcf.add_leading_zero(atemp[1])
+    yday = f"{btemp[1]:>03}"
+    hh = f"{btemp[2]:>02}"
+    mm = f"{atemp[1]:>02}"
     ctemp = re.split('\.', atemp[2])
-    ss    = mcf.add_leading_zero(ctemp[0])
+    ss = f"{ctemp[0]:>02}"
     fsq   = ctemp[1] + '0'
 #
 #--- chandra time
@@ -1010,9 +1006,10 @@ def convert_time_format(tline):
 #
     atime = year + yday+ '.' + hh + mm + ss + fsq
 #
-#--- day of mission
+#--- Day of Mission
+#--- Add 1 to start indexing of mission at 1, then add fraction of time
 #
-    dom   = mcf.ydate_to_dom(year, yday)
+    dom = (datetime.strptime(f"{year}:{yday}","%Y:%j") - START_OF_MISSION).days + 1
     dom   = dom + float(hh) / 24.0 + float(mm) / 1440.0 + float(ss) / 86400.0 
     dom   = dom + float(fsq) / 8640000.0
 
