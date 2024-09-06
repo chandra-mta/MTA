@@ -14,13 +14,14 @@ import os
 import sys
 import re
 import math
-import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import Chandra.Time
-from calendar import isleap
+import subprocess
 import glob
-import getpass
+import argparse
 import traceback
+sys.path.append("/data/mta4/Script/Python3.11/MTA")
+import mta_common_functions as mcf
 
 #
 #--- from ska
@@ -63,6 +64,39 @@ fa_test      = 9
 #
 
 #---------------------------------------------------------------------------------------
+#-- process_sim_data: pull simm temperature data and process it                      ---
+#---------------------------------------------------------------------------------------
+
+def process_sim_data(tperiod):
+#
+#--- Split process into time sections for digestable processing with removal stages
+#
+    count = 0
+    rm_len = 14 #14 days of data before deletion, making room for more intermediary files
+
+#
+#--- process the data for each day
+#
+    for tent in tperiod:
+        #print(f"Processing: {tent}")
+        year  = tent[0]
+        yday  = tent[1]
+
+        unanalyzed_data = extract_tl_data(year, yday)
+
+        run_tl_analysis(unanalyzed_data)
+
+        if count == rm_len:
+            count = 0
+            os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}*tl')
+            DUMP_EM_PROCESSED = set()
+            TL_PROCESSED = set()
+        else:
+            count +=1
+    os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}/*tl')
+
+
+#---------------------------------------------------------------------------------------
 #-- extract_tl_data: extract TL data                                                 ---
 #---------------------------------------------------------------------------------------
 
@@ -82,7 +116,7 @@ def extract_tl_data(year, yday):
 #
     [start, stop] = start_stop_period(year, yday)
 #
-#--- extract trace log files. if chk == 0, no files are extracted. Recorda TL files recently extracted but unanalyzed.
+#--- extract trace log files. if chk == 0, no files are extracted. Record all TL files recently extracted but unanalyzed.
 #
     chk, unanalyzed_data = run_filter_script(start, stop)
     return unanalyzed_data
@@ -239,67 +273,37 @@ def run_arc5gl(start, stop):
 #---------------------------------------------------------------------------------------
 #-- set_data_period: create a list of dates to be examined                           ---
 #---------------------------------------------------------------------------------------
-
-def set_data_period(year, sdate, edate):
+def set_data_period(sdate, edate):
     """
     create a list of dates to be examined
-    input:  year    --- year of the date
-            sdate   --- starting yday
-            edate   --- ending ydate
-        these three can be <blank>. if that is the case, it will fill from 
-        the date of the last data entry to today's date
-    output: dperiod --- a list of dates in the formant of [[2015, 199], [2015, 200], ...]
+    input:  sdate   --- starting date
+            edate   --- ending date
+            This function can process ISO 8601 formatted dates or yyyy-jjj
+    output: dperiod --- a list of dates in the format of year and julian day of year [[2015, 199], [2015, 200], ...]
     """
-    if year != '':
-        dperiod = []
-        for yday in range(sdate, edate+1):
-            dperiod.append([year, yday])
+    if sdate is not None:
+        try:
+            start = datetime.strptime(sdate, "%Y-%j")
+            end = datetime.strptime(edate, "%Y-%j")
+        except ValueError:
+            start = datetime.fromisoformat(sdate)
+            end = datetime.fromisoformat(edate)
     else:
-#
-#--- find today's date
-#
-        today = time.localtime()
-        year  = today.tm_year
-        yday  = today.tm_yday
 #
 #--- find the last date of the data entry
 #--- entry format: 2015365.21252170    16.4531   27.0   33.0     10   174040    0    0   28.4
 #
-        with open(f"{DATA_DIR}/tsc_temps.txt") as f:
-            data = [line.strip() for line in f.readlines()]
-        lent  = data[-1]
-        atemp = re.split('\s+', lent)
-        btemp = re.split('\.',  atemp[0])
-        ldate = btemp[0]
-    
-        dyear = ldate[0] + ldate[1] + ldate[2] + ldate[3]
-        dyear = int(float(dyear))
-        dyday = ldate[4] + ldate[5] + ldate[6]
-        dyday = int(float(dyday))
-        base = 365 + isleap(dyear)
+        end = datetime.today()
+        out = subprocess.check_output(f"tail -n 1 {DATA_DIR}/tsc_temps.txt", shell=True, executable='/bin/csh').decode()
+        start = datetime.strptime(out.split()[0].split(".")[0],"%Y%j")
 #
 #--- now start filling the data period (a pair of [year, ydate])
 #
         dperiod = []
 #
-#--- for the case, year change occurred
-#
-        if dyear < year:
-    
-            for ent in range(dyday, base+1):
-                dperiod.append([dyear, ent])
-    
-            for ent in range(1, yday+1):
-                dperiod.append([year, ent])
-#
-#--- the period in the same year
-#
-        else:
-            for ent in range(dyday, yday+1):
-                dperiod.append([year, ent])
-#
-#--- return the result
-#
+    while start <= end:
+        dperiod.append([start.year, int(start.strftime("%j"))])
+        start += timedelta(days=1)
     return dperiod
 
 #
@@ -1056,70 +1060,48 @@ def clean_tsc_data():
 #
 #--- put back into the data file
 #
-    with open(ifile, 'w') as fo:
+    with open(f"{DATA_DIR}/tsc_temps.txt", 'w') as fo:
         fo.write(line)
 
 #---------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    usage = f"{os.path.basename(__file__)}" + " [-h] -m {flight,test} [-s START & -e END]"
+    parser = argparse.ArgumentParser(usage = usage)
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+
+    group = parser.add_argument_group(title = 'Time', description = "Mutually inclusive group of timing arguments.")
+    group.add_argument('-s',"--start", help = "Determine start time in yyyy-jjj or ISO format.")
+    group.add_argument('-e',"--end", help = "Determine end time in yyyy-jjj or ISO format.")
+    args = parser.parse_args()
+#
+#--- Additional if statement of parsed args for mutually inclusive arguments
+#
+    check_dict = {"start": args.start, "end": args.end}
+    if not (all(v is None for v in check_dict.values()) or all(v is not None for v in check_dict.values())):
+        parser.error(f"All or None of these arguments must be provided.\n {check_dict}")
+#
+#--- Determine if running in test mode and change pathing if so
+#
+    if args.mode == "test":
+#
+#--- Path output to same location as unit tests
+#
+        tperiod = set_data_period(args.start, args.end)
+        process_sim_data(tperiod)
+    elif args.mode == "flight":
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
-    name = os.path.basename(__file__).split(".")[0]
-    user = getpass.getuser()
-    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
-    else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
-    
-#
-#--- if you like to specify the date period, give
-#---  a year and starting yday and ending yday
-#
-    if len(sys.argv) > 3:
-        year  = int(float(sys.argv[1]))
-        sdate = int(float(sys.argv[2]))
-        edate = int(float(sys.argv[3]))
-#
-#--- if the date period is not specified,
-#--- the period is set from the last entry date to
-#--- today's date
-#
-    else:
-        year  = ''
-        sdate = ''
-        edate = ''
-
-#
-#--- Split process into time sections for digestable processing with removal stages
-#
-    count = 0
-    rm_len = 14 #14 days of data before deletion, making room for more intermediary files
-#
-#--- if the range is not given, start from the last date of the data entry
-#
-    tperiod = set_data_period(year, sdate, edate)
-#
-#--- process the data for each day
-#
-    for tent in tperiod:
-        #print(f"Processing: {tent}")
-        year  = tent[0]
-        yday  = tent[1]
-
-        unanalyzed_data = extract_tl_data(year, yday)
-
-        run_tl_analysis(unanalyzed_data)
-
-        if count == rm_len:
-            count = 0
-            os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}*tl')
-            DUMP_EM_PROCESSED = set()
-            TL_PROCESSED = set()
+        import getpass
+        name = os.path.basename(__file__).split(".")[0]
+        user = getpass.getuser()
+        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+            sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
         else:
-            count +=1
-    os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}/*tl')
-
+            os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+        tperiod = set_data_period(args.start, args.end)
+        process_sim_data(tperiod)
 #
 #--- Remove lock file once process is completed
 #
