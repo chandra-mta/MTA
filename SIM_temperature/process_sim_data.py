@@ -42,6 +42,11 @@ HOUSE_KEEPING = "/data/mta/Script/SIM/Scripts/house_keeping"
 #--- Other Globals
 #
 START_OF_MISSION = datetime(1999,7,23)
+ECHO = False
+#
+#--- 14 days of data before deletion, making room for more intermediary files
+#
+RM_LEN = 14
 #
 #--- Record of Processed Files
 #
@@ -64,7 +69,7 @@ fa_test      = 9
 #
 
 #---------------------------------------------------------------------------------------
-#-- process_sim_data: pull simm temperature data and process it                      ---
+#-- process_sim_data: pull sim temperature data and process it                       ---
 #---------------------------------------------------------------------------------------
 
 def process_sim_data(tperiod):
@@ -72,13 +77,12 @@ def process_sim_data(tperiod):
 #--- Split process into time sections for digestable processing with removal stages
 #
     count = 0
-    rm_len = 14 #14 days of data before deletion, making room for more intermediary files
-
 #
 #--- process the data for each day
 #
     for tent in tperiod:
-        #print(f"Processing: {tent}")
+        if ECHO:
+            print(f"Year-Day: {tent}")
         year  = tent[0]
         yday  = tent[1]
 
@@ -86,9 +90,11 @@ def process_sim_data(tperiod):
 
         run_tl_analysis(unanalyzed_data)
 
-        if count == rm_len:
+        if count == RM_LEN:
             count = 0
             os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}*tl')
+            global DUMP_EM_PROCESSED
+            global TL_PROCESSED
             DUMP_EM_PROCESSED = set()
             TL_PROCESSED = set()
         else:
@@ -159,17 +165,13 @@ def run_filter_script(start, stop):
         return 0, []
     else:
 #
-#--- create .tl files from Dmup_EM files
+#--- create .tl files from Dump_EM files
 #
-        #"""
+        if ECHO:
+            print(f"Processing: {unprocessed_data}")
         unanalyzed_data = filters_sim(unprocessed_data)
         return 1, unanalyzed_data
-        #"""
-    #test without acorn processing
-        """
-        unanalyzed_data =[]
-        return 1, unanalyzed_data
-        """
+
 #---------------------------------------------------------------------------------------
 #-- filters_sim: run acorn for sim filter                                             --
 #---------------------------------------------------------------------------------------
@@ -299,8 +301,8 @@ def set_data_period(sdate, edate):
 #
 #--- now start filling the data period (a pair of [year, ydate])
 #
-        dperiod = []
-#
+    dperiod = []
+
     while start <= end:
         dperiod.append([start.year, int(start.strftime("%j"))])
         start += timedelta(days=1)
@@ -914,7 +916,7 @@ def check_value(tldata, adata,  pos, fv=1):
             try:
                 fval = tldata[pos][-1]
             except:
-                fval = FALSE
+                fval = False
     else:
         if val == "":
             fval = tldata[pos][-1]
@@ -922,7 +924,7 @@ def check_value(tldata, adata,  pos, fv=1):
             try:
                 fval = val.strip()
             except:
-                fval = FALSE
+                fval = False
 
     return fval
 
@@ -1084,10 +1086,22 @@ if __name__ == "__main__":
 #--- Determine if running in test mode and change pathing if so
 #
     if args.mode == "test":
+        ECHO = True
 #
 #--- Path output to same location as unit tests
 #
+        EXC_DIR = f"{os.getcwd()}/test/outTest"
+        DATA_DIR = f"{os.getcwd()}/test/outTest/Data"
+        HOUSE_KEEPING = f"{os.getcwd()}/house_keeping"
+        os.makedirs(DATA_DIR, exist_ok = True)
+
+        if not os.path.isfile(f"{DATA_DIR}/tsc_temps.txt"):
+            os.system(f"head -n -10 /data/mta/Script/SIM/Data/tsc_temps.txt > {DATA_DIR}/tsc_temps.txt")
+#
+#--- Run with the test setup
+#
         tperiod = set_data_period(args.start, args.end)
+        print(f"tperiod: {tperiod}")
         process_sim_data(tperiod)
     elif args.mode == "flight":
 #
