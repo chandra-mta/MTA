@@ -14,12 +14,14 @@ import os
 import sys
 import re
 import math
-import string
-import random
-import time
+from datetime import datetime, timedelta
 import Chandra.Time
+import subprocess
 import glob
-import getpass
+import argparse
+import traceback
+sys.path.append("/data/mta4/Script/Python3.11/MTA")
+import mta_common_functions as mcf
 
 #
 #--- from ska
@@ -31,37 +33,25 @@ ascdsenv['ACORN_GUI'] = "/home/ascds/DS.release/config/mta/acorn/scripts/"
 ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
 
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/SIM/Scripts/house_keeping/dir_list'
-
-
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var   = atemp[1].strip()
-    line  = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
-#--- import several functions
+EXC_DIR = "/data/mta/Script/SIM/Exc"
+DATA_DIR = "/data/mta/Script/SIM/Data"
+HOUSE_KEEPING = "/data/mta/Script/SIM/Scripts/house_keeping"
 #
-import mta_common_functions   as mcf
+#--- Other Globals
 #
-#--- temp writing file name
+START_OF_MISSION = datetime(1999,7,23)
+ECHO = False
 #
-rtail  = int(time.time() * random.random())
-zspace = '/tmp/zspace' + str(rtail)
-
+#--- 14 days of data before deletion, making room for more intermediary files
+#
+RM_LEN = 14
 #
 #--- Record of Processed Files
 #
 DUMP_EM_PROCESSED = set()
 TL_PROCESSED = set()
-
-tl_dir = exc_dir
 
 simt   = [23336, 92905, 75620, -50505, -99612]
 tscloc = ["SAFE", "ACIS-I", "ACIS-S", "HRC-I", "HRC-S"]
@@ -77,6 +67,40 @@ fa_test      = 9
 #
 #--Data Extraction Section
 #
+
+#---------------------------------------------------------------------------------------
+#-- process_sim_data: pull sim temperature data and process it                       ---
+#---------------------------------------------------------------------------------------
+
+def process_sim_data(tperiod):
+#
+#--- Split process into time sections for digestable processing with removal stages
+#
+    count = 0
+#
+#--- process the data for each day
+#
+    for tent in tperiod:
+        if ECHO:
+            print(f"Year-Day: {tent}")
+        year  = tent[0]
+        yday  = tent[1]
+
+        unanalyzed_data = extract_tl_data(year, yday)
+
+        run_tl_analysis(unanalyzed_data)
+
+        if count == RM_LEN:
+            count = 0
+            os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}*tl')
+            global DUMP_EM_PROCESSED
+            global TL_PROCESSED
+            DUMP_EM_PROCESSED = set()
+            TL_PROCESSED = set()
+        else:
+            count +=1
+    os.system(f'rm -f {EXC_DIR}/*Dump_EM* {EXC_DIR}/*Merge_EM* {EXC_DIR}/*tl')
+
 
 #---------------------------------------------------------------------------------------
 #-- extract_tl_data: extract TL data                                                 ---
@@ -98,7 +122,7 @@ def extract_tl_data(year, yday):
 #
     [start, stop] = start_stop_period(year, yday)
 #
-#--- extract trace log files. if chk == 0, no files are extracted. Recorda TL files recently extracted but unanalyzed.
+#--- extract trace log files. if chk == 0, no files are extracted. Record all TL files recently extracted but unanalyzed.
 #
     chk, unanalyzed_data = run_filter_script(start, stop)
     return unanalyzed_data
@@ -114,7 +138,7 @@ def start_stop_period(year, yday):
             yday    --- yday
     output: [start, stop]   --- in the format of mm/dd/yy, 00:00:00 
     """
-    today = str(year) + ':' + mcf.add_leading_zero(yday, 3)
+    today = f"{year}:{yday:>03}"
     start = today + ':00:00:00'
     stop  = today + ':23:59:59'
 
@@ -141,17 +165,13 @@ def run_filter_script(start, stop):
         return 0, []
     else:
 #
-#--- create .tl files from Dmup_EM files
+#--- create .tl files from Dump_EM files
 #
-        #"""
+        if ECHO:
+            print(f"Processing: {unprocessed_data}")
         unanalyzed_data = filters_sim(unprocessed_data)
         return 1, unanalyzed_data
-        #"""
-    #test without acorn processing
-        """
-        unanalyzed_data =[]
-        return 1, unanalyzed_data
-        """
+
 #---------------------------------------------------------------------------------------
 #-- filters_sim: run acorn for sim filter                                             --
 #---------------------------------------------------------------------------------------
@@ -165,19 +185,17 @@ def filters_sim(unprocessed_data):
     """
 
     for ent in unprocessed_data:
-        cmd1 = '/usr/bin/env PERL5LIB="" '
-        cmd2 = ' /home/ascds/DS.release/bin/acorn -nOC '
-        cmd2 = cmd2 + house_keeping + 'msids_sim.list -f ' + ent
-        cmd  = cmd1 + cmd2
+        cmd = f'/usr/bin/env PERL5LIB="" /home/ascds/DS.release/bin/acorn -nOC \
+                {HOUSE_KEEPING}/msid_sim.list -f {ent}'
         try:
-            #print('Data: ' + ent)
             bash(cmd, env=ascdsenv)
         except:
+            traceback.print_exc()
             pass
 #
 #--- Identify which recently added *tl files need to be analyzed and store them
 #
-    tmp = glob.glob(tl_dir+'*.tl')
+    tmp = glob.glob(f"{EXC_DIR}/*.tl")
     global TL_PROCESSED
     data = list(set(tmp) - TL_PROCESSED)
     data.sort()
@@ -209,8 +227,7 @@ def get_dump_em_files(start, stop):
         mc   = re.search('sto', ' '.join(out))
     
         if mc is not None:
-            cmd = 'gzip -qd ' + exc_dir + '*.sto.gz'
-            os.system(cmd)
+            os.system(f'gzip -qd {EXC_DIR}/*.sto.gz')
 #
 #--- Select only the most recently aquired data files which have yet to be processed into tl files
 #
@@ -258,73 +275,37 @@ def run_arc5gl(start, stop):
 #---------------------------------------------------------------------------------------
 #-- set_data_period: create a list of dates to be examined                           ---
 #---------------------------------------------------------------------------------------
-
-def set_data_period(year, sdate, edate):
+def set_data_period(sdate, edate):
     """
     create a list of dates to be examined
-    input:  year    --- year of the date
-            sdate   --- starting yday
-            edate   --- ending ydate
-        these three can be <blank>. if that is the case, it will fill from 
-        the date of the last data entry to today's date
-    output: dperiod --- a list of dates in the formant of [[2015, 199], [2015, 200], ...]
+    input:  sdate   --- starting date
+            edate   --- ending date
+            This function can process ISO 8601 formatted dates or yyyy-jjj
+    output: dperiod --- a list of dates in the format of year and julian day of year [[2015, 199], [2015, 200], ...]
     """
-    if year != '':
-        dperiod = []
-        for yday in range(sdate, edate+1):
-            dperiod.append([year, yday])
+    if sdate is not None:
+        try:
+            start = datetime.strptime(sdate, "%Y-%j")
+            end = datetime.strptime(edate, "%Y-%j")
+        except ValueError:
+            start = datetime.fromisoformat(sdate)
+            end = datetime.fromisoformat(edate)
     else:
-#
-#--- find today's date
-#
-        today = time.localtime()
-        year  = today.tm_year
-        yday  = today.tm_yday
 #
 #--- find the last date of the data entry
 #--- entry format: 2015365.21252170    16.4531   27.0   33.0     10   174040    0    0   28.4
 #
-        ifile = data_dir + 'tsc_temps.txt'
-        data  = mcf.read_data_file(ifile)
-        lent  = data[-1]
-        atemp = re.split('\s+', lent)
-        btemp = re.split('\.',  atemp[0])
-        ldate = btemp[0]
-    
-        dyear = ldate[0] + ldate[1] + ldate[2] + ldate[3]
-        dyear = int(float(dyear))
-        dyday = ldate[4] + ldate[5] + ldate[6]
-        dyday = int(float(dyday))
-#
-#--- check whether it is a leap year
-#
-        if mcf.is_leapyear(dyear):
-            base = 366
-        else:
-            base = 365
+        end = datetime.today()
+        out = subprocess.check_output(f"tail -n 1 {DATA_DIR}/tsc_temps.txt", shell=True, executable='/bin/csh').decode()
+        start = datetime.strptime(out.split()[0].split(".")[0],"%Y%j")
 #
 #--- now start filling the data period (a pair of [year, ydate])
 #
-        dperiod = []
-#
-#--- for the case, year change occurred
-#
-        if dyear < year:
-    
-            for ent in range(dyday, base+1):
-                dperiod.append([dyear, ent])
-    
-            for ent in range(1, yday+1):
-                dperiod.append([year, ent])
-#
-#--- the period in the same year
-#
-        else:
-            for ent in range(dyday, yday+1):
-                dperiod.append([year, ent])
-#
-#--- return the result
-#
+    dperiod = []
+
+    while start <= end:
+        dperiod.append([start.year, int(start.strftime("%j"))])
+        start += timedelta(days=1)
     return dperiod
 
 #
@@ -714,8 +695,7 @@ def analyze_sim_data(unanalyzed_data):
     f_list = ['w','w','w','w','w','w','w','w','a','a']
 
     for k in range(0, len(o_list)):
-        out = data_dir + o_list[k]
-        with open(out, f_list[k]) as fo:
+        with open(f"{DATA_DIR}/{o_list[k]}", f_list[k]) as fo:
             fo.write(l_list[k])
 
 #---------------------------------------------------------------------------------------
@@ -820,7 +800,8 @@ def read_tl_file(file_list):
             os.system(cmd)
             ifile = ifile.replace('.gz','')
 
-        data = mcf.read_data_file(ifile)
+        with open(ifile) as f:
+            data = [line.strip() for line in f.readlines()]
 #
 #--- skip none data part
 #
@@ -935,7 +916,7 @@ def check_value(tldata, adata,  pos, fv=1):
             try:
                 fval = tldata[pos][-1]
             except:
-                fval = FALSE
+                fval = False
     else:
         if val == "":
             fval = tldata[pos][-1]
@@ -943,7 +924,7 @@ def check_value(tldata, adata,  pos, fv=1):
             try:
                 fval = val.strip()
             except:
-                fval = FALSE
+                fval = False
 
     return fval
 
@@ -1015,11 +996,11 @@ def convert_time_format(tline):
     atemp = re.split(':', tline)
     btemp = re.split('\s+', atemp[0])
     year  = btemp[0]
-    yday  = mcf.add_leading_zero(btemp[1], 3)
-    hh    = mcf.add_leading_zero(btemp[2])
-    mm    = mcf.add_leading_zero(atemp[1])
+    yday = f"{btemp[1]:>03}"
+    hh = f"{btemp[2]:>02}"
+    mm = f"{atemp[1]:>02}"
     ctemp = re.split('\.', atemp[2])
-    ss    = mcf.add_leading_zero(ctemp[0])
+    ss = f"{ctemp[0]:>02}"
     fsq   = ctemp[1] + '0'
 #
 #--- chandra time
@@ -1031,9 +1012,10 @@ def convert_time_format(tline):
 #
     atime = year + yday+ '.' + hh + mm + ss + fsq
 #
-#--- day of mission
+#--- Day of Mission
+#--- Add 1 to start indexing of mission at 1, then add fraction of time
 #
-    dom   = mcf.ydate_to_dom(year, yday)
+    dom = (datetime.strptime(f"{year}:{yday}","%Y:%j") - START_OF_MISSION).days + 1
     dom   = dom + float(hh) / 24.0 + float(mm) / 1440.0 + float(ss) / 86400.0 
     dom   = dom + float(fsq) / 8640000.0
 
@@ -1050,8 +1032,8 @@ def clean_tsc_data():
     input:  none, but read from data file tsc_temps.txt
     output: cleaned tsc_temps.txt
     """
-    ifile  = data_dir + 'tsc_temps.txt'
-    data   = mcf.read_data_file(ifile)
+    with open(f"{DATA_DIR}/tsc_temps.txt") as f:
+        data = [line.strip() for line in f.readlines()]
 #
 #--- the first line is the header
 #
@@ -1080,72 +1062,60 @@ def clean_tsc_data():
 #
 #--- put back into the data file
 #
-    with open(ifile, 'w') as fo:
+    with open(f"{DATA_DIR}/tsc_temps.txt", 'w') as fo:
         fo.write(line)
 
 #---------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    usage = f"{os.path.basename(__file__)}" + " [-h] -m {flight,test} [-s START & -e END]"
+    parser = argparse.ArgumentParser(usage = usage)
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+
+    group = parser.add_argument_group(title = 'Time', description = "Mutually inclusive group of timing arguments.")
+    group.add_argument('-s',"--start", help = "Determine start time in yyyy-jjj or ISO format.")
+    group.add_argument('-e',"--end", help = "Determine end time in yyyy-jjj or ISO format.")
+    args = parser.parse_args()
+#
+#--- Additional if statement of parsed args for mutually inclusive arguments
+#
+    check_dict = {"start": args.start, "end": args.end}
+    if not (all(v is None for v in check_dict.values()) or all(v is not None for v in check_dict.values())):
+        parser.error(f"All or None of these arguments must be provided.\n {check_dict}")
+#
+#--- Determine if running in test mode and change pathing if so
+#
+    if args.mode == "test":
+        ECHO = True
+#
+#--- Path output to same location as unit tests
+#
+        EXC_DIR = f"{os.getcwd()}/test/outTest"
+        DATA_DIR = f"{os.getcwd()}/test/outTest/Data"
+        HOUSE_KEEPING = f"{os.getcwd()}/house_keeping"
+        os.makedirs(DATA_DIR, exist_ok = True)
+
+        if not os.path.isfile(f"{DATA_DIR}/tsc_temps.txt"):
+            os.system(f"head -n -10 /data/mta/Script/SIM/Data/tsc_temps.txt > {DATA_DIR}/tsc_temps.txt")
+#
+#--- Run with the test setup
+#
+        tperiod = set_data_period(args.start, args.end)
+        print(f"tperiod: {tperiod}")
+        process_sim_data(tperiod)
+    elif args.mode == "flight":
 #
 #--- Create a lock file and exit strategy in case of race conditions
 #
-    name = os.path.basename(__file__).split(".")[0]
-    user = getpass.getuser()
-    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
-    else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
-    
-#
-#--- if you like to specify the date period, give
-#---  a year and starting yday and ending yday
-#
-    if len(sys.argv) > 3:
-        year  = int(float(sys.argv[1]))
-        sdate = int(float(sys.argv[2]))
-        edate = int(float(sys.argv[3]))
-#
-#--- if the date period is not specified,
-#--- the period is set from the last entry date to
-#--- today's date
-#
-    else:
-        year  = ''
-        sdate = ''
-        edate = ''
-
-#
-#--- Split process into time sections for digestable processing with removal stages
-#
-    count = 0
-    rm_len = 14 #14 days of data before deletion, making room for more intermediary files
-#
-#--- if the range is not given, start from the last date of the data entry
-#
-    tperiod = set_data_period(year, sdate, edate)
-#
-#--- process the data for each day
-#
-    for tent in tperiod:
-        #print(f"Processing: {tent}")
-        year  = tent[0]
-        yday  = tent[1]
-
-        unanalyzed_data = extract_tl_data(year, yday)
-
-        run_tl_analysis(unanalyzed_data)
-
-        if count == rm_len:
-            count = 0
-            cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
-            os.system(cmd)
-            DUMP_EM_PROCESSED = set()
-            TL_PROCESSED = set()
+        import getpass
+        name = os.path.basename(__file__).split(".")[0]
+        user = getpass.getuser()
+        if os.path.isfile(f"/tmp/{user}/{name}.lock"):
+            sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
         else:
-            count +=1
-    cmd = f'rm -f {exc_dir}*Dump_EM* {exc_dir}*Merge_EM* {tl_dir}*tl'
-    os.system(cmd)
-
+            os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
+        tperiod = set_data_period(args.start, args.end)
+        process_sim_data(tperiod)
 #
 #--- Remove lock file once process is completed
 #
