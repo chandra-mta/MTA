@@ -99,7 +99,10 @@ def update_simsuppl_data(date = ''):
 #
 #--- get time data in the list form
 #
-        dtime = list(tbdata.field('time'))
+        try:
+            dtime = list(tbdata.field('time'))
+        except:
+            continue
 
         for k in range(0, len(cols)):
 #
