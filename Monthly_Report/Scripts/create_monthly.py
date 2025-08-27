@@ -163,13 +163,13 @@ def create_monthly(year='', mon=''):
     os.system(cmd)
     cmd = "cp /data/mta/Script/Month/SIM/*.png "                     + odir 
     os.system(cmd)
-    cmd = "cp /data/mta4/www/RADIATION_new/ACIS_Rad/Plots/rad_cnts_" + lmonyr + ".png "    + odir 
+    cmd = "cp /data/mta4/www/RADIATION/ACIS_Rad/Plots/rad_cnts_" + lmonyr + ".png "    + odir 
     os.system(cmd)
     cmd = "cp /data/mta4/www/DAILY/mta_pcad/IRU/Plots_new/" + lyear + '/' +  lmonyr + "_bias.png " + odir 
     os.system(cmd)
     cmd = "cp /data/mta/www/mta_max_exp/Images/hrc_max_exp.gif "           + odir 
     os.system(cmd)
-    cmd = 'cp /data/mta4/www/RADIATION_new/ACIS_Rad/Plots/rad_use_' + lmonyr + '.png ' + odir
+    cmd = 'cp /data/mta4/www/RADIATION/ACIS_Rad/Plots/rad_use_' + lmonyr + '.png ' + odir
     os.system(cmd)
 #
 #--- move the plots to past plot saving directories
