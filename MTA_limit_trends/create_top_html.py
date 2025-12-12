@@ -130,7 +130,7 @@ def create_top_html():
             
             mpart = '<td><a href="./' + gnam.capitalize() + '/' + gnam + '_'
     
-            for ltype in ('long', 'five', 'one', 'short', 'week'):
+            for ltype in ('long', 'five', 'year', 'short', 'week'):
                 for m in range(0, 3):
                     line = line + mpart +  mlist[m] + '_static_' + ltype 
                     line = line + '_main.html">' + mname[m] + '</a></td>\n'
