@@ -32,7 +32,7 @@ GRATGEN::Grating Voltages & Rotation Angles
 #HRC
 HRCTEMP::HRC Temperatures                        
 HRCELEC::HRC Electronics
-HRCHK::HRC HoUsekeeping
+HRCHK::HRC Housekeeping
 
 #PCAD
 PCADTEMP::ACA Thermal                         
