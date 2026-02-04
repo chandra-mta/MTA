@@ -1,5 +1,0 @@
-'/data/mta/Script/Trending/Scripts/'        : bin_dir
-'/data/mta/www/mp_reports/'                 : mp_dir
-'/data/mta/Script/Trending/house_keeping/'  : house_keeping
-'/data/mta/Script/Trending/Trend/'          : data_dir
-'/data/mta/Script/Python3.8/MTA/'           : mta_dir
