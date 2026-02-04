@@ -1,8 +1,0 @@
-;spie_example,'xephtv.fits'
-;spawn, 'mv xtrend.ps x1.ps'
-;spie_example,'xephtv.fits',xax='tephin'
-;spawn, 'mv xtrend.ps x2.ps'
-spie_poster,'xephtv.fits'
-spawn, 'mv xtrend.ps x1.ps'
-spie_poster,'xephtv.fits',xax='tephin'
-spawn, 'mv xtrend.ps x2.ps'
