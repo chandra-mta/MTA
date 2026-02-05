@@ -1,100 +1,80 @@
 #!/proj/sot/ska3/flight/bin/python
+"""
+**update_base_data.py**: Wrapper for updating the short term ACIS focal temperature data files by running the getnrt perl script.
 
-#########################################################################################
-#                                                                                       #
-#           update_base_data.py: update .../Short_term/<data_file>                      #
-#                                                                                       #
-#               author: t. isobe (tisobe@cfa.harvard.edu)                               #
-#                                                                                       #
-#               last update: Mar 03, 2021                                               #
-#                                                                                       #
-#########################################################################################
+:Author: W. Aaron (william.aaron@cfa.harvad.edu)
+:Last Updated: Feb 05, 2026
+"""
 
 import sys
 import os
-import re
-import Chandra.Time
-import unittest
 import getpass
+import argparse
 import glob
-#
-#--- from ska
-#
+import json
 from Ska.Shell import getenv, bash
-
-ascdsenv = getenv('source /home/ascds/.ascrc -r release; setenv ACISTOOLSDIR /home/pgf', shell='tcsh')
-
 #
-#--- directory list
+# --- Define Directory Pathing
 #
-BIN_DIR = '/data/mta/Script/ACIS/Focal/Script/'
-HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping/'
-SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term/'
+BIN_DIR = '/data/mta/Script/ACIS/Focal/Script'
+HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping'
+DUMP_DIR = "/dsops/GOT/input"
+SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term'
+#
+# --- ASCDS Variables for getnrt
+#
+ASCDSENV = getenv('source /home/ascds/.ascrc -r release; setenv ACISTOOLSDIR /home/pgf', shell='tcsh')
 
-#
-#--- append path to a private folder
-#
-sys.path.append(BIN_DIR)
-
-#-------------------------------------------------------------------------------
-#-- update_base_data: update acis focal temperature data files                --
-#-------------------------------------------------------------------------------
 
 def update_base_data():
     """
-    update acis focal temperature data files 
-    input: none but read from /dsops/GOT/input/*_Dump_EM_*.gz
-    output: <short_term>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
+    Update acis focal temperature data files.
+
+    :File In: <DUMP_DIR>/*_Dump_EM_*.gz
+    :File Out: <SHORT_TERM>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
     """
-#
-#--- read already processed data list
-#
-    ifile = f"{HOUSE_KEEPING}old_list_short"
-    with open(ifile,'r') as f:
-        olist = [x.strip() for x in f.readlines()]
-    os.system(f"mv -f {ifile} {ifile}~")
-    os.system(f"ls /dsops/GOT/input/*_Dump_EM_*.gz > {ifile}")
-    with open(ifile,'r') as f:
-        clist = [x.strip() for x in f.readlines()]
-    nlist = list(set(clist).difference(set(olist)))
+    record_file = f"{HOUSE_KEEPING}/processed_dump_files.json"
+    os.system(f"cp -f {record_file} {record_file}~")
+    with open(record_file) as f:
+        processed_dump_files = json.load(f)
+
+    current_dump_files = glob.glob(f"{DUMP_DIR}/*_Dump_EM_*.gz")
+
+    new_file_list = list(set(processed_dump_files).difference(set(current_dump_files)))
+
+    for i, file in enumerate(new_file_list):
+        try:
+            extract_data_from_dump(file)
+        except Exception as e:
+            #: Record the sucessfully processed files then exit with error
+            processed_dump_files['data'] += new_file_list[:i]
+
+            with open(record_file, 'w') as f:
+                json.dump(processed_dump_files, f, indent = 4)
+            raise e
+
+def extract_data_from_dump(file):
+    """
+    Extract focal data from dump data
+
+    :param file: Path to dumps files
+    :type file: str
     
-    plist = extract_data_from_dump(nlist)
-#-------------------------------------------------------------------------------
-#-- extract_data_from_dump: extract focal data from dump data                 --
-#-------------------------------------------------------------------------------
-
-"""def extract_data_from_dump(nlist, test=0):"""
-def extract_data_from_dump(nlist):
+    :File Out: <SHORT_TERM>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
     """
-    extract focal data from dump data
-    input:  nlist   --- a list of new dump data file names
-    output: extracted data: <short_term>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
+
+    name = _filename(file)
+    cmd = f"/usr/bin/env PERL5LIB=  gzip -dc {file} | {BIN_DIR}/getnrt -O $* | {BIN_DIR}/acis_ft_fptemp.pl >> {SHORT_TERM}/{name}"
+    bash (cmd, env=ASCDSENV)
+
+
+def _filename(file):
     """
-    plist = []
-    for ent in nlist:
-        nfile = create_out_name(ent)
-        plist.append(nfile)
-
-        cmd = f"/usr/bin/env PERL5LIB=  gzip -dc {ent} | {BIN_DIR}getnrt -O $* | {BIN_DIR}acis_ft_fptemp.pl >> {nfile}"
-        bash(cmd,  env=ascdsenv)
-
-    return plist
-
-#-------------------------------------------------------------------------------
-#-- create_out_name: create an output data file name                          --
-#-------------------------------------------------------------------------------
-
-def create_out_name(ifile):
+    Generate name for intermediate file.
     """
-    create an output data file name
-    input:  ifile   --- dump_em file name
-    output: ofile   --- output file name in <short_term>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
-    """
-    atemp = ifile.split("/")
-    btemp = atemp[-1].split('_Dump')
-    ofile = f"{SHORT_TERM}data_{btemp[0]}"
-
-    return ofile
+    basename = os.path.basename(file)
+    time_string = basename.split('_Dump')[0]
+    return f"data_{time_string}"
 
 
 if __name__ == "__main__":
