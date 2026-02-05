@@ -6,9 +6,7 @@
 :Last Updated: Feb 05, 2026
 """
 
-import sys
 import os
-import getpass
 import argparse
 import glob
 import json
@@ -17,7 +15,7 @@ from Ska.Shell import getenv, bash
 # --- Define Directory Pathing
 #
 BIN_DIR = '/data/mta/Script/ACIS/Focal/Script'
-HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping'
+HOUSE_KEEPING = f'{BIN_DIR}/house_keeping'
 DUMP_DIR = "/dsops/GOT/input"
 SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term'
 #
@@ -25,6 +23,11 @@ SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term'
 #
 ASCDSENV = getenv('source /home/ascds/.ascrc -r release; setenv ACISTOOLSDIR /home/pgf', shell='tcsh')
 
+def get_options(args=None):
+    parser = argparse.ArgumentParser(description="Update short term ACIS focal temp data files.")
+    parser.add_argument("-m", "--mode", choices = ['flight','test'], required = True, help = "Determine running mode.")
+    opt = parser.parse_args(args)
+    return opt
 
 def update_base_data():
     """
@@ -40,24 +43,27 @@ def update_base_data():
 
     current_dump_files = glob.glob(f"{DUMP_DIR}/*_Dump_EM_*.gz")
 
-    new_file_list = list(set(processed_dump_files).difference(set(current_dump_files)))
-
+    new_file_list = list(set(current_dump_files).difference(set(processed_dump_files['data'])))
     for i, file in enumerate(new_file_list):
         try:
             extract_data_from_dump(file)
         except Exception as e:
             #: Record the sucessfully processed files then exit with error
-            processed_dump_files['data'] += new_file_list[:i]
+            processed_dump_files['data'] += sorted(new_file_list[:i])
 
             with open(record_file, 'w') as f:
                 json.dump(processed_dump_files, f, indent = 4)
             raise e
+    #: Succesfully processed all files without error. Update processed file information.
+    processed_dump_files['data'] = sorted(current_dump_files)
+    with open(record_file, 'w') as f:
+        json.dump(processed_dump_files, f, indent = 4)
 
 def extract_data_from_dump(file):
     """
-    Extract focal data from dump data
+    Extract focal data from dump data.
 
-    :param file: Path to dumps files
+    :param file: Path to dump files
     :type file: str
     
     :File Out: <SHORT_TERM>/data_<yyyy>_<ddd>_<hhmm>_<ddd>_<hhmm>
@@ -78,5 +84,12 @@ def _filename(file):
 
 
 if __name__ == "__main__":
-    
+
+    opt = get_options()
+    if opt.mode == 'test':
+        BIN_DIR = os.path.abspath(os.path.dirname(__file__))
+        HOUSE_KEEPING = f'{BIN_DIR}/house_keeping'
+        SHORT_TERM = f"{os.getcwd()}/test/_outTest"
+        os.makedirs(SHORT_TERM, exist_ok=True)
+
     update_base_data()
