@@ -4,6 +4,10 @@
 
 :Author: W. Aaron (william.aaron@cfa.harvad.edu)
 :Last Updated: Feb 05, 2026
+
+# /// testing
+# tested-ska-release = "2026.1"
+# ///
 """
 
 import os
