@@ -45,7 +45,10 @@ def update_base_data():
     with open(record_file) as f:
         processed_dump_files = json.load(f)
 
-    current_dump_files = glob.glob(f"{DUMP_DIR}/*_Dump_EM_*.gz")
+    if not os.path.isdir(DUMP_DIR):
+        raise FileNotFoundError(f"Directory {DUMP_DIR} not found.")
+
+    current_dump_files = [os.path.basename(_) for _ in glob.glob(f"{DUMP_DIR}/*_Dump_EM_*.gz")]
 
     new_file_list = list(set(current_dump_files).difference(set(processed_dump_files['data'])))
     for i, file in enumerate(new_file_list):
@@ -74,7 +77,7 @@ def extract_data_from_dump(file):
     """
 
     name = _filename(file)
-    cmd = f"/usr/bin/env PERL5LIB=  gzip -dc {file} | {BIN_DIR}/getnrt -O $* | {BIN_DIR}/acis_ft_fptemp.pl >> {SHORT_TERM}/{name}"
+    cmd = f"/usr/bin/env PERL5LIB=  gzip -dc {DUMP_DIR}/{file} | {BIN_DIR}/getnrt -O $* | {BIN_DIR}/acis_ft_fptemp.pl >> {SHORT_TERM}/{name}"
     bash (cmd, env=ASCDSENV)
 
 
@@ -93,7 +96,7 @@ if __name__ == "__main__":
     if opt.mode == 'test':
         BIN_DIR = os.path.abspath(os.path.dirname(__file__))
         HOUSE_KEEPING = f'{BIN_DIR}/house_keeping'
-        SHORT_TERM = f"{os.getcwd()}/test/_outTest"
+        SHORT_TERM = f"{os.getcwd()}/test/_outTest/Short_term"
         os.makedirs(SHORT_TERM, exist_ok=True)
 
     update_base_data()
