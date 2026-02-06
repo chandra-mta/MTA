@@ -1,21 +1,15 @@
 #!/proj/sot/ska3/flight/bin/python
+"""
+***create_5min_avg_data.py***: create five min average data file
 
-#####################################################################################################
-#                                                                                                   #
-#           create_5min_avg_data.py: create five min average data file                              #
-#                                                                                                   #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                               #
-#                                                                                                   #
-#           last update: Mar 03, 2021                                                               #
-#                                                                                                   #
-#####################################################################################################
+:Author: W. Aaron (william.aaron@cfa.harvad.edu)
+:Last Updated: Feb 05, 2026
+"""
 
 import sys
 import os
-import numpy
 import time
 import Chandra.Time
-import Ska.engarchive.fetch as fetch
 import getpass
 #
 #--- Directory list

@@ -1,86 +1,97 @@
 #!/proj/sot/ska3/flight/bin/python
+"""
+**create_full_focal_plane_data.py**: Create/update full resolution focal plane data files.
 
-#########################################################################################
-#                                                                                       #
-#   create_full_focal_plane_data.py: create/update full resolution focal plane data     #
-#                                                                                       #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                   #
-#                                                                                       #
-#           last update: Mar 03, 2021                                                   #
-#                                                                                       #
-#########################################################################################
+:Author: W. Aaron (william.aaron@cfa.harvad.edu)
+:Last Updated: Feb 05, 2026
+
+# /// testing
+# tested-ska-release = "2026.1"
+# ///
+"""
 
 import sys
 import os
 import Chandra.Time
+from cxotime import CxoTime
 import Ska.engarchive.fetch as fetch
 import getpass
+import json
+import glob
+import math
 #
-#--- Directory list
+#--- Define Directory Paths
 #
-BIN_DIR = '/data/mta/Script/ACIS/Focal/Script/'
-DATA_DIR = '/data/mta/Script/ACIS/Focal/Data/'
-HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping/'
-SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term/'
+DATA_DIR = '/data/mta/Script/ACIS/Focal/Data'
+HOUSE_KEEPING = '/data/mta/Script/ACIS/Focal/Script/house_keeping'
+SHORT_TERM = '/data/mta/Script/ACIS/Focal/Short_term'
 
-#
-#--- append path to a private folder
-#
-sys.path.append(BIN_DIR)
-#-------------------------------------------------------------------------------
-#-- create_full_focal_plane_data: create/update full resolution focal plane data
-#-------------------------------------------------------------------------------
+def _fraction_day(frac):
+    frac = float(frac)
+    hh = math.floor(frac // 3600)
+    mm = math.floor((frac % 3600) // 60)
+    ss = math.floor(frac % 60)
+    return hh,mm,ss
 
-def create_full_focal_plane_data(rfile=''):
+def _translate_custom_datetime(year, time):
+    parts = time.split(":")
+    hh, mm, ss = _fraction_day(parts[1])
+    return CxoTime(f"{int(year):04}:{int(parts[0]):03}:{hh:02}:{mm:02}:{ss:02}")
+
+def read_short_term(filename):
+    parts = filename.split('_')
+    _year = int(parts[1])
+    year_change = parts[3] > parts[5] #: Change in year.
+    _path = f"{SHORT_TERM}/{filename}"
+    #: Column 1 is an undocumented representation of the OBC telemetry bytes indicating point in time
+    #: Column 4 is an undocumented representation of some other temperature.
+    table = ascii.read(_path, names= ('col1', 'custom_datetime', 'focal_plane_temp', 'col4'))
+    cxocolumn = []
+    if year_change:
+        idx = 0
+        while table['custom_datetime'][idx][:3] != "001":
+            idx += 1
+
+        for timepoint in table['custom_datetime'][:idx]:
+            cxocolumn.append(_translate_custom_datetime(_year,timepoint))
+        for timepoint in table['custom_datetime'][idx:]:
+            cxocolumn.append(_translate_custom_datetime(_year+1,timepoint))
+    else:
+        for timepoint in table['custom_datetime']:
+            cxocolumn.append(_translate_custom_datetime(_year,timepoint))
+    table.add_column(cxocolumn, name = 'cxotime')
+    return table['cxotime', 'focal_plane_temp']
+
+def create_full_focal_plane_data():
     """
     create/update full resolution focal plane data
     input:   none, but read from <short_term>/data_*
     output: <data_dir>/full_focal_plane_data
     """
-#
-#--- read already processed data file names
-#
-    if rfile == '':
-        rfile = HOUSE_KEEPING + 'prev_short_files'
+
+    record_file = f"{HOUSE_KEEPING}/processed_short_term_files.json"
+    os.system(f"cp -f {record_file} {record_file}~")
+    with open(record_file) as f:
+        processed_short_term_files = json.load(f)
     
-        try:
-            with open(rfile,'r') as f:
-                rlist = [line.strip() for line in f.readlines()]
-            cmd   = 'mv ' +  rfile + ' ' + rfile + '~'
-            os.system(cmd)
+    current_short_term_files = [os.path.basename(_) for _ in glob.glob(f"{SHORT_TERM}/data_*")]
+    
+    new_file_list = list(set(current_short_term_files).difference(set(processed_short_term_files['data'])))
 
-        except:
-            rlist = []
-#
-#--- read currently available data file names
-#
-        cmd = 'ls ' + SHORT_TERM + 'data_* > ' + rfile
-        os.system(cmd)
-        with open(rfile,'r') as f:
-            flist = [line.strip() for line in f.readlines()]
-#
-#--- find un-processed data file names
-#
-        flist = list(set(flist).difference(set(rlist)))
-#
-#--- quite often crat and crbt data are not processed on time; so repeat the last
-#--- three data sets to make sure that missing data part is covered
-#
-        if len(rlist) > 3:
-            repeat_part = rlist[-3:]
-        else:
-            repeat_part = rlist
+    #: TODO: Include checks to ensure we don't list a data file as processed
+    #: If we're missing 1CRAT and 1CRBT data.
+    tables = {}
+    for file in new_file_list:
 
-        flist = repeat_part + flist
+        table = read_short_term(file)
 
-        schk   = 0
-    else:
-#
-#--- define parameters in terms of test
-#
-        flist = [f"{SHORT_TERM}{rfile}"]
-        schk = 1
-        start = 0
+        #
+        # --- Add 1CRAT and 1CRBT columns
+        #
+        tables[file] = table
+
+
+
 
     for ifile in flist:
         print("INPUT: " + ifile)
