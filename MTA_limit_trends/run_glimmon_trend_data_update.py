@@ -747,44 +747,35 @@ def create_category_dict():
    
     return catg_dict
 
-#--------------------------------------------------------------------------------
 
-if __name__ == "__main__":
-#
-#--- Create a lock file and exit strategy in case of race conditions
-#
-    name = os.path.basename(__file__).split(".")[0]
-    user = getpass.getuser()
-    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
-    else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
-    
-
-    parser = argparse.ArgumentParser()
+def get_options(args = None):
+    parser = argparse.ArgumentParser(description="Run Glimmon Trending Data")
+    parser.add_argument('-m', '--mode', choices = ['flight','test'], required = True, help = "Determine running mode.")
     parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
                         action="extend",nargs='*',type=str, choices=["week","short","long"])
-    parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
-    
+    parser.add_argument("--msid_list",help="File name of msid list to use from housekeeping",type=str)
     parser.add_argument("--msid", help="Process specific MSID",type=str)
     parser.add_argument("--start", help="Start time in seconds from 1998.1.1",type=float)
     parser.add_argument("--stop", help="Stop time in seconds from 1998.1.1",type=float)
-    args = parser.parse_args()
+    opt = parser.parse_args()
+    return opt
 
-    if args.msid is not None:
+#--------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+
+    opt = get_options()
+
+    if opt.msid is not None:
         [lim_dict, cnd_dict] = rlt.get_limit_table()
-        alimit   = lim_dict[args.msid]
-        cnd_msid = cnd_dict[args.msid]
+        alimit   = lim_dict[opt.msid]
+        cnd_msid = cnd_dict[opt.msid]
 
-    if args.period is not None:
-        for dtype in args.period:
-            if args.msid is not None:
-                extract_data_from_ska(args.msid, args.start, args.stop, dtype, alimit, cnd_msid)
-            elif args.msid_list is not None:
-                run_for_msid_list(args.msid_list, dtype)
+    if opt.period is not None:
+        for dtype in opt.period:
+            if opt.msid is not None:
+                extract_data_from_ska(opt.msid, opt.start, opt.stop, dtype, alimit, cnd_msid)
+            elif opt.msid_list is not None:
+                run_for_msid_list(opt.msid_list, dtype)
     else:
         run_glimmon_trend_data_update()
-#
-#--- Remove lock file once process is completed
-#
-    os.system(f"rm /tmp/{user}/{name}.lock")
