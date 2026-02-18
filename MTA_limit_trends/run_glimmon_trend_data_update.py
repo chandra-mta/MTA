@@ -1,14 +1,15 @@
 #!/proj/sot/ska3/flight/bin/python
+"""
+**run_glimmon_trend_data_update.py** update trend data with limits in glimmon database
 
-#############################################################################################
-#                                                                                           #
-#   run_glimmon_trend_data_update.py: update trend data with limits in glimmon database     #
-#                                                                                           #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
-#                                                                                           #
-#           last update: Feb 01, 2021                                                       #
-#                                                                                           #
-#############################################################################################
+:Author: t. isobe (tisobe@cfa.harvard.edu)
+:Maintainer: w. aaron (william.aaron@cfa.harvard.edu)
+:Last Updated: Feb 17 2026
+
+# /// testing
+# tested-ska-release="2026.1"
+# ///
+"""
 
 import os
 import sys
@@ -20,7 +21,7 @@ import json
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
-import Chandra.Time
+from cxotime import CxoTime
 #
 # --- Define Directory Pathing
 #
@@ -98,7 +99,7 @@ def run_data_update(mtype, catg_dict):
     for ent in data:
         if ent[0] == '#':
             continue
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         msid  = atemp[0]
         catg  = catg_dict[msid]
 #
@@ -149,7 +150,7 @@ def run_for_msid_list(msid_list, dtype):
         elif ent.strip() == '':
             continue
 
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         msid  = atemp[0].strip()
         catg  = atemp[1].strip()
 
@@ -255,7 +256,7 @@ def today_date_chandra():
     output: stime   --- today's date (0 hr) in seconds from 1998.1.1
     """
     today = time.strftime('%Y:%j:00:00:00', time.gmtime())
-    stime = Chandra.Time.DateTime(today).secs
+    stime = CxoTime(today).secs
 
     return stime
 
@@ -729,7 +730,7 @@ def create_category_dict():
         data = [line.strip() for line in f.readlines()]
     catg_dict = {}
     for ent in data:
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         catg_dict[atemp[0]] = atemp[1]
    
     return catg_dict
