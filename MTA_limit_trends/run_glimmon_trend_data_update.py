@@ -746,8 +746,6 @@ def get_options(args = None):
     parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
                         action="extend",nargs='*',type=str, choices=["week","short","long"])
     parser.add_argument("--msid", help="Process specific MSID",type=str)
-    parser.add_argument("--start", help="Start time in seconds from 1998.1.1",type=float)
-    parser.add_argument("--stop", help="Stop time in seconds from 1998.1.1",type=float)
     opt = parser.parse_args()
     return opt
 
