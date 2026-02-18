@@ -16,6 +16,7 @@ import re
 import time
 import numpy
 import argparse
+import json
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
@@ -733,13 +734,17 @@ def create_category_dict():
    
     return catg_dict
 
+def fetch_category_dict():
+    
+    with open(f"{HOUSE_KEEPING}/msid_to_category.json") as f:
+        catg_dict = json.load(f)
+    return catg_dict
 
 def get_options(args = None):
     parser = argparse.ArgumentParser(description="Run Glimmon Trending Data")
     parser.add_argument('-m', '--mode', choices = ['flight','test'], required = True, help = "Determine running mode.")
     parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
                         action="extend",nargs='*',type=str, choices=["week","short","long"])
-    parser.add_argument("--msid_list",help="File name of msid list to use from housekeeping",type=str)
     parser.add_argument("--msid", help="Process specific MSID",type=str)
     parser.add_argument("--start", help="Start time in seconds from 1998.1.1",type=float)
     parser.add_argument("--stop", help="Stop time in seconds from 1998.1.1",type=float)
@@ -758,16 +763,61 @@ if __name__ == "__main__":
         OUT_TREND_DATA_DIR = f"{os.getcwd()}/test/_outTest"
         os.makedirs(OUT_TREND_DATA_DIR, exist_ok=True)
 
-    if opt.msid is not None:
-        [lim_dict, cnd_dict] = rlt.get_limit_table()
-        alimit   = lim_dict[opt.msid]
-        cnd_msid = cnd_dict[opt.msid]
+    catg_dict = fetch_category_dict()
+    [lim_dict, cnd_dict] = rlt.get_limit_table()
+    periods = opt.period or ['week', 'short', 'long']
 
-    if opt.period is not None:
-        for dtype in opt.period:
-            if opt.msid is not None:
-                extract_data_from_ska(opt.msid, opt.start, opt.stop, dtype, alimit, cnd_msid)
-            elif opt.msid_list is not None:
-                run_for_msid_list(opt.msid_list, dtype)
+    if opt.msid is not None:
+        #: Running for only one msid, otherwise run them all
+        msids = [opt.msid]
     else:
-        run_glimmon_trend_data_update()
+        msids = list(catg_dict.keys())
+
+    #: Iterate over all msids and all periods
+    for msid in msids:
+        catg = catg_dict.get(msid)
+        os.makedirs(f"{OUT_TREND_DATA_DIR}/{catg}", exist_ok=True)
+        for dtype in periods:
+            [dfile, start, stop] = find_data_collection_period(msid, catg, dtype)
+
+#
+#--- extract new data part; saved as a local fits file
+#
+            try:
+                alimit   = lim_dict[msid]
+                cnd_msid = cnd_dict[msid]
+#
+#--- if the collection time is larger than a month, extract data for 30 day chunk
+#
+                diff = stop - start
+                if diff > a_month:
+                    mcnt = int(diff / a_month)
+                    for m in range(0, mcnt):
+                        mstart = start + a_month * m
+                        mstop  = mstart + a_month
+                        lstart = f"{mcf.chandratime_to_fraq_year(mstart):4.2f}"
+                        lstop  = f"{mcf.chandratime_to_fraq_year(mstop):4.2f}"
+                        print("Computing: " + str(lstart) + '<-->' + str(lstop))
+#
+#--- extract data and make a local fits file
+#
+                        out = extract_data_from_ska(msid, mstart, mstop, dtype, alimit, cnd_msid)
+#
+#--- update the main fits file, either move the local file or append the new part
+#
+                        if out:
+                            update_data_file(dfile, msid, dtype)
+
+                    out = extract_data_from_ska(msid, mstop, stop, dtype, alimit, cnd_msid)
+                    if out:
+                        update_data_file(dfile, msid, dtype)
+#
+#--- the data collection period is < 30 days
+#
+                else:
+                    out = extract_data_from_ska(msid, start, stop, dtype, alimit, cnd_msid)
+                    if out:
+                        update_data_file(dfile, msid, dtype)
+            except:
+                print(msid + ' is not in ska fetch database')
+                continue
