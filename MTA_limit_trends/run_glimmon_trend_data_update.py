@@ -20,14 +20,14 @@ import argparse
 import json
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
-import Ska.engarchive.fetch as fetch
+from cheta import fetch
 from cxotime import CxoTime
 import traceback
 #
 # --- Define Directory Pathing
 #
 HOUSE_KEEPING = "/data/mta/Script/MTA_limit_trends/Scripts/house_keeping"
-MTA_DIR = "/data/mta4/Script/Python3.10/MTA"
+MTA_DIR = "/data/mta/Script/Python3.13/MTA"
 TREND_DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
 OUT_TREND_DATA_DIR = TREND_DATA_DIR
 LIMIT_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data"
