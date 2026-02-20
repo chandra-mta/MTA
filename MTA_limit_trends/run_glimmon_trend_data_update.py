@@ -22,6 +22,7 @@ import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
 import Ska.engarchive.fetch as fetch
 from cxotime import CxoTime
+import traceback
 #
 # --- Define Directory Pathing
 #
@@ -817,6 +818,6 @@ if __name__ == "__main__":
                     out = extract_data_from_ska(msid, start, stop, dtype, alimit, cnd_msid)
                     if out:
                         update_data_file(dfile, msid, dtype)
-            except:
-                print(msid + ' is not in ska fetch database')
+            except Exception:
+                traceback.print_exc()
                 continue
