@@ -13,32 +13,12 @@
 import os
 import sys
 import re
-import string
-import time
-import numpy
-import astropy.io.fits  as pyfits
-from astropy.io.fits import Column
+import unittest
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+LIMIT_DATA_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data/Limit_data"
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
-#
-#--- import several functions
-#
-import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 
 kptops = 0.145038             #--- kp to psia conversion
