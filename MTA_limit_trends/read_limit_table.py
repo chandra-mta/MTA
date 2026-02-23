@@ -242,45 +242,43 @@ def create_limit_table(limit_save):
 
     return asave
 
-#--------------------------------------------------------------------------------
+class TestFunctions(unittest.TestCase):
+
+    def test_get_limit_table(self):
+        [limit_dict, cnd_dict]  = get_limit_table() 
+
+        limit_1pin1at = [
+            [31536000, 149448824, ["none"], {"none": [253.15, 303.15, 236.65, 309.65]}],
+            [
+                149448824,
+                168036654,
+                ["none"],
+                {"none": [253.15, 304.65, 236.65, 309.65]},
+            ],
+            [
+                168036654,
+                224187532,
+                ["none"],
+                {"none": [253.15, 308.15, 236.65, 313.15]},
+            ],
+            [
+                224187532,
+                577371844,
+                ["none"],
+                {"none": [253.15, 314.15, 236.65, 319.15]},
+            ],
+            [
+                577371844,
+                6374591994,
+                ["none"],
+                {"none": [-9999998.0, 9999998.0, -9999999.0, 9999999.0]},
+            ],
+        ]
+
+        cnd_1pin1at = 'none'
+        
+        self.assertEqual(limit_1pin1at, limit_dict['1pin1at'])
+        self.assertEqual(cnd_1pin1at, cnd_dict['1pin1at'])
 
 if __name__ == "__main__":
-
-    [limit_dict, cnd_dict]  = get_limit_table()
-
-    out = limit_dict['1pin1at']
-    print(str(out))
-
-    out = cnd_dict['1pin1at']
-    print("\nSTATE: " + str(out))
-
-
-    print("\n\n")
-#
-#    out = limit_dict['1dahbcu']
-#    print(str(out))
-#
-#    print("3 : " + str(out[3][3]))
-#
-#    ddict = out[4][3]['on']
-#    print("\nON CASE: " + str(ddict))
-#
-#    out = cnd_dict['1dahbcu']
-#    print("\nSTATE: " + str(out))
-#
-#
-#    print("\n\n")
-#
-#    out = limit_dict['1dahbcu']
-#    print(str(out))
-#
-#    print("3 : " + str(out[3][3]))
-#
-#    ddict = out[4][3]['on']
-#    print("\nON CASE: " + str(ddict))
-#
-#    out = cnd_dict['1dahbcu']
-#    print("\nSTATE: " + str(out))
-#
-#    out = limit_dict['airu1g1t']
-#    print(str(out))
+    unittest.main()
