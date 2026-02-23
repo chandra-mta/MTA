@@ -1,17 +1,12 @@
-#!/proj/sot/ska3/flight/bin/python
+"""
+**read_limit_table.py**: read a limit table and create msid <--> limit dictionary
 
-#############################################################################################
-#                                                                                           #
-#       read_limit_table.py: read a limit table and create msid <--> limit dictionary       #
-#                                                                                           #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
-#                                                                                           #
-#           last update: Feb 01, 2021                                                       #
-#                                                                                           #
-#############################################################################################
+:Author: t. isobe (tisobe@cfa.harvard.edu)
+:Maintainer: w. aaron (william.aaron@cfa.harvard.edu)
+:Last Updated: Feb 23, 2026
 
-import os
-import sys
+"""
+
 import re
 import unittest
 #
@@ -21,7 +16,7 @@ LIMIT_DATA_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data/Limit_data"
 
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 
-kptops = 0.145038             #--- kp to psia conversion
+KPTOPS = 0.145038             #--- kp to psia conversion
 
 #--------------------------------------------------------------------------------
 #-- get_limit_table: create msid <---> limit table dictionary                 ---
@@ -45,8 +40,8 @@ def get_limit_table():
 #
 #--- read limit data table
 #
-    ifile = limit_dir + 'Limit_data/op_limits_new.db'
-    ldata = mcf.read_data_file(ifile)
+    with open(f"{LIMIT_DATA_DIR}/op_limits_new.db") as f:
+        ldata = [line.strip() for line in f.readlines()]
 #
 #--- create a list of lists in the form of 
 #--- [<time stamp>, <condition msid>, <switch>, <y_low>, <y_top>, <r_low>, <r_top>]
@@ -69,12 +64,12 @@ def get_limit_table():
         if btemp[0].strip() == msid:
             try:
                 unit = unit_dict[msid].lower()
-            except:
+            except KeyError:
                 unit = ''
             if unit  == 'psia':
                 alist =[int(float(btemp[7])), btemp[5], btemp[6], 
-                    float(btemp[1])/kptops, float(btemp[2])/kptops, 
-                    float(btemp[3])/kptops, float(btemp[4])/kptops]
+                    float(btemp[1])/KPTOPS, float(btemp[2])/KPTOPS, 
+                    float(btemp[3])/KPTOPS, float(btemp[4])/KPTOPS]
             else:
                 alist =[int(float(btemp[7])), btemp[5], btemp[6], 
                     float(btemp[1]), float(btemp[2]), float(btemp[3]), float(btemp[4])]
@@ -91,12 +86,12 @@ def get_limit_table():
                 msid = btemp[0].strip()
                 try:
                     unit = unit_dict[msid].lower()
-                except:
+                except KeyError:
                     unit = ''
                 if unit == 'psia':
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
-                    float(btemp[1])/kptops, float(btemp[2])/kptops, 
-                    float(btemp[3])/kptops, float(btemp[4])/kptops]
+                    float(btemp[1])/KPTOPS, float(btemp[2])/KPTOPS, 
+                    float(btemp[3])/KPTOPS, float(btemp[4])/KPTOPS]
                 else:
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
                         float(btemp[1]), float(btemp[2]), float(btemp[3]), float(btemp[4])]
@@ -117,12 +112,12 @@ def get_limit_table():
                 msid  = btemp[0].strip()
                 try:
                     unit = unit_dict[msid].lower()
-                except:
+                except KeyError:
                     unit = ''
                 if unit == 'psia':
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
-                    float(btemp[1])/kptops, float(btemp[2])/kptops, 
-                    float(btemp[3])/kptops, float(btemp[4])/kptops]
+                    float(btemp[1])/KPTOPS, float(btemp[2])/KPTOPS, 
+                    float(btemp[3])/KPTOPS, float(btemp[4])/KPTOPS]
                 else:
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
                         float(btemp[1]), float(btemp[2]), float(btemp[3]), float(btemp[4])]
@@ -168,7 +163,6 @@ def create_limit_table(limit_save):
 #--- clean switch list 
 #
     slist = list(set(slist))
-    slen  = len(slist)
 #
 #--- initialize limit dict
 #
