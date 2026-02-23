@@ -1,15 +1,11 @@
-#!/proj/sot/ska3/flight/bin/python
+"""
+**envelope_common_function.py**:    collection of functions used in envelope trending (copied from Envelope trending page)
 
-#####################################################################################################
-#                                                                                                   #
-#       envelope_common_function.py:    collection of functions used in envelope trending           #
-#               ---- this is copied from Envelop trending page                                      #
-#                                                                                                   #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                               #
-#                                                                                                   #
-#           last update: Jan 22, 2020                                                               #
-#                                                                                                   #
-#####################################################################################################
+:Author: t. isobe (tisobe@cfa.harvard.edu)
+:Maintainer: w. aaron (william.aaron@cfa.harvard.edu)
+:Last Updated: Feb 24, 2026
+
+"""
 
 import os
 import sys
