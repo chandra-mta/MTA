@@ -10,23 +10,15 @@
 import os
 import sys
 import re
-import string
 import random
 import math
 import astropy.io.fits  as pyfits
 import os.path
-import sqlite3
 import unittest
 import time
 import numpy
-import datetime
-from time import gmtime, strftime, localtime
 import Chandra.Time
-#
-#--- from ska
-#
-from Ska.Shell import getenv, bash
-ascdsenv = getenv('source /home/ascds/.ascrc -r release; source /home/mta/bin/reset_param', shell='tcsh')
+
 #
 #--- reading directory list
 #
@@ -43,7 +35,6 @@ for ent in data:
 #--- append path to a private folder
 #
 sys.path.append("/data/mta4/Script/Python3.10/MTA")
-sys.path.append(bin_dir)
 #
 import mta_common_functions     as mcf  #---- mta common functions
 import fits_operation           as mfits
