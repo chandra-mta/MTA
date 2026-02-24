@@ -18,23 +18,20 @@ import unittest
 import time
 import numpy
 import Chandra.Time
+from pathlib import Path
+#
+# --- Define Directory Pathing
+#
+_MODULE_PATH = Path(__file__).resolve()
+HOUSE_KEEPING = _MODULE_PATH.parent / 'house_keeping' #: Module-level house_keeping pathing independent of os.getcwd()
+MTA_DIR = "/data/mta/Script/Python3.13/MTA"
+LIMIT_DESCRIPTION_DIR = "/data/mta4/MTA/data/op_limits"
+LIMIT_DATA_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data/Limit_data"
 
 #
-#--- reading directory list
+#--- append path to supplemental modules directory
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append(MTA_DIR)
 #
 import mta_common_functions     as mcf  #---- mta common functions
 import fits_operation           as mfits
@@ -63,8 +60,7 @@ m_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 
 #
 #mta_db = rmld.read_mta_limits_db()
 
-ifile  =  house_keeping + 'msid_cross_check_table'
-with open(ifile, 'r') as f:
+with open(f"{HOUSE_KEEPING}/msid_cross_check_table", 'r') as f:
     data  = [line.strip() for line in f.readlines()]
 
 use_mta_db_list = []
@@ -285,8 +281,8 @@ def read_unit_list():
 #
 #--- read the main unit file and description of msid
 #
-    ulist = house_keeping + 'unit_list'
-    data  = mcf.read_data_file(ulist)
+    with open(f"{HOUSE_KEEPING}/unit_list") as f:
+        data = [line.strip() for line in f.readlines()]
 
     udict = {}
     ddict = read_description_from_mta_list()
@@ -300,8 +296,9 @@ def read_unit_list():
 #
 #--- read dataseeker unit list and replace if they are not same
 #
-    ulist = house_keeping + 'msid_descriptions'
-    data  = mcf.read_data_file(ulist)
+    with open(f"{HOUSE_KEEPING}/msid_descriptions") as f:
+        data = [line.strip() for line in f.readlines()]
+
     for ent in data:
         if ent[0] == '#':
             continue
@@ -327,14 +324,15 @@ def read_unit_list():
 #
 #--- farther read supplemental lists
 #
-    ulist = house_keeping + 'unit_supple'
-    data  = mcf.read_data_file(ulist)
+    with open(f"{HOUSE_KEEPING}/unit_supple") as f:
+        data = [line.strip() for line in f.readlines()]
     for ent in data:
         atemp = re.split('\s+', ent)
         udict[atemp[0]] = atemp[1]
 
-    dlist = house_keeping + 'description_supple'
-    data  = mcf.read_data_file(dlist)
+    with open(f"{HOUSE_KEEPING}/description_supple") as f:
+        data = [line.strip() for line in f.readlines()]
+
     for ent in data:
         atemp = re.split('\:\:', ent)
         msid  = atemp[0].strip()
@@ -353,8 +351,8 @@ def read_description_from_mta_list():
     input:  none but read from <house_keeping>/mta_limits.db
     output: mdict   --- a dictionary of msid<--->description
     """
-    mfile =  mlim_dir  + 'op_limits.db'
-    data  = mcf.read_data_file(mfile)
+    with open(f"{LIMIT_DESCRIPTION_DIR}/op_limits.db") as f:
+        data = [line.strip() for line in f.readlines()]
 
     mdict = {}
     prev  = ''
@@ -543,8 +541,8 @@ def read_mta_database():
     """
     tmin = 0
     tmax = 3218831995
-    ifile = limit_dir + 'Limit_data/op_limits_new.db'
-    data = mcf.read_data_file(ifile)
+    with open(f"{LIMIT_DATA_DIR}/op_limits_new.db") as f:
+        data = [line.strip() for line in f.readlines()]
     
     mta_db = {}
     prev   = ''
@@ -593,9 +591,8 @@ def read_cross_check_table():
     note: if there is no correspondece, it will return "mta"
     """
     
-    ifile = house_keeping + 'msid_cross_check_table'
-    data = mcf.read_data_file(ifile)
-    
+    with open(f"{HOUSE_KEEPING}/msid_cross_check_table") as f:
+        data = [line.strip() for line in f.readlines()]
     mta_cross = {}
     for ent in data:
         atemp = re.split('\s+', ent)
@@ -966,9 +963,8 @@ def combine_fits(flist, outname):
     
 def create_use_mta_db_list():
 
-    ifile =  house_keeping + 'msid_cross_check_table'
-    data  = mcf.read_data_file(ifile)
-
+    with open(f"{HOUSE_KEEPING}/msid_cross_check_table") as f:
+        data = [line.strip() for line in f.readlines()]
     use_mta_db_list = []
     for ent in data:
         atemp = re.split('\s+', ent)
