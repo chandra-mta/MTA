@@ -10,14 +10,13 @@
 import os
 import sys
 import re
-import random
 import math
 import astropy.io.fits  as pyfits
 import os.path
 import unittest
 import time
 import numpy
-import Chandra.Time
+from cxotime import CxoTime
 from pathlib import Path
 import glob
 #
@@ -75,7 +74,7 @@ def find_current_stime():
     output: sec1998 --- the current time in seconds from 1998.1.1
     """
     today = time.strftime('%Y:%j:%H:%M:%S', time.gmtime())
-    stime = Chandra.Time.DateTime(today).secs
+    stime = CxoTime(today).secs
 
     return stime
 
@@ -134,7 +133,7 @@ def current_time():
     output: fyear
     """
     otime = time.strftime('%Y:%j:%H:%M:%S', time.gmtime())
-    stime = Chandra.Time.DateTime(otime).secs
+    stime = CxoTime(otime).secs
     fyear = mcf.chandratime_to_fraq_year(stime)
 
     return fyear
@@ -724,7 +723,7 @@ def find_data_collecting_period(testdir, testf):
 #
     year  = time.strftime("%Y", time.gmtime())
     tstop = time.strftime("%Y:%j:00:00:00", time.gmtime())
-    tstop = Chandra.Time.DateTime(tstop).secs - 86400.0
+    tstop = CxoTime(tstop).secs - 86400.0
 
     return [tstart, tstop, year]
 
@@ -865,12 +864,12 @@ def create_date_list_to_yestaday(testfits, yesterday=''):
     
     if chk == 0:
         out = time.strftime('%Y:%j:00:00:00', time.gmtime())
-        yesterday = Chandra.Time.DateTime(out).secs - 86400.0
+        yesterday = CxoTime(out).secs - 86400.0
 #
     ltime = find_the_last_entry_time(testfits)
 
     out = mcf.convert_date_format(ltime, ifmt='chandra', ofmt='%Y:%j:00:00:00')
-    out = Chandra.Time.DateTime(out).secs
+    out = CxoTime(out).secs
 
     t_list = [out]
     ntime = out + 86400.0
@@ -918,7 +917,7 @@ def check_time_format(intime):
 #
     elif mc2 is not None:
     
-        return Chandra.Time.DateTime(intime).secs
+        return CxoTime(intime).secs
 
 #-----------------------------------------------------------------------------------
 #-- combine_fits: combine fits files in the list  --
