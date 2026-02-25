@@ -19,6 +19,7 @@ import time
 import numpy
 import Chandra.Time
 from pathlib import Path
+import glob
 #
 # --- Define Directory Pathing
 #
@@ -37,12 +38,6 @@ import mta_common_functions     as mcf  #---- mta common functions
 import fits_operation           as mfits
 #import glimmon_sql_read         as gsr  #---- glimmon database reading
 #import read_mta_limits_db       as rmld #---- mta databse reading
-#
-#--- set a temporary file name
-#
-import random
-rtail  = int(time.time()*random.random())
-zspace = '/tmp/zspace' + str(rtail)
 #
 #--- need a special treatment for the following msids
 #
@@ -683,9 +678,8 @@ def check_zip_possible(outdir):
     if (yday > 1) and (yday < 5):
         year  = int(float(time.strftime("%Y", time.gmtime()))) - 1
     
-        cmd   = 'ls ' + outdir + '*_' + str(year) + '.fits* > ' + zspace
-        os.system(cmd)
-        data = mcf.read_data_file(zspace, remove=1)
+        searchpattern = os.path.join(outdir, f'*_{year}.fits*')
+        data = glob.glob(searchpattern)
      
         for ent in data:
             mc = re.search('.gz', ent)
@@ -711,9 +705,10 @@ def find_data_collecting_period(testdir, testf):
 #
 #--- find the last entry
 #
-    cmd  = 'ls ' + testdir + '/' + testf + ' > ' + zspace
-    os.system(cmd)
-    data = mcf.read_data_file(zspace, remove=1)
+
+    searchpattern = os.path.join(testdir, testf)
+    data = glob.glob(searchpattern)
+
     test = data[-1]
     
     if os.path.isfile(test):
