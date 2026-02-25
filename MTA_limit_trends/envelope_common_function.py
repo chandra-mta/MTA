@@ -49,19 +49,6 @@ NULL   = 'null'
 #--- month list
 #
 m_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-#
-#--- read mta limit data base as back up limit database
-#
-#mta_db = rmld.read_mta_limits_db()
-
-with open(f"{HOUSE_KEEPING}/msid_cross_check_table", 'r') as f:
-    data  = [line.strip() for line in f.readlines()]
-
-use_mta_db_list = []
-for ent in data:
-    atemp = re.split('\s+', ent)
-    if atemp[1] == 'mta':
-        use_mta_db_list.append(atemp[0])
 
 #------------------------------------------------------------------------------------------------------
 #-- find_current_stime: find the current time in seconds from 1998.1.1                              ---
