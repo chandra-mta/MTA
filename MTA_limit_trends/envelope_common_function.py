@@ -954,10 +954,6 @@ def create_use_mta_db_list():
 
     return use_mta_db_list
 
-#-----------------------------------------------------------------------------------------
-#-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST    ---
-#-----------------------------------------------------------------------------------------
-
 class TestFunctions(unittest.TestCase):
     """
     testing functions
@@ -977,7 +973,7 @@ class TestFunctions(unittest.TestCase):
         stime = 119305230
         out   = covertfrom1998sec(stime)
 
-        self.assertEquals(out, '2001-10-12T21:20:30')
+        self.assertEqual(out, '2001-10-12T21:20:30')
 
 #------------------------------------------------------------
     
@@ -985,11 +981,11 @@ class TestFunctions(unittest.TestCase):
 
         dom   = 0
         stime = dom_to_stime(dom)
-        self.assertEquals(stime, 48902400.0)
+        self.assertEqual(stime, 48902400.0)
 
         dom   = 10
         stime = dom_to_stime(dom)
-        self.assertEquals(stime, 49766400.0)
+        self.assertEqual(stime, 49766400.0)
 
 
 #------------------------------------------------------------
@@ -1013,7 +1009,7 @@ class TestFunctions(unittest.TestCase):
         for k in range(0, 5):
             test.append(round(data[k], 7))
 
-        self.assertEquals(test, comp)
+        self.assertEqual(test, comp)
 
 #------------------------------------------------------------
 
@@ -1032,14 +1028,14 @@ class TestFunctions(unittest.TestCase):
         [mdict, ddict] = read_unit_list()
 
         msid = '1crbt'
-        self.assertEquals(ddict[msid], 'COLD RADIATOR TEMP. B')
-        self.assertEquals(mdict[msid], 'DEGC')
+        self.assertEqual(ddict[msid], 'COLD RADIATOR TEMP. B')
+        self.assertEqual(mdict[msid], 'DEGC')
 
         msid = 'aorwspd2'
-        self.assertEquals(mdict[msid], 'RPS')
+        self.assertEqual(mdict[msid], 'RPS')
 
         msid = '1deamztc'
-        self.assertEquals(mdict[msid], 'C')
+        self.assertEqual(mdict[msid], 'C')
 
 #------------------------------------------------------------
 
@@ -1047,7 +1043,7 @@ class TestFunctions(unittest.TestCase):
 
         msid = '1cbat'
         out = set_limit_list(msid)
-        self.assertEquals(out[0], [0, 119305230, 202.65, 223.15, 197.65, 312.65])
+        self.assertEqual(out[0], [0, 119305230, 202.65, 223.15, 197.65, 312.65])
 
 
         #msid = 'oobthr04'
@@ -1064,11 +1060,11 @@ class TestFunctions(unittest.TestCase):
 
         val = 1.2342
         out = round_up(val)
-        self.assertEquals(out, 1.23)
+        self.assertEqual(out, 1.23)
 
         val = 0.000134
         out = round_up(val)
-        self.assertEquals(out, 0.00013)
+        self.assertEqual(out, 0.00013)
         
 
 #-----------------------------------------------------------------------------------
