@@ -834,10 +834,10 @@ def find_the_last_entry_time(fits):
     return ctime
 
 #-------------------------------------------------------------------------------------------
-#-- create_date_list_to_yestaday: find the last entry date and then make a list of dates up to yesterday
+#-- create_date_list_to_yesterday: find the last entry date and then make a list of dates up to yesterday
 #-------------------------------------------------------------------------------------------
 
-def create_date_list_to_yestaday(testfits, yesterday=''):
+def create_date_list_to_yesterday(testfits, yesterday=''):
     """
     find the last entry date and then make a list of dates up to yesterday
     input:  testfits    --- a fits file to be tested
@@ -1127,9 +1127,8 @@ class TestFunctions(unittest.TestCase):
         #: Used in MTA limit trends. Also recreated in MTA limit trends.
         pass
 #------------------------------------------------------------
-    def test_create_date_list_to_yestaday(self):
+    def test_create_date_list_to_yesterday(self):
         #: Used in MTA limit trends.
-        #: TODO Correct Typo
         pass
 #------------------------------------------------------------
     def test_check_time_format(self):
