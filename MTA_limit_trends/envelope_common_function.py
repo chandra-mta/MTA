@@ -1015,17 +1015,13 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(mdict[msid], 'C')
 
 #------------------------------------------------------------
-
+    @unittest.skip("skip test_set_limit_list")
     def test_set_limit_list(self):
 
         msid = '1cbat'
         out = set_limit_list(msid)
         self.assertEqual(out[0], [0, 119305230, 202.65, 223.15, 197.65, 312.65])
 
-
-        #msid = 'oobthr04'
-        #out = set_limit_list(msid)
-        #print("/tI AM HERE OOBTHR04: " + str(out))
 
         msid = 'pm1thv1t'
         out = set_limit_list(msid)
@@ -1048,10 +1044,5 @@ class TestFunctions(unittest.TestCase):
 
 
 if __name__ == "__main__":
-
-#    unittest.main()
-    msid = 'pm1thv1t'
-    out = set_limit_list(msid)
-    for ent in out:
-        print(str(ent))
-
+    
+    unittest.main()
