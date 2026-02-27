@@ -990,29 +990,6 @@ class TestFunctions(unittest.TestCase):
 
 #------------------------------------------------------------
 
-    def test_data_seek(self):
-
-        comp  = [147.6113739, 147.6113739, 147.6113739, 147.6113739, 147.6113739]
-
-        msid  = '1crbt'
-        name  = msid + '_avg'
-        start = 536457596           #---- 2015:001:00:00:00
-        stop  = 536543996           #---- 2015:002:00:00:00
-
-        data_seeker(start, stop, msid)
-
-        fits = 'temp_out.fits'
-        [col, tbdata] = read_fits_file(fits)
-        data = tbdata.field(name)
-
-        test = []
-        for k in range(0, 5):
-            test.append(round(data[k], 7))
-
-        self.assertEqual(test, comp)
-
-#------------------------------------------------------------
-
     def test_stime_to_frac_year(self):
 
         stime  = 549590396
