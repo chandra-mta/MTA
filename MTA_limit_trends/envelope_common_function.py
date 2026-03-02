@@ -34,8 +34,8 @@ LIMIT_DATA_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data/Limit_data"
 #
 sys.path.append(MTA_DIR)
 #
-import mta_common_functions as mcf  #---- mta common functions  # noqa: E402
-import fits_operation as mfits  # noqa: E402
+import mta_common_functions as mcf  # type: ignore # noqa: E402
+import fits_operation as mfits  # type: ignore # noqa: E402
 #import glimmon_sql_read         as gsr  #---- glimmon database reading
 #import read_mta_limits_db       as rmld #---- mta databse reading
 #
@@ -238,7 +238,7 @@ def round_up(val):
     except:
         dist = 0
 
-    val = "%3.2f" % (round(val, 2))
+    val = f"{round(val, 2):3.2f}"
     val = float(val)
 
     if dist < -2:
@@ -446,7 +446,7 @@ def modify_slope_dicimal(val, err):
     output: line    --- slope expression
     """
 
-    aval  = '%2.2e' %(val)
+    aval  = f'{val:2.2e}'
     atemp = re.split('e', str(aval))
     fval  = atemp[0]
     pwrp  = int(float(atemp[1]))
@@ -455,7 +455,7 @@ def modify_slope_dicimal(val, err):
         err = 'na'
     else:
         err  /= (10.0**pwrp)
-        err   = '%2.2f'  % round(err, 2)
+        err   = f'{round(err, 2):2.2f}'
 
     line = f"({fval}+/-{err})e{pwrp}"
 
@@ -516,14 +516,11 @@ def read_mta_database():
     output: mta_db  --- dictionary of msid <--> a list of lists of limits
     the inner list is [start, stop, yl, yu, rl, ru]
     """
-    tmin = 0
     tmax = 3218831995
     with open(f"{LIMIT_DATA_DIR}/op_limits_new.db") as f:
         data = [line.strip() for line in f.readlines()]
     
     mta_db = {}
-    prev   = ''
-    save   = []
     for ent in data:
         if len(ent) == 0:
             continue
