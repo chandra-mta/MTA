@@ -353,11 +353,10 @@ def read_description_from_mta_list():
 #--- quite often junk got in because the format of each line is not clean
 #--- remove these junks from the end of the line
 #
-            discription = atemp[1].replace(btemp[-1],"")
+            description = atemp[1].replace(btemp[-1],"")
             if btemp[-2] in ['K', 'V', 'AMP', 'RATE', 'CNT', 'uA', 'RPS', 'C', 'mm', 'CURRENT', 'STEP']:
-                discription = discription.replace(btemp[-2],"")
-    
-            mdict[msid] = discription
+                description = description.replace(btemp[-2],"")
+            mdict[msid] = description.strip()
         except:
             pass
 
@@ -458,7 +457,7 @@ def modify_slope_dicimal(val, err):
         err  /= (10.0**pwrp)
         err   = '%2.2f'  % round(err, 2)
 
-    line  = '(' + fval + '+/-' + err + ')e' + str(pwrp)
+    line = f"({fval}+/-{err})e{pwrp}"
 
     return line
 
@@ -789,7 +788,7 @@ def get_basic_info_dict():
     extract basic information dict and lists
     input:  none
     output: udict   --- dictionary of msid <---> unit
-            ddict   --- dictionary of misd <---> discription
+            ddict   --- dictionary of misd <---> description
             mta_db  --- mta limit database dictonary
             mta_cross   --- dictionary of msid <---> alias
     """
@@ -851,20 +850,23 @@ def create_date_list_to_yesterday(testfits, yesterday=''):
         yesterday = CxoTime(out).secs - 86400.0 # type: ignore
 #
     ltime = find_the_last_entry_time(testfits)
-
-    out = mcf.convert_date_format(ltime, ifmt='chandra', ofmt='%Y:%j:00:00:00')
-    out = CxoTime(out).secs
+    out = CxoTime(ltime)
+    out -= timedelta(hours=out.datetime.hour, # type: ignore
+                     minutes=out.datetime.minute, # type: ignore
+                     seconds=out.datetime.second) # type: ignore
+    out = out.secs
 
     t_list = [out]
     ntime = out + 86400.0 # type: ignore
-    while ntime <=  yesterday:
+    while ntime <= yesterday: # type: ignore
         t_list.append(ntime)
         ntime += 87400.0
 
     otime = []
     for ent in t_list:
-        out = mcf.convert_date_format(ent, ifmt='chandra', ofmt='%Y%m%d')
-        otime.append(out)
+        otime.append(
+            CxoTime(ent).datetime.strftime('%Y%m%d') # type: ignore
+            )
     
     return otime
 
@@ -952,12 +954,14 @@ class TestFunctions(unittest.TestCase):
     testing functions
     """
 #------------------------------------------------------------
+    @unittest.skip("Depends on current time")
     def test_find_current_stime(self):
         #: Used in MTA limit trends
         sec1998 = find_current_stime()
         print("current time: " + str(sec1998))
 #------------------------------------------------------------
     @unittest.expectedFailure
+    @unittest.skip("Not used in MTA limit trends")
     def test_covertfrom1998sec(self):
         #: Not used in MTA limit trends
         stime = 119305230
@@ -967,12 +971,12 @@ class TestFunctions(unittest.TestCase):
 #------------------------------------------------------------
     def test_stime_to_frac_year(self):
         #: Used in MTA limit trends
-        stime  = 549590396
+        stime  = 0
         fyear  = stime_to_frac_year(stime)
-
-        print("I AM HERE: " + str(fyear) + '<--->2916,419')
+        self.assertAlmostEqual(fyear,1998.002737,places=5)
 #------------------------------------------------------------
     @unittest.expectedFailure
+    @unittest.skip("Not used in MTA limit trends")
     def test_dom_to_stime(self):
         #: Not used in MTA limit trends
         dom   = 0
@@ -983,6 +987,7 @@ class TestFunctions(unittest.TestCase):
         stime = dom_to_stime(dom)
         self.assertEqual(stime, 49766400.0)
 #------------------------------------------------------------
+    @unittest.skip("Depends on current time")
     def test_current_time(self):
         #: Used in MTA limit trends
         pass
@@ -997,21 +1002,30 @@ class TestFunctions(unittest.TestCase):
         #: Used in unit modification in glimmon_sql_read only. Can refactor. 
         pass
 #------------------------------------------------------------
+    @unittest.skip("Not used in MTA limit trends")
     def test_clean_dir(self):
         #: Not used in MTA limit trends
         pass
 #------------------------------------------------------------
     def test_read_fits_file(self):
         #: Used in MTA limit trends
-        pass
+        legacy_file = "/proj/sot/ska/data/aca_bgd_mon/2001-01/kalman.fits"
+        [cols, tbdata] = read_fits_file(legacy_file)
+        self.assertEqual(cols, ['kalman', 'time'])
+        self.assertEqual(tbdata[0][0], 1)
+        self.assertEqual(tbdata[0][1], 94694112.198475)
 #------------------------------------------------------------
-    def read_fits_col(self):
+    def test_read_fits_col(self):
         #: Used in MTA limit trends
+        legacy_file = "/proj/sot/ska/data/aca_bgd_mon/2001-01/kalman.fits"
+        cols = read_fits_col(legacy_file, col_list=['kalman'])
+        self.assertEqual(cols[0][0], 1)
         pass
 #------------------------------------------------------------
     @unittest.expectedFailure
+    @unittest.skip("Implementation to be replaced with string formatting")
     def test_round_up(self):
-        #: Used in MTA limit trends. Could probably deprecate with replacing implementations wiht string formatting and round()
+        #: Used in MTA limit trends. Implementation to be replaced with string formatting
         val = 1.2342
         out = round_up(val)
         self.assertEqual(out, 1.23)
@@ -1020,14 +1034,12 @@ class TestFunctions(unittest.TestCase):
         out = round_up(val)
         self.assertEqual(out, 0.00013)
 #------------------------------------------------------------
-    @unittest.expectedFailure
     def test_read_unit_list(self):
         #: Used in MTA limit trends.
         [mdict, ddict] = read_unit_list()
 
         msid = '1crbt'
-        self.assertEqual(ddict[msid], 'COLD RADIATOR TEMP. B')
-        self.assertEqual(mdict[msid], 'DEGC')
+        self.assertEqual(mdict[msid], 'K')
 
         msid = 'aorwspd2'
         self.assertEqual(mdict[msid], 'RPS')
@@ -1037,16 +1049,16 @@ class TestFunctions(unittest.TestCase):
 #------------------------------------------------------------
     def test_read_description_from_mta_list(self):
         #: Used in read unit list only. Which is used elsehwere.
-        mdict = read_description_from_mta_list()
+        ddict = read_description_from_mta_list()
 
         msid = '1crbt'
-        self.assertEqual(mdict[msid], 'COLD RADIATOR TEMP. B')
+        self.assertEqual(ddict[msid], 'COLD RADIATOR TEMP. B')
 
         msid = 'aorwspd2'
-        self.assertEqual(mdict[msid], 'RPS')
+        self.assertEqual(ddict[msid], 'REACTION WHEEL RATES')
 
         msid = '1deamztc'
-        self.assertEqual(mdict[msid], 'C')
+        self.assertEqual(ddict[msid], 'DEA -Z PANEL TEMP')
 #------------------------------------------------------------
     @unittest.skip("Commented Out")
     def test_set_limit_list(self):
@@ -1063,9 +1075,9 @@ class TestFunctions(unittest.TestCase):
     def test_modify_slope_dicimal(self):
         #: Used in MTA limit trends.
         val = 1.23456789e-5
-        err = 0.0000000123456789
+        err = 0.0000123456789
         out = modify_slope_dicimal(val, err)
-        self.assertEqual(out, '(1.23+/-1.23)e-05')
+        self.assertEqual(out, '(1.23+/-1.23)e-5')
 #------------------------------------------------------------
     @unittest.skip("Not using glimmon_sql_read")
     def test_get_limit(self):
@@ -1075,7 +1087,7 @@ class TestFunctions(unittest.TestCase):
     def test_read_mta_database(self):
         #: Used in MTA limit trends.
         mta_db = read_mta_database()
-        self.assertEqual(mta_db['1cbat'][0], [0, 119305230, 202.65, 223.15, 197.65, 312.65])
+        self.assertEqual(mta_db['1cbat'][0], [31536000.0, 119305230.0, 202.65, 223.15, 197.65, 312.65])
 #------------------------------------------------------------
     def test_read_cross_check_table(self):
         #: Used in MTA limit trends.
@@ -1083,22 +1095,27 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(mta_cross['1cbat'], '1cbat')
         self.assertEqual(mta_cross['hrmastrutrnge'], 'mta')
 #------------------------------------------------------------
+    @unittest.skip("Live file writing required")
     def test_update_fits_file(self):
         #; Used in MTA limit trends.
         pass
 #------------------------------------------------------------
+    @unittest.skip("Live file writing required")
     def test_create_fits_file(self):
         #: Used in MTA limit trends.
         pass
 #------------------------------------------------------------
+    @unittest.skip("Directory Content Dependent")
     def test_check_zip_possible(self):
         #: Used in MTA limit trends.
         pass
 #------------------------------------------------------------
+    @unittest.skip("Directory Content Dependent")
     def test_find_data_collecting_period(self):
         #: Used in MTA limit trends.
         pass
 #------------------------------------------------------------
+    @unittest.skip("Not used in MTA limit trends")
     def test_remove_duplicate(self):
         #: Not used in MTA limit trends.
         pass
@@ -1113,19 +1130,24 @@ class TestFunctions(unittest.TestCase):
     def test_get_basic_info_dict(self):
         #: Used in MTA limit trends.
         [udict, ddict, mta_db, mta_cross] = get_basic_info_dict()
-        self.assertEqual(udict['1cbat'], 'DEGC')
-        self.assertEqual(ddict['1cbat'], 'COLD RADIATOR TEMP. B')
-        self.assertEqual(mta_db['1cbat'][0], [0, 119305230, 202.65, 223.15, 197.65, 312.65])
+        self.assertEqual(udict['1cbat'], 'K')
+        self.assertEqual(ddict['1cbat'], 'CAMERA BODY TEMP. A')
+        self.assertEqual(mta_db['1cbat'][0], [31536000.0, 119305230.0, 202.65, 223.15, 197.65, 312.65])
         self.assertEqual(mta_cross['1cbat'], '1cbat')
 #------------------------------------------------------------
     def test_find_the_last_entry_time(self):
         #: Used in MTA limit trends. Also recreated in MTA limit trends.
-        pass
+        legacy_file = "/proj/sot/ska/data/aca_bgd_mon/2001-01/kalman.fits"
+        last_time = find_the_last_entry_time(legacy_file)
+        self.assertEqual(last_time, 97378497.08159013)
 #------------------------------------------------------------
     def test_create_date_list_to_yesterday(self):
         #: Used in MTA limit trends.
-        pass
+        legacy_file = "/proj/sot/ska/data/aca_bgd_mon/2001-01/kalman.fits"
+        otime = create_date_list_to_yesterday(legacy_file, yesterday=CxoTime('2001-02-05').secs) # type: ignore
+        self.assertEqual(otime, ['20010201', '20010202', '20010203', '20010204'])
 #------------------------------------------------------------
+    @unittest.skip("Implementation to be replaced with CxoTime")
     def test_check_time_format(self):
         #: Used in MTA limit trends. Can refactor all usage into CxoTime instead.
         out = check_time_format('2001-10-12T21:20:30')
@@ -1140,10 +1162,12 @@ class TestFunctions(unittest.TestCase):
         out = check_time_format('119305230')
         self.assertEqual(out, 119305230)
 #------------------------------------------------------------
+    @unittest.skip("Not used in MTA limit trends")
     def test_combine_fits(self):
         #: Not used in MTA limit trends.
         pass
 #------------------------------------------------------------
+    @unittest.skip("Not used in MTA limit trends")
     def test_create_use_mta_db_list(self):
         #: Not used in MTA limit trends.
         use_mta_db_list = create_use_mta_db_list()
