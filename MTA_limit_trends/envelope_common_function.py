@@ -34,8 +34,8 @@ LIMIT_DATA_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data/Limit_data"
 #
 sys.path.append(MTA_DIR)
 #
-import mta_common_functions     as mcf  #---- mta common functions
-import fits_operation           as mfits
+import mta_common_functions as mcf  #---- mta common functions  # noqa: E402
+import fits_operation as mfits  # noqa: E402
 #import glimmon_sql_read         as gsr  #---- glimmon database reading
 #import read_mta_limits_db       as rmld #---- mta databse reading
 #
@@ -266,7 +266,7 @@ def read_unit_list():
     ddict = read_description_from_mta_list()
 
     for ent in data:
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         try:
             udict[atemp[0].lower()] = atemp[1]
         except:
@@ -305,14 +305,14 @@ def read_unit_list():
     with open(f"{HOUSE_KEEPING}/unit_supple") as f:
         data = [line.strip() for line in f.readlines()]
     for ent in data:
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         udict[atemp[0]] = atemp[1]
 
     with open(f"{HOUSE_KEEPING}/description_supple") as f:
         data = [line.strip() for line in f.readlines()]
 
     for ent in data:
-        atemp = re.split('\:\:', ent)
+        atemp = re.split(r'\:\:', ent)
         msid  = atemp[0].strip()
         descr = atemp[1].strip()
         ddict[msid] = descr
@@ -339,7 +339,7 @@ def read_description_from_mta_list():
             continue 
         if ent[0] == '#':
             continue
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
 
         if atemp[0] == prev:
             continue
@@ -348,7 +348,7 @@ def read_description_from_mta_list():
         msid  = atemp[0].lower()
         atemp = re.split('#', ent)
         try:
-            btemp = re.split('\s+', atemp[1])
+            btemp = re.split(r'\s+', atemp[1])
 #
 #--- quite often junk got in because the format of each line is not clean
 #--- remove these junks from the end of the line
@@ -530,7 +530,7 @@ def read_mta_database():
         if ent[0] == '#':
             continue
     
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         msid  = atemp[0].lower()
     
         try:
@@ -572,7 +572,7 @@ def read_cross_check_table():
         data = [line.strip() for line in f.readlines()]
     mta_cross = {}
     for ent in data:
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         mta_cross[atemp[0]] = atemp[1]
     
     return mta_cross
@@ -943,7 +943,7 @@ def create_use_mta_db_list():
         data = [line.strip() for line in f.readlines()]
     use_mta_db_list = []
     for ent in data:
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         if atemp[1] == 'mta':
             use_mta_db_list.append(atemp[0])
 
