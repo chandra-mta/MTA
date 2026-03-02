@@ -15,6 +15,7 @@ import astropy.io.fits  as pyfits
 import os.path
 import unittest
 import time
+from datetime import timedelta
 import numpy
 from cxotime import CxoTime
 from pathlib import Path
@@ -60,8 +61,7 @@ def find_current_stime():
     input:  none
     output: sec1998 --- the current time in seconds from 1998.1.1
     """
-    today = time.strftime('%Y:%j:%H:%M:%S', time.gmtime())
-    stime = CxoTime(today).secs
+    stime = CxoTime().secs
 
     return stime
 
@@ -75,8 +75,7 @@ def covertfrom1998sec(stime):
     input:  stime   --- second from 1998.1.1
     output: etime   --- time in yyyy-mm-ddThh:mm:ss
     """
-    #: TODO Remake as CxoTime
-    etime = mcf.convert_date_format(stime, ifmt='chandra', ofmt='%Y-%m-%dT%H:%M:%S')
+    etime = CxoTime(stime).datetime.strftime('%Y-%m-%dT%H:%M:%S') # type: ignore
 
     return etime
 
@@ -104,10 +103,7 @@ def dom_to_stime(dom):
     input:  dom     --- dom (day of mission)
     output: stime   --- seconds from 1998.1.1
     """
-    #: TODO Remake as CxoTime
-    [year, ydate] = mcf.dom_to_ydate(dom)
-    etime         = str(year) + ':' + str(ydate)
-    stime         = mcf.convert_date_format(etime, ifmt='%Y:%j', ofmt='chandra')
+    stime = (CxoTime("1999:203:00:00:05") + timedelta(days=dom)).secs
 
     return stime
 
@@ -121,8 +117,7 @@ def current_time():
     input:  none
     output: fyear
     """
-    otime = time.strftime('%Y:%j:%H:%M:%S', time.gmtime())
-    stime = CxoTime(otime).secs
+    stime = CxoTime().secs
     fyear = mcf.chandratime_to_fraq_year(stime)
 
     return fyear
@@ -194,12 +189,12 @@ def read_fits_file(fits):
 #
 #--- get column names
 #
-    cols_in = hdulist[1].columns
+    cols_in = hdulist[1].columns # type: ignore
     cols    = cols_in.names
 #
 #--- get data
 #
-    tbdata  = hdulist[1].data
+    tbdata  = hdulist[1].data # type: ignore
 
     hdulist.close()
 
@@ -217,7 +212,7 @@ def read_fits_col(fits, col_list):
     output: out     --- a list of data arrays corresponding to the column list
     """
     f = pyfits.open(fits)
-    data = f[1].data
+    data = f[1].data # type: ignore
     f.close()
     
     out = []
@@ -496,7 +491,7 @@ def get_limit(msid, tchk, mta_db, mta_cross):
     else:
         try:
             out   = gsr.read_glimmon(mchk, tchk)
-            test  = str(mchk[-2] + mchk[-1])
+            test  = str(mchk[-2] + mchk[-1]) # type: ignore
             if test.lower() == 'tc':
                 glim = []
                 for ent in out:
@@ -597,7 +592,7 @@ def update_fits_file(fits, cols, cdata, tcut=0):
     output: updated fits file
     """
     f = pyfits.open(fits)
-    data  = f[1].data
+    data  = f[1].data # type: ignore
     f.close()
     
     udata = []
@@ -701,7 +696,7 @@ def find_data_collecting_period(testdir, testf):
     
     if os.path.isfile(test):
         f = pyfits.open(test)
-        data  = f[1].data
+        data  = f[1].data # type: ignore
         f.close()
         dtime = data['time']
         tstart = numpy.max(dtime)
@@ -712,7 +707,7 @@ def find_data_collecting_period(testdir, testf):
 #
     year  = time.strftime("%Y", time.gmtime())
     tstop = time.strftime("%Y:%j:00:00:00", time.gmtime())
-    tstop = CxoTime(tstop).secs - 86400.0
+    tstop = CxoTime(tstop).secs - 86400.0 # type: ignore
 
     return [tstart, tstop, year]
 
@@ -826,7 +821,7 @@ def find_the_last_entry_time(fits):
     output: ctime   --- the last logged time
     """
     f = pyfits.open(fits)
-    data = f[1].data
+    data = f[1].data # type: ignore
     f.close()
 
     ctime = numpy.max(data['time'])
@@ -853,7 +848,7 @@ def create_date_list_to_yesterday(testfits, yesterday=''):
     
     if chk == 0:
         out = time.strftime('%Y:%j:00:00:00', time.gmtime())
-        yesterday = CxoTime(out).secs - 86400.0
+        yesterday = CxoTime(out).secs - 86400.0 # type: ignore
 #
     ltime = find_the_last_entry_time(testfits)
 
@@ -861,7 +856,7 @@ def create_date_list_to_yesterday(testfits, yesterday=''):
     out = CxoTime(out).secs
 
     t_list = [out]
-    ntime = out + 86400.0
+    ntime = out + 86400.0 # type: ignore
     while ntime <=  yesterday:
         t_list.append(ntime)
         ntime += 87400.0
