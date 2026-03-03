@@ -37,19 +37,6 @@ sys.path.append(MTA_DIR)
 import mta_common_functions as mcf  # type: ignore # noqa: E402
 import fits_operation as mfits  # type: ignore # noqa: E402
 #import glimmon_sql_read         as gsr  #---- glimmon database reading
-#import read_mta_limits_db       as rmld #---- mta databse reading
-#
-#--- need a special treatment for the following msids
-#
-special_list = ['3FAMTRAT', '3FAPSAT', '3FASEAAT', '3SMOTOC', '3SMOTSTL', '3TRMTRAT']
-#
-#--- other settings
-#
-NULL   = 'null'
-#
-#--- month list
-#
-m_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
 #------------------------------------------------------------------------------------------------------
 #-- find_current_stime: find the current time in seconds from 1998.1.1                              ---
