@@ -273,7 +273,7 @@ def read_unit_list():
 
         msid =atemp[0].strip().lower()
         try:
-            test = float(atemp[2])
+            float(atemp[2])
             tchk = 0
         except:
             tchk = 1
@@ -607,8 +607,8 @@ def create_fits_file(fits, cols, cdata):
     
     dcols = pyfits.ColDefs(dlist)
     tbhdu = pyfits.BinTableHDU.from_columns(dcols)
-    
-    mcf.rm_files(fits)
+
+    os.remove(fits)
     tbhdu.writeto(fits)
 
 #-------------------------------------------------------------------------------------------
@@ -798,7 +798,7 @@ def create_date_list_to_yesterday(testfits, yesterday=''):
     """
 
     try:
-        test = float(yesterday)
+        float(yesterday)
         chk = 1
     except:
         chk = 0
@@ -875,7 +875,7 @@ def combine_fits(flist, outname):
             outname --- a outputfits file name
     output: outname --- a combined fits file
     """
-    mcf.rm_files(outname)
+    os.remove(outname)
     cmd = 'mv ' + flist[0] + ' ' + outname
     os.system(cmd)
     
