@@ -468,7 +468,7 @@ def get_limit(msid, tchk, mta_db, mta_cross):
     
     else:
         try:
-            out   = gsr.read_glimmon(mchk, tchk)
+            out   = gsr.read_glimmon(mchk, tchk)  # type: ignore # noqa: F821
             test  = str(mchk[-2] + mchk[-1]) # type: ignore
             if test.lower() == 'tc':
                 glim = []
@@ -1025,12 +1025,12 @@ class TestFunctions(unittest.TestCase):
     def test_set_limit_list(self):
         #: Used in HTMl generation. Could refactor to use get_limit instead?
         msid = '1cbat'
-        out = set_limit_list(msid)
+        out = set_limit_list(msid)  # type: ignore # noqa: F821
         self.assertEqual(out[0], [0, 119305230, 202.65, 223.15, 197.65, 312.65])
 
 
         msid = 'pm1thv1t'
-        out = set_limit_list(msid)
+        out = set_limit_list(msid)  # type: ignore # noqa: F821
         print("/tI AM HERE PM1THV1T: " + str(out))
 #------------------------------------------------------------
     def test_modify_slope_dicimal(self):
