@@ -281,9 +281,7 @@ def read_unit_list():
             if atemp[2] != '':
                 udict[msid] =  atemp[2].strip()
         else:
-            try:
-                test = udict[msid]
-            except:
+            if msid not in udict.keys():
                 udict[msid] =  ''
         ddict[msid] = atemp[-1].strip()
 #
@@ -458,21 +456,14 @@ def get_limit(msid, tchk, mta_db, mta_cross):
     input:  msid--- msid
     tchk--- whether temp conversion needed 0: no/1: degc/2: degf/3: pcs
     mta_db  --- a dictionary of mta msid <---> limist
-    mta_corss   --- mta msid and sql msid cross check table
+    mta_cross   --- mta msid and sql msid cross check table
     output: glim--- a list of lists of lmits. innter lists are:
     [start, stop, yl, yu, rl, ru]
     """
-    
-    try:
-        mchk = mta_cross[msid]
-    except:
-        mchk = 0
-    
+
+    mchk = mta_cross.get(msid, 0)
     if mchk == 'mta':
-        try:
-            glim = mta_db[msid]
-        except:
-            glim = [[0,  3218831995, -9e6, 9e6, -9e6, 9e6]]
+        glim = mta_db.get(msid, [[0,  3218831995, -9e6, 9e6, -9e6, 9e6]])
     
     else:
         try:
@@ -509,35 +500,26 @@ def read_mta_database():
     
     mta_db = {}
     for ent in data:
-        if len(ent) == 0:
+        if len(ent) == 0 or ent.startswith('#'):
             continue
-        if ent[0] == '#':
-            continue
-    
-        atemp = re.split(r'\s+', ent)
+        atemp = ent.split()
         msid  = atemp[0].lower()
-    
-        try:
-            out  = mta_db[msid]
-            yl   = float(atemp[1])
-            yr   = float(atemp[2])
-            rl   = float(atemp[3])
-            ru   = float(atemp[4])
-            ts   = float(atemp[7])
-            olim = [ts, tmax, yl, yr, rl, ru]
-            out[-1][1] = ts
-            out.append(olim)
-            mta_db[msid] = out
-        except:
-            yl   = float(atemp[1])
-            yr   = float(atemp[2])
-            rl   = float(atemp[3])
-            ru   = float(atemp[4])
-            ts   = float(atemp[7])
-            olim = [ts, tmax, yl, yr, rl, ru]
-            out  = [olim]
-            mta_db[msid] = out
-    
+
+        #: Parse file entry
+        yl   = float(atemp[1])
+        yr   = float(atemp[2])
+        rl   = float(atemp[3])
+        ru   = float(atemp[4])
+        ts   = float(atemp[7])
+        olim = [ts, tmax, yl, yr, rl, ru]
+        #: Check if already recorded a limit entry for this msid, if so, update the stop time of the last entry and append the new entry
+        if msid in mta_db.keys():
+            mta_db[msid][-1][1] = ts
+            #: Append new entry
+            mta_db[msid].append(olim)
+        else:
+            #: Create new entry
+            mta_db[msid] = [olim]
     return mta_db
 
 #-------------------------------------------------------------------------------------------
@@ -748,19 +730,11 @@ def convert_unit_indicator(cunit):
     input: cunit--- degc, degf, or psia
     output: tchk--- 1, 2, 3 for above. all others will return 0
     """
-    try:
+    if isinstance(cunit,str):
         cunit = cunit.lower()
-        if cunit == 'degc':  
-            tchk = 1
-        elif cunit == 'degf':
-            tchk = 2
-        elif cunit == 'psia':
-            tchk = 3
-        else:
-            tchk = 0
-    except:
+        tchk = { 'degc': 1, 'degf': 2, 'psia': 3 }.get(cunit, 0)
+    else:
         tchk = 0
-    
     return tchk
 
 #-------------------------------------------------------------------------------------------
