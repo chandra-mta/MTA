@@ -11,6 +11,7 @@ import os
 import sys
 import re
 import math
+import traceback
 import astropy.io.fits  as pyfits
 import os.path
 import unittest
@@ -222,7 +223,7 @@ def round_up(val):
         dist = int(math.log10(abs(val)))
         if dist < -2:
             val *= 10 ** abs(dist)
-    except:
+    except ValueError:
         dist = 0
 
     val = f"{round(val, 2):3.2f}"
@@ -256,7 +257,7 @@ def read_unit_list():
         atemp = re.split(r'\s+', ent)
         try:
             udict[atemp[0].lower()] = atemp[1]
-        except:
+        except IndexError:
             pass
 #
 #--- read dataseeker unit list and replace if they are not same
@@ -275,7 +276,7 @@ def read_unit_list():
         try:
             float(atemp[2])
             tchk = 0
-        except:
+        except ValueError:
             tchk = 1
         if tchk == 1:
             if atemp[2] != '':
@@ -342,7 +343,7 @@ def read_description_from_mta_list():
             if btemp[-2] in ['K', 'V', 'AMP', 'RATE', 'CNT', 'uA', 'RPS', 'C', 'mm', 'CURRENT', 'STEP']:
                 description = description.replace(btemp[-2],"")
             mdict[msid] = description.strip()
-        except:
+        except IndexError:
             pass
 
     return mdict
@@ -477,8 +478,8 @@ def get_limit(msid, tchk, mta_db, mta_cross):
                 glim.append(ent)
             else:
                 glim = out
-         
-        except:
+        except Exception:
+            traceback.print_exc()
             glim = [[0,  3218831995, -9e6, 9e6, -9e6, 9e6]]
     
     return glim
@@ -566,7 +567,7 @@ def update_fits_file(fits, cols, cdata, tcut=0):
         try:
             nlist   = list(data[cols[k]]) + list(cdata[k])
             udata.append(numpy.array(nlist))
-        except:
+        except (IndexError, TypeError):
             chk = 1
             break
 
@@ -581,7 +582,8 @@ def update_fits_file(fits, cols, cdata, tcut=0):
             
         try:
             create_fits_file(fits, cols, cdata)
-        except:
+        except Exception:
+            traceback.print_exc()
             pass
 
 #-------------------------------------------------------------------------------------------
@@ -601,7 +603,7 @@ def create_fits_file(fits, cols, cdata):
         aent = numpy.array(cdata[k])
         try:
             dcol = pyfits.Column(name=cols[k], format='F',   array=aent)
-        except:
+        except ValueError:
             dcol = pyfits.Column(name=cols[k], format='10A', array=aent)
         dlist.append(dcol)
     
@@ -800,7 +802,7 @@ def create_date_list_to_yesterday(testfits, yesterday=''):
     try:
         float(yesterday)
         chk = 1
-    except:
+    except ValueError:
         chk = 0
     
     if chk == 0:
@@ -882,7 +884,8 @@ def combine_fits(flist, outname):
     for k in range(1, len(flist)):
         try:
             mfits.appendFitsTable(outname, flist[k], 'temp.fits')
-        except:
+        except Exception:
+            traceback.print_exc()
             continue
      
         cmd = 'mv temp.fits ' + outname
