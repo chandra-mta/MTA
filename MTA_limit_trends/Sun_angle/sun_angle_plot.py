@@ -19,6 +19,7 @@ import math
 import time
 import numpy
 import getpass
+import argparse
 #
 #--- interactive plotting module
 #
@@ -521,49 +522,21 @@ if __name__ == "__main__":
     else:
         os.system(f"mkdir -p /tmp/{user}; touch /tmp/{user}/{name}.lock")
 
-    if len(sys.argv) == 2:
-        msid_list = sys.argv[1]
-        plot_sun_angle_data(msid_list)
-
-    elif len(sys.argv) == 3:
-        msid_list = sys.argv[1]
-        chk       = sys.argv[2]
-        mc  = re.search('lupdate', chk)
-        mc2 = re.search('year', chk)
-        
-        if mc is not None:
-            atemp  = re.split('lupdate=', chk)
-            lupdate = int(float(atemp[1]))
-            plot_sun_angle_data(msid_list, inyear='', lupdate=lupdate)
-        elif mc2 is not None:
-            atemp  = re.split('year=', chk)
-            year = int(float(atemp[1]))
-            plot_sun_angle_data(msid_list, inyear=year, lupdate=0)
+    try:
+        parser = argparse.ArgumentParser(description="Plot sun angle data")
+        parser.add_argument("--msid_list", required=True, help="List of MSIDs")
+        parser.add_argument("--year", type=int, help="Specific year")
+        parser.add_argument("--lupdate", type=int, choices=[0, 1, 2])
+        args = parser.parse_args()
+        #: CLI configs needs full refactor. Not coherent algorithm
+        if args.year is not None:
+            plot_sun_angle_data(args.msid_list, inyear=args.year)
+        elif args.lupdate is not None:
+            plot_sun_angle_data(args.msid_list, lupdate=args.lupdate)
         else:
-            chk = int(float(chk))
-            plot_sun_angle_data(msid_list, chk)
-            
-    elif len(sys.argv) == 4:
-        msid_list = sys.argv[1]
-
-        try:
-            year      = int(float(sys.argv[2]))
-        except:
-            atemp  = re.split('year=', ys.argv[2])
-            year = int(float(atemp[1]))
-
-        try:
-            lupdate   = int(float(sys.argv[3]))
-        except:
-            atemp  = re.split('lupdate=', ys.argv[3])
-            lupdate = int(float(atemp[1]))
-
-        plot_sun_angle_data(msid_list, inyear=year, lupdate=lupdate)
-
-
-    else:
-       print("please provide <msid_list>. you can also specify year. year=<year> lupdate=<lupdate: 0 or 1>" )
+            plot_sun_angle_data(args.msid_list)
+    finally:
 #
 #--- Remove lock file once process is completed
 #
-    os.system(f"rm /tmp/{user}/{name}.lock")
+        os.system(f"rm /tmp/{user}/{name}.lock")
