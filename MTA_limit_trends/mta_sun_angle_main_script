@@ -5,5 +5,5 @@ mkdir param
 /data/mta/Script/MTA_limit_trends/Scripts/Sun_angle/update_sun_angle_file.py
 
 /data/mta/Script/MTA_limit_trends/Scripts/Sun_angle/create_msid_sun_angle_file.py msid_list_sun_angle
-/data/mta/Script/MTA_limit_trends/Scripts/Sun_angle/sun_angle_plot.py msid_list_sun_angle
+/data/mta/Script/MTA_limit_trends/Scripts/Sun_angle/sun_angle_plot.py --msid_list msid_list_sun_angle
 /data/mta/Script/MTA_limit_trends/Scripts/Sun_angle/create_sun_angle_html_page.py msid_list_sun_angle
