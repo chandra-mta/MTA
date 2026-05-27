@@ -472,7 +472,7 @@ def plot_data(x, y0, y1, y2, xmin, xmax, ymin, ymax,  xname, yname, outname, wid
     plt.close('all')
 
     print("Data: " + str(outname))
-    cmd = f"convert ./ztemp.png -trim {PLOT_DIR}{outname}; rm -f ztemp.png"
+    cmd = f"magick ./ztemp.png -trim {PLOT_DIR}{outname}; rm -f ztemp.png"
     os.system(cmd)
 #-------------------------------------------------------------------------------
 #-- set_plotting_range: find min/max of x and y axes and set plotting ranges  --
