@@ -105,7 +105,7 @@ def old_fit_to_image(file_p, outfile):
     this one is an older form of create_acis_img --- not used 
     """
     mtaimg.mta_convert_fits_to_image(file_p, outfile, 'log', '125x125', 'heat', 'png')
-    cmd = 'convert -trim ' + outfile + '.png ztemp.png'
+    cmd = 'magick -trim ' + outfile + '.png ztemp.png'
     os.system(cmd)
     cmd = 'mv ztemp.png ' + outfile + '.png'
     os.system(cmd)

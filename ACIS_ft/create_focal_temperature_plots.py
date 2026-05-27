@@ -488,7 +488,7 @@ def plot_data(x, y0, y1, y2, xmin, xmax, ymin, ymax,  xname, yname, outname, wid
 #--- close the plot
 #
     plt.close('all')
-    cmd = f"convert ./ztemp.png -trim {PLOT_DIR}{outname}; rm -f ztemp.png"
+    cmd = f"magick ./ztemp.png -trim {PLOT_DIR}{outname}; rm -f ztemp.png"
     os.system(cmd)
 
 #-------------------------------------------------------------------------------

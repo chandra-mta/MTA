@@ -146,7 +146,7 @@ def plot_max_dose(date, hrci_max, hrcs_max):
 #
 #--- convert is unix command to change img format
 #
-    cmd = 'convert hrc_max_exp.png hrc_max_exp.gif'
+    cmd = 'magick hrc_max_exp.png hrc_max_exp.gif'
     os.system(cmd)
     os.system('rm hrc_max_exp.png')
 
