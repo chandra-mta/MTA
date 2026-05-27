@@ -91,7 +91,7 @@ def hrc_dose_plot_exposure_stat(indir = 'NA', outdir = 'NA', clean = 'NA'):
 #--- trim the edge of the plot and move to the plot directory
 #
             outfile = detector + '.png'
-            cmd = 'convert hrc.png -trim ' + plot_dir +  detector + '.png'
+            cmd = 'magick hrc.png -trim ' + plot_dir +  detector + '.png'
             os.system(cmd)
 
             mcf.rm_files('hrc.png')

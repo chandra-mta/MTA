@@ -87,7 +87,7 @@ def acis_dose_plot_exposure_stat(indir='NA', outdir='NA', clean='NA'):
 #
 #--- trim the edge and move to the plot directory
 #
-            cmd = 'convert acis.png -trim ' + outdir + inst + '.png' 
+            cmd = 'magick acis.png -trim ' + outdir + inst + '.png' 
             os.system(cmd)
             mcf.rm_files('rm acis.png')
 
