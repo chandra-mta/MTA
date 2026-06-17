@@ -1,47 +1,22 @@
-#!/proj/sot/ska3/flight/bin/python
+"""
+**read_limit_table.py**: read a limit table and create msid <--> limit dictionary
 
-#############################################################################################
-#                                                                                           #
-#       read_limit_table.py: read a limit table and create msid <--> limit dictionary       #
-#                                                                                           #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
-#                                                                                           #
-#           last update: Feb 01, 2021                                                       #
-#                                                                                           #
-#############################################################################################
+:Author: t. isobe (tisobe@cfa.harvard.edu)
+:Maintainer: w. aaron (william.aaron@cfa.harvard.edu)
+:Last Updated: Feb 23, 2026
 
-import os
-import sys
+"""
+
 import re
-import string
-import time
-import numpy
-import astropy.io.fits  as pyfits
-from astropy.io.fits import Column
+import unittest
 #
-#--- reading directory list
+#--- Define Directory Pathing
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
+LIMIT_DATA_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data/Limit_data"
 
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
-#
-#--- append path to a private folder
-#
-sys.path.append(bin_dir)
-sys.path.append(mta_dir)
-#
-#--- import several functions
-#
-import mta_common_functions     as mcf  #---- contains other functions commonly used in MTA scripts
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 
-kptops = 0.145038             #--- kp to psia conversion
+KPTOPS = 0.145038             #--- kp to psia conversion
 
 #--------------------------------------------------------------------------------
 #-- get_limit_table: create msid <---> limit table dictionary                 ---
@@ -65,8 +40,8 @@ def get_limit_table():
 #
 #--- read limit data table
 #
-    ifile = limit_dir + 'Limit_data/op_limits_new.db'
-    ldata = mcf.read_data_file(ifile)
+    with open(f"{LIMIT_DATA_DIR}/op_limits_new.db") as f:
+        ldata = [line.strip() for line in f.readlines()]
 #
 #--- create a list of lists in the form of 
 #--- [<time stamp>, <condition msid>, <switch>, <y_low>, <y_top>, <r_low>, <r_top>]
@@ -89,12 +64,12 @@ def get_limit_table():
         if btemp[0].strip() == msid:
             try:
                 unit = unit_dict[msid].lower()
-            except:
+            except KeyError:
                 unit = ''
             if unit  == 'psia':
                 alist =[int(float(btemp[7])), btemp[5], btemp[6], 
-                    float(btemp[1])/kptops, float(btemp[2])/kptops, 
-                    float(btemp[3])/kptops, float(btemp[4])/kptops]
+                    float(btemp[1])/KPTOPS, float(btemp[2])/KPTOPS, 
+                    float(btemp[3])/KPTOPS, float(btemp[4])/KPTOPS]
             else:
                 alist =[int(float(btemp[7])), btemp[5], btemp[6], 
                     float(btemp[1]), float(btemp[2]), float(btemp[3]), float(btemp[4])]
@@ -111,12 +86,12 @@ def get_limit_table():
                 msid = btemp[0].strip()
                 try:
                     unit = unit_dict[msid].lower()
-                except:
+                except KeyError:
                     unit = ''
                 if unit == 'psia':
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
-                    float(btemp[1])/kptops, float(btemp[2])/kptops, 
-                    float(btemp[3])/kptops, float(btemp[4])/kptops]
+                    float(btemp[1])/KPTOPS, float(btemp[2])/KPTOPS, 
+                    float(btemp[3])/KPTOPS, float(btemp[4])/KPTOPS]
                 else:
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
                         float(btemp[1]), float(btemp[2]), float(btemp[3]), float(btemp[4])]
@@ -137,12 +112,12 @@ def get_limit_table():
                 msid  = btemp[0].strip()
                 try:
                     unit = unit_dict[msid].lower()
-                except:
+                except KeyError:
                     unit = ''
                 if unit == 'psia':
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
-                    float(btemp[1])/kptops, float(btemp[2])/kptops, 
-                    float(btemp[3])/kptops, float(btemp[4])/kptops]
+                    float(btemp[1])/KPTOPS, float(btemp[2])/KPTOPS, 
+                    float(btemp[3])/KPTOPS, float(btemp[4])/KPTOPS]
                 else:
                     alist =[int(float(btemp[7])), btemp[5], btemp[6], 
                         float(btemp[1]), float(btemp[2]), float(btemp[3]), float(btemp[4])]
@@ -188,7 +163,6 @@ def create_limit_table(limit_save):
 #--- clean switch list 
 #
     slist = list(set(slist))
-    slen  = len(slist)
 #
 #--- initialize limit dict
 #
@@ -268,45 +242,43 @@ def create_limit_table(limit_save):
 
     return asave
 
-#--------------------------------------------------------------------------------
+class TestFunctions(unittest.TestCase):
+
+    def test_get_limit_table(self):
+        [limit_dict, cnd_dict]  = get_limit_table() 
+
+        limit_1pin1at = [
+            [31536000, 149448824, ["none"], {"none": [253.15, 303.15, 236.65, 309.65]}],
+            [
+                149448824,
+                168036654,
+                ["none"],
+                {"none": [253.15, 304.65, 236.65, 309.65]},
+            ],
+            [
+                168036654,
+                224187532,
+                ["none"],
+                {"none": [253.15, 308.15, 236.65, 313.15]},
+            ],
+            [
+                224187532,
+                577371844,
+                ["none"],
+                {"none": [253.15, 314.15, 236.65, 319.15]},
+            ],
+            [
+                577371844,
+                6374591994,
+                ["none"],
+                {"none": [-9999998.0, 9999998.0, -9999999.0, 9999999.0]},
+            ],
+        ]
+
+        cnd_1pin1at = 'none'
+        
+        self.assertEqual(limit_1pin1at, limit_dict['1pin1at'])
+        self.assertEqual(cnd_1pin1at, cnd_dict['1pin1at'])
 
 if __name__ == "__main__":
-
-    [limit_dict, cnd_dict]  = get_limit_table()
-
-    out = limit_dict['1pin1at']
-    print(str(out))
-
-    out = cnd_dict['1pin1at']
-    print("\nSTATE: " + str(out))
-
-
-    print("\n\n")
-#
-#    out = limit_dict['1dahbcu']
-#    print(str(out))
-#
-#    print("3 : " + str(out[3][3]))
-#
-#    ddict = out[4][3]['on']
-#    print("\nON CASE: " + str(ddict))
-#
-#    out = cnd_dict['1dahbcu']
-#    print("\nSTATE: " + str(out))
-#
-#
-#    print("\n\n")
-#
-#    out = limit_dict['1dahbcu']
-#    print(str(out))
-#
-#    print("3 : " + str(out[3][3]))
-#
-#    ddict = out[4][3]['on']
-#    print("\nON CASE: " + str(ddict))
-#
-#    out = cnd_dict['1dahbcu']
-#    print("\nSTATE: " + str(out))
-#
-#    out = limit_dict['airu1g1t']
-#    print(str(out))
+    unittest.main()

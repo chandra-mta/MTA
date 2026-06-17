@@ -1,44 +1,40 @@
 #!/proj/sot/ska3/flight/bin/python
+"""
+**run_glimmon_trend_data_update.py** update trend data with limits in glimmon database
 
-#############################################################################################
-#                                                                                           #
-#   run_glimmon_trend_data_update.py: update trend data with limits in glimmon database     #
-#                                                                                           #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
-#                                                                                           #
-#           last update: Feb 01, 2021                                                       #
-#                                                                                           #
-#############################################################################################
+:Author: t. isobe (tisobe@cfa.harvard.edu)
+:Maintainer: w. aaron (william.aaron@cfa.harvard.edu)
+:Last Updated: Feb 17 2026
+
+# /// testing
+# tested-ska-release="2026.1"
+# ///
+"""
 
 import os
 import sys
 import re
-import string
 import time
 import numpy
 import argparse
-import getpass
+import json
 import astropy.io.fits  as pyfits
 from astropy.io.fits import Column
-import Ska.engarchive.fetch as fetch
-import Chandra.Time
+from cheta import fetch
+from cxotime import CxoTime
+import traceback
 #
-#--- reading directory list
+# --- Define Directory Pathing
 #
-path = '/data/mta/Script/MTA_limit_trends/Scripts/house_keeping/dir_list'
-with open(path, 'r') as f:
-    data = [line.strip() for line in f.readlines()]
-
-for ent in data:
-    atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec("%s = %s" %(var, line))
+HOUSE_KEEPING = "/data/mta/Script/MTA_limit_trends/Scripts/house_keeping"
+MTA_DIR = "/data/mta/Script/Python3.13/MTA"
+TREND_DATA_DIR = "/data/mta/Script/MTA_limit_trends/Data"
+OUT_TREND_DATA_DIR = TREND_DATA_DIR
+LIMIT_DIR = "/data/mta/Script/MSID_limit/Trend_limit_data"
 #
 #--- append path to a private folder
 #
-sys.path.append(bin_dir)
-sys.path.append("/data/mta4/Script/Python3.10/MTA")
+sys.path.append(MTA_DIR)
 #
 #--- import several functions
 #
@@ -46,11 +42,7 @@ import mta_common_functions     as mcf  #---- contains other functions commonly 
 import envelope_common_function as ecf  #---- contains other functions commonly used in envelope
 import fits_operation           as mfo  #---- fits operation collection
 import read_limit_table         as rlt  #---- read limit table and create msid<--> limit dict
-#
-#--- other path setting
-#
-#limit_dir = '/data/mta/Script/MSID_limit/Trend_limit_data/'
-limit_dir = '/data/mta/Script/MSID_limit/Trend_limit_data/'
+
 #
 #--- fits generation related lists
 #
@@ -97,26 +89,24 @@ def run_data_update(mtype, catg_dict):
     """
     [lim_dict, cnd_dict] = rlt.get_limit_table()
 
-#    if mtype == 'm':
-#        ifile = limit_dir + 'Limit_data/multi_switch_limit'
-#    else:
-#        ifile = limit_dir + 'Limit_data/trend_limit'
-    ifile = limit_dir + 'Limit_data/op_limits_new.db'
+    ifile = f"{LIMIT_DIR}/Limit_data/op_limits_new.db"
 #
 #--- first find which msids are in that category, and extract data
 #
-    data  = mcf.read_data_file(ifile)
+    
+    with open(ifile) as f:
+        data = [line.strip() for line in f.readlines()]
+
     for ent in data:
         if ent[0] == '#':
             continue
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         msid  = atemp[0]
         catg  = catg_dict[msid]
 #
 #--- just in a case the data category directory does not exist
 #
-        cmd = 'mkdir -p ' + data_dir + atemp[1]
-        os.system(cmd)
+        os.makedirs(f"{OUT_TREND_DATA_DIR}/{catg}", exist_ok=True)
 
         print("MSID: " + catg + '/' + msid)
 #
@@ -152,8 +142,8 @@ def run_for_msid_list(msid_list, dtype):
     """
     [lim_dict, cnd_dict] = rlt.get_limit_table()
 
-    ifile = house_keeping + msid_list
-    data  = mcf.read_data_file(ifile)
+    with open(f"{HOUSE_KEEPING}/{msid_list}") as f:
+        data = [line.strip() for line in f.readlines()]
 
     for ent in data:
         if ent[0] == '#':
@@ -161,7 +151,7 @@ def run_for_msid_list(msid_list, dtype):
         elif ent.strip() == '':
             continue
 
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         msid  = atemp[0].strip()
         catg  = atemp[1].strip()
 
@@ -169,8 +159,7 @@ def run_for_msid_list(msid_list, dtype):
 #
 #--- just in a case the data category directory does not exist
 #
-        cmd = 'mkdir -p ' + data_dir + atemp[1]
-        os.system(cmd)
+        os.makedirs(f"{OUT_TREND_DATA_DIR}/{catg}", exist_ok=True)
 #
 #--- set data period
 #
@@ -241,17 +230,17 @@ def find_data_collection_period(msid, catg, dtype):
 #--- week data are always extracted from two weeks ago up to today
 #
     if dtype == 'week':
-        dfile = data_dir +  catg + '/' + msid + '_week_data.fits'
+        dfile = f"{OUT_TREND_DATA_DIR}/{catg}/{msid}_week_data.fits"
         stime = etime  - 86400 * 14
 #
 #--- for others, find the last entry time from the exisiting fits data file
 #
     elif dtype == 'short':
-        dfile = data_dir +  catg + '/' + msid + '_short_data.fits'
+        dfile = f"{OUT_TREND_DATA_DIR}/{catg}/{msid}_short_data.fits"
         stime = find_last_entry_time(dfile, dtype, etime)
 
     else:
-        dfile = data_dir +  catg + '/' + msid + '_data.fits'
+        dfile = f"{OUT_TREND_DATA_DIR}/{catg}/{msid}_data.fits"
         stime = find_last_entry_time(dfile, dtype, etime)
 
 
@@ -268,7 +257,7 @@ def today_date_chandra():
     output: stime   --- today's date (0 hr) in seconds from 1998.1.1
     """
     today = time.strftime('%Y:%j:00:00:00', time.gmtime())
-    stime = Chandra.Time.DateTime(today).secs
+    stime = CxoTime(today).secs
 
     return stime
 
@@ -738,53 +727,97 @@ def create_category_dict():
     input:  none but read from <house_keeping>/msid_list
     output: catg_dict
     """
-    ifile = limit_dir + 'house_keeping/msid_list'
-    data  = mcf.read_data_file(ifile)
+    with open(f"{LIMIT_DIR}/house_keeping/msid_list") as f:
+        data = [line.strip() for line in f.readlines()]
     catg_dict = {}
     for ent in data:
-        atemp = re.split('\s+', ent)
+        atemp = re.split(r'\s+', ent)
         catg_dict[atemp[0]] = atemp[1]
    
     return catg_dict
 
+def fetch_category_dict():
+    
+    with open(f"{HOUSE_KEEPING}/msid_to_category.json") as f:
+        catg_dict = json.load(f)
+    return catg_dict
+
+def get_options(args = None):
+    parser = argparse.ArgumentParser(description="Run Glimmon Trending Data")
+    parser.add_argument('-m', '--mode', choices = ['flight','test'], required = True, help = "Determine running mode.")
+    parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
+                        action="extend",nargs='*',type=str, choices=["week","short","long"])
+    parser.add_argument("--msid", help="Process specific MSID",type=str)
+    opt = parser.parse_args()
+    return opt
+
 #--------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-#
-#--- Create a lock file and exit strategy in case of race conditions
-#
-    name = os.path.basename(__file__).split(".")[0]
-    user = getpass.getuser()
-    if os.path.isfile(f"/tmp/{user}/{name}.lock"):
-        sys.exit(f"Lock file exists as /tmp/{user}/{name}.lock. Process already running/errored out. Check calling scripts/cronjob/cronlog.")
+
+    opt = get_options()
+
+    if opt.mode == 'test':
+        #: Repath
+        HOUSE_KEEPING = f"{os.getcwd()}/house_keeping"
+        OUT_TREND_DATA_DIR = f"{os.getcwd()}/test/_outTest"
+        os.makedirs(OUT_TREND_DATA_DIR, exist_ok=True)
+
+    catg_dict = fetch_category_dict()
+    [lim_dict, cnd_dict] = rlt.get_limit_table()
+    periods = opt.period or ['week', 'short', 'long']
+
+    if opt.msid is not None:
+        #: Running for only one msid, otherwise run them all
+        msids = [opt.msid]
     else:
-        os.system(f"mkdir -p /tmp/mta; touch /tmp/{user}/{name}.lock")
-    
+        msids = list(catg_dict.keys())
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-p','--period',help='Process specific time length. Choices are last two weeks, 1.5 years, or since 1999:201 respectively', \
-                        action="extend",nargs='*',type=str, choices=["week","short","long"])
-    parser.add_argument("-m","--msid_list",help="File name of msid list to use from housekeeping",type=str)
-    
-    parser.add_argument("--msid", help="Process specific MSID",type=str)
-    parser.add_argument("--start", help="Start time in seconds from 1998.1.1",type=float)
-    parser.add_argument("--stop", help="Stop time in seconds from 1998.1.1",type=float)
-    args = parser.parse_args()
+    #: Iterate over all msids and all periods
+    for msid in msids:
+        catg = catg_dict.get(msid)
+        os.makedirs(f"{OUT_TREND_DATA_DIR}/{catg}", exist_ok=True)
+        for dtype in periods:
+            [dfile, start, stop] = find_data_collection_period(msid, catg, dtype)
 
-    if args.msid is not None:
-        [lim_dict, cnd_dict] = rlt.get_limit_table()
-        alimit   = lim_dict[args.msid]
-        cnd_msid = cnd_dict[args.msid]
-
-    if args.period is not None:
-        for dtype in args.period:
-            if args.msid is not None:
-                extract_data_from_ska(args.msid, args.start, args.stop, dtype, alimit, cnd_msid)
-            elif args.msid_list is not None:
-                run_for_msid_list(args.msid_list, dtype)
-    else:
-        run_glimmon_trend_data_update()
 #
-#--- Remove lock file once process is completed
+#--- extract new data part; saved as a local fits file
 #
-    os.system(f"rm /tmp/{user}/{name}.lock")
+            try:
+                alimit   = lim_dict[msid]
+                cnd_msid = cnd_dict[msid]
+#
+#--- if the collection time is larger than a month, extract data for 30 day chunk
+#
+                diff = stop - start
+                if diff > a_month:
+                    mcnt = int(diff / a_month)
+                    for m in range(0, mcnt):
+                        mstart = start + a_month * m
+                        mstop  = mstart + a_month
+                        lstart = f"{mcf.chandratime_to_fraq_year(mstart):4.2f}"
+                        lstop  = f"{mcf.chandratime_to_fraq_year(mstop):4.2f}"
+                        print("Computing: " + str(lstart) + '<-->' + str(lstop))
+#
+#--- extract data and make a local fits file
+#
+                        out = extract_data_from_ska(msid, mstart, mstop, dtype, alimit, cnd_msid)
+#
+#--- update the main fits file, either move the local file or append the new part
+#
+                        if out:
+                            update_data_file(dfile, msid, dtype)
+
+                    out = extract_data_from_ska(msid, mstop, stop, dtype, alimit, cnd_msid)
+                    if out:
+                        update_data_file(dfile, msid, dtype)
+#
+#--- the data collection period is < 30 days
+#
+                else:
+                    out = extract_data_from_ska(msid, start, stop, dtype, alimit, cnd_msid)
+                    if out:
+                        update_data_file(dfile, msid, dtype)
+            except Exception:
+                traceback.print_exc()
+                continue

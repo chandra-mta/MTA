@@ -84,7 +84,7 @@ def update_simdiag_data(date = ''):
 #--- find date to read the data
 #
     if date == '':
-        date_list = ecf.create_date_list_to_yestaday(testfits)
+        date_list = ecf.create_date_list_to_yesterday(testfits)
     else:
         date_list = [date]
 
