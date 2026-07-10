@@ -3,5 +3,6 @@
 '/data/mta_www/mta_grat/EdE_trend/EdE_Data/'                : data_dir
 '/data/mta/Script/Grating/EdE_trend/Scripts/house_keeping/' : house_keeping
 '/usr/local/bin/'                                           : op_dir
-'/data/mta/Script/Python_script2.7/'                        : mta_dir
+'/data/mta/Script/Python3.8/MTA/'                           : mta_dir
+'/data/mta/Script/Python3.8/Sybase/'                        : sybase_dir
 '/data/mta_www/mta_grat/Grating_Data/'                      : gdata_dir

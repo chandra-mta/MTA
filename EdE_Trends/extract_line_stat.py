@@ -1,15 +1,14 @@
-#!/usr/bin/env /proj/sot/ska/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
-#############################################################################################
-#                                                                                           #
-#       extract_line_stat.py: extract line statistics                                       #
-#                                                                                           #
-#                                                                                           #
-#           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
-#                                                                                           #
-#           last update: Jul 18, 2018                                                       #
-#                                                                                           #
-#############################################################################################
+#########################################################################
+#                                                                       #
+#       extract_line_stat.py: extract line statistics                   #
+#                                                                       #
+#           author: t. isobe (tisobe@cfa.harvard.edu)                   #
+#                                                                       #
+#           last update: Aug 28, 2019                                   #
+#                                                                       #
+#########################################################################
 
 import os
 import sys
@@ -20,41 +19,36 @@ import numpy
 import time
 import Chandra.Time
 import unittest
+import random
 #
 #--- reading directory list
 #
 path = '/data/mta/Script/Grating/EdE_trend/Scripts/house_keeping/dir_list_py'
 
-f    = open(path, 'r')
-data = [line.strip() for line in f.readlines()]
-f.close()
+with open(path, 'r') as f:
+    data = [line.strip() for line in f.readlines()]
 
 for ent in data:
     atemp = re.split(':', ent)
     var  = atemp[1].strip()
     line = atemp[0].strip()
-    exec "%s = %s" %(var, line)
-
+    exec("%s = %s" %(var, line))
 #
 #--- append a path to a private folder to python directory
 #
 sys.path.append(bin_dir)
 sys.path.append(mta_dir)
+sys.path.append(sybase_dir)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
-import convertTimeFormat    as tcnv
-import mta_common_functions as mcf
-import readSQL              as tdsql
+import mta_common_functions   as mcf
+import set_sybase_env_and_run as sser
 #
 #--- temp writing file name
 #
-rtail  = int(time.time())
+rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
-
-m_list   = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-m_start1 = [0, 31, 59, 90, 120, 151, 181, 212, 243, 373, 304, 334]
-m_start2 = [0, 31, 60, 91, 121, 152, 182, 213, 244, 374, 305, 335]
 #
 #--- lines to extract
 #
@@ -73,12 +67,11 @@ def get_lines(grating):
     output: acis_<grating>_<line>_data
     """
 #
-#--- read data file ehader
+#--- read data file header
 #
     infile = house_keeping + 'data_header'
-    f      = open(infile, 'r')
-    header = f.read()
-    f.close()
+    with open(infile, 'r') as f:
+        header = f.read()
 #
 #--- set which grating data to extract
 #
@@ -96,18 +89,17 @@ def get_lines(grating):
         l_list = l_lines
 
     os.system(cmd)
-    d_list = read_data_file(zspace, remove=1)
+    d_list = mcf.read_data_file(zspace, remove=1)
 
     sdate_list = [[], [], [], [], [], [], []]
     line_list  = [{}, {}, {}, {}, {}, {}, {}]
     lcnt       = len(l_list)
-
 #
 #---- go though each files
 #
     for dfile in d_list:
 
-        out = find_info(dfile)
+        out = find_obs_date(dfile)
         if out == 'na':
             continue
         else:
@@ -115,10 +107,10 @@ def get_lines(grating):
 #
 #--- extract line information. if energy or fwhm are either "*" or "NaN", skip
 #
-        data = read_data_file(dfile)
+        data = mcf.read_data_file(dfile)
         for ent in data:
             atemp = re.split('\s+', ent.strip())
-            if mcf.chkNumeric(atemp[0]):
+            if mcf.is_neumeric(atemp[0]):
                 energy = atemp[2]
                 fwhm   = atemp[3]
 
@@ -127,7 +119,7 @@ def get_lines(grating):
 
                 if (fwhm == '*') or (fwhm == 'NaN'):
                     continue
-                energy = adjust_digit(energy, 6)
+                energy = mcf.add_tailing_zero(energy, 6)
                 peak   = float(energy)
                 err    = atemp[4]
                 ede    = atemp[5]
@@ -148,79 +140,34 @@ def get_lines(grating):
 #--- output file name
 #
     for k in range(0, lcnt):
+#
+#--- print out the data
+#
+        slist = sdate_list[k]
+        slist.sort()
+
+        line  = header + '\n'
+        for sdate in slist:
+            line = line +  line_list[k][sdate]
+
         val   = str(l_list[k])
         if len(val) < 4:
             val = '0' + val
 
         odata =  data_dir + ofile + val + '_data'
-        fo = open(odata, 'w')
-        fo.write(header)
-        fo.write('\n')
-#
-#--- print out the data
-#
-        slist  = sdate_list[k]
-        slist.sort()
-        for sdate in slist:
-            ent = line_list[k][sdate]
-            fo.write(ent)
-        fo.close()
+        with open(odata, 'w') as fo:
+            fo.write(line)
         
 #---------------------------------------------------------------------------------------------------
-#-- read_data_file: read data file                                                                --
+#-- find_obs_date: find obsid and a observation time                                                  --
 #---------------------------------------------------------------------------------------------------
 
-def read_data_file(infile, remove=0):
-    """
-    read data file
-    input:  infile  --- input file name
-            remove  --- if not 0, remove the infile after reading it
-    output: data    --- data list
-    """
-
-    f     = open(infile, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
-
-    if remove == 1:
-        mcf.rm_file(infile)
-
-    return data
-
-#---------------------------------------------------------------------------------------------------
-#-- adjust_digit: add '0' to the end to fill the length after a dicimal point                     --
-#---------------------------------------------------------------------------------------------------
-
-def adjust_digit(val, digit):
-    """
-    add '0' to the end to fill the length after a dicimal point
-    input:  val     --- value
-            digit   --- the number of decimal position
-    output: val     --- adjust value (str)
-    """
-    val   = str(val)
-    atemp = re.split('\.', val)
-
-    vlen  = len(atemp[1])
-    diff  = digit - vlen
-    if diff > 0:
-        for k in range(0, diff):
-            atemp[1] = atemp[1] + '0'
-
-    val   = atemp[0] + '.' + atemp[1]
-
-    return val
-
-#---------------------------------------------------------------------------------------------------
-#-- find_info: find obsid and a observation time                                                  --
-#---------------------------------------------------------------------------------------------------
-
-def find_info(dfile):
+def find_obs_date(dfile):
     """
     find obsid and a observation time
     input:  dfile   --- original data file name
     output: obisd   --- obsid
-            ltime   --- time in the format of <yyyy>:<ddd>:<hh>:<mm>:<ss
+            ltime   --- time in the format of <yyyy>:<ddd>:<hh>:<mm>:<ss>
             stime   --- tine in second from 1998.1.1
     """
 #
@@ -229,32 +176,34 @@ def find_info(dfile):
     atemp = re.split('obsid_', dfile)
     btemp = re.split('_', atemp[1])
     obsid = btemp[0]
-
-    monitor = []
-    groupid = []
 #
-#--- get information about obsid
+#--- get observation data from sybase
 #
     try:
-        sqlinfo = tdsql.get_target_info(obsid, monitor, groupid)
+        cmd   = 'select soe_st_sched_date,lts_lt_plan from target where obsid=' + obsid
+        out   = sser.set_sybase_env_and_run(cmd)
+        sdate = out[0][0]
+        ldate = out[0][1]
+#
+#--- get lts time first
+#
+        ltime = time.strftime('%Y:%j:%H:%M:%S', time.strptime(ldate, '%Y-%m-%dT%H:%M:%S'))
+#
+#--- check soe scheduled date is available
+#
+        try:
+            sdate = sdate.strip()
+            ltime = convert_date_format(sdate)
+        except:
+            pass
     except:
         return 'na'
 #
-#--- 11th data is the date of the observation
-#
-    sdate   = sqlinfo[11]
-#
-#--- convert the time into <yyyy>:<ddd>:<hh>:<mm>:<ss>
-#
-    ltime = convert_date_format(sdate)
-#
 #--- convert time into seconds from 1998.1.1
 #
-    stime = date = Chandra.Time.DateTime(ltime).secs
-
+    stime = Chandra.Time.DateTime(ltime).secs
 
     return [obsid, ltime, stime]
-
 
 #---------------------------------------------------------------------------------------------------
 #-- convert_date_format: from <Mmm> <dd> <yyy> <hh>:<mm><AM/PM> to <yyyy>:<ddd>:<hh>:<mm>:<ss>    --
@@ -262,51 +211,34 @@ def find_info(dfile):
 
 def convert_date_format(sdate):
     """
-    convert time format from <Mmm> <dd> <yyy> <hh>:<mm><AM/PM> to <yyyy>:<ddd>:<hh>:<mm>:<ss>
+    convert time format from <Mmm> <dd> <yyyy> <hh>:<mm><AM/PM> to <yyyy>:<ddd>:<hh>:<mm>:<ss>
     input   sdate   --- date in <Mmm> <dd> <yyy> <hh>:<mm><AM/PM>
     output  ltime   --- date in <yyyy>:<ddd>:<hh>:<mm>:<ss>
     """
-    atemp   = re.split('\s+', str(sdate))
-    mon     = atemp[0]
-    for k in range(0, 12):
-        if mon.upper() == m_list[k]:
-            mpos = k
-            break
+    atemp   = re.split('\s+', sdate)
+    mon     = mcf.change_month_format(atemp[0])
+    mon     = mcf.add_leading_zero(mon)
+    day     = atemp[1]
+    day     = mcf.add_leading_zero(day)
+    year    = atemp[2]
 
-    date    = int(float(atemp[1]))
-    year    = int(float(atemp[2]))
-    if tcnv.isLeapYear(year) == 1:
-
-        m_start = m_start2
-    else:
-        m_start = m_start1
-
-    yday = m_start[mpos] + date
-    syday = str(yday)
-    if yday < 10:
-        syday = '00' + syday
-    elif yday < 100:
-        syday = '0'  + syday
-
-    tpart = atemp[3]
+    tpart   = atemp[3]
     mc    = re.search('AM', tpart)
     if mc is not None:
         add = 0
+        spl = 'AM'
     else:
         add = 12
+        spl = 'PM'
+    btemp   = re.split(spl, tpart)
+    ctemp   = re.split(':', btemp[0])
+    hr      = str(int(ctemp[0]) + add)
+    mm      = ctemp[1]
 
-    tpart = tpart[:-2]
-    btemp = re.split(':', tpart)
-    hh    = int(float(btemp[0])) + add
-    shh   = str(hh)
-    if hh < 10:
-        shh = '0' + shh
-
-
-    ltime = str(year) + ':' + str(syday) + ':' + str(shh) + ':' + str(btemp[1]) + ':00'
+    ltime = year + ':' + mon + ':' + day + ':' + hr + ':' + mm + ':00'
+    ltime = time.strftime("%Y:%j:%H:%M:%S", time.strptime(ltime, '%Y:%m:%d:%H:%M:%S'))
 
     return ltime
-
 
 #-----------------------------------------------------------------------------------------
 #-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST    ---
@@ -318,28 +250,24 @@ class TestFunctions(unittest.TestCase):
     """
 #------------------------------------------------------------
 
+    def test_find_obs_date(self):
+        dfile = 'obsid_21746_L1.5_S1HEGp1_linelist.txt'
+        out   = find_obs_date(dfile)
 
-    def test_find_info(self):
-        dfile = 'obsid_21053_L1.5_S1HEGp1_linelist.txt'
-        out   = find_info(dfile)
-        self.assertEquals(out[0], '21053')
-        self.assertEquals(out[1], '2018:092:03:37:00')
-        self.assertEquals(out[2], 639027489.184)
-
-    def test_adjust_digit(self):
+    def test_mcfadd_tailing_zero(self):
         val  = 1.233
         digit= 6
-        aval = adjust_digit(val, digit)
-        self.assertEquals(aval, '1.233000')
+        aval = mcf.add_tailing_zero(val, digit)
+        self.assertEqual(aval, '1.233000')
 
     def test_convert_date_format(self):
         itime = 'Dec  1 2014  3:52AM'
         out   = convert_date_format(itime)
-        self.assertEquals(out, '2014:335:03:52:00')
+        self.assertEqual(out, '2014:335:03:52:00')
 
         itime = 'Sep  4 2002  3:07PM'
         out   = convert_date_format(itime)
-        self.assertEquals(out, '2002:247:15:07:00')
+        self.assertEqual(out, '2002:247:15:07:00')
 
 #---------------------------------------------------------------------------------------------------
 
@@ -355,5 +283,3 @@ if __name__ == "__main__":
 
     else:
         unittest.main()
-
-
