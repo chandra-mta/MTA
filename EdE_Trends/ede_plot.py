@@ -1,4 +1,4 @@
-#!/usr/bin/env /proj/sot/ska/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: Jun 19, 2018                                                       #
+#           last update: Mar 09, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -16,29 +16,30 @@ import re
 import string
 import math
 import time
+import Chandra.Time
 import numpy
 
 import matplotlib as mpl
-
 if __name__ == '__main__':
-
     mpl.use('Agg')
 
+from pylab import *
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as font_manager
+import matplotlib.lines as lines
 #
 #--- reading directory list
 #
 path = '/data/mta/Script/Grating/EdE_trend/Scripts/house_keeping/dir_list_py'
 
-f    = open(path, 'r')
-data = [line.strip() for line in f.readlines()]
-f.close()
+with open(path, 'r') as f:
+    data = [line.strip() for line in f.readlines()]
 
 for ent in data:
     atemp = re.split(':', ent)
-    var  = atemp[1].strip()
-    line = atemp[0].strip()
-    exec "%s = %s" %(var, line)
-
+    var   = atemp[1].strip()
+    line  = atemp[0].strip()
+    exec("%s = %s" %(var, line))
 #
 #--- append a path to a private folder to python directory
 #
@@ -47,50 +48,47 @@ sys.path.append(mta_dir)
 #
 #--- converTimeFormat contains MTA time conversion routines
 #
-import convertTimeFormat    as tcnv
 import mta_common_functions as mcf
 import robust_linear        as robust
-
 #
 #--- temp writing file name
 #
-rtail  = int(time.time())
+import random
+rtail  = int(time.time() * random.random())
 zspace = '/tmp/zspace' + str(rtail)
 
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-- run_ede_plot: find the data files and plots the data                          --
+#-----------------------------------------------------------------------------------
 
 def run_ede_plot():
-
+    """
+    find the data files and plots the data
+    input: none but read from <data_dir>
+    output: *_plot.png/*_low_res_plot.png --- two plots; one is in 200dpi and another in 40dpi
+    """
     cmd = 'ls ' + data_dir + '*_data > ' + zspace
     os.system(cmd)
 
-    f    = open(zspace, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
+    data = mcf.read_data_file(zspace, remove=1)
 
-    mcf.rm_file(zspace)
+    for ifile in data:
+        ede_plots(ifile)
 
-    for file in data:
-        ede_plots(file)
+#-----------------------------------------------------------------------------------
+#-- ede_plots: plotting time evolution of EdE                                    ---
+#-----------------------------------------------------------------------------------
 
-
-#---------------------------------------------------------------------------------------------------
-#-- ede_plots: plotting time evolution of EdE                                                    ---
-#---------------------------------------------------------------------------------------------------
-
-def ede_plots(file):
-
+def ede_plots(ifile):
     """
     plotting time evolution of EdE
-    Input:  file    --- a file name of data
-    Output: *_plot.png/*_low_res_plot.png --- two plots; one is in 200dpi and another in 40dpi
+    input:  file    --- a file name of data
+    output: *_plot.png/*_low_res_plot.png --- two plots; one is in 200dpi and another in 40dpi
     """
 #
 #--- read data
 #
-    [xdata, ydata, yerror] = read_data(file)
+    [xdata, ydata, yerror] = read_ede_data(ifile)
 #
 #--- set plotting range
 #
@@ -99,30 +97,30 @@ def ede_plots(file):
 
     xname = 'Time (year)'
     yname = 'EdE'
-    label = create_label(file)
-    [out1, out2] = set_out_names(file)
+    label = create_label(ifile)
+    [out1, out2] = set_out_names(ifile)
 #
-#--- create two figures. One is 200dpi and another for 40dpi. the low res plot is great for the intro page
+#--- create two figures. One is 200dpi and another for 40dpi. 
+#--- the low res plot is great for the intro page
 #
-    plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname, label, out1, resolution=200)
-    plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname, label, out2, resolution=40)
+    plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror,\
+                      xname, yname, label, out1, resolution=200)
 
+    plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, \
+                      xname, yname, label, out2, resolution=40)
 
-#---------------------------------------------------------------------------------------------------
-#-- set_min_max: set plotting range                                                              ---
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-- set_min_max: set plotting range                                              ---
+#-----------------------------------------------------------------------------------
 
 def set_min_max(ydata):
-
     """
     set plotting range
     Input:  ydata   ---- ydata
     Output: [xmin, xmax, ymin, ymax]
     """
-
     xmin  = 1999
-    tlist = tcnv.currentTime()
-    xmax  = tlist[0] + 1
+    xmax  = int(time.strftime('%Y', time.gmtime())) + 1
 
     ymin  = min(ydata)
     ymax  = max(ydata)
@@ -134,23 +132,20 @@ def set_min_max(ydata):
 
     return [xmin, xmax, ymin, ymax]
 
+#-----------------------------------------------------------------------------------
+#-- create_label: create a label for the plot from the data file                 ---
+#-----------------------------------------------------------------------------------
 
-#---------------------------------------------------------------------------------------------------
-#-- create_label: create a label for the plot from the data file                                 ---
-#---------------------------------------------------------------------------------------------------
-
-def create_label(file):
-
+def create_label(ifile):
     """
     create a label for the plot from the data file
-    Input:  file    --- input file name
+    Input:  ifile   --- input file name
     Output: out     --- text 
     """
-
-    atemp = re.split('\/', file)
+    atemp = re.split('\/', ifile)
     line  = atemp[len(atemp)-1]
     if line == '':
-        line = file
+        line = ifile
 
     atemp  = re.split('_', line)
     inst   = atemp[0].upper()
@@ -162,50 +157,52 @@ def create_label(file):
 
     return out
 
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-- set_out_names: set two plot file names                                        --
+#-----------------------------------------------------------------------------------
 
-def set_out_names(file):
-
-    atemp = re.split('\/', file)
+def set_out_names(ifile):
+    """
+    set two plot file names
+    input:  ifile   --- input data file name
+    output: out1/out2   --- two plotting file names
+    """
+    atemp = re.split('\/', ifile)
     out   = atemp[-1]
     out1  = web_dir + 'EdE_Plots/' + out.replace('_data', '_plot.png')
     out2  = web_dir + 'EdE_Plots/' + out.replace('_data', '_low_res_plot.png')
 
     return [out1, out2]
 
-#---------------------------------------------------------------------------------------------------
-#-- read_data: read data from a given file                                                       ---
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-- read_ede_data: read data from a given file                                   ---
+#-----------------------------------------------------------------------------------
 
-def read_data(file):
-
+def read_ede_data(ifile):
     """
     read data from a given file
-    Input:  file    --- input file name
+    Input:  ifile       --- input file name
     Output: date_list   --- a list of date
             ede_list    --- a list of ede value
             error_list  --- a list of computed ede error
     """
-
-    f    = open(file, 'r')
-    data = [line.strip() for line in f.readlines()]
-    f.close()
+    data = mcf.read_data_file(ifile)
 
     date_list  = []
     ede_list   = []
     error_list = []
     for ent in data:
         atemp = re.split('\s+', ent)
-        if mcf.chkNumeric(atemp[0])== False:
+        if mcf.is_neumeric(atemp[0]) == False:
             continue
 
         fwhm  = float(atemp[2])
         ferr  = float(atemp[3])
         ede   = float(atemp[4])
         date  = atemp[5]
-        fyear = change_time_format_fyear(date)
+
+        stime = Chandra.Time.DateTime(date).secs
+        fyear = mcf.chandratime_to_fraq_year(stime)
 
         date_list.append(fyear)
         ede_list.append(ede)
@@ -216,56 +213,37 @@ def read_data(file):
 
         error_list.append(error)
 
-
     return [date_list, ede_list, error_list]
 
-
-
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-
-def change_time_format_fyear(date):
-
-    atemp = re.split(':', date)
-    year  = int(atemp[0])
-    yday  = int(atemp[1])
-    hh    = int(atemp[2])
-    mm    = int(atemp[3])
-    ss    = int(atemp[4])
-    if tcnv.isLeapYear(year) == 1:
-        base = 366.0
-    else:
-        base = 365.0
-
-    fyear = year + (yday + hh/24.0 + mm /1440.0 + ss/886400.0) / base
-
-    return fyear
-
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-- remove_extreme: remove extreme data points                                    --
+#-----------------------------------------------------------------------------------
 
 def remove_extreme(x, y):
-
+    """
+    remove extreme data points
+    input:  x   --- a list of x data
+            y   --- a list of y data
+    output: [x, y]
+    """
     x   = numpy.array(x)
     y   = numpy.array(y)
     avg = numpy.mean(y)
     std = numpy.std(y)
     bot = avg -3.5 * std
     top = avg +3.5 * std
-    ind = [(y > bot) & (y < top)]
+    ind = (y > bot) & (y < top)
     x   = list(x[ind])
     y   = list(y[ind])
 
     return [x, y]
 
-#---------------------------------------------------------------------------------------------------
-#-- plot_single_panel: plot a single data set on a single panel                                  ---
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+#-- plot_single_panel: plot a single data set on a single panel                  ---
+#-----------------------------------------------------------------------------------
 
-def plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname, label, outname, resolution=100):
-
+def plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror,\
+                      xname, yname, label, outname, resolution=200):
     """
     plot a single data set on a single panel
     Input:  xmin    --- min x
@@ -282,7 +260,6 @@ def plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname
             resolution-- the resolution of the plot in dpi
     Output: png plot named <outname>
     """
-
 #
 #--- fit line --- use robust method
 #
@@ -318,8 +295,8 @@ def plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname
     ax  = plt.subplot(111)
     ax.set_autoscale_on(False)
     ax.set_xbound(xmin,xmax)
-    ax.set_xlim(xmin=xmin, xmax=xmax, auto=False)
-    ax.set_ylim(ymin=ymin, ymax=ymax, auto=False)
+    ax.set_xlim(left=xmin,   right=xmax, auto=False)
+    ax.set_ylim(bottom=ymin, top=ymax,   auto=False)
 #
 #--- plot data
 #
@@ -350,7 +327,6 @@ def plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname
     label = label + ': Slope:  ' + str(lslope)
 
     plt.text(xpos, ypos, label)
-
 #
 #--- set the size of the plotting area in inch (width: 10.0in, height 2.08in x number of panels)
 #
@@ -362,14 +338,6 @@ def plot_single_panel(xmin, xmax, ymin, ymax, xdata, ydata, yerror, xname, yname
     plt.savefig(outname, format='png', dpi=resolution)
 
 #--------------------------------------------------------------------
-#
-#--- pylab plotting routine related modules
-#
-
-from pylab import *
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as font_manager
-import matplotlib.lines as lines
 
 if __name__ == '__main__':
 

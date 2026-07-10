@@ -8,12 +8,10 @@ ede_wrap_script
 ---------------
 A wrapping script to run ede_main_script
 
-
 ---------------
-ede_main__script
+ede_main_script
 ---------------
 A main script to perl script ede_main.perl and ede_plot.py
-
 
 ---------------------
 extract_line_stat.py    
@@ -35,8 +33,6 @@ Output:
         <data_dir>/<inst>_<grating>_<line>_data
 		example: <data_dir>/acis_hetg_1022_data
 
-
-
 -----------
 ede_plot.py
 -----------
@@ -46,8 +42,6 @@ a weighted linear least square method, and a robust method.
 Input: 	$file: input data file name (e.g., EdE_Data/acis_htg_1022_data)
 
 Output:	png files (name exaple: EdE_Plots/acis_htg_1022_plot.png);
-
-
 
 -------------------------
 ede_temperature_plots.py
@@ -82,7 +76,8 @@ Directories and files outside of this directory
 '/data/mta_www/mta_grat/EdE_trend/EdE_Data/'                : data_dir
 '/data/mta/Script/Grating/EdE_trend/Scripts/house_keeping/' : house_keeping
 '/usr/local/bin/'                                           : op_dir
-'/data/mta/Script/Python_script2.7/'                        : mta_dir
+'/data/mta/Script/Python3.8/MTA/'                           : mta_dir
+'/data/mta/Script/Python3.8/Sybase/'                        : sybase_dir
 '/data/mta_www/mta_grat/Grating_Data/'                      : gdata_dir
 
 
@@ -138,7 +133,7 @@ $web_dir/Template			keeps copies of html pages, just in a case the others are lo
 ---------
 Cron Job
 ---------
-r2d2-v as mta:
+c3po-v as mta:
 
-32 3 3,13,23 * *  cd /data/mta/Script/Grating/EdE_trend/Exc; /data/mta/Script/Grating/EdE_trend/Scripts/ede_wrap_script      >> $HOME/Logs/ede_trends 2>&1
+32 11 * * 4  cd /data/mta/Script/Grating/EdE_trend/Exc; /data/mta/Script/Grating/EdE_trend/Scripts/ede_wrap_script      >> $HOME/Logs/ede_trends 2>&1
 
