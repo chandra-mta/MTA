@@ -10,5 +10,5 @@
 '/data/mta_www/mta_sib/Plots/'                              : plot_dir
 '/data/mta/Script/ACIS/SIB/house_keeping/'                  : house_keeping
 '/data/mta/Script/Python3.8/MTA/'                           : mta_dir
-'/data/mta4/CUS/www/Usint/Pass_dir/'                        : pass_dir
+'/data/mta4/CUS/authorization/'                        : pass_dir
 '/data/mta4/CUS/www/Usint/Ocat_sub/house_keeping/'          : db_house_keeping
