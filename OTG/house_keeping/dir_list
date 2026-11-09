@@ -5,4 +5,4 @@
 "/data/mta/Script/Dumps/OTG/TLsave/"            : save_dir
 "/data/mta/www/mta_otg/"                        : arc_dir
 "/data/mta/DataSeeker/data/repository/"         : ds_dir
-"/data/mta/Script/Python3.6/MTA/"               : mta_dir
+"/data/mta/Script/Python3.8/MTA/"               : mta_dir

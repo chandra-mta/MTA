@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: May 23, 2019                                                   #
+#               last update: Mar 04, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -136,8 +136,16 @@ def maverage(infile, outfile):
                 line  = "%8e\t%d" % (atime, ncnt)
 
                 for m in  range(0, nlen):
-                    avg = numpy.mean(save[m])
-                    std = numpy.std(save[m])
+                    if len(save[m]) > 0:
+                        try:
+                            avg = numpy.mean(save[m])
+                            std = numpy.std(save[m])
+                        except:
+                            avg = 0.0
+                            std = 0.0
+                    else:
+                        avg = 0.0
+                        std = 0.0
                     line = line + "\t%.4f\t%.5f" % (avg, std)
                 line  = line + '\n'
                 sline = sline + line
@@ -154,8 +162,16 @@ def maverage(infile, outfile):
         line  = "%8e\t%d" % (atime, ncnt)
 
         for k in  range(0, nlen):
-            avg  = numpy.mean(save[k])
-            std  = numpy.std(save[k])
+            if len(save[k]) > 0:
+                try:
+                    avg  = numpy.mean(save[k])
+                    std  = numpy.std(save[k])
+                except:
+                    avg  = 0.0
+                    std  = 0.0
+            else:
+                avg = 0.0
+                std = 0.0
             line = line + "\t%.4f\t%.5f" % (avg, std)
 
         line = line + '\n'

@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -10,7 +10,7 @@
 #                                                                                           #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                                       #
 #                                                                                           #
-#           last update: May 23, 2019                                                       #
+#           last update: Mar 04, 2021                                                       #
 #                                                                                           #
 #############################################################################################
 
@@ -21,6 +21,7 @@ import re
 import time
 import Chandra.Time
 import random
+import numpy
 
 #
 #--- reading directory list
@@ -145,7 +146,7 @@ def get_file_list(dir_path, head=''):
     mc = re.search('tl', test)
 
     if (mc is not None) and (chk > 0):
-        cmd = 'ls ' + dir_path + '/' + head + '*.tl*  > '  + zspace
+        cmd = 'ls ' + dir_path + '/' + head + '*.tl*  > '  + zspace 
         os.system(cmd)
 
         out = mcf.read_data_file(zspace, remove=1)
@@ -189,7 +190,11 @@ def find_new_files(dir1, dir2, head, fzip=0):
 #
 #--- find files names in dir1 and dir2. assume that dir2 save gipped files
 #
-    mlist = get_file_list(dir1, head=head)
+    olist = get_file_list(dir1, head=head)
+    mlist = []
+    for ent in olist:
+        atemp = re.split('\/', ent)
+        mlist.append(atemp[-1])
 #
 #--- special treatment for Dumps_mon/IN/; files are kept in Done directory
 #
@@ -210,40 +215,57 @@ def find_new_files(dir1, dir2, head, fzip=0):
 #
 #--- compare the file names from dir1 and dir2 and find new files in dir1
 #
-    nlist = []
-    for ent in mlist:
-        atemp = re.split('\/', ent)
-        chk = 0
-        for comp in tlist:
-            if atemp[-1] == comp:
-                chk = 1
-                continue
-        if chk == 0:
-            nlist.append(ent)
+    marray = numpy.array(mlist)
+    tarray = numpy.array(tlist)
+    nlist  = list(numpy.setdiff1d(marray, tarray))
 #
 #--- copy the new files to dir2 and gip it
 #
     for ent in nlist:
-        cmd = 'cp ' + ent + ' ' + dir2 + '/.'
+        cmd = 'cp ' + dir1 + ent + ' ' + dir2 + '/.'
         os.system(cmd)
 #
 #--- if zipping is asked, do so
 #
     if fzip == 1:
-        cmd = 'gzip ' + dir2 + '/*.tl > /dev/null'
-        os.system(cmd)
+        t_list = find_tl_files(dir2)
+        for ent in t_list:
+            cmd = 'gzip -fq ' +  ent
+            os.system(cmd)
+
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+
+def find_tl_files(cdir):
+
+    cmd = 'ls ' + cdir  + '/* > ' + zspace
+    os.system(cmd)
+
+    out = mcf.read_data_file(zspace, remove=1)
+    tlist = []
+    for ent in out:
+        mc = re.search('.tl', ent)
+        if mc is not None:
+            mc1 = re.search('.tl.gz', ent)
+            if mc1 is not None:
+                continue
+
+            tlist.append(ent)
+
+    return tlist
 
 #----------------------------------------------------------------------------
 #-- find_time: convert trail log time system to seconds from 1998.1.1      --
 #----------------------------------------------------------------------------
 
-def find_time(file):
+def find_time(ifile):
     """
     convert trail log time system to seconds from 1998.1.1
     input:  file name
     output: time in seconds from 1998.1.1
     """
-    atemp = re.split('_', file)
+    atemp = re.split('_', ifile)
     btemp = re.split('\.tl', atemp[-1])
     try:
         time = float(btemp[0]) - tcorrect
@@ -282,7 +304,7 @@ def clean_otg_tl():
                 if "gz" in files[i]:
                     continue
                 else:
-                    cmd = 'gzip  ' + files[i] + ' > /dev/null'
+                    cmd = 'gzip -fq  ' + files[i] 
                     os.system(cmd)
             except:
                 break
@@ -297,20 +319,37 @@ def make_tl_list():
     input:  none but read from /data/mta/Script/Dumps/
     output: <d_dir><category>list
     """
-    cmd = 'ls ' + d_dir + '*CCDM*>'  + d_dir + 'ccdmlist'
+    cmd = 'ls ' + d_dir + '* > ' + zspace
     os.system(cmd)
+    with open(zspace, 'r') as f:
+        chk = f.read()
 
-    cmd = 'ls ' + d_dir + '*PCAD*>'  + d_dir + 'pcadlist'
-    os.system(cmd)
+    mcf.rm_files(zspace)
 
-    cmd = 'ls ' + d_dir + '*ACIS*>'  + d_dir + 'acislist'
-    os.system(cmd)
+    mc = re.search('CCDM', chk)
+    if mc is not None:
+        cmd = 'ls ' + d_dir + '*CCDM*>'  + d_dir + 'ccdmlist'
+        os.system(cmd)
 
-    cmd = 'ls ' + d_dir + '*IRU*>'   + d_dir + 'irulist'
-    os.system(cmd)
+    mc = re.search('PCAD', chk)
+    if mc is not None:
+        cmd = 'ls ' + d_dir + '*PCAD*>'  + d_dir + 'pcadlist'
+        os.system(cmd)
 
-    cmd = 'ls ' + d_dir + '*MUPS2*>' + d_dir + 'mupslist'
-    os.system(cmd)
+    mc = re.search('ACIS', chk)
+    if mc is not None:
+        cmd = 'ls ' + d_dir + '*ACIS*>'  + d_dir + 'acislist'
+        os.system(cmd)
+
+    mc = re.search('IRU', chk)
+    if mc is not None:
+        cmd = 'ls ' + d_dir + '*IRU*>'   + d_dir + 'irulist'
+        os.system(cmd)
+
+    mc = re.search('MUPS2', chk)
+    if mc is not None:
+        cmd = 'ls ' + d_dir + '*MUPS2*>' + d_dir + 'mupslist'
+        os.system(cmd)
 
 #----------------------------------------------------------------------------
 

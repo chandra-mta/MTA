@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################
 #                                                                           #
@@ -6,7 +6,7 @@
 #                                                                           #
 #           Author: t. isobe (tisobe@cfa.harvard.edu)                       #
 #                                                                           #
-#           last update: May 22, 2019                                       #
+#           last update: Mar 04, 2021                                       #
 #                                                                           #
 #############################################################################
 
@@ -19,6 +19,7 @@ import operator
 import math
 import numpy
 import time
+import multiprocessing
 #
 #--- from ska
 #
@@ -29,7 +30,28 @@ ascdsenv['ACORN_GUI'] = "/home/ascds/DS.release/config/mta/acorn/scripts/"
 ascdsenv['LD_LIBRARY_PATH'] = "/home/ascds/DS.release/lib:/home/ascds/DS.release/ots/lib:/soft/SYBASE_OSRV15.5/OCS-15_0/lib:/home/ascds/DS.release/otslib:/opt/X11R6/lib:/usr/lib64/alliance/lib"
 
 
-cmd = "/usr/bin/env PERL5LIB='' "
-cmd = cmd + '/data/mta/www/mta_sim/Scripts/getdata'
-bash(cmd, env=ascdsenv)
+def run():
+    cmd = "/usr/bin/env PERL5LIB='' "
+    cmd = cmd + '/data/mta/www/mta_sim/Scripts/getdata'
+    bash(cmd, env=ascdsenv)
+
+#----------------------------------------------------------------------
+
+if __name__ == '__main__':
+#
+#--- start run as a process
+#
+    p = multiprocessing.Process(target=run, name="Run")
+    p.start()
+#
+#--- wait tspan seconds for foo
+#
+    tspan = 2 * 86400.
+    p.join(tspan)
+#
+#--- terminate process
+#
+    if p.is_alive():
+        p.terminate()
+        p.join()
 

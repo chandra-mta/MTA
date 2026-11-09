@@ -174,8 +174,10 @@ http://cxc.harvard.edu/mta_days//mta_otg/otg.html
 --------
 Cron Job
 --------
-mta @ r2d2-v
-32 * * * * cd /data/mta/Script/Dumps/Exc; /data/mta/Script/Dumps/Scripts/run_otg_wrap_script >> $HOME/Logs/filters_otg.cron 
+mta @ c3po-v
+32 */3 * * * cd /data/mta/Script/Dumps/Exc; /data/mta/Script/Dumps/Scripts/run_otg_wrap_script >> $HOME/Logs/filters_otg.cron 
+06 */3 * * * cd /data/mta/Script/Dumps/Exc; /data/mta/Script/Dumps/Scripts/run_otg_wrap_script2 > $HOME/Logs/filters_otg2.cron 
 
+#### --- Not in use
 #mta @ r2d2-v
 #04 2 * * *  cd /data/mta/Script/Dumps/Exc; /data/mta/Script/Dumps/Scripts/updata_ds_rdb_wrap_script  >> $HOME/Logs/update_rdb.cron

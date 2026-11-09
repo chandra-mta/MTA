@@ -6,7 +6,7 @@
 #                                                                                   #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                               #
 #                                                                                   #
-#           last update: Sep 17, 2021                                               #
+#           last update: Oct 06, 2021                                               #
 #                                                                                   #
 #####################################################################################
 
@@ -69,7 +69,7 @@ def plot_otg_move():
     """
     plot otg move during the transition
     input:  none but read from <arc_dir>/OTG_summary.rdb and ska database
-    output: <arc_dir>/Plots/<name>.png
+    output: <arc_dir>/OTG_Plots/<name>.png
     """
     done_list = find_existing_plots()
 
@@ -110,11 +110,12 @@ def plot_otg_move():
 def find_existing_plots():
     """
     find names of data which already plotted
-    input:  none, but read from <arc_dir>/Plots/*
+    input:  none, but read from <arc_dir>/OTG_Plots/*
     output: file_list   --- a list of plot file names
     """
 
-    cmd = 'ls ' + arc_dir + 'Plots/*.png > ' + zspace
+    cmd = 'ls ' + arc_dir + 'OTG_Plots/*.png > ' + zspace
+    cmd = cmd + '; ls ' + arc_dir + 'OTG_Plots/Ind_Plots/*.png > ' + zspace
     os.system(cmd)
 
     data = mcf.read_data_file(zspace, remove=1)
@@ -157,7 +158,7 @@ def create_plot(start, stop, name):
     input:  start   --- start time in <yyyy>:<ddd>:<hh>:<mm>:<ss>
             stop    --- stop time in <yyyy>:<ddd>:<hh>:<mm>:<ss>
             name    --- the name of the file 
-    output: <arc_dir>/Plots/<name>.png
+    output: <arc_dir>/OTG_Plots/<name>.png
     """
 #
 #--- find the year of the data

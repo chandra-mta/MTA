@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #########################################################################################
 #                                                                                       #
@@ -6,7 +6,7 @@
 #                                                                                       #
 #           author: t. isobe (tisobe@cfa.harvard.eud)                                   #
 #                                                                                       #
-#           last update: Jan 11, 2021                                                   #
+#           last update: Mar 04, 2021                                                   #
 #                                                                                       #
 #########################################################################################
 
@@ -14,7 +14,6 @@ import os
 import sys
 import re
 import string
-import numpy
 
 import matplotlib as mpl
 
@@ -29,7 +28,7 @@ import matplotlib.lines        as lines
 #
 #--- reading directory list
 #
-path = '/data/mta4/Script/Dumps/Scripts/house_keeping/dir_list'
+path = '/data/mta/Script/Dumps/Scripts/house_keeping/dir_list'
 with open(path, 'r') as f:
     data = [line.strip() for line in f.readlines()]
 

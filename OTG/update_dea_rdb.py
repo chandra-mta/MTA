@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #############################################################################################
 #                                                                                           #
@@ -6,7 +6,7 @@
 #                                                                                           #
 #               author: t. isobe (tisobe@cfa.harvard.edu)                                   #
 #                                                                                           #
-#               last update: May 23, 2019                                                   #
+#               last update: Mar 04, 2021                                                   #
 #                                                                                           #
 #############################################################################################
 
@@ -91,11 +91,11 @@ def update_dea_rdb():
         cmd   = cmd1 + cmd2 
         bash(cmd, env=ascdsenv)
 
-    if os.path.isfile('./deahk_temp.tmp'):
-        process_deahk('deahk_temp')
+        if os.path.isfile('./deahk_temp.tmp'):
+            process_deahk('deahk_temp')
 
-    if os.path.isfile('./deahk_elec.tmp'):
-        process_deahk('deahk_elec')
+        if os.path.isfile('./deahk_elec.tmp'):
+            process_deahk('deahk_elec')
 
 #-----------------------------------------------------------------------------------------------
 #-- process_deahk: process deahk data to match dataseeker data format                         --
@@ -206,10 +206,10 @@ def time_average(data):
 
     save  = []
     for k in range(0, clen):
+        save.append([])
 #
 #--- time is kept in the second column
 #
-        save.append([])
     t_list = cdata[1]
     tlast  = t_list[0]
 
@@ -220,32 +220,57 @@ def time_average(data):
                 save[k].append(cdata[k][m])
 
         else:
-            atime = numpy.mean(save[1])
             ncnt  = len(save[1])
-            line  = "%10e\t%d" % (atime, ncnt)
+            if ncnt < 1:
+                for k in range(0, clen):
+                    save[k] = [cdata[k][m]]
+                    tlast   = t_list[m]
+                continue
+            else:
+                try:
+                    atime = numpy.mean(save[1])
+                except:
+                    atime = save[1][int(0.5*ncnt)]
+    
+                line  = "%10e\t%d" % (atime, ncnt)
 #
 #--- dea data starts from third column
 #
-            for k in range(2, clen):
-                avg = numpy.mean(save[k])
-                std = numpy.std(save[k])
-                line = line + "\t%.4f\t%.5f" % (avg, std)
-            line = line + '\n'
-            mdata.append(line)
-
-            for k in range(0, clen):
-                save[k] = [cdata[k][m]]
-                tlast   = t_list[m]
+                for k in range(2, clen):
+                    try:
+                        avg = numpy.mean(save[k])
+                        std = numpy.std(save[k])
+                    except:
+                        avg = 0.0
+                        std = 0.0
+                    line = line + "\t%.4f\t%.5f" % (avg, std)
+                line = line + '\n'
+                mdata.append(line)
+    
+                for k in range(0, clen):
+                    save[k] = [cdata[k][m]]
+                    tlast   = t_list[m]
 #
 #--- compute left over
 #
     if len(save[1]) > 0:
-        atime = numpy.mean(save[1])
+        try:
+            atime = numpy.mean(save[1])
+        except:
+            try:
+                atime = save[1][0]
+            except:
+                atime = 0.0
+
         ncnt  = len(save[1])
         line  = "%8e\t%d" % (atime, ncnt)
         for k in range(2, clen):
-            avg = numpy.mean(save[k])
-            std = numpy.std(save[k])
+            try:
+                avg = numpy.mean(save[k])
+                std = numpy.std(save[k])
+            except:
+                avg = 0.0
+                std = 0.0
             line = line + "\t%.4f\t%.5f" % (avg, std)
         line = line + '\n'
         mdata.append(line)
